@@ -231,12 +231,12 @@ export default function RankList({ title, rows, defaultSortKey, sortableFields, 
   return (
     <div className="isolate rounded-2xl border border-zinc-200 bg-white shadow-sm overflow-hidden">
       
-      {/* 可水平滑動的容器 - 標題與內容同步 */}
+      {/* 可水平滑動容器 */}
       <div className="overflow-x-auto -webkit-overflow-scrolling-touch">
         
-        {/* 固定標題列 */}
-        <div className="sticky top-0 z-50 bg-white border-b border-zinc-200 min-w-[640px]">
-          <div className="grid grid-cols-[72px_minmax(180px,280px)_96px_88px_88px_88px_72px_104px] items-center gap-1 px-3 py-3 text-sm font-semibold text-zinc-600 sm:px-4 bg-white">
+        {/* 標題列 - sticky 固定 */}
+        <div className="sticky top-0 z-50 bg-white border-b border-zinc-200 min-w-[680px] shadow-sm">
+          <div className="grid grid-cols-[72px_minmax(180px,280px)_96px_88px_88px_88px_72px_104px] items-center gap-1 px-3 py-3 text-sm font-semibold text-zinc-600 sm:px-4">
             
             <div className="flex min-h-[52px] items-center justify-center text-center">{TEXT.rank}</div>
             
@@ -292,8 +292,8 @@ export default function RankList({ title, rows, defaultSortKey, sortableFields, 
           </div>
         </div>
   
-        {/* 內容列表 */}
-        <div className="min-w-[640px] space-y-2 px-3 pb-4 sm:px-4">
+        {/* 內容區 */}
+        <div className="min-w-[680px] space-y-2 px-3 pb-4 sm:px-4">
           {sortedRows.map((row, index) => {
             const rankChange = formatRankChange(
               row.change_type,
@@ -307,6 +307,7 @@ export default function RankList({ title, rows, defaultSortKey, sortableFields, 
                 key={`${row.base_rank ?? index}-${row.stock_id ?? index}`}
                 className="grid grid-cols-[72px_minmax(180px,280px)_96px_88px_88px_88px_72px_104px] items-center gap-1 rounded-xl border border-zinc-200 bg-white px-3 py-3 sm:px-4"
               >
+                {/* 內容保持不變 */}
                 <div className="text-center text-sm font-semibold tabular-nums">
                   {formatMaybeNumber(index + 1)}
                 </div>
