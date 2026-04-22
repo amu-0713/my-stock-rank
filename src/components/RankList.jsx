@@ -234,6 +234,7 @@ export default function RankList({ title, rows, defaultSortKey, sortableFields, 
       {/* 固定標題列 - 已優化手機版 */}
       <div className="sticky top-0 z-50 bg-white border-b border-zinc-200">
         <div className="grid grid-cols-[72px_minmax(180px,280px)_96px_88px_88px_88px_72px_104px] items-center gap-1 px-3 py-3 text-sm font-semibold text-zinc-600 sm:px-4 bg-white">
+          
           <div className="flex min-h-[52px] items-center justify-center text-center">{TEXT.rank}</div>
           
           <div className={`${STOCK_CELL_LAYOUT_CLASS} min-h-[52px] text-left`}>
@@ -288,8 +289,8 @@ export default function RankList({ title, rows, defaultSortKey, sortableFields, 
         </div>
       </div>
 
-      {/* 內容列表 */}
-      <div className="mt-2 space-y-2 px-3 pb-3 sm:px-4">
+      {/* 內容列表 - 加上滑動容器與最小寬度 */}
+      <div className="mt-2 space-y-2 px-3 pb-3 sm:px-4 overflow-x-auto -webkit-overflow-scrolling-touch min-w-[640px]">
         {sortedRows.map((row, index) => {
           const rankChange = formatRankChange(
             row.change_type,
@@ -301,7 +302,7 @@ export default function RankList({ title, rows, defaultSortKey, sortableFields, 
           return (
             <div
               key={`${row.base_rank ?? index}-${row.stock_id ?? index}`}
-              className="grid grid-cols-[72px_minmax(180px,280px)_96px_88px_88px_88px_72px_104px] items-center gap-1 rounded-xl border border-zinc-200 bg-white px-3 py-3 sm:px-4"
+              className="grid grid-cols-[72px_minmax(180px,280px)_96px_88px_88px_88px_72px_104px] items-center gap-1 rounded-xl border border-zinc-200 bg-white px-3 py-3 sm:px-4 min-w-[640px]"
             >
               <div className="text-center text-sm font-semibold tabular-nums">
                 {formatMaybeNumber(index + 1)}
