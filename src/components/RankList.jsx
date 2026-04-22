@@ -230,20 +230,18 @@ export default function RankList({ title, rows, defaultSortKey, sortableFields, 
 
   return (
     <div className="isolate rounded-2xl border border-zinc-200 bg-white shadow-sm overflow-hidden">
-      
-      {/* 可水平滑動容器 */}
       <div className="overflow-x-auto -webkit-overflow-scrolling-touch">
         
-        {/* 標題列 - sticky 固定 */}
-        <div className="sticky top-0 z-50 bg-white border-b border-zinc-200 min-w-[680px] shadow-sm">
-          <div className="grid grid-cols-[72px_minmax(180px,280px)_96px_88px_88px_88px_72px_104px] items-center gap-1 px-3 py-3 text-sm font-semibold text-zinc-600 sm:px-4">
+        {/* 標題列 */}
+        <div className="sticky top-0 z-50 bg-white border-b border-zinc-200 min-w-[780px] shadow-sm">
+          <div className="grid grid-cols-[72px_minmax(180px,280px)_92px_84px_84px_84px_190px] items-center gap-1 px-4 py-4 text-sm font-semibold text-zinc-600 bg-white">
             
             <div className="flex min-h-[52px] items-center justify-center text-center">{TEXT.rank}</div>
             
             <div className={`${STOCK_CELL_LAYOUT_CLASS} min-h-[52px] text-left`}>
               <div className="col-span-2 self-center justify-self-start text-left">{TEXT.stock}</div>
             </div>
-  
+
             <button
               type="button"
               className={headerClassName(allowedSortableFields.has('score'), sortKey === 'score')}
@@ -252,7 +250,7 @@ export default function RankList({ title, rows, defaultSortKey, sortableFields, 
               <span>{TEXT.score}</span>
               <span className="text-xs">{sortIndicator(sortDirection, sortKey === 'score')}</span>
             </button>
-  
+
             <button
               type="button"
               className={headerClassName(allowedSortableFields.has('rs_pct'), sortKey === 'rs_pct')}
@@ -261,7 +259,7 @@ export default function RankList({ title, rows, defaultSortKey, sortableFields, 
               <span>RS</span>
               <span className="text-xs">{sortIndicator(sortDirection, sortKey === 'rs_pct')}</span>
             </button>
-  
+
             <button
               type="button"
               className={headerClassName(allowedSortableFields.has('peg_pct'), sortKey === 'peg_pct')}
@@ -270,7 +268,7 @@ export default function RankList({ title, rows, defaultSortKey, sortableFields, 
               <span>PEG</span>
               <span className="text-xs">{sortIndicator(sortDirection, sortKey === 'peg_pct')}</span>
             </button>
-  
+
             <button
               type="button"
               className={headerClassName(allowedSortableFields.has('dd_pct'), sortKey === 'dd_pct')}
@@ -279,21 +277,20 @@ export default function RankList({ title, rows, defaultSortKey, sortableFields, 
               <span>DD</span>
               <span className="text-xs">{sortIndicator(sortDirection, sortKey === 'dd_pct')}</span>
             </button>
-  
+
             <button
               type="button"
-              className={`${headerClassName(allowedSortableFields.has('rank_change'), sortKey === 'rank_change')} -translate-x-4`}
+              className={`${headerClassName(allowedSortableFields.has('rank_change'), sortKey === 'rank_change')} col-span-1 flex items-center justify-center min-h-[52px]`}
               onClick={() => handleSortChange('rank_change')}
-              style={{ gridColumn: 'span 2 / span 2' }}
             >
-              <span className="whitespace-nowrap">{changeHeaderText}</span>
-              <span className="text-xs">{sortIndicator(sortDirection, sortKey === 'rank_change')}</span>
+              <span className="whitespace-nowrap text-center">{changeHeaderText}</span>
+              <span className="text-xs ml-1">{sortIndicator(sortDirection, sortKey === 'rank_change')}</span>
             </button>
           </div>
         </div>
-  
-        {/* 內容區 */}
-        <div className="min-w-[680px] space-y-2 px-3 pb-4 sm:px-4">
+
+        {/* 內容列表 - 去除多餘方塊 */}
+        <div className="min-w-[780px] divide-y divide-zinc-100">
           {sortedRows.map((row, index) => {
             const rankChange = formatRankChange(
               row.change_type,
@@ -301,63 +298,63 @@ export default function RankList({ title, rows, defaultSortKey, sortableFields, 
               row.prev_rank,
               row.base_rank
             )
-  
+
             return (
               <div
                 key={`${row.base_rank ?? index}-${row.stock_id ?? index}`}
-                className="grid grid-cols-[72px_minmax(180px,280px)_96px_88px_88px_88px_72px_104px] items-center gap-1 rounded-xl border border-zinc-200 bg-white px-3 py-3 sm:px-4"
+                className="grid grid-cols-[72px_minmax(180px,280px)_92px_84px_84px_84px_190px] items-center gap-1 px-4 py-4 hover:bg-zinc-50"
               >
-                {/* 內容保持不變 */}
                 <div className="text-center text-sm font-semibold tabular-nums">
                   {formatMaybeNumber(index + 1)}
                 </div>
-  
+
                 <div className={`${STOCK_CELL_LAYOUT_CLASS} text-left text-sm tabular-nums`}>
                   <span className="font-bold text-zinc-900">{row.stock_id ?? '--'}</span>
                   <span className="min-w-0 truncate font-normal" title={row.full_name ?? ''}>
                     {row.name ?? '--'}
                   </span>
                 </div>
-  
+
                 <div className="text-center text-sm tabular-nums">
                   <span className={scoreBadgeClass(row.display_score)}>
                     {formatScore(row.display_score)}
                   </span>
                 </div>
-  
+
                 <div className="text-center text-sm tabular-nums">
                   <span className={`${pctBadgeClass(row.rs_pct)} opacity-80`}>
                     {formatPct(row.rs_pct)}
                   </span>
                 </div>
-  
+
                 <div className="text-center text-sm tabular-nums">
                   <span className={`${pctBadgeClass(row.peg_pct)} opacity-80`}>
                     {formatPct(row.peg_pct)}
                   </span>
                 </div>
-  
+
                 <div className="text-center text-sm tabular-nums">
                   <span className={`${pctBadgeClass(row.dd_pct)} opacity-80`}>
                     {formatPct(row.dd_pct)}
                   </span>
                 </div>
-  
-                <div className={`text-center text-sm font-semibold tabular-nums ${rankChange.className}`}>
-                  <span className="inline-flex min-w-[48px] items-center justify-center">
+
+                <div className={`col-span-1 flex flex-col items-center justify-center text-sm font-semibold tabular-nums ${rankChange.className} min-h-[52px]`}>
+                  <div className="inline-flex items-center justify-center min-w-[52px]">
                     {rankChange.mainLabel}
-                  </span>
-                </div>
-  
-                <div className="text-left text-sm font-semibold tabular-nums text-zinc-500">
-                  <span>{rankChange.detailLabel}</span>
+                  </div>
+                  {rankChange.detailLabel && (
+                    <div className="text-xs text-zinc-500 mt-0.5 leading-tight">
+                      {rankChange.detailLabel}
+                    </div>
+                  )}
                 </div>
               </div>
             )
           })}
-  
+
           {sortedRows.length === 0 && (
-            <div className="mt-3 rounded-xl border border-dashed border-zinc-200 p-6 text-center text-sm text-zinc-500">
+            <div className="p-8 text-center text-sm text-zinc-500">
               {TEXT.empty}
             </div>
           )}
