@@ -229,67 +229,78 @@ export default function RankList({ title, rows, defaultSortKey, sortableFields, 
   }
 
   return (
-    <div className="isolate rounded-2xl border border-zinc-200 bg-white shadow-sm overflow-hidden">
-      <div className="overflow-x-auto -webkit-overflow-scrolling-touch">
-        
-        {/* 標題列 */}
-        <div className="sticky top-0 z-50 bg-white border-b border-zinc-200 min-w-[780px] shadow-sm">
-          <div className="grid grid-cols-[72px_minmax(180px,280px)_92px_84px_84px_84px_190px] items-center gap-1 px-4 py-4 text-sm font-semibold text-zinc-600 bg-white">
-            
-            <div className="flex min-h-[52px] items-center justify-center text-center">{TEXT.rank}</div>
-            
-            <div className={`${STOCK_CELL_LAYOUT_CLASS} min-h-[52px] text-left`}>
-              <div className="col-span-2 self-center justify-self-start text-left">{TEXT.stock}</div>
-            </div>
-
-            <button
-              type="button"
-              className={headerClassName(allowedSortableFields.has('score'), sortKey === 'score')}
-              onClick={() => handleSortChange('score')}
-            >
-              <span>{TEXT.score}</span>
-              <span className="text-xs">{sortIndicator(sortDirection, sortKey === 'score')}</span>
-            </button>
-
-            <button
-              type="button"
-              className={headerClassName(allowedSortableFields.has('rs_pct'), sortKey === 'rs_pct')}
-              onClick={() => handleSortChange('rs_pct')}
-            >
-              <span>RS</span>
-              <span className="text-xs">{sortIndicator(sortDirection, sortKey === 'rs_pct')}</span>
-            </button>
-
-            <button
-              type="button"
-              className={headerClassName(allowedSortableFields.has('peg_pct'), sortKey === 'peg_pct')}
-              onClick={() => handleSortChange('peg_pct')}
-            >
-              <span>PEG</span>
-              <span className="text-xs">{sortIndicator(sortDirection, sortKey === 'peg_pct')}</span>
-            </button>
-
-            <button
-              type="button"
-              className={headerClassName(allowedSortableFields.has('dd_pct'), sortKey === 'dd_pct')}
-              onClick={() => handleSortChange('dd_pct')}
-            >
-              <span>DD</span>
-              <span className="text-xs">{sortIndicator(sortDirection, sortKey === 'dd_pct')}</span>
-            </button>
-
-            <button
-              type="button"
-              className={`${headerClassName(allowedSortableFields.has('rank_change'), sortKey === 'rank_change')} col-span-1 flex items-center justify-center min-h-[52px]`}
-              onClick={() => handleSortChange('rank_change')}
-            >
-              <span className="whitespace-nowrap text-center">{changeHeaderText}</span>
-              <span className="text-xs ml-1">{sortIndicator(sortDirection, sortKey === 'rank_change')}</span>
-            </button>
+    <div className="isolate flex h-full min-h-0 flex-col overflow-hidden rounded-2xl border border-zinc-200 bg-white shadow-sm">
+      
+      {/* Tab 標題列 + 總筆數 */}
+      <div className="z-40 border-b border-zinc-200 bg-white">
+        <div className="flex w-full items-center justify-between gap-3 px-4 py-3 shadow-sm">
+          <div className="text-sm font-semibold text-zinc-900">{title}</div>
+          <div className="text-xs text-zinc-500">
+            共 {sortedRows.length} 筆
           </div>
         </div>
+      </div>
 
-        {/* 內容列表 - 去除多餘方塊 */}
+      {/* 固定標題列（欄位名稱） */}
+      <div className="z-50 border-b border-zinc-200 bg-white shadow-sm">
+        <div className="grid w-full grid-cols-[72px_minmax(180px,280px)_92px_84px_84px_84px_190px] items-center gap-1 bg-white px-4 py-4 text-sm font-semibold text-zinc-600">
+          
+          <div className="flex min-h-[52px] items-center justify-center text-center">{TEXT.rank}</div>
+          
+          <div className={`${STOCK_CELL_LAYOUT_CLASS} min-h-[52px] text-left`}>
+            <div className="col-span-2 self-center justify-self-start text-left">{TEXT.stock}</div>
+          </div>
+
+          <button
+            type="button"
+            className={headerClassName(allowedSortableFields.has('score'), sortKey === 'score')}
+            onClick={() => handleSortChange('score')}
+          >
+            <span>{TEXT.score}</span>
+            <span className="text-xs">{sortIndicator(sortDirection, sortKey === 'score')}</span>
+          </button>
+
+          <button
+            type="button"
+            className={headerClassName(allowedSortableFields.has('rs_pct'), sortKey === 'rs_pct')}
+            onClick={() => handleSortChange('rs_pct')}
+          >
+            <span>RS</span>
+            <span className="text-xs">{sortIndicator(sortDirection, sortKey === 'rs_pct')}</span>
+          </button>
+
+          <button
+            type="button"
+            className={headerClassName(allowedSortableFields.has('peg_pct'), sortKey === 'peg_pct')}
+            onClick={() => handleSortChange('peg_pct')}
+          >
+            <span>PEG</span>
+            <span className="text-xs">{sortIndicator(sortDirection, sortKey === 'peg_pct')}</span>
+          </button>
+
+          <button
+            type="button"
+            className={headerClassName(allowedSortableFields.has('dd_pct'), sortKey === 'dd_pct')}
+            onClick={() => handleSortChange('dd_pct')}
+          >
+            <span>DD</span>
+            <span className="text-xs">{sortIndicator(sortDirection, sortKey === 'dd_pct')}</span>
+          </button>
+
+          <button
+            type="button"
+            className={`${headerClassName(allowedSortableFields.has('rank_change'), sortKey === 'rank_change')} col-span-1 flex items-center justify-center min-h-[52px]`}
+            onClick={() => handleSortChange('rank_change')}
+          >
+            <span className="whitespace-nowrap text-center">{changeHeaderText}</span>
+            <span className="text-xs ml-1">{sortIndicator(sortDirection, sortKey === 'rank_change')}</span>
+          </button>
+        </div>
+      </div>
+
+      {/* 可滑動內容區 */}
+      <div className="min-h-0 flex-1 overflow-y-auto">
+        <div className="overflow-x-auto -webkit-overflow-scrolling-touch">
         <div className="min-w-[780px] divide-y divide-zinc-100">
           {sortedRows.map((row, index) => {
             const rankChange = formatRankChange(
@@ -358,6 +369,7 @@ export default function RankList({ title, rows, defaultSortKey, sortableFields, 
               {TEXT.empty}
             </div>
           )}
+        </div>
         </div>
       </div>
     </div>
