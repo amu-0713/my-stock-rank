@@ -40,8 +40,7 @@ function formatCompareDate(value) {
 
 function scoreBadgeClass(value) {
   const n = typeof value === 'number' ? value : Number(value)
-  const base =
-    'inline-flex min-w-[64px] items-center justify-center rounded-full px-2 py-1 text-base font-semibold tabular-nums'
+  const base = 'inline-flex min-w-[64px] items-center justify-center rounded-full px-2 py-1 text-base font-semibold tabular-nums'
   if (!Number.isFinite(n)) return `${base} bg-gray-200 text-gray-700`
   if (n >= 90) return `${base} bg-red-600 text-white`
   if (n >= 80) return `${base} bg-red-400 text-white`
@@ -52,8 +51,7 @@ function scoreBadgeClass(value) {
 
 function pctBadgeClass(value) {
   const n = typeof value === 'number' ? value : Number(value)
-  const base =
-    'inline-flex min-w-[64px] items-center justify-center rounded-full px-2 py-1 text-sm font-medium tabular-nums'
+  const base = 'inline-flex min-w-[64px] items-center justify-center rounded-full px-2 py-1 text-sm font-medium tabular-nums'
   if (!Number.isFinite(n)) return `${base} bg-gray-200 text-gray-700`
   if (n >= 90) return `${base} bg-green-600 text-white`
   if (n >= 85) return `${base} bg-green-400 text-white`
@@ -62,17 +60,13 @@ function pctBadgeClass(value) {
 }
 
 function formatRankChange(changeType, rankChange, prevRank, nextRank) {
-  const parsedChange =
-    typeof rankChange === 'number' ? rankChange : Number(rankChange)
+  const parsedChange = typeof rankChange === 'number' ? rankChange : Number(rankChange)
   const safeChange = Number.isFinite(parsedChange) ? Math.abs(parsedChange) : null
-  const parsedPrevRank =
-    typeof prevRank === 'number' ? prevRank : Number(prevRank)
-  const parsedNextRank =
-    typeof nextRank === 'number' ? nextRank : Number(nextRank)
-  const rankRange =
-    Number.isFinite(parsedPrevRank) && Number.isFinite(parsedNextRank)
-      ? `（${parsedPrevRank}\u2192${parsedNextRank}）`
-      : null
+  const parsedPrevRank = typeof prevRank === 'number' ? prevRank : Number(prevRank)
+  const parsedNextRank = typeof nextRank === 'number' ? nextRank : Number(nextRank)
+  const rankRange = Number.isFinite(parsedPrevRank) && Number.isFinite(parsedNextRank)
+    ? `（${parsedPrevRank}\u2192${parsedNextRank}）`
+    : null
 
   switch (changeType) {
     case 'up':
@@ -114,14 +108,10 @@ const SORTABLE_FIELD_SET = new Set(['score', 'rs_pct', 'peg_pct', 'dd_pct', 'ran
 const STOCK_CELL_LAYOUT_CLASS = 'grid grid-cols-[72px_minmax(0,1fr)] items-center gap-3'
 
 function normalizeSortKey(sortKey, sortableFields) {
-  if (
-    typeof sortKey === 'string' &&
-    SORTABLE_FIELD_SET.has(sortKey) &&
-    (!Array.isArray(sortableFields) || sortableFields.includes(sortKey))
-  ) {
+  if (typeof sortKey === 'string' && SORTABLE_FIELD_SET.has(sortKey) &&
+      (!Array.isArray(sortableFields) || sortableFields.includes(sortKey))) {
     return sortKey
   }
-
   return DEFAULT_SORT_KEY
 }
 
@@ -137,7 +127,7 @@ function compareRows(a, b, sortKey, sortDirection) {
 
   if (left === null && right === null) {
     return (parseSortValue(a?.base_rank) ?? Number.MAX_SAFE_INTEGER) -
-      (parseSortValue(b?.base_rank) ?? Number.MAX_SAFE_INTEGER)
+           (parseSortValue(b?.base_rank) ?? Number.MAX_SAFE_INTEGER)
   }
 
   if (left === null) return 1
@@ -148,14 +138,12 @@ function compareRows(a, b, sortKey, sortDirection) {
   }
 
   return (parseSortValue(a?.base_rank) ?? Number.MAX_SAFE_INTEGER) -
-    (parseSortValue(b?.base_rank) ?? Number.MAX_SAFE_INTEGER)
+         (parseSortValue(b?.base_rank) ?? Number.MAX_SAFE_INTEGER)
 }
 
 function headerClassName(isClickable, isActive) {
-  const base =
-    'flex min-h-[52px] h-full flex-col items-center justify-center bg-transparent px-1 py-1 text-center leading-tight transition-colors'
+  const base = 'flex min-h-[52px] h-full flex-col items-center justify-center bg-transparent px-1 py-1 text-center leading-tight transition-colors'
   if (!isClickable) return base
-
   return `${base} cursor-pointer select-none ${isActive ? 'text-zinc-900' : 'hover:text-zinc-900'}`
 }
 
@@ -171,10 +159,12 @@ export default function RankList({ title, rows, defaultSortKey, sortableFields, 
   const changeHeaderText = formattedCompareDate === null
     ? `${TEXT.change}（vs 上週）`
     : `${TEXT.change}（vs ${formattedCompareDate}）`
+
   const normalizedDefaultSortKey = useMemo(
     () => normalizeSortKey(defaultSortKey, sortableFields),
-    [defaultSortKey, sortableFields],
+    [defaultSortKey, sortableFields]
   )
+
   const [sortKey, setSortKey] = useState(normalizedDefaultSortKey)
   const [sortDirection, setSortDirection] = useState(DEFAULT_SORT_DIRECTION)
 
@@ -187,7 +177,6 @@ export default function RankList({ title, rows, defaultSortKey, sortableFields, 
     if (!Array.isArray(sortableFields) || sortableFields.length === 0) {
       return SORTABLE_FIELD_SET
     }
-
     return new Set(sortableFields.filter((field) => SORTABLE_FIELD_SET.has(field)))
   }, [sortableFields])
 
@@ -195,26 +184,17 @@ export default function RankList({ title, rows, defaultSortKey, sortableFields, 
     const safeRows = Array.isArray(rows) ? rows : []
     const activeSortKey = normalizeSortKey(sortKey, [...allowedSortableFields])
 
-    if (
-      isFilteredRankList &&
-      activeSortKey === 'rank_change' &&
-      sortDirection === 'new'
-    ) {
+    if (isFilteredRankList && activeSortKey === 'rank_change' && sortDirection === 'new') {
       return [...safeRows].sort((a, b) => {
         const leftIsNew = a?.change_type === 'new'
         const rightIsNew = b?.change_type === 'new'
-
-        if (leftIsNew !== rightIsNew) {
-          return leftIsNew ? -1 : 1
-        }
-
+        if (leftIsNew !== rightIsNew) return leftIsNew ? -1 : 1
         if (!leftIsNew && !rightIsNew) {
           const rankChangeCompare = compareRows(a, b, 'rank_change', 'desc')
           if (rankChangeCompare !== 0) return rankChangeCompare
         }
-
         return (parseSortValue(a?.base_rank) ?? Number.MAX_SAFE_INTEGER) -
-          (parseSortValue(b?.base_rank) ?? Number.MAX_SAFE_INTEGER)
+               (parseSortValue(b?.base_rank) ?? Number.MAX_SAFE_INTEGER)
       })
     }
 
@@ -226,11 +206,9 @@ export default function RankList({ title, rows, defaultSortKey, sortableFields, 
 
     if (sortKey === nextSortKey) {
       if (isFilteredRankList && nextSortKey === 'rank_change') {
-        if (sortDirection === 'desc') {
-          setSortDirection('asc')
-        } else if (sortDirection === 'asc') {
-          setSortDirection('new')
-        } else {
+        if (sortDirection === 'desc') setSortDirection('asc')
+        else if (sortDirection === 'asc') setSortDirection('new')
+        else {
           setSortKey(normalizedDefaultSortKey)
           setSortDirection(DEFAULT_SORT_DIRECTION)
         }
@@ -251,23 +229,17 @@ export default function RankList({ title, rows, defaultSortKey, sortableFields, 
   }
 
   return (
-    <div className="isolate rounded-2xl border border-zinc-200 bg-white shadow-sm">
-      <div className="sticky top-0 z-40 bg-white">
-        <div className="flex items-center justify-between gap-3 border-b border-zinc-200 bg-white px-4 py-3 shadow-sm sm:px-5">
-          <div className="text-sm font-semibold text-zinc-900">{title}</div>
-          <div className="text-xs text-zinc-500">
-            {TEXT.totalPrefix}
-            {sortedRows.length}
-            {TEXT.totalSuffix}
-          </div>
-        </div>
-
-        <div className="relative bg-transparent p-0">
-          <div className="grid grid-cols-[72px_minmax(180px,280px)_96px_88px_88px_88px_72px_104px] items-center gap-1 rounded-xl border border-zinc-200 bg-white px-3 py-3 text-sm font-semibold text-zinc-600 sm:px-4">
+    <div className="isolate rounded-2xl border border-zinc-200 bg-white shadow-sm overflow-hidden">
+      
+      {/* 固定標題列 - 已優化手機版 */}
+      <div className="sticky top-0 z-50 bg-white border-b border-zinc-200">
+        <div className="grid grid-cols-[72px_minmax(180px,280px)_96px_88px_88px_88px_72px_104px] items-center gap-1 px-3 py-3 text-sm font-semibold text-zinc-600 sm:px-4 bg-white">
           <div className="flex min-h-[52px] items-center justify-center text-center">{TEXT.rank}</div>
+          
           <div className={`${STOCK_CELL_LAYOUT_CLASS} min-h-[52px] text-left`}>
             <div className="col-span-2 self-center justify-self-start text-left">{TEXT.stock}</div>
           </div>
+
           <button
             type="button"
             className={headerClassName(allowedSortableFields.has('score'), sortKey === 'score')}
@@ -276,6 +248,7 @@ export default function RankList({ title, rows, defaultSortKey, sortableFields, 
             <span>{TEXT.score}</span>
             <span className="text-xs">{sortIndicator(sortDirection, sortKey === 'score')}</span>
           </button>
+
           <button
             type="button"
             className={headerClassName(allowedSortableFields.has('rs_pct'), sortKey === 'rs_pct')}
@@ -284,6 +257,7 @@ export default function RankList({ title, rows, defaultSortKey, sortableFields, 
             <span>RS</span>
             <span className="text-xs">{sortIndicator(sortDirection, sortKey === 'rs_pct')}</span>
           </button>
+
           <button
             type="button"
             className={headerClassName(allowedSortableFields.has('peg_pct'), sortKey === 'peg_pct')}
@@ -292,6 +266,7 @@ export default function RankList({ title, rows, defaultSortKey, sortableFields, 
             <span>PEG</span>
             <span className="text-xs">{sortIndicator(sortDirection, sortKey === 'peg_pct')}</span>
           </button>
+
           <button
             type="button"
             className={headerClassName(allowedSortableFields.has('dd_pct'), sortKey === 'dd_pct')}
@@ -300,12 +275,10 @@ export default function RankList({ title, rows, defaultSortKey, sortableFields, 
             <span>DD</span>
             <span className="text-xs">{sortIndicator(sortDirection, sortKey === 'dd_pct')}</span>
           </button>
+
           <button
             type="button"
-            className={`${headerClassName(
-              allowedSortableFields.has('rank_change'),
-              sortKey === 'rank_change',
-            )} -translate-x-4`}
+            className={`${headerClassName(allowedSortableFields.has('rank_change'), sortKey === 'rank_change')} -translate-x-4`}
             onClick={() => handleSortChange('rank_change')}
             style={{ gridColumn: 'span 2 / span 2' }}
           >
@@ -313,16 +286,16 @@ export default function RankList({ title, rows, defaultSortKey, sortableFields, 
             <span className="text-xs">{sortIndicator(sortDirection, sortKey === 'rank_change')}</span>
           </button>
         </div>
-        </div>
       </div>
 
-      <div className="mt-2 space-y-2">
+      {/* 內容列表 */}
+      <div className="mt-2 space-y-2 px-3 pb-3 sm:px-4">
         {sortedRows.map((row, index) => {
           const rankChange = formatRankChange(
             row.change_type,
             row.rank_change,
             row.prev_rank,
-            row.base_rank,
+            row.base_rank
           )
 
           return (
@@ -365,9 +338,7 @@ export default function RankList({ title, rows, defaultSortKey, sortableFields, 
                 </span>
               </div>
 
-              <div
-                className={`text-center text-sm font-semibold tabular-nums ${rankChange.className}`}
-              >
+              <div className={`text-center text-sm font-semibold tabular-nums ${rankChange.className}`}>
                 <span className="inline-flex min-w-[48px] items-center justify-center">
                   {rankChange.mainLabel}
                 </span>
@@ -379,13 +350,13 @@ export default function RankList({ title, rows, defaultSortKey, sortableFields, 
             </div>
           )
         })}
-      </div>
 
-      {sortedRows.length === 0 ? (
-        <div className="mt-3 rounded-xl border border-dashed border-zinc-200 p-6 text-center text-sm text-zinc-500">
-          {TEXT.empty}
-        </div>
-      ) : null}
+        {sortedRows.length === 0 && (
+          <div className="mt-3 rounded-xl border border-dashed border-zinc-200 p-6 text-center text-sm text-zinc-500">
+            {TEXT.empty}
+          </div>
+        )}
+      </div>
     </div>
   )
 }
