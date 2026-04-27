@@ -85,24 +85,23 @@ function formatRankChange(changeType, rankChange, prevRank, nextRank) {
 }
 
 // ==================== 五日分數彈窗（顯示日期版，使用 Portal） ====================
+
+// ==================== 修正後：放大數字與優化對比度的 ScoreModal ====================
 function ScoreModal({ stock, onClose }) {
   if (!stock?.history || stock.history.length === 0) return null;
 
-  // 1. 動態計算邊界，讓線條波動更明顯 (例如取歷史最高/最低 +- 2分)
   const scoreValues = stock.history.map(item => item.score || 50);
   const minData = Math.min(...scoreValues);
   const maxData = Math.max(...scoreValues);
   
-  // 緩衝區讓線條不會貼齊頂部或底部
+  // 緩衝區拉大一點 (從 1 改成 1.5)，給上方數字更多空間
   const minScore = minData - 1;
-  const maxScore = maxData + 1;
+  const maxScore = maxData + 1.5; 
   const range = maxScore - minScore;
 
-  // 定義畫布寬高 (SVG 內部坐標系)
   const vWidth = 500;
   const vHeight = 260;
 
-  // 2. 計算點的坐標
   const pointsData = stock.history.map((item, i) => {
     const x = (i / (stock.history.length - 1)) * vWidth;
     const clampedScore = Math.max(minScore, Math.min(maxScore, item.score));
@@ -129,13 +128,11 @@ function ScoreModal({ stock, onClose }) {
           
           <div className="relative h-[280px] w-full border border-zinc-100 rounded-2xl bg-zinc-50/50 p-4">
             <svg viewBox={`0 0 ${vWidth} ${vHeight}`} className="w-full h-full overflow-visible">
-              {/* 背景格線 (動態生成) */}
               {[0, 0.25, 0.5, 0.75, 1].map((p, i) => {
                 const y = vHeight * p;
                 return <line key={i} x1="0" y1={y} x2={vWidth} y2={y} stroke="#e2e8f0" strokeWidth="1" strokeDasharray="4 4" />;
               })}
 
-              {/* 折線 */}
               <polyline 
                 points={polylinePoints} 
                 fill="none" 
@@ -145,19 +142,32 @@ function ScoreModal({ stock, onClose }) {
                 strokeLinecap="round"
               />
 
-              {/* 圓點 */}
               {pointsData.map((p, i) => (
                 <g key={i}>
                   <circle cx={p.x} cy={p.y} r="7" fill="#8b5cf6" stroke="#ffffff" strokeWidth="3" />
-                  {/* 分數標籤 (可選：讓數字直接出現在點上方) */}
-                  <text x={p.x} y={p.y - 15} textAnchor="middle" className="text-[12px] font-bold fill-zinc-600">{p.score.toFixed(1)}</text>
+                  
+                  {/* 加大版數字標籤：使用實體 SVG 屬性加強對比 */}
+                  <text 
+                    x={p.x} 
+                    y={p.y - 18} 
+                    textAnchor="middle" 
+                    className="text-[18px] font-black tabular-nums" // 加大到 18px，用 font-black 加粗
+                    style={{ 
+                      fill: '#4b5563', // zinc-600
+                      paintOrder: 'stroke',
+                      stroke: '#ffffff', // 白色描邊，確保在格線上也能看清
+                      strokeWidth: '4px',
+                      strokeLinejoin: 'round'
+                    }}
+                  >
+                    {p.score.toFixed(1)}
+                  </text>
                 </g>
               ))}
             </svg>
           </div>
 
-          {/* X軸日期 */}
-          <div className="flex justify-between mt-4 text-xs text-zinc-500 font-bold px-2">
+          <div className="flex justify-between mt-4 text-sm text-zinc-500 font-bold px-2">
             {stock.history.map((item, i) => (
               <div key={i}>{item.date.slice(5)}</div>
             ))}
