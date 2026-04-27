@@ -185,12 +185,18 @@ function ScoreModal({ stock, onClose }) {
             ))}
           </div>
 
-          {stock.failed_conditions && stock.failed_conditions.length > 0 && (
-            <div className="mt-6 rounded-2xl border border-red-100 bg-red-50 px-4 py-3 text-sm text-red-600">
-              <div className="font-bold mb-1">未通過濾網原因</div>
-              <div>{stock.failed_conditions.join('、')}</div>
-            </div>
-          )}
+          {stock.passed_filter ? (
+            <div className="mt-6 rounded-2xl border border-emerald-100 bg-emerald-50 px-4 py-3 text-sm text-emerald-600">
+          已通過選股條件
+          </div>
+) : (
+  stock.failed_conditions && stock.failed_conditions.length > 0 && (
+    <div className="mt-6 rounded-2xl border border-red-100 bg-red-50 px-4 py-3 text-sm text-red-600">
+      <div className="font-bold mb-1">未通過原因</div>
+      <div>{stock.failed_conditions.join('、')}</div>
+    </div>
+  )
+)}
         </div>
       </div>
     </div>,
