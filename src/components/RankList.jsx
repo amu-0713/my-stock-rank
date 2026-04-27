@@ -1,15 +1,14 @@
-import { useEffect, useMemo, useState, useRef } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { createPortal } from 'react-dom'
-import { Line } from 'react-chartjs-2'
 
 const TEXT = {
-  totalPrefix: '\u5171\u0020',
-  totalSuffix: '\u0020\u7b46',
-  rank: '\u6392\u540d',
-  stock: '\u80a1\u7968',
-  score: '\u5206\u6578',
-  change: '\u8b8a\u52d5',
-  empty: '\u76ee\u524d\u6c92\u6709\u8cc7\u6599',
+  totalPrefix: '共 ',
+  totalSuffix: ' 筆',
+  rank: '排名',
+  stock: '股票',
+  score: '分數',
+  change: '變動',
+  empty: '目前沒有資料',
 }
 
 function formatMaybeNumber(value) {
@@ -66,9 +65,10 @@ function formatRankChange(changeType, rankChange, prevRank, nextRank) {
   const safeChange = Number.isFinite(parsedChange) ? Math.abs(parsedChange) : null
   const parsedPrevRank = typeof prevRank === 'number' ? prevRank : Number(prevRank)
   const parsedNextRank = typeof nextRank === 'number' ? nextRank : Number(nextRank)
-  const rankRange = Number.isFinite(parsedPrevRank) && Number.isFinite(parsedNextRank)
-    ? `（${parsedPrevRank}→${parsedNextRank}）`
-    : null
+  const rankRange =
+    Number.isFinite(parsedPrevRank) && Number.isFinite(parsedNextRank)
+      ? `（${parsedPrevRank}→${parsedNextRank}）`
+      : null
 
   switch (changeType) {
     case 'up':
@@ -84,80 +84,92 @@ function formatRankChange(changeType, rankChange, prevRank, nextRank) {
   }
 }
 
-// ==================== 五日分數彈窗（顯示日期版，使用 Portal） ====================
-
-// ==================== 修正後：放大數字與優化對比度的 ScoreModal ====================
 function ScoreModal({ stock, onClose }) {
-  if (!stock?.history || stock.history.length === 0) return null;
+  if (!stock?.history || stock.history.length === 0) return null
 
-  const scoreValues = stock.history.map(item => item.score || 50);
-  const minData = Math.min(...scoreValues);
-  const maxData = Math.max(...scoreValues);
-  
-  // 緩衝區拉大一點 (從 1 改成 1.5)，給上方數字更多空間
-  const minScore = minData - 1;
-  const maxScore = maxData + 1.5; 
-  const range = maxScore - minScore;
+  const scoreValues = stock.history.map(item => item.score || 50)
+  const minData = Math.min(...scoreValues)
+  const maxData = Math.max(...scoreValues)
 
-  const vWidth = 500;
-  const vHeight = 260;
+  const minScore = minData - 1
+  const maxScore = maxData + 1.5
+  const range = maxScore - minScore
+
+  const vWidth = 500
+  const vHeight = 260
 
   const pointsData = stock.history.map((item, i) => {
-    const x = (i / (stock.history.length - 1)) * vWidth;
-    const clampedScore = Math.max(minScore, Math.min(maxScore, item.score));
-    const y = vHeight - ((clampedScore - minScore) / range) * vHeight;
-    return { x, y, date: item.date, score: item.score };
-  });
+    const x = (i / (stock.history.length - 1)) * vWidth
+    const clampedScore = Math.max(minScore, Math.min(maxScore, item.score))
+    const y = vHeight - ((clampedScore - minScore) / range) * vHeight
+    return { x, y, date: item.date, score: item.score }
+  })
 
-  const polylinePoints = pointsData.map(p => `${p.x},${p.y}`).join(' ');
+  const polylinePoints = pointsData.map(p => `${p.x},${p.y}`).join(' ')
 
   return createPortal(
     <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/80 backdrop-blur-sm" onClick={onClose}>
       <div className="bg-white rounded-3xl w-full max-w-lg shadow-2xl overflow-hidden pointer-events-auto mx-4" onClick={e => e.stopPropagation()}>
-        
         <div className="p-6 border-b flex justify-between items-start">
           <div>
-            <div className="font-bold text-2xl text-zinc-900">{stock.name} ({stock.stock_id})</div>
-            <div className="text-4xl font-bold text-blue-600 mt-2">{formatScore(stock.display_score)}</div>
+            <div className="font-bold text-2xl text-zinc-900">
+              {stock.name} ({stock.stock_id})
+            </div>
+            <div className="text-4xl font-bold text-blue-600 mt-2">
+              {formatScore(stock.display_score)}
+            </div>
           </div>
-          <button onClick={onClose} className="p-2 text-gray-400 hover:text-zinc-900 transition-colors">✕</button>
+          <button onClick={onClose} className="p-2 text-gray-400 hover:text-zinc-900 transition-colors">
+            ✕
+          </button>
         </div>
 
         <div className="p-6">
-          <div className="text-sm font-bold text-zinc-500 mb-6 uppercase tracking-wider">最近 5 個交易日分數走勢</div>
-          
+          <div className="text-sm font-bold text-zinc-500 mb-6 uppercase tracking-wider">
+            最近 5 個交易日分數走勢
+          </div>
+
           <div className="relative h-[280px] w-full border border-zinc-100 rounded-2xl bg-zinc-50/50 p-4">
             <svg viewBox={`0 0 ${vWidth} ${vHeight}`} className="w-full h-full overflow-visible">
               {[0, 0.25, 0.5, 0.75, 1].map((p, i) => {
-                const y = vHeight * p;
-                return <line key={i} x1="0" y1={y} x2={vWidth} y2={y} stroke="#e2e8f0" strokeWidth="1" strokeDasharray="4 4" />;
+                const y = vHeight * p
+                return (
+                  <line
+                    key={i}
+                    x1="0"
+                    y1={y}
+                    x2={vWidth}
+                    y2={y}
+                    stroke="#e2e8f0"
+                    strokeWidth="1"
+                    strokeDasharray="4 4"
+                  />
+                )
               })}
 
-              <polyline 
-                points={polylinePoints} 
-                fill="none" 
-                stroke="#8b5cf6" 
-                strokeWidth="4" 
-                strokeLinejoin="round" 
+              <polyline
+                points={polylinePoints}
+                fill="none"
+                stroke="#8b5cf6"
+                strokeWidth="4"
+                strokeLinejoin="round"
                 strokeLinecap="round"
               />
 
               {pointsData.map((p, i) => (
                 <g key={i}>
                   <circle cx={p.x} cy={p.y} r="7" fill="#8b5cf6" stroke="#ffffff" strokeWidth="3" />
-                  
-                  {/* 加大版數字標籤：使用實體 SVG 屬性加強對比 */}
-                  <text 
-                    x={p.x} 
-                    y={p.y - 18} 
-                    textAnchor="middle" 
-                    className="text-[18px] font-black tabular-nums" // 加大到 18px，用 font-black 加粗
-                    style={{ 
-                      fill: '#4b5563', // zinc-600
+                  <text
+                    x={p.x}
+                    y={p.y - 18}
+                    textAnchor="middle"
+                    className="text-[18px] font-black tabular-nums"
+                    style={{
+                      fill: '#4b5563',
                       paintOrder: 'stroke',
-                      stroke: '#ffffff', // 白色描邊，確保在格線上也能看清
+                      stroke: '#ffffff',
                       strokeWidth: '4px',
-                      strokeLinejoin: 'round'
+                      strokeLinejoin: 'round',
                     }}
                   >
                     {p.score.toFixed(1)}
@@ -172,21 +184,31 @@ function ScoreModal({ stock, onClose }) {
               <div key={i}>{item.date.slice(5)}</div>
             ))}
           </div>
+
+          {stock.failed_conditions && stock.failed_conditions.length > 0 && (
+            <div className="mt-6 rounded-2xl border border-red-100 bg-red-50 px-4 py-3 text-sm text-red-600">
+              <div className="font-bold mb-1">未通過濾網原因</div>
+              <div>{stock.failed_conditions.join('、')}</div>
+            </div>
+          )}
         </div>
       </div>
     </div>,
     document.body
-  );
+  )
 }
-// ==================== 主元件（完整保留你原本所有功能） ====================
+
 const DEFAULT_SORT_KEY = 'score'
 const DEFAULT_SORT_DIRECTION = 'desc'
 const SORTABLE_FIELD_SET = new Set(['score', 'rs_pct', 'peg_pct', 'dd_pct', 'rank_change'])
 const STOCK_CELL_LAYOUT_CLASS = 'grid grid-cols-[72px_minmax(0,1fr)] items-center gap-3'
 
 function normalizeSortKey(sortKey, sortableFields) {
-  if (typeof sortKey === 'string' && SORTABLE_FIELD_SET.has(sortKey) &&
-      (!Array.isArray(sortableFields) || sortableFields.includes(sortKey))) {
+  if (
+    typeof sortKey === 'string' &&
+    SORTABLE_FIELD_SET.has(sortKey) &&
+    (!Array.isArray(sortableFields) || sortableFields.includes(sortKey))
+  ) {
     return sortKey
   }
   return DEFAULT_SORT_KEY
@@ -203,16 +225,23 @@ function compareRows(a, b, sortKey, sortDirection) {
   const right = parseSortValue(b?.[sortKey])
 
   if (left === null && right === null) {
-    return (parseSortValue(a?.base_rank) ?? Number.MAX_SAFE_INTEGER) -
-           (parseSortValue(b?.base_rank) ?? Number.MAX_SAFE_INTEGER)
+    return (
+      (parseSortValue(a?.base_rank) ?? Number.MAX_SAFE_INTEGER) -
+      (parseSortValue(b?.base_rank) ?? Number.MAX_SAFE_INTEGER)
+    )
   }
+
   if (left === null) return 1
   if (right === null) return -1
+
   if (left !== right) {
     return sortDirection === 'asc' ? left - right : right - left
   }
-  return (parseSortValue(a?.base_rank) ?? Number.MAX_SAFE_INTEGER) -
-         (parseSortValue(b?.base_rank) ?? Number.MAX_SAFE_INTEGER)
+
+  return (
+    (parseSortValue(a?.base_rank) ?? Number.MAX_SAFE_INTEGER) -
+    (parseSortValue(b?.base_rank) ?? Number.MAX_SAFE_INTEGER)
+  )
 }
 
 function headerClassName(isClickable, isActive) {
@@ -229,10 +258,19 @@ function sortIndicator(sortDirection, isActive) {
 
 export default function RankList({ title, rows, defaultSortKey, sortableFields, compareDate }) {
   const isFilteredRankList = title === '條件篩選排名'
+  const showFilterColumn = !isFilteredRankList
+
+  const gridCols = showFilterColumn
+    ? 'grid-cols-[72px_minmax(180px,280px)_92px_84px_84px_84px_130px_70px]'
+    : 'grid-cols-[72px_minmax(180px,280px)_92px_84px_84px_84px_190px]'
+
+  const minWidth = showFilterColumn ? 'min-w-[850px]' : 'min-w-[780px]'
+
   const formattedCompareDate = formatCompareDate(compareDate)
-  const changeHeaderText = formattedCompareDate === null
-    ? `${TEXT.change}（vs 上週）`
-    : `${TEXT.change}（vs ${formattedCompareDate}）`
+  const changeHeaderText =
+    formattedCompareDate === null
+      ? `${TEXT.change}（vs 上週）`
+      : `${TEXT.change}（vs ${formattedCompareDate}）`
 
   const normalizedDefaultSortKey = useMemo(
     () => normalizeSortKey(defaultSortKey, sortableFields),
@@ -263,20 +301,25 @@ export default function RankList({ title, rows, defaultSortKey, sortableFields, 
       return [...safeRows].sort((a, b) => {
         const leftIsNew = a?.change_type === 'new'
         const rightIsNew = b?.change_type === 'new'
+
         if (leftIsNew !== rightIsNew) return leftIsNew ? -1 : 1
+
         if (!leftIsNew && !rightIsNew) {
           const rankChangeCompare = compareRows(a, b, 'rank_change', 'desc')
           if (rankChangeCompare !== 0) return rankChangeCompare
         }
-        return (parseSortValue(a?.base_rank) ?? Number.MAX_SAFE_INTEGER) -
-               (parseSortValue(b?.base_rank) ?? Number.MAX_SAFE_INTEGER)
+
+        return (
+          (parseSortValue(a?.base_rank) ?? Number.MAX_SAFE_INTEGER) -
+          (parseSortValue(b?.base_rank) ?? Number.MAX_SAFE_INTEGER)
+        )
       })
     }
 
     return [...safeRows].sort((a, b) => compareRows(a, b, activeSortKey, sortDirection))
   }, [allowedSortableFields, isFilteredRankList, rows, sortDirection, sortKey])
 
-  const handleSortChange = (nextSortKey) => {
+  const handleSortChange = nextSortKey => {
     if (!allowedSortableFields.has(nextSortKey)) return
 
     if (sortKey === nextSortKey) {
@@ -289,6 +332,7 @@ export default function RankList({ title, rows, defaultSortKey, sortableFields, 
         }
         return
       }
+
       if (sortDirection === 'desc') {
         setSortDirection('asc')
       } else {
@@ -304,7 +348,6 @@ export default function RankList({ title, rows, defaultSortKey, sortableFields, 
 
   return (
     <div className={`isolate flex h-full min-h-0 flex-col overflow-hidden rounded-2xl border border-zinc-200 bg-white shadow-sm ${isModalOpen ? 'pointer-events-none' : ''}`}>
-      
       <div className="z-40 border-b border-zinc-200 bg-white">
         <div className="flex w-full items-center justify-between gap-3 px-4 py-3 shadow-sm">
           <div className="text-sm font-semibold text-zinc-900">{title}</div>
@@ -313,64 +356,149 @@ export default function RankList({ title, rows, defaultSortKey, sortableFields, 
       </div>
 
       <div className="min-h-0 flex-1 overflow-auto -webkit-overflow-scrolling-touch">
-        <div className="min-w-[780px]">
-          <div className="sticky top-0 z-10 grid grid-cols-[72px_minmax(180px,280px)_92px_84px_84px_84px_190px] items-center gap-1 border-b border-zinc-200 bg-white px-4 py-4 text-sm font-semibold text-zinc-600 shadow-sm">
+        <div className={minWidth}>
+          <div className={`sticky top-0 z-10 grid ${gridCols} items-center gap-1 border-b border-zinc-200 bg-white px-4 py-4 text-sm font-semibold text-zinc-600 shadow-sm`}>
             <div className="flex min-h-[52px] items-center justify-center text-center">{TEXT.rank}</div>
+
             <div className={`${STOCK_CELL_LAYOUT_CLASS} min-h-[52px] text-left`}>
               <div className="col-span-2 self-center justify-self-start text-left">{TEXT.stock}</div>
             </div>
-            <button type="button" className={headerClassName(allowedSortableFields.has('score'), sortKey === 'score')} onClick={() => handleSortChange('score')}>
+
+            <button
+              type="button"
+              className={headerClassName(allowedSortableFields.has('score'), sortKey === 'score')}
+              onClick={() => handleSortChange('score')}
+            >
               <span>{TEXT.score}</span>
               <span className="text-xs">{sortIndicator(sortDirection, sortKey === 'score')}</span>
             </button>
-            <button type="button" className={headerClassName(allowedSortableFields.has('rs_pct'), sortKey === 'rs_pct')} onClick={() => handleSortChange('rs_pct')}>
-              <span>RS</span><span className="text-xs">{sortIndicator(sortDirection, sortKey === 'rs_pct')}</span>
+
+            <button
+              type="button"
+              className={headerClassName(allowedSortableFields.has('rs_pct'), sortKey === 'rs_pct')}
+              onClick={() => handleSortChange('rs_pct')}
+            >
+              <span>RS</span>
+              <span className="text-xs">{sortIndicator(sortDirection, sortKey === 'rs_pct')}</span>
             </button>
-            <button type="button" className={headerClassName(allowedSortableFields.has('peg_pct'), sortKey === 'peg_pct')} onClick={() => handleSortChange('peg_pct')}>
-              <span>PEG</span><span className="text-xs">{sortIndicator(sortDirection, sortKey === 'peg_pct')}</span>
+
+            <button
+              type="button"
+              className={headerClassName(allowedSortableFields.has('peg_pct'), sortKey === 'peg_pct')}
+              onClick={() => handleSortChange('peg_pct')}
+            >
+              <span>PEG</span>
+              <span className="text-xs">{sortIndicator(sortDirection, sortKey === 'peg_pct')}</span>
             </button>
-            <button type="button" className={headerClassName(allowedSortableFields.has('dd_pct'), sortKey === 'dd_pct')} onClick={() => handleSortChange('dd_pct')}>
-              <span>DD</span><span className="text-xs">{sortIndicator(sortDirection, sortKey === 'dd_pct')}</span>
+
+            <button
+              type="button"
+              className={headerClassName(allowedSortableFields.has('dd_pct'), sortKey === 'dd_pct')}
+              onClick={() => handleSortChange('dd_pct')}
+            >
+              <span>DD</span>
+              <span className="text-xs">{sortIndicator(sortDirection, sortKey === 'dd_pct')}</span>
             </button>
-            <button type="button" className={`${headerClassName(allowedSortableFields.has('rank_change'), sortKey === 'rank_change')} col-span-1 flex items-center justify-center min-h-[52px]`} onClick={() => handleSortChange('rank_change')}>
+
+            <button
+              type="button"
+              className={`${headerClassName(allowedSortableFields.has('rank_change'), sortKey === 'rank_change')} flex items-center justify-center min-h-[52px]`}
+              onClick={() => handleSortChange('rank_change')}
+            >
               <span className="whitespace-nowrap text-center">{changeHeaderText}</span>
               <span className="ml-1 text-xs">{sortIndicator(sortDirection, sortKey === 'rank_change')}</span>
             </button>
+
+            {showFilterColumn && (
+              <div className="flex min-h-[52px] items-center justify-center text-center">
+                濾網
+              </div>
+            )}
           </div>
 
           <div className="divide-y divide-zinc-100">
             {sortedRows.map((row, index) => {
               const rankChange = formatRankChange(row.change_type, row.rank_change, row.prev_rank, row.base_rank)
+
               return (
-                <div key={`${row.base_rank ?? index}-${row.stock_id}`} className="grid grid-cols-[72px_minmax(180px,280px)_92px_84px_84px_84px_190px] items-center gap-1 px-4 py-4 hover:bg-zinc-50">
-                  <div className="text-center text-sm font-semibold tabular-nums">{formatMaybeNumber(index + 1)}</div>
+                <div
+                  key={`${row.base_rank ?? index}-${row.stock_id}`}
+                  className={`grid ${gridCols} items-center gap-1 px-4 py-4 hover:bg-zinc-50`}
+                >
+                  <div className="text-center text-sm font-semibold tabular-nums">
+                    {formatMaybeNumber(index + 1)}
+                  </div>
+
                   <div className={`${STOCK_CELL_LAYOUT_CLASS} text-left text-sm tabular-nums`}>
                     <span className="font-bold text-zinc-900">{row.stock_id ?? '--'}</span>
-                    <span className="min-w-0 truncate font-normal" title={row.full_name ?? ''}>{row.name ?? '--'}</span>
+                    <span className="min-w-0 truncate font-normal" title={row.full_name ?? ''}>
+                      {row.name ?? '--'}
+                    </span>
                   </div>
+
                   <div className="text-center text-sm tabular-nums" onClick={() => setSelectedStock(row)}>
-                    <span className={scoreBadgeClass(row.display_score)}>{formatScore(row.display_score)}</span>
+                    <span className={scoreBadgeClass(row.display_score)}>
+                      {formatScore(row.display_score)}
+                    </span>
                   </div>
-                  <div className="text-center text-sm tabular-nums"><span className={`${pctBadgeClass(row.rs_pct)} opacity-80`}>{formatPct(row.rs_pct)}</span></div>
-                  <div className="text-center text-sm tabular-nums"><span className={`${pctBadgeClass(row.peg_pct)} opacity-80`}>{formatPct(row.peg_pct)}</span></div>
-                  <div className="text-center text-sm tabular-nums"><span className={`${pctBadgeClass(row.dd_pct)} opacity-80`}>{formatPct(row.dd_pct)}</span></div>
-                  <div className={`col-span-1 flex flex-col items-center justify-center text-sm font-semibold tabular-nums ${rankChange.className} min-h-[52px]`}>
+
+                  <div className="text-center text-sm tabular-nums">
+                    <span className={`${pctBadgeClass(row.rs_pct)} opacity-80`}>
+                      {formatPct(row.rs_pct)}
+                    </span>
+                  </div>
+
+                  <div className="text-center text-sm tabular-nums">
+                    <span className={`${pctBadgeClass(row.peg_pct)} opacity-80`}>
+                      {formatPct(row.peg_pct)}
+                    </span>
+                  </div>
+
+                  <div className="text-center text-sm tabular-nums">
+                    <span className={`${pctBadgeClass(row.dd_pct)} opacity-80`}>
+                      {formatPct(row.dd_pct)}
+                    </span>
+                  </div>
+
+                  <div className={`flex flex-col items-center justify-center text-sm font-semibold tabular-nums ${rankChange.className} min-h-[52px]`}>
                     <div>{rankChange.mainLabel}</div>
-                    {rankChange.detailLabel && <div className="text-xs text-zinc-500 mt-0.5">{rankChange.detailLabel}</div>}
+                    {rankChange.detailLabel && (
+                      <div className="text-xs text-zinc-500 mt-0.5">
+                        {rankChange.detailLabel}
+                      </div>
+                    )}
                   </div>
+
+                  {showFilterColumn && (
+                    <button
+                      type="button"
+                      className="flex min-h-[52px] items-center justify-center rounded-xl hover:bg-zinc-100"
+                      onClick={() => setSelectedStock(row)}
+                      title={row.passed_filter ? '通過濾網' : '未通過濾網，點擊查看原因'}
+                    >
+                      {row.passed_filter ? (
+                        <span className="text-xl font-black text-emerald-600">✔</span>
+                      ) : (
+                        <span className="text-xl font-black text-rose-500">✖</span>
+                      )}
+                    </button>
+                  )}
                 </div>
               )
             })}
 
             {sortedRows.length === 0 && (
-              <div className="p-8 text-center text-sm text-zinc-500">{TEXT.empty}</div>
+              <div className="p-8 text-center text-sm text-zinc-500">
+                {TEXT.empty}
+              </div>
             )}
           </div>
         </div>
       </div>
 
-      {/* 彈窗 */}
-      {selectedStock && <ScoreModal stock={selectedStock} onClose={() => setSelectedStock(null)} />}
+      {selectedStock && (
+        <ScoreModal stock={selectedStock} onClose={() => setSelectedStock(null)} />
+      )}
     </div>
   )
 }
