@@ -103,7 +103,7 @@
       "selected": true,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高"
       ],
       "history": [
@@ -147,7 +147,7 @@
       "selected": true,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍"
+        "PEG過低"
       ],
       "history": [
         {
@@ -274,7 +274,7 @@
       "selected": true,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍"
+        "PEG過低"
       ],
       "history": [
         {
@@ -442,7 +442,7 @@
       "selected": true,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍"
+        "PEG過高"
       ],
       "history": [
         {
@@ -3607,7 +3607,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高"
       ],
       "history": [
@@ -3858,7 +3858,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列",
         "流動性不足"
@@ -4078,7 +4078,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "非多頭排列"
       ],
       "history": [
@@ -4824,7 +4824,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -5347,7 +5347,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高"
       ],
       "history": [
@@ -5436,7 +5436,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -5481,7 +5481,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "非多頭排列"
       ],
       "history": [
@@ -5654,7 +5654,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "非多頭排列",
         "流動性不足"
       ],
@@ -5873,7 +5873,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高",
         "非多頭排列",
         "流動性不足"
@@ -5919,7 +5919,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高"
       ],
       "history": [
@@ -5963,7 +5963,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高"
       ],
       "history": [
@@ -6052,7 +6052,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍"
+        "PEG過低"
       ],
       "history": [
         {
@@ -6139,7 +6139,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高"
       ],
       "history": [
@@ -6226,7 +6226,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "非多頭排列"
       ],
       "history": [
@@ -6270,7 +6270,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高"
       ],
       "history": [
@@ -6314,7 +6314,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -6359,7 +6359,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高"
       ],
       "history": [
@@ -6531,7 +6531,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高"
       ],
       "history": [
@@ -6620,7 +6620,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高"
       ],
       "history": [
@@ -6796,7 +6796,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "非多頭排列"
       ],
       "history": [
@@ -6840,7 +6840,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -6885,7 +6885,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高",
         "非多頭排列",
         "流動性不足"
@@ -6931,7 +6931,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "非多頭排列",
         "流動性不足"
       ],
@@ -7063,7 +7063,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高"
       ],
       "history": [
@@ -7107,7 +7107,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高"
       ],
       "history": [
@@ -7151,7 +7151,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高"
       ],
       "history": [
@@ -7280,7 +7280,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高"
       ],
       "history": [
@@ -7324,7 +7324,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高"
       ],
       "history": [
@@ -7409,7 +7409,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高"
       ],
       "history": [
@@ -7541,7 +7541,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高"
       ],
       "history": [
@@ -7585,7 +7585,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高",
         "流動性不足"
       ],
@@ -7755,7 +7755,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高"
       ],
       "history": [
@@ -7840,7 +7840,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -8236,7 +8236,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍"
+        "PEG過低"
       ],
       "history": [
         {
@@ -8279,7 +8279,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高"
       ],
       "history": [
@@ -8323,7 +8323,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -8411,7 +8411,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -8456,7 +8456,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高",
         "非多頭排列",
         "流動性不足"
@@ -8502,7 +8502,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "非多頭排列"
       ],
       "history": [
@@ -8631,7 +8631,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高",
         "流動性不足"
       ],
@@ -8676,7 +8676,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -8807,7 +8807,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -8852,7 +8852,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -8897,7 +8897,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列",
         "流動性不足"
@@ -9242,7 +9242,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -9328,7 +9328,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -9373,7 +9373,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -9418,7 +9418,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍"
+        "PEG過低"
       ],
       "history": [
         {
@@ -9548,7 +9548,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高"
       ],
       "history": [
@@ -9592,7 +9592,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高"
       ],
       "history": [
@@ -9636,7 +9636,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高",
         "非多頭排列",
         "流動性不足"
@@ -9854,7 +9854,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍"
+        "PEG過高"
       ],
       "history": [
         {
@@ -9942,7 +9942,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -10246,7 +10246,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "非多頭排列"
       ],
       "history": [
@@ -10419,7 +10419,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍"
+        "PEG過低"
       ],
       "history": [
         {
@@ -10549,7 +10549,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -10680,7 +10680,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "非多頭排列",
         "流動性不足"
       ],
@@ -10852,7 +10852,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -10941,7 +10941,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍"
+        "PEG過低"
       ],
       "history": [
         {
@@ -10984,7 +10984,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -11072,7 +11072,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高"
       ],
       "history": [
@@ -11246,7 +11246,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -11291,7 +11291,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高",
         "非多頭排列",
         "流動性不足"
@@ -11513,7 +11513,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -11645,7 +11645,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -11735,7 +11735,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -11780,7 +11780,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高"
       ],
       "history": [
@@ -11913,7 +11913,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高",
         "流動性不足"
       ],
@@ -12040,7 +12040,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -12085,7 +12085,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高"
       ],
       "history": [
@@ -12129,7 +12129,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍"
+        "PEG過低"
       ],
       "history": [
         {
@@ -12258,7 +12258,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高",
         "非多頭排列",
         "流動性不足"
@@ -12304,7 +12304,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍"
+        "PEG過高"
       ],
       "history": [
         {
@@ -12347,7 +12347,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "流動性不足"
       ],
@@ -12433,7 +12433,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍"
+        "PEG過低"
       ],
       "history": [
         {
@@ -12519,7 +12519,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高",
         "流動性不足"
       ],
@@ -12693,7 +12693,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高"
       ],
       "history": [
@@ -12955,7 +12955,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -13000,7 +13000,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高",
         "非多頭排列",
         "流動性不足"
@@ -13089,7 +13089,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -13219,7 +13219,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高",
         "非多頭排列",
         "流動性不足"
@@ -13265,7 +13265,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍"
+        "PEG過高"
       ],
       "history": [
         {
@@ -13308,7 +13308,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "流動性不足"
       ],
@@ -13483,7 +13483,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -13571,7 +13571,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍"
+        "PEG過低"
       ],
       "history": [
         {
@@ -13701,7 +13701,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍"
+        "PEG過低"
       ],
       "history": [
         {
@@ -13788,7 +13788,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列",
         "流動性不足"
@@ -13877,7 +13877,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍"
+        "PEG過低"
       ],
       "history": [
         {
@@ -13920,7 +13920,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高",
         "非多頭排列",
         "流動性不足"
@@ -14143,7 +14143,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高"
       ],
       "history": [
@@ -14187,7 +14187,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "非多頭排列"
       ],
       "history": [
@@ -14317,7 +14317,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高",
         "非多頭排列",
         "流動性不足"
@@ -14404,7 +14404,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列",
         "流動性不足"
@@ -14450,7 +14450,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高"
       ],
       "history": [
@@ -14582,7 +14582,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "流動性不足"
       ],
@@ -14668,7 +14668,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -14844,7 +14844,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -14973,7 +14973,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列",
         "流動性不足"
@@ -15019,7 +15019,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -15064,7 +15064,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列",
         "流動性不足"
@@ -15110,7 +15110,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高"
       ],
       "history": [
@@ -15242,7 +15242,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -15287,7 +15287,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -15375,7 +15375,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍"
+        "PEG過低"
       ],
       "history": [
         {
@@ -15546,7 +15546,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -15591,7 +15591,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高"
       ],
       "history": [
@@ -15808,7 +15808,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍"
+        "PEG過高"
       ],
       "history": [
         {
@@ -15851,7 +15851,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -15978,7 +15978,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高"
       ],
       "history": [
@@ -16065,7 +16065,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍"
+        "PEG過低"
       ],
       "history": [
         {
@@ -16108,7 +16108,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍"
+        "PEG過低"
       ],
       "history": [
         {
@@ -16237,7 +16237,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -16415,7 +16415,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -16501,7 +16501,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍"
+        "PEG過高"
       ],
       "history": [
         {
@@ -16544,7 +16544,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -16589,7 +16589,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高"
       ],
       "history": [
@@ -16633,7 +16633,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍"
+        "PEG過低"
       ],
       "history": [
         {
@@ -16676,7 +16676,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍"
+        "PEG過低"
       ],
       "history": [
         {
@@ -16763,7 +16763,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高"
       ],
       "history": [
@@ -16807,7 +16807,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "非多頭排列"
       ],
       "history": [
@@ -16851,7 +16851,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -16896,7 +16896,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高",
         "流動性不足"
       ],
@@ -16941,7 +16941,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -17029,7 +17029,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列",
         "流動性不足"
@@ -17075,7 +17075,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍"
+        "PEG過低"
       ],
       "history": [
         {
@@ -17118,7 +17118,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "流動性不足"
       ],
@@ -17163,7 +17163,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍"
+        "PEG過高"
       ],
       "history": [
         {
@@ -17206,7 +17206,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "非多頭排列",
         "流動性不足"
       ],
@@ -17295,7 +17295,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -17427,7 +17427,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高",
         "非多頭排列",
         "流動性不足"
@@ -17560,7 +17560,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "非多頭排列",
         "流動性不足"
       ],
@@ -17648,7 +17648,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高",
         "非多頭排列",
         "流動性不足"
@@ -17694,7 +17694,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高"
       ],
       "history": [
@@ -17738,7 +17738,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "非多頭排列"
       ],
       "history": [
@@ -17826,7 +17826,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -17959,7 +17959,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "流動性不足"
       ],
@@ -18004,7 +18004,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍"
+        "PEG過高"
       ],
       "history": [
         {
@@ -18047,7 +18047,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "流動性不足"
       ],
@@ -18092,7 +18092,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍"
+        "PEG過高"
       ],
       "history": [
         {
@@ -18178,7 +18178,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -18264,7 +18264,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列",
         "流動性不足"
@@ -18442,7 +18442,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高"
       ],
       "history": [
@@ -18527,7 +18527,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列",
         "流動性不足"
@@ -18573,7 +18573,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高"
       ],
       "history": [
@@ -18706,7 +18706,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -18795,7 +18795,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "非多頭排列"
       ],
       "history": [
@@ -18839,7 +18839,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍"
+        "PEG過高"
       ],
       "history": [
         {
@@ -18925,7 +18925,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高"
       ],
       "history": [
@@ -19054,7 +19054,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列",
         "流動性不足"
@@ -19141,7 +19141,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -19186,7 +19186,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高",
         "非多頭排列",
         "流動性不足"
@@ -19232,7 +19232,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高"
       ],
       "history": [
@@ -19276,7 +19276,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍"
+        "PEG過高"
       ],
       "history": [
         {
@@ -19319,7 +19319,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高"
       ],
       "history": [
@@ -19492,7 +19492,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高"
       ],
       "history": [
@@ -19873,7 +19873,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -19918,7 +19918,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高",
         "非多頭排列",
         "流動性不足"
@@ -20049,7 +20049,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高"
       ],
       "history": [
@@ -20179,7 +20179,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高"
       ],
       "history": [
@@ -20309,7 +20309,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "非多頭排列"
       ],
       "history": [
@@ -20394,7 +20394,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "非多頭排列"
       ],
       "history": [
@@ -20438,7 +20438,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍"
+        "PEG過高"
       ],
       "history": [
         {
@@ -20481,7 +20481,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高"
       ],
       "history": [
@@ -20525,7 +20525,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍"
+        "PEG過高"
       ],
       "history": [
         {
@@ -20568,7 +20568,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高",
         "非多頭排列",
         "流動性不足"
@@ -20657,7 +20657,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -20702,7 +20702,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -20963,7 +20963,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高"
       ],
       "history": [
@@ -21007,7 +21007,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍"
+        "PEG過高"
       ],
       "history": [
         {
@@ -21180,7 +21180,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -21355,7 +21355,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -21400,7 +21400,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高"
       ],
       "history": [
@@ -21444,7 +21444,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列",
         "流動性不足"
@@ -21490,7 +21490,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列",
         "流動性不足"
@@ -21536,7 +21536,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高"
       ],
       "history": [
@@ -21624,7 +21624,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -21753,7 +21753,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高",
         "非多頭排列",
         "流動性不足"
@@ -21799,7 +21799,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高"
       ],
       "history": [
@@ -21843,7 +21843,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -21931,7 +21931,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高"
       ],
       "history": [
@@ -21975,7 +21975,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "非多頭排列"
       ],
       "history": [
@@ -22019,7 +22019,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -22148,7 +22148,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高"
       ],
       "history": [
@@ -22237,7 +22237,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高",
         "非多頭排列",
         "流動性不足"
@@ -22283,7 +22283,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -22328,7 +22328,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -22373,7 +22373,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -22462,7 +22462,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -22550,7 +22550,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -22595,7 +22595,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高",
         "非多頭排列",
         "流動性不足"
@@ -22641,7 +22641,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列",
         "流動性不足"
@@ -22687,7 +22687,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列",
         "流動性不足"
@@ -22777,7 +22777,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -22866,7 +22866,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -23039,7 +23039,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列",
         "流動性不足"
@@ -23085,7 +23085,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -23218,7 +23218,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列",
         "流動性不足"
@@ -23264,7 +23264,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高"
       ],
       "history": [
@@ -23396,7 +23396,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列",
         "流動性不足"
@@ -23483,7 +23483,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高",
         "非多頭排列",
         "流動性不足"
@@ -23659,7 +23659,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍"
+        "PEG過高"
       ],
       "history": [
         {
@@ -23702,7 +23702,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高"
       ],
       "history": [
@@ -23746,7 +23746,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍"
+        "PEG過高"
       ],
       "history": [
         {
@@ -23832,7 +23832,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -23877,7 +23877,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高"
       ],
       "history": [
@@ -23921,7 +23921,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -24050,7 +24050,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -24136,7 +24136,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高"
       ],
       "history": [
@@ -24312,7 +24312,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -24357,7 +24357,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "流動性不足"
       ],
@@ -24402,7 +24402,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列",
         "流動性不足"
@@ -24448,7 +24448,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高"
       ],
       "history": [
@@ -24536,7 +24536,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "非多頭排列"
       ],
       "history": [
@@ -24580,7 +24580,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高"
       ],
       "history": [
@@ -24667,7 +24667,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列",
         "流動性不足"
@@ -24713,7 +24713,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高",
         "非多頭排列",
         "流動性不足"
@@ -24803,7 +24803,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -24848,7 +24848,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -24893,7 +24893,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高"
       ],
       "history": [
@@ -25023,7 +25023,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高"
       ],
       "history": [
@@ -25067,7 +25067,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高"
       ],
       "history": [
@@ -25155,7 +25155,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -25200,7 +25200,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高"
       ],
       "history": [
@@ -25244,7 +25244,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -25289,7 +25289,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -25334,7 +25334,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -25379,7 +25379,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍"
+        "PEG過高"
       ],
       "history": [
         {
@@ -25422,7 +25422,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -25467,7 +25467,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -25553,7 +25553,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高"
       ],
       "history": [
@@ -25638,7 +25638,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高",
         "非多頭排列",
         "流動性不足"
@@ -25811,7 +25811,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -25856,7 +25856,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列",
         "流動性不足"
@@ -25902,7 +25902,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高"
       ],
       "history": [
@@ -25946,7 +25946,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -25991,7 +25991,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高"
       ],
       "history": [
@@ -26165,7 +26165,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "非多頭排列"
       ],
       "history": [
@@ -26293,7 +26293,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列",
         "流動性不足"
@@ -26339,7 +26339,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -26384,7 +26384,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高"
       ],
       "history": [
@@ -26428,7 +26428,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高",
         "非多頭排列",
         "流動性不足"
@@ -26517,7 +26517,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高"
       ],
       "history": [
@@ -26561,7 +26561,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列",
         "流動性不足"
@@ -26954,7 +26954,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍"
+        "PEG過高"
       ],
       "history": [
         {
@@ -26997,7 +26997,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -27083,7 +27083,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高"
       ],
       "history": [
@@ -27127,7 +27127,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高",
         "非多頭排列",
         "流動性不足"
@@ -27214,7 +27214,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -27259,7 +27259,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高"
       ],
       "history": [
@@ -27303,7 +27303,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍"
+        "PEG過高"
       ],
       "history": [
         {
@@ -27390,7 +27390,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -27435,7 +27435,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -27480,7 +27480,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列",
         "流動性不足"
@@ -27570,7 +27570,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "流動性不足"
       ],
       "history": [
@@ -27614,7 +27614,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列",
         "流動性不足"
@@ -27660,7 +27660,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "非多頭排列"
       ],
       "history": [
@@ -27704,7 +27704,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高"
       ],
       "history": [
@@ -27748,7 +27748,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -27793,7 +27793,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高"
       ],
       "history": [
@@ -27837,7 +27837,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -27882,7 +27882,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高"
       ],
       "history": [
@@ -27926,7 +27926,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高"
       ],
       "history": [
@@ -27970,7 +27970,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "非多頭排列"
       ],
       "history": [
@@ -28014,7 +28014,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高"
       ],
       "history": [
@@ -28058,7 +28058,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高"
       ],
       "history": [
@@ -28102,7 +28102,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "非多頭排列",
         "流動性不足"
       ],
@@ -28147,7 +28147,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列",
         "流動性不足"
@@ -28237,7 +28237,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "非多頭排列"
       ],
       "history": [
@@ -28281,7 +28281,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高"
       ],
       "history": [
@@ -28325,7 +28325,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高"
       ],
       "history": [
@@ -28458,7 +28458,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高",
         "非多頭排列",
         "流動性不足"
@@ -28545,7 +28545,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -28679,7 +28679,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高",
         "非多頭排列",
         "流動性不足"
@@ -28725,7 +28725,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "非多頭排列"
       ],
       "history": [
@@ -28769,7 +28769,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍"
+        "PEG過高"
       ],
       "history": [
         {
@@ -28899,7 +28899,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -28944,7 +28944,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高"
       ],
       "history": [
@@ -28988,7 +28988,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高"
       ],
       "history": [
@@ -29120,7 +29120,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍"
+        "PEG過高"
       ],
       "history": [
         {
@@ -29163,7 +29163,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高"
       ],
       "history": [
@@ -29207,7 +29207,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高"
       ],
       "history": [
@@ -29251,7 +29251,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -29296,7 +29296,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高",
         "非多頭排列",
         "流動性不足"
@@ -29342,7 +29342,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍"
+        "PEG過高"
       ],
       "history": [
         {
@@ -29470,7 +29470,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍"
+        "PEG過高"
       ],
       "history": [
         {
@@ -29513,7 +29513,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高"
       ],
       "history": [
@@ -29557,7 +29557,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高"
       ],
       "history": [
@@ -29644,7 +29644,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高",
         "非多頭排列",
         "流動性不足"
@@ -29690,7 +29690,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高"
       ],
       "history": [
@@ -29734,7 +29734,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列",
         "流動性不足"
@@ -29867,7 +29867,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高",
         "非多頭排列",
         "流動性不足"
@@ -29997,7 +29997,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -30131,7 +30131,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -30176,7 +30176,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -30264,7 +30264,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -30309,7 +30309,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -30354,7 +30354,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍"
+        "PEG過高"
       ],
       "history": [
         {
@@ -30528,7 +30528,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高"
       ],
       "history": [
@@ -30572,7 +30572,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -30617,7 +30617,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高",
         "非多頭排列",
         "流動性不足"
@@ -30704,7 +30704,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高",
         "非多頭排列",
         "流動性不足"
@@ -30750,7 +30750,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高"
       ],
       "history": [
@@ -30837,7 +30837,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍"
+        "PEG過高"
       ],
       "history": [
         {
@@ -30880,7 +30880,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -30925,7 +30925,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高"
       ],
       "history": [
@@ -30969,7 +30969,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高"
       ],
       "history": [
@@ -31054,7 +31054,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -31099,7 +31099,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列",
         "流動性不足"
@@ -31145,7 +31145,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高",
         "非多頭排列",
         "流動性不足"
@@ -31279,7 +31279,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高"
       ],
       "history": [
@@ -31323,7 +31323,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高"
       ],
       "history": [
@@ -31367,7 +31367,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高"
       ],
       "history": [
@@ -31411,7 +31411,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高"
       ],
       "history": [
@@ -31542,7 +31542,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍"
+        "PEG過高"
       ],
       "history": [
         {
@@ -31585,7 +31585,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -31674,7 +31674,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -31719,7 +31719,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -31764,7 +31764,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -31809,7 +31809,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列",
         "流動性不足"
@@ -31900,7 +31900,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高",
         "非多頭排列",
         "流動性不足"
@@ -31946,7 +31946,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高",
         "非多頭排列",
         "流動性不足"
@@ -31992,7 +31992,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高",
         "非多頭排列",
         "流動性不足"
@@ -32038,7 +32038,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高"
       ],
       "history": [
@@ -32126,7 +32126,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列",
         "流動性不足"
@@ -32172,7 +32172,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -32260,7 +32260,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列",
         "流動性不足"
@@ -32306,7 +32306,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍"
+        "PEG過高"
       ],
       "history": [
         {
@@ -32349,7 +32349,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高"
       ],
       "history": [
@@ -32393,7 +32393,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -32438,7 +32438,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -32483,7 +32483,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -32528,7 +32528,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高"
       ],
       "history": [
@@ -32572,7 +32572,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -32617,7 +32617,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高"
       ],
       "history": [
@@ -32661,7 +32661,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高"
       ],
       "history": [
@@ -32705,7 +32705,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高"
       ],
       "history": [
@@ -32749,7 +32749,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍"
+        "PEG過高"
       ],
       "history": [
         {
@@ -32792,7 +32792,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高"
       ],
       "history": [
@@ -32836,7 +32836,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高"
       ],
       "history": [
@@ -32880,7 +32880,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高"
       ],
       "history": [
@@ -32968,7 +32968,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -33013,7 +33013,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高"
       ],
       "history": [
@@ -33057,7 +33057,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -33102,7 +33102,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -33191,7 +33191,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍"
+        "PEG過高"
       ],
       "history": [
         {
@@ -33234,7 +33234,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -33279,7 +33279,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高",
         "非多頭排列",
         "流動性不足"
@@ -33370,7 +33370,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高"
       ],
       "history": [
@@ -33457,7 +33457,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列",
         "流動性不足"
@@ -33503,7 +33503,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高"
       ],
       "history": [
@@ -33547,7 +33547,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高",
         "非多頭排列",
         "流動性不足"
@@ -33593,7 +33593,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高"
       ],
       "history": [
@@ -33637,7 +33637,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -33682,7 +33682,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -33727,7 +33727,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -33772,7 +33772,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高"
       ],
       "history": [
@@ -33816,7 +33816,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高"
       ],
       "history": [
@@ -33860,7 +33860,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高"
       ],
       "history": [
@@ -33904,7 +33904,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列",
         "流動性不足"
@@ -33950,7 +33950,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高"
       ],
       "history": [
@@ -33994,7 +33994,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高"
       ],
       "history": [
@@ -34038,7 +34038,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列",
         "流動性不足"
@@ -34171,7 +34171,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍"
+        "PEG過高"
       ],
       "history": [
         {
@@ -34214,7 +34214,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "非多頭排列",
         "流動性不足"
       ],
@@ -34259,7 +34259,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -34304,7 +34304,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高"
       ],
       "history": [
@@ -34348,7 +34348,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -34393,7 +34393,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列",
         "流動性不足"
@@ -34439,7 +34439,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -34484,7 +34484,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高",
         "非多頭排列",
         "流動性不足"
@@ -34530,7 +34530,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列",
         "流動性不足"
@@ -34576,7 +34576,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高",
         "非多頭排列",
         "流動性不足"
@@ -34622,7 +34622,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高"
       ],
       "history": [
@@ -34666,7 +34666,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍"
+        "PEG過高"
       ],
       "history": [
         {
@@ -34709,7 +34709,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列",
         "流動性不足"
@@ -34755,7 +34755,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列",
         "流動性不足"
@@ -34844,7 +34844,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高"
       ],
       "history": [
@@ -34932,7 +34932,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高"
       ],
       "history": [
@@ -34976,7 +34976,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -35021,7 +35021,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高",
         "非多頭排列",
         "流動性不足"
@@ -35067,7 +35067,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高",
         "流動性不足"
       ],
@@ -35112,7 +35112,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列",
         "流動性不足"
@@ -35158,7 +35158,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -35203,7 +35203,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍"
+        "PEG過高"
       ],
       "history": [
         {
@@ -35246,7 +35246,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -35291,7 +35291,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -35379,7 +35379,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高"
       ],
       "history": [
@@ -35423,7 +35423,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "非多頭排列"
       ],
       "history": [
@@ -35467,7 +35467,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高"
       ],
       "history": [
@@ -35511,7 +35511,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高",
         "流動性不足"
       ],
@@ -35556,7 +35556,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -35601,7 +35601,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "非多頭排列"
       ],
       "history": [
@@ -35645,7 +35645,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高",
         "非多頭排列",
         "流動性不足"
@@ -35691,7 +35691,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高"
       ],
       "history": [
@@ -35779,7 +35779,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍"
+        "PEG過高"
       ],
       "history": [
         {
@@ -35822,7 +35822,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高"
       ],
       "history": [
@@ -35866,7 +35866,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -35911,7 +35911,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -35956,7 +35956,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列",
         "流動性不足"
@@ -36002,7 +36002,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高"
       ],
       "history": [
@@ -36046,7 +36046,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍"
+        "PEG過高"
       ],
       "history": [
         {
@@ -36133,7 +36133,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高"
       ],
       "history": [
@@ -36177,7 +36177,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -36222,7 +36222,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高"
       ],
       "history": [
@@ -36266,7 +36266,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -36354,7 +36354,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高"
       ],
       "history": [
@@ -36398,7 +36398,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍"
+        "PEG過高"
       ],
       "history": [
         {
@@ -36441,7 +36441,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -36486,7 +36486,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -36531,7 +36531,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列",
         "流動性不足"
@@ -36577,7 +36577,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高"
       ],
       "history": [
@@ -36621,7 +36621,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -36666,7 +36666,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高"
       ],
       "history": [
@@ -36710,7 +36710,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高",
         "流動性不足"
       ],
@@ -36755,7 +36755,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高"
       ],
       "history": [
@@ -36799,7 +36799,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高"
       ],
       "history": [
@@ -36843,7 +36843,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -36888,7 +36888,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高"
       ],
       "history": [
@@ -36932,7 +36932,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列",
         "流動性不足"
@@ -36978,7 +36978,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高"
       ],
       "history": [
@@ -37022,7 +37022,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -37067,7 +37067,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -37112,7 +37112,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高"
       ],
       "history": [
@@ -37156,7 +37156,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -37201,7 +37201,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -37246,7 +37246,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -37291,7 +37291,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "非多頭排列",
         "流動性不足"
       ],
@@ -37336,7 +37336,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高"
       ],
       "history": [
@@ -37380,7 +37380,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍"
+        "PEG過高"
       ],
       "history": [
         {
@@ -37423,7 +37423,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -37468,7 +37468,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高"
       ],
       "history": [
@@ -37512,7 +37512,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -37557,7 +37557,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -37646,7 +37646,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -37691,7 +37691,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列",
         "流動性不足"
@@ -37737,7 +37737,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍"
+        "PEG過高"
       ],
       "history": [
         {
@@ -37780,7 +37780,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -37825,7 +37825,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列",
         "流動性不足"
@@ -37871,7 +37871,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -37960,7 +37960,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列",
         "流動性不足"
@@ -38006,7 +38006,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高"
       ],
       "history": [
@@ -38050,7 +38050,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -38095,7 +38095,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高"
       ],
       "history": [
@@ -38139,7 +38139,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -38228,7 +38228,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍"
+        "PEG過高"
       ],
       "history": [
         {
@@ -38271,7 +38271,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -38316,7 +38316,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -38361,7 +38361,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -38406,7 +38406,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍"
+        "PEG過高"
       ],
       "history": [
         {
@@ -38449,7 +38449,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高"
       ],
       "history": [
@@ -38493,7 +38493,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列",
         "流動性不足"
@@ -38539,7 +38539,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列",
         "流動性不足"
@@ -38585,7 +38585,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列",
         "流動性不足"
@@ -38631,7 +38631,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -38676,7 +38676,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍"
+        "PEG過高"
       ],
       "history": [
         {
@@ -38719,7 +38719,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍"
+        "PEG過高"
       ],
       "history": [
         {
@@ -38762,7 +38762,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高"
       ],
       "history": [
@@ -38806,7 +38806,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -38851,7 +38851,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -38896,7 +38896,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高"
       ],
       "history": [
@@ -38940,7 +38940,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍"
+        "PEG過高"
       ],
       "history": [
         {
@@ -38983,7 +38983,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -39028,7 +39028,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列",
         "流動性不足"
@@ -39074,7 +39074,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高"
       ],
       "history": [
@@ -39118,7 +39118,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍"
+        "PEG過高"
       ],
       "history": [
         {
@@ -39161,7 +39161,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -39206,7 +39206,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高",
         "非多頭排列",
         "流動性不足"
@@ -39252,7 +39252,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高"
       ],
       "history": [
@@ -39296,7 +39296,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍"
+        "PEG過高"
       ],
       "history": [
         {
@@ -39383,7 +39383,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列",
         "流動性不足"
@@ -39472,7 +39472,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -39517,7 +39517,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍"
+        "PEG過高"
       ],
       "history": [
         {
@@ -39560,7 +39560,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -39649,7 +39649,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高"
       ],
       "history": [
@@ -39693,7 +39693,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "非多頭排列"
       ],
       "history": [
@@ -39737,7 +39737,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -39782,7 +39782,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -39827,7 +39827,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -39872,7 +39872,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高"
       ],
       "history": [
@@ -39916,7 +39916,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍"
+        "PEG過高"
       ],
       "history": [
         {
@@ -39959,7 +39959,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列",
         "流動性不足"
@@ -40005,7 +40005,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -40050,7 +40050,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -40095,7 +40095,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -40140,7 +40140,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -40185,7 +40185,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -40230,7 +40230,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -40275,7 +40275,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高"
       ],
       "history": [
@@ -40319,7 +40319,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍"
+        "PEG過高"
       ],
       "history": [
         {
@@ -40362,7 +40362,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -40407,7 +40407,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高"
       ],
       "history": [
@@ -40451,7 +40451,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高"
       ],
       "history": [
@@ -40538,7 +40538,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -40583,7 +40583,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -40628,7 +40628,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -40673,7 +40673,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -40718,7 +40718,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高"
       ],
       "history": [
@@ -40806,7 +40806,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍"
+        "PEG過高"
       ],
       "history": [
         {
@@ -40849,7 +40849,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -40894,7 +40894,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高"
       ],
       "history": [
@@ -40938,7 +40938,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -40983,7 +40983,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列",
         "流動性不足"
@@ -41029,7 +41029,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列",
         "流動性不足"
@@ -41119,7 +41119,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -41164,7 +41164,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高"
       ],
       "history": [
@@ -41208,7 +41208,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -41253,7 +41253,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高"
       ],
       "history": [
@@ -41341,7 +41341,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -41386,7 +41386,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -41431,7 +41431,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -41476,7 +41476,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高"
       ],
       "history": [
@@ -41563,7 +41563,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -41608,7 +41608,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列",
         "流動性不足"
@@ -41654,7 +41654,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -41699,7 +41699,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "非多頭排列",
         "流動性不足"
       ],
@@ -41744,7 +41744,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -41789,7 +41789,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -41834,7 +41834,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高"
       ],
       "history": [
@@ -41922,7 +41922,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高",
         "非多頭排列",
         "流動性不足"
@@ -41968,7 +41968,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列",
         "流動性不足"
@@ -42014,7 +42014,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍"
+        "PEG過高"
       ],
       "history": [
         {
@@ -42057,7 +42057,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "非多頭排列"
       ],
       "history": [
@@ -42101,7 +42101,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列",
         "流動性不足"
@@ -42147,7 +42147,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高",
         "非多頭排列",
         "流動性不足"
@@ -42193,7 +42193,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高"
       ],
       "history": [
@@ -42237,7 +42237,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -42282,7 +42282,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高"
       ],
       "history": [
@@ -42326,7 +42326,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -42371,7 +42371,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -42416,7 +42416,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高"
       ],
       "history": [
@@ -42460,7 +42460,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍"
+        "PEG過高"
       ],
       "history": [
         {
@@ -42503,7 +42503,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -42548,7 +42548,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -42593,7 +42593,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "流動性不足"
       ],
       "history": [
@@ -42637,7 +42637,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高"
       ],
       "history": [
@@ -42681,7 +42681,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -42726,7 +42726,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -42771,7 +42771,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高"
       ],
       "history": [
@@ -42815,7 +42815,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列",
         "流動性不足"
@@ -42861,7 +42861,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍"
+        "PEG過高"
       ],
       "history": [
         {
@@ -42904,7 +42904,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "流動性不足"
       ],
@@ -42949,7 +42949,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -42994,7 +42994,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -43039,7 +43039,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高"
       ],
       "history": [
@@ -43083,7 +43083,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -43128,7 +43128,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -43173,7 +43173,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高"
       ],
       "history": [
@@ -43217,7 +43217,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -43262,7 +43262,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高"
       ],
       "history": [
@@ -43395,7 +43395,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高"
       ],
       "history": [
@@ -43439,7 +43439,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "非多頭排列"
       ],
       "history": [
@@ -43483,7 +43483,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高"
       ],
       "history": [
@@ -43527,7 +43527,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -43572,7 +43572,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -43617,7 +43617,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高"
       ],
       "history": [
@@ -43661,7 +43661,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高"
       ],
       "history": [
@@ -43705,7 +43705,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列",
         "流動性不足"
@@ -43794,7 +43794,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -43839,7 +43839,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -43884,7 +43884,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -43929,7 +43929,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高"
       ],
       "history": [
@@ -43973,7 +43973,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -44018,7 +44018,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -44063,7 +44063,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -44152,7 +44152,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高"
       ],
       "history": [
@@ -44196,7 +44196,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高"
       ],
       "history": [
@@ -44240,7 +44240,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列",
         "流動性不足"
@@ -44286,7 +44286,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -44331,7 +44331,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列",
         "流動性不足"
@@ -44377,7 +44377,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高"
       ],
       "history": [
@@ -44421,7 +44421,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列",
         "流動性不足"
@@ -44511,7 +44511,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列",
         "流動性不足"
@@ -44557,7 +44557,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高"
       ],
       "history": [
@@ -44601,7 +44601,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列",
         "流動性不足"
@@ -44647,7 +44647,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列",
         "流動性不足"
@@ -44693,7 +44693,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -44738,7 +44738,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -44783,7 +44783,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -44828,7 +44828,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -44873,7 +44873,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -44962,7 +44962,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -45007,7 +45007,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -45052,7 +45052,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高"
       ],
       "history": [
@@ -45096,7 +45096,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "非多頭排列",
         "流動性不足"
       ],
@@ -45141,7 +45141,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高"
       ],
       "history": [
@@ -45185,7 +45185,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高"
       ],
       "history": [
@@ -45229,7 +45229,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -45274,7 +45274,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高"
       ],
       "history": [
@@ -45318,7 +45318,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -45363,7 +45363,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高"
       ],
       "history": [
@@ -45407,7 +45407,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -45452,7 +45452,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高"
       ],
       "history": [
@@ -45496,7 +45496,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -45541,7 +45541,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列",
         "流動性不足"
@@ -45587,7 +45587,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高"
       ],
       "history": [
@@ -45631,7 +45631,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高"
       ],
       "history": [
@@ -45675,7 +45675,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -45764,7 +45764,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -45809,7 +45809,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -45854,7 +45854,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -45899,7 +45899,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高"
       ],
       "history": [
@@ -45943,7 +45943,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -46031,7 +46031,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高",
         "非多頭排列",
         "流動性不足"
@@ -46077,7 +46077,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列",
         "流動性不足"
@@ -46123,7 +46123,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高"
       ],
       "history": [
@@ -46211,7 +46211,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高"
       ],
       "history": [
@@ -46255,7 +46255,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -46300,7 +46300,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -46345,7 +46345,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -46390,7 +46390,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -46435,7 +46435,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -46480,7 +46480,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高"
       ],
       "history": [
@@ -46524,7 +46524,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -46569,7 +46569,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -46614,7 +46614,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -46659,7 +46659,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -46704,7 +46704,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高"
       ],
       "history": [
@@ -46748,7 +46748,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高"
       ],
       "history": [
@@ -46792,7 +46792,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -46837,7 +46837,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -46882,7 +46882,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高"
       ],
       "history": [
@@ -46926,7 +46926,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高"
       ],
       "history": [
@@ -47014,7 +47014,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -47059,7 +47059,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高"
       ],
       "history": [
@@ -47103,7 +47103,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -47148,7 +47148,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -47193,7 +47193,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -47238,7 +47238,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -47283,7 +47283,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -47328,7 +47328,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -47373,7 +47373,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列",
         "流動性不足"
@@ -47419,7 +47419,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高"
       ],
       "history": [
@@ -47507,7 +47507,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -47552,7 +47552,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -47597,7 +47597,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高"
       ],
       "history": [
@@ -47641,7 +47641,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高"
       ],
       "history": [
@@ -47685,7 +47685,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -47730,7 +47730,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高"
       ],
       "history": [
@@ -47818,7 +47818,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列",
         "流動性不足"
@@ -47864,7 +47864,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "流動性不足"
       ],
@@ -47909,7 +47909,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "流動性不足"
       ],
@@ -47954,7 +47954,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高",
         "非多頭排列",
         "流動性不足"
@@ -48000,7 +48000,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列",
         "流動性不足"
@@ -48046,7 +48046,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列",
         "流動性不足"
@@ -48092,7 +48092,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高"
       ],
       "history": [
@@ -48136,7 +48136,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -48181,7 +48181,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -48226,7 +48226,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高",
         "非多頭排列",
         "流動性不足"
@@ -48272,7 +48272,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高"
       ],
       "history": [
@@ -48316,7 +48316,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -48361,7 +48361,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -48450,7 +48450,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -48495,7 +48495,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列",
         "流動性不足"
@@ -48541,7 +48541,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -48586,7 +48586,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高",
         "非多頭排列",
         "流動性不足"
@@ -48632,7 +48632,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -48677,7 +48677,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高"
       ],
       "history": [
@@ -48721,7 +48721,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -48854,7 +48854,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高"
       ],
       "history": [
@@ -48898,7 +48898,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列",
         "流動性不足"
@@ -48944,7 +48944,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -48989,7 +48989,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -49034,7 +49034,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -49079,7 +49079,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高"
       ],
       "history": [
@@ -49123,7 +49123,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍"
+        "PEG過低"
       ],
       "history": [
         {
@@ -49209,7 +49209,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -49254,7 +49254,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高"
       ],
       "history": [
@@ -49298,7 +49298,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高"
       ],
       "history": [
@@ -49386,7 +49386,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高"
       ],
       "history": [
@@ -49430,7 +49430,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列",
         "流動性不足"
@@ -49476,7 +49476,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -49521,7 +49521,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列",
         "流動性不足"
@@ -49567,7 +49567,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -49656,7 +49656,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列",
         "流動性不足"
@@ -49702,7 +49702,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -49747,7 +49747,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -49792,7 +49792,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -49837,7 +49837,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高",
         "非多頭排列",
         "流動性不足"
@@ -49883,7 +49883,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -49928,7 +49928,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列",
         "流動性不足"
@@ -49974,7 +49974,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -50019,7 +50019,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -50064,7 +50064,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -50109,7 +50109,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -50154,7 +50154,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列",
         "流動性不足"
@@ -50200,7 +50200,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列",
         "流動性不足"
@@ -50246,7 +50246,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -50291,7 +50291,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高"
       ],
       "history": [
@@ -50335,7 +50335,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -50380,7 +50380,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -50425,7 +50425,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -50470,7 +50470,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -50515,7 +50515,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -50560,7 +50560,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -50605,7 +50605,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -50650,7 +50650,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列",
         "流動性不足"
@@ -50696,7 +50696,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列",
         "流動性不足"
@@ -50742,7 +50742,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "非多頭排列",
         "流動性不足"
       ],
@@ -50787,7 +50787,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -50832,7 +50832,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -50877,7 +50877,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -50922,7 +50922,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -50967,7 +50967,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -51012,7 +51012,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -51057,7 +51057,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -51102,7 +51102,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高"
       ],
       "history": [
@@ -51146,7 +51146,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高",
         "流動性不足"
       ],
@@ -51191,7 +51191,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -51236,7 +51236,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -51281,7 +51281,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -51371,7 +51371,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -51416,7 +51416,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列",
         "流動性不足"
@@ -51462,7 +51462,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -51507,7 +51507,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -51552,7 +51552,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -51597,7 +51597,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -51642,7 +51642,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -51687,7 +51687,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高"
       ],
       "history": [
@@ -51731,7 +51731,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -51776,7 +51776,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高"
       ],
       "history": [
@@ -51820,7 +51820,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高"
       ],
       "history": [
@@ -51908,7 +51908,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -51953,7 +51953,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高"
       ],
       "history": [
@@ -51997,7 +51997,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列",
         "流動性不足"
@@ -52043,7 +52043,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -52088,7 +52088,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列",
         "流動性不足"
@@ -52134,7 +52134,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -52267,7 +52267,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -52312,7 +52312,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -52357,7 +52357,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -52402,7 +52402,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -52447,7 +52447,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列",
         "流動性不足"
@@ -52493,7 +52493,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -52538,7 +52538,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -52583,7 +52583,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -52628,7 +52628,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -52673,7 +52673,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "非多頭排列"
       ],
       "history": [
@@ -52717,7 +52717,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高"
       ],
       "history": [
@@ -52761,7 +52761,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高",
         "非多頭排列",
         "流動性不足"
@@ -52807,7 +52807,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -52852,7 +52852,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列",
         "流動性不足"
@@ -52898,7 +52898,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -52943,7 +52943,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高"
       ],
       "history": [
@@ -52987,7 +52987,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -53032,7 +53032,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -53077,7 +53077,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -53166,7 +53166,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -53211,7 +53211,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -53256,7 +53256,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -53301,7 +53301,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -53346,7 +53346,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -53391,7 +53391,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -53436,7 +53436,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "流動性不足"
       ],
@@ -53524,7 +53524,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高",
         "非多頭排列",
         "流動性不足"
@@ -53570,7 +53570,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -53615,7 +53615,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列",
         "流動性不足"
@@ -53661,7 +53661,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -53706,7 +53706,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高"
       ],
       "history": [
@@ -53750,7 +53750,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -53795,7 +53795,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -53840,7 +53840,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列",
         "流動性不足"
@@ -53886,7 +53886,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列",
         "流動性不足"
@@ -53932,7 +53932,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "非多頭排列"
       ],
       "history": [
@@ -53976,7 +53976,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -54021,7 +54021,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -54066,7 +54066,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -54111,7 +54111,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -54156,7 +54156,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -54201,7 +54201,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -54246,7 +54246,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -54291,7 +54291,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -54336,7 +54336,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列",
         "流動性不足"
@@ -54382,7 +54382,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列",
         "流動性不足"
@@ -54428,7 +54428,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -54473,7 +54473,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -54518,7 +54518,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -54563,7 +54563,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列",
         "流動性不足"
@@ -54609,7 +54609,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -54654,7 +54654,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "非多頭排列",
         "流動性不足"
       ],
@@ -54699,7 +54699,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -54744,7 +54744,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -54789,7 +54789,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列",
         "流動性不足"
@@ -54835,7 +54835,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -54880,7 +54880,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -54925,7 +54925,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -54970,7 +54970,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高",
         "非多頭排列",
         "流動性不足"
@@ -55016,7 +55016,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列",
         "流動性不足"
@@ -55062,7 +55062,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -55107,7 +55107,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高"
       ],
       "history": [
@@ -55151,7 +55151,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -55196,7 +55196,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -55241,7 +55241,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -55286,7 +55286,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列",
         "流動性不足"
@@ -55332,7 +55332,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -55377,7 +55377,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -55422,7 +55422,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -55467,7 +55467,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -55512,7 +55512,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -55557,7 +55557,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -55602,7 +55602,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -55647,7 +55647,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -55692,7 +55692,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -55737,7 +55737,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -55782,7 +55782,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "非多頭排列"
       ],
       "history": [
@@ -55826,7 +55826,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "非多頭排列"
       ],
       "history": [
@@ -55870,7 +55870,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -55915,7 +55915,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -55960,7 +55960,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -56005,7 +56005,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -56050,7 +56050,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -56095,7 +56095,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -56140,7 +56140,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -56185,7 +56185,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -56230,7 +56230,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列",
         "流動性不足"
@@ -56276,7 +56276,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -56321,7 +56321,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -56366,7 +56366,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -56411,7 +56411,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列",
         "流動性不足"
@@ -56457,7 +56457,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -56502,7 +56502,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -56547,7 +56547,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -56592,7 +56592,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -56637,7 +56637,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -56682,7 +56682,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -56727,7 +56727,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -56772,7 +56772,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列",
         "流動性不足"
@@ -56818,7 +56818,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列",
         "流動性不足"
@@ -56864,7 +56864,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -56909,7 +56909,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -56954,7 +56954,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "非多頭排列"
       ],
       "history": [
@@ -56998,7 +56998,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -57043,7 +57043,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高"
       ],
       "history": [
@@ -57087,7 +57087,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列",
         "流動性不足"
@@ -57133,7 +57133,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -57178,7 +57178,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "非多頭排列",
         "流動性不足"
       ],
@@ -57223,7 +57223,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -57268,7 +57268,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -57313,7 +57313,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列",
         "流動性不足"
@@ -57359,7 +57359,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -57404,7 +57404,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -57449,7 +57449,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -57494,7 +57494,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -57539,7 +57539,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -57584,7 +57584,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -57629,7 +57629,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高"
       ],
       "history": [
@@ -57673,7 +57673,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -57718,7 +57718,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -57763,7 +57763,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -57808,7 +57808,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "非多頭排列",
         "流動性不足"
       ],
@@ -57853,7 +57853,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -57898,7 +57898,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列",
         "流動性不足"
@@ -57944,7 +57944,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -57989,7 +57989,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列",
         "流動性不足"
@@ -58035,7 +58035,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -58080,7 +58080,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -58125,7 +58125,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過高",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -58170,7 +58170,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -58215,7 +58215,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -58260,7 +58260,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -58305,7 +58305,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -58350,7 +58350,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列",
         "流動性不足"
@@ -58396,7 +58396,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -58441,7 +58441,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -58486,7 +58486,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -58531,7 +58531,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -58576,7 +58576,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列",
         "流動性不足"
@@ -58622,7 +58622,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -58667,7 +58667,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -58712,7 +58712,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列",
         "流動性不足"
@@ -58758,7 +58758,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -58803,7 +58803,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -58848,7 +58848,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列",
         "流動性不足"
@@ -58894,7 +58894,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -58939,7 +58939,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -58984,7 +58984,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列",
         "流動性不足"
@@ -59030,7 +59030,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "非多頭排列"
       ],
       "history": [
@@ -59074,7 +59074,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -59119,7 +59119,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -59164,7 +59164,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -59209,7 +59209,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列",
         "流動性不足"
@@ -59255,7 +59255,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列",
         "流動性不足"
@@ -59301,7 +59301,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列",
         "流動性不足"
@@ -59347,7 +59347,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -59392,7 +59392,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -59437,7 +59437,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列",
         "流動性不足"
@@ -59483,7 +59483,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -59528,7 +59528,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -59573,7 +59573,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -59618,7 +59618,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -59663,7 +59663,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -59708,7 +59708,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列",
         "流動性不足"
@@ -59754,7 +59754,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -59799,7 +59799,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -59844,7 +59844,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列",
         "流動性不足"
@@ -59890,7 +59890,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -59935,7 +59935,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -59980,7 +59980,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -60025,7 +60025,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列"
       ],
@@ -60070,7 +60070,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "PEG不在範圍",
+        "PEG過低",
         "營收未創新高",
         "非多頭排列",
         "流動性不足"
