@@ -187,16 +187,16 @@ function ScoreModal({ stock, onClose }) {
 
           {stock.passed_filter ? (
             <div className="mt-6 rounded-2xl border border-emerald-100 bg-emerald-50 px-4 py-3 text-sm text-emerald-600">
-          已通過選股條件
-          </div>
-) : (
-  stock.failed_conditions && stock.failed_conditions.length > 0 && (
-    <div className="mt-6 rounded-2xl border border-red-100 bg-red-50 px-4 py-3 text-sm text-red-600">
-      <div className="font-bold mb-1">未通過原因</div>
-      <div>{stock.failed_conditions.join('、')}</div>
-    </div>
-  )
-)}
+              已通過選股條件
+            </div>
+          ) : (
+            stock.failed_conditions && stock.failed_conditions.length > 0 && (
+              <div className="mt-6 rounded-2xl border border-red-100 bg-red-50 px-4 py-3 text-sm text-red-600">
+                <div className="font-bold mb-1">未通過原因</div>
+                <div>{stock.failed_conditions.join('、')}</div>
+              </div>
+            )
+          )}
         </div>
       </div>
     </div>,
@@ -286,6 +286,7 @@ export default function RankList({ title, rows, defaultSortKey, sortableFields, 
   const [sortKey, setSortKey] = useState(normalizedDefaultSortKey)
   const [sortDirection, setSortDirection] = useState(DEFAULT_SORT_DIRECTION)
   const [selectedStock, setSelectedStock] = useState(null)
+  const [search, setSearch] = useState('')
 
   const isModalOpen = !!selectedStock
 
@@ -299,8 +300,27 @@ export default function RankList({ title, rows, defaultSortKey, sortableFields, 
     return new Set(sortableFields.filter(f => SORTABLE_FIELD_SET.has(f)))
   }, [sortableFields])
 
-  const sortedRows = useMemo(() => {
+  const filteredRows = useMemo(() => {
     const safeRows = Array.isArray(rows) ? rows : []
+    const keyword = search.trim().toLowerCase()
+
+    if (!keyword) return safeRows
+
+    return safeRows.filter(row => {
+      const stockId = String(row?.stock_id ?? '').toLowerCase()
+      const name = String(row?.name ?? '').toLowerCase()
+      const fullName = String(row?.full_name ?? '').toLowerCase()
+
+      return (
+        stockId.includes(keyword) ||
+        name.includes(keyword) ||
+        fullName.includes(keyword)
+      )
+    })
+  }, [rows, search])
+
+  const sortedRows = useMemo(() => {
+    const safeRows = Array.isArray(filteredRows) ? filteredRows : []
     const activeSortKey = normalizeSortKey(sortKey, [...allowedSortableFields])
 
     if (isFilteredRankList && activeSortKey === 'rank_change' && sortDirection === 'new') {
@@ -323,7 +343,7 @@ export default function RankList({ title, rows, defaultSortKey, sortableFields, 
     }
 
     return [...safeRows].sort((a, b) => compareRows(a, b, activeSortKey, sortDirection))
-  }, [allowedSortableFields, isFilteredRankList, rows, sortDirection, sortKey])
+  }, [allowedSortableFields, isFilteredRankList, filteredRows, sortDirection, sortKey])
 
   const handleSortChange = nextSortKey => {
     if (!allowedSortableFields.has(nextSortKey)) return
@@ -357,7 +377,19 @@ export default function RankList({ title, rows, defaultSortKey, sortableFields, 
       <div className="z-40 border-b border-zinc-200 bg-white">
         <div className="flex w-full items-center justify-between gap-3 px-4 py-3 shadow-sm">
           <div className="text-sm font-semibold text-zinc-900">{title}</div>
-          <div className="text-xs text-zinc-500">共 {sortedRows.length} 筆</div>
+
+          <div className="flex items-center gap-3">
+            <input
+              value={search}
+              onChange={e => setSearch(e.target.value)}
+              placeholder="搜尋 2330 / 台積電"
+              className="h-8 w-48 rounded-lg border border-zinc-200 px-3 text-sm text-zinc-700 placeholder:text-zinc-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+
+            <div className="text-xs text-zinc-500">
+              共 {sortedRows.length} 筆
+            </div>
+          </div>
         </div>
       </div>
 
@@ -432,7 +464,7 @@ export default function RankList({ title, rows, defaultSortKey, sortableFields, 
                   className={`grid ${gridCols} items-center gap-1 px-4 py-4 hover:bg-zinc-50`}
                 >
                   <div className="text-center text-sm font-semibold tabular-nums">
-                    {formatMaybeNumber(index + 1)}
+                    {formatMaybeNumber(row.base_rank)}
                   </div>
 
                   <div className={`${STOCK_CELL_LAYOUT_CLASS} text-left text-sm tabular-nums`}>
