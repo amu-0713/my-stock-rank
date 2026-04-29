@@ -2,17 +2,16 @@ name: 每日自動更新量化排名
 
 on:
   schedule:
-    - cron: '30 11 * * *'      # 台灣時間晚上 7:30
-  workflow_dispatch:
+    - cron: '0 11 * * *'      # 台灣時間晚上 7:00（UTC 11:00）
+  workflow_dispatch:          # 允許手動執行
 
-# 關鍵：加入權限設定
 permissions:
   contents: write
 
 jobs:
   update:
     runs-on: ubuntu-latest
-
+    
     steps:
       - name: Checkout 最新程式碼
         uses: actions/checkout@v4
@@ -34,5 +33,5 @@ jobs:
         uses: EndBug/add-and-commit@v10
         with:
           add: 'public/result.json'
-          message: '🤖 每日自動更新 result.json (晚上7:30)'
+          message: '🤖 每日自動更新 result.json (19:00)'
           default_author: github_actions
