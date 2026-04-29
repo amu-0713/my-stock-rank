@@ -9,6 +9,7 @@ from datetime import datetime
 
 print("🚀 GitHub Actions 一鍵更新開始...")
 
+# FinLab 登入
 finlab_token = os.environ.get('FINLAB_TOKEN')
 if finlab_token:
     finlab.login(finlab_token)
@@ -100,7 +101,7 @@ full_score_matrix = (r_rs_all.mul(w_rs_dyn, axis=0).fillna(0) +
                      r_dd_all.mul(w_dd_dyn, axis=0).fillna(0))
 
 # =============================================================================
-# JSON 產生部分
+# JSON 產生部分（完整版）
 # =============================================================================
 print("🔄 產生最新排名...")
 
@@ -109,6 +110,7 @@ valid_dates = score.index.intersection(peg.index).intersection(dd.index)\
 latest_dt = valid_dates.max()
 print(f"✅ 使用最新資料日期: {latest_dt.date()}")
 
+# 季度基準日
 curr_year, curr_month = latest_dt.year, latest_dt.month
 if 4 <= curr_month < 7:
     rebalance_date_str = f"{curr_year}-03-31"
@@ -126,6 +128,7 @@ company_info = data.get("company_basic_info").set_index("stock_id")
 company_short_name_map = company_info["公司簡稱"]
 company_full_name_map = company_info["公司名稱"]
 
+# 共用函數
 def score_to_display(val):
     if pd.isna(val): return 0.0
     return round(float(60 + (val - 0.3) / 0.7 * 40), 2)
@@ -218,10 +221,11 @@ def add_history_to_items(items):
         item["history"] = history_list[::-1]
     return items
 
+# ====================== 產生排名 ======================
 # 今日分數
-r_rs_today   = rs_fixed.loc[latest_dt].rank(pct=True)
-r_peg_today  = (1 / peg).loc[latest_dt].rank(pct=True)
-r_dd_today   = (-dd).loc[latest_dt].rank(pct=True)
+r_rs_today = rs_fixed.loc[latest_dt].rank(pct=True)
+r_peg_today = (1 / peg).loc[latest_dt].rank(pct=True)
+r_dd_today = (-dd).loc[latest_dt].rank(pct=True)
 r_corr_today = (-corr_mkt).loc[latest_dt].rank(pct=True)
 
 curr_regime = regime.loc[latest_dt]
@@ -252,7 +256,7 @@ if compare_dt is not None and compare_dt in valid_dates:
     df_m_prev = df_m_prev[df_m_prev["score"] > 0]
     prev_market_rank_map = build_rank_map(df_m_prev)
 
-# 產生三種排名
+# 產生三種排名（完整）
 df_h = pd.DataFrame({
     "score": score_raw_today.reindex(fixed_hold_ids),
     "close": price.loc[latest_dt].reindex(fixed_hold_ids),
