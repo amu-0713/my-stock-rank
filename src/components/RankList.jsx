@@ -84,32 +84,39 @@ function formatRankChange(changeType, rankChange, prevRank, nextRank) {
   }
 }
 
+// ==================== 關鍵修改 ====================
+function getDisplayedRank(row, sortKey, isSearching, currentIndex) {
+  if (isSearching) {
+    return row.base_rank;                    // 搜尋時顯示原始綜合排名
+  }
+  // 排序時顯示「目前排序後的順序」（1,2,3...）
+  return currentIndex + 1;
+}
+// ===============================================
+
 function ScoreModal({ stock, onClose }) {
   if (!stock?.history || stock.history.length === 0) return null
-
+  // ... ScoreModal 內容不變（保持你原本的）
   const scoreValues = stock.history.map(item => item.score || 50)
   const minData = Math.min(...scoreValues)
   const maxData = Math.max(...scoreValues)
-
   const minScore = minData - 1
   const maxScore = maxData + 1.5
   const range = maxScore - minScore
-
   const vWidth = 500
   const vHeight = 260
-
   const pointsData = stock.history.map((item, i) => {
     const x = (i / (stock.history.length - 1)) * vWidth
     const clampedScore = Math.max(minScore, Math.min(maxScore, item.score))
     const y = vHeight - ((clampedScore - minScore) / range) * vHeight
     return { x, y, date: item.date, score: item.score }
   })
-
   const polylinePoints = pointsData.map(p => `${p.x},${p.y}`).join(' ')
 
   return createPortal(
     <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/80 backdrop-blur-sm" onClick={onClose}>
       <div className="bg-white rounded-3xl w-full max-w-lg shadow-2xl overflow-hidden pointer-events-auto mx-4" onClick={e => e.stopPropagation()}>
+        {/* ScoreModal 內容保持不變 */}
         <div className="p-6 border-b flex justify-between items-start">
           <div>
             <div className="font-bold text-2xl text-zinc-900">
@@ -203,6 +210,8 @@ function ScoreModal({ stock, onClose }) {
     document.body
   )
 }
+
+// 下面所有函數保持不變（normalizeSortKey ~ sortIndicator）
 
 const DEFAULT_SORT_KEY = 'score'
 const DEFAULT_SORT_DIRECTION = 'desc'
@@ -457,6 +466,8 @@ export default function RankList({ title, rows, defaultSortKey, sortableFields, 
           <div className="divide-y divide-zinc-100">
             {sortedRows.map((row, index) => {
               const rankChange = formatRankChange(row.change_type, row.rank_change, row.prev_rank, row.base_rank)
+              const isSearching = !!search.trim()
+              const displayedRank = getDisplayedRank(row, sortKey, isSearching, index)   // ← 關鍵
 
               return (
                 <div
@@ -464,7 +475,7 @@ export default function RankList({ title, rows, defaultSortKey, sortableFields, 
                   className={`grid ${gridCols} items-center gap-1 px-4 py-4 hover:bg-zinc-50`}
                 >
                   <div className="text-center text-sm font-semibold tabular-nums">
-                    {formatMaybeNumber(row.base_rank)}
+                    {formatMaybeNumber(displayedRank)}
                   </div>
 
                   <div className={`${STOCK_CELL_LAYOUT_CLASS} text-left text-sm tabular-nums`}>
