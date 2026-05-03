@@ -1,7 +1,16 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 export default function AppSidebarLayout({ children, contentClassName = 'max-w-6xl' }) {
-  const [sidebarOpen, setSidebarOpen] = useState(true)
+  // 從 localStorage 讀取上次狀態，預設為開啟
+  const [sidebarOpen, setSidebarOpen] = useState(() => {
+    const saved = localStorage.getItem('sidebarOpen')
+    return saved !== null ? saved === 'true' : true
+  })
+
+  // 狀態改變時存到 localStorage
+  useEffect(() => {
+    localStorage.setItem('sidebarOpen', sidebarOpen)
+  }, [sidebarOpen])
 
   return (
     <div className="fixed inset-0 overflow-hidden bg-zinc-50">
