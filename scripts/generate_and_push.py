@@ -304,7 +304,7 @@ market_rank = add_history_to_items(market_rank)
 
 # 最終存檔
 result_json = {
-    "latest_date": str(latest_dt.date()),
+    "latest_date": latest_dt.strftime('%Y-%m-%d %H:%M'),  # 包含日期 + 時間
     "compare_date": str(compare_dt.date()) if compare_dt else None,
     "rebalance_base_date": str(real_rebalance_dt.date()),
     "current_holdings_rank": current_holdings_rank,
