@@ -77,14 +77,15 @@ export default function HomePage() {
               <dt className="text-zinc-500">最近更新時間</dt>
               <dd>
                 {data?.latest_date 
-                  ? new Date(data.latest_date).toLocaleString('zh-TW', { 
-                      year: 'numeric', 
-                      month: '2-digit', 
-                      day: '2-digit', 
-                      hour: '2-digit', 
-                      minute: '2-digit' 
-                    }) 
-                  : '—'}
+                ? new Date(data.latest_date).toLocaleString('zh-TW', { 
+                    year: 'numeric', 
+                    month: '2-digit', 
+                    day: '2-digit', 
+                    hour: '2-digit', 
+                    minute: '2-digit',
+                    hour12: false   // 關鍵：強制24小時制
+                  }) 
+                : '—'}
               </dd>
             </div>
             <div className="flex flex-wrap gap-x-2 gap-y-0.5">
