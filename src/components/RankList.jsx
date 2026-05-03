@@ -276,10 +276,10 @@ export default function RankList({ title, rows, defaultSortKey, sortableFields, 
   const showFilterColumn = !isFilteredRankList
 
   const gridCols = showFilterColumn
-    ? 'grid-cols-[72px_minmax(180px,280px)_92px_84px_84px_84px_130px_70px]'
-    : 'grid-cols-[72px_minmax(180px,280px)_92px_84px_84px_84px_190px]'
+    ? 'grid-cols-[64px_minmax(150px,220px)_80px_75px_75px_75px_110px_60px]'
+    : 'grid-cols-[64px_minmax(150px,220px)_80px_75px_75px_75px_160px]'
 
-  const minWidth = showFilterColumn ? 'min-w-[850px]' : 'min-w-[780px]'
+  const minWidth = showFilterColumn ? 'min-w-[760px]' : 'min-w-[700px]'
 
   const formattedCompareDate = formatCompareDate(compareDate)
   const changeHeaderText =
