@@ -6,6 +6,7 @@ import numpy as np
 import json
 from pathlib import Path
 from datetime import datetime
+from zoneinfo import ZoneInfo
 
 print("🚀 GitHub Actions 一鍵更新開始...")
 
@@ -304,14 +305,13 @@ market_rank = add_history_to_items(market_rank)
 
 # 最終存檔
 result_json = {
-    "latest_date": datetime.now().strftime('%Y/%m/%d %H:%M'),  # 真實執行時間
+    "latest_date": datetime.now(ZoneInfo("Asia/Taipei")).strftime('%Y-%m-%d %H:%M'),  # 台灣時間
     "compare_date": str(compare_dt.date()) if compare_dt else None,
     "rebalance_base_date": str(real_rebalance_dt.date()),
     "current_holdings_rank": current_holdings_rank,
     "filtered_rank": filtered_rank,
     "market_rank": market_rank
 }
-
 output_path = Path("public/result.json")
 output_path.parent.mkdir(parents=True, exist_ok=True)
 
