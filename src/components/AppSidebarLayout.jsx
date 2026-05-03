@@ -85,7 +85,7 @@ export default function AppSidebarLayout({ children, contentClassName = 'max-w-6
         `}
       >
         <div
-          className={`mx-auto w-full ${contentClassName} px-4 py-6 sm:px-6 sm:py-10 lg:px-8`}
+          className={`mx-auto w-full ${contentClassName} px-4 pt-14 pb-6 sm:px-6 sm:pt-10 sm:py-10 lg:px-8`}
         >
           {children}
         </div>
