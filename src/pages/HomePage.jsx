@@ -7,7 +7,7 @@ const PLATFORM_LAST_UPDATED_PLACEHOLDER = '2026-04-18 15:30'
 export default function HomePage() {
   return (
     <AppSidebarLayout contentClassName="max-w-6xl">
-      <div id="top">
+      <div id="top" className="pt-14 sm:pt-0">
       <header className="border-b border-zinc-200/80 pb-8">
         <h1 className="text-2xl font-semibold tracking-tight text-zinc-900 sm:text-[1.65rem]">
           量化選股策略排名
