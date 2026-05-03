@@ -279,7 +279,7 @@ export default function RankList({ title, rows, defaultSortKey, sortableFields, 
     ? 'grid-cols-[64px_minmax(150px,220px)_80px_75px_75px_75px_110px_60px]'
     : 'grid-cols-[64px_minmax(150px,220px)_80px_75px_75px_75px_160px]'
 
-  const minWidth = showFilterColumn ? 'min-w-[760px]' : 'min-w-[700px]'
+  const minWidth = showFilterColumn ? 'min-w-[740px]' : 'min-w-[680px]'
 
   const formattedCompareDate = formatCompareDate(compareDate)
   const changeHeaderText =
@@ -382,7 +382,7 @@ export default function RankList({ title, rows, defaultSortKey, sortableFields, 
   }
 
   return (
-    <div className={`isolate flex h-full min-h-0 flex-col overflow-hidden rounded-2xl border border-zinc-200 bg-white shadow-sm ${isModalOpen ? 'pointer-events-none' : ''}`}>
+    <div className={`isolate flex h-full min-h-0 flex-col overflow-hidden rounded-2xl border border-zinc-200 bg-white shadow-sm max-w-[960px] mx-auto ${isModalOpen ? 'pointer-events-none' : ''}`}>
       <div className="z-40 border-b border-zinc-200 bg-white">
         <div className="flex w-full items-center justify-between gap-3 px-4 py-3 shadow-sm">
           <div className="text-sm font-semibold text-zinc-900">{title}</div>
@@ -403,7 +403,7 @@ export default function RankList({ title, rows, defaultSortKey, sortableFields, 
       </div>
 
       <div className="min-h-0 flex-1 overflow-auto -webkit-overflow-scrolling-touch">
-        <div className={minWidth}>
+        <div className={`${minWidth}`}>
           <div className={`sticky top-0 z-10 grid ${gridCols} items-center gap-1 border-b border-zinc-200 bg-white px-4 py-4 text-sm font-semibold text-zinc-600 shadow-sm`}>
             <div className="flex min-h-[52px] items-center justify-center text-center">{TEXT.rank}</div>
 
