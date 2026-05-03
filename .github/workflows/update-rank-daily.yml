@@ -2,7 +2,7 @@ name: 每日自動更新量化排名
 
 on:
   schedule:
-    - cron: '0 11 * * *'      # 台灣時間晚上 7:00（UTC 11:00）
+    - cron: '0 8 * * *'      # 台灣時間晚上 7:00（UTC 11:00）
   workflow_dispatch:          # 允許手動執行
 
 permissions:
