@@ -88,8 +88,8 @@ export default function StrategyPage() {
   const title = STRATEGY_TITLES[id] ?? `策略${id}`
 
   return (
-    <AppSidebarLayout contentClassName="max-w-6xl">
-      <div className="flex h-[calc(100vh-3rem)] min-h-0 flex-col sm:h-[calc(100vh-5rem)]">
+    <AppSidebarLayout contentClassName="max-w-[960px] mx-auto">
+      <div className="flex h-[calc(100vh-3rem)] min-h-0 flex-col sm:h-[calc(100vh-5rem)] max-w-[960px] mx-auto">
         <div className="sticky top-0 z-50 space-y-4 border-b border-zinc-200 bg-zinc-50 pb-4 shadow-sm sm:space-y-6 sm:pb-6">
           <div className="flex items-start justify-between gap-3">
             <div>
