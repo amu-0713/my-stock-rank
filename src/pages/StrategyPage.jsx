@@ -93,8 +93,8 @@ export default function StrategyPage() {
         <div className="sticky top-0 z-50 space-y-4 border-b border-zinc-200 bg-zinc-50 pb-4 shadow-sm sm:space-y-6 sm:pb-6">
           <div className="flex items-start justify-between gap-3">
             <div>
-              <div className="text-lg font-semibold sm:text-xl">{title}</div>
-              <div className="mt-1 text-xs text-zinc-600 sm:text-sm">{strategyHeaderText}</div>
+              <div className="pl-4 text-lg font-semibold sm:text-xl">{title}</div>
+              <div className="mt-1 pl-4 text-xs text-zinc-600 sm:text-sm">{strategyHeaderText}</div>
             </div>
 
             <div className="flex shrink-0 items-center gap-2">
