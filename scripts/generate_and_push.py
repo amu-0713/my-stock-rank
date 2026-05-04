@@ -160,7 +160,27 @@ score_raw_today = r_rs_today * w["rs"] + r_peg_today * w["peg"] + r_corr_today *
 
 compare_dt = get_compare_dt(valid_dates, latest_dt, days=7)
 
-# （這裡省略了上週比較的完整邏輯，先用簡單版跑通，你之後再補完整）
+if compare_dt is not None:
+    # 使用你原本的比較邏輯（只補這部分）
+    r_rs_prev = rs_fixed.loc[compare_dt].rank(pct=True)
+    r_peg_prev = (1 / peg).loc[compare_dt].rank(pct=True)
+    r_dd_prev = (-dd).loc[compare_dt].rank(pct=True)
+    r_corr_prev = (-corr_mkt).loc[compare_dt].rank(pct=True)
+    
+    prev_regime = regime.loc[compare_dt]
+    w_prev = weights.apply(lambda x: x[prev_regime])
+    score_raw_prev = r_rs_prev * w_prev["rs"] + r_peg_prev * w_prev["peg"] + r_corr_prev * w_prev["corr"] + r_dd_prev * w_prev["dd"]
+    
+    df_h_prev = pd.DataFrame({"score": score_raw_prev.reindex(fixed_hold_ids)})
+    prev_current_holdings_rank_map = build_rank_map(df_h_prev)
+    
+    filtered_ids_prev = final_cond.loc[compare_dt][final_cond.loc[compare_dt]].index
+    df_f_prev = pd.DataFrame({"score": score_raw_prev.reindex(filtered_ids_prev)})
+    prev_filtered_rank_map = build_rank_map(df_f_prev)
+    
+    df_m_prev = pd.DataFrame({"score": score_raw_prev})
+    df_m_prev = df_m_prev[df_m_prev["score"] > 0]
+    prev_market_rank_map = build_rank_map(df_m_prev)
 
 df_h = pd.DataFrame({
     "score": score_raw_today.reindex(fixed_hold_ids),
