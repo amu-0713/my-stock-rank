@@ -1,9 +1,9 @@
-name: 每日自動更新量化排名
+name: 每日自動更新排名與圖表
 
 on:
   schedule:
-    - cron: '0 8 * * *'      # 台灣時間晚上 7:00（UTC 11:00）
-  workflow_dispatch:          # 允許手動執行
+    - cron: '0 8 * * *'   # 台灣時間晚上 7:30
+  workflow_dispatch:        # 允許手動執行
 
 permissions:
   contents: write
@@ -22,16 +22,21 @@ jobs:
           python-version: '3.11'
 
       - name: 安裝依賴
-        run: pip install finlab pandas numpy
+        run: pip install finlab pandas numpy plotly kaleido
 
-      - name: 執行更新腳本
+      - name: 執行排名更新 (result.json)
         env:
           FINLAB_TOKEN: ${{ secrets.FINLAB_TOKEN }}
         run: python scripts/generate_and_push.py
 
-      - name: Commit & Push result.json
+      - name: 執行圖表生成
+        env:
+          FINLAB_TOKEN: ${{ secrets.FINLAB_TOKEN }}
+        run: python scripts/chart_generator.py
+
+      - name: Commit & Push 更新
         uses: EndBug/add-and-commit@v10
         with:
-          add: 'public/result.json'
-          message: '🤖 每日自動更新 result.json (19:00)'
+          add: 'public/'
+          message: '🤖 每日自動更新排名與圖表'
           default_author: github_actions
