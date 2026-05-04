@@ -3,7 +3,6 @@ import pandas as pd
 import numpy as np
 from finlab import data
 from finlab.backtest import sim
-from datetime import datetime
 
 def run_full_backtest():
     print("🚀 執行完整回測 (shared_backtest.py)...")
@@ -11,20 +10,19 @@ def run_full_backtest():
     # =============================================================================
     # 一、資料抓取與基礎指標計算
     # =============================================================================
-    price  = data.get('price:收盤價').loc['2006':'2026']
+    price = data.get('price:收盤價').loc['2006':'2026']
     open_p = data.get('price:開盤價').loc['2006':'2026']
-    pe     = data.get('price_earning_ratio:本益比').loc['2006':'2026']
-    rev_m  = data.get('monthly_revenue:當月營收').loc['2006':'2026']
-    vol    = data.get('price:成交金額').loc['2006':'2026']
-
+    pe = data.get('price_earning_ratio:本益比').loc['2006':'2026']
+    rev_m = data.get('monthly_revenue:當月營收').loc['2006':'2026']
+    vol = data.get('price:成交金額').loc['2006':'2026']
     mkt_p = price['0050']
 
     for df in [price, open_p, pe, rev_m, vol]:
         df.columns = df.columns.astype(str)
 
     # 均線
-    ma20  = price.rolling(20).mean()
-    ma60  = price.rolling(60).mean()
+    ma20 = price.rolling(20).mean()
+    ma60 = price.rolling(60).mean()
     ma120 = price.rolling(120).mean()
     mkt_30 = mkt_p.rolling(30).mean()
     mkt_60 = mkt_p.rolling(60).mean()
@@ -56,7 +54,7 @@ def run_full_backtest():
     ).fillna(False)
 
     # =============================================================================
-    # 四、多因子評分系統（你完整的動態權重）
+    # 四、多因子評分系統
     # =============================================================================
     rs_fixed = price.ffill().pct_change(80, fill_method=None)
     rets = price.pct_change(fill_method=None)
@@ -93,12 +91,24 @@ def run_full_backtest():
         r_dd.mul(w_dd_dyn, axis=0).fillna(0)
     )
 
+    # 計算 full_score_matrix（用於歷史分數）
+    r_rs_all = rs_fixed.rank(axis=1, pct=True)
+    r_peg_all = (1 / peg).rank(axis=1, pct=True)
+    r_dd_all = (-dd).rank(axis=1, pct=True)
+    r_corr_all = (-corr_mkt).rank(axis=1, pct=True)
+
+    full_score_matrix = (
+        r_rs_all.mul(w_rs_dyn, axis=0).fillna(0) +
+        r_peg_all.mul(w_peg_dyn, axis=0).fillna(0) +
+        r_corr_all.mul(w_corr_dyn, axis=0).fillna(0) +
+        r_dd_all.mul(w_dd_dyn, axis=0).fillna(0)
+    )
+
     # =============================================================================
-    # 五、持股權重 + T+1 處理 + position_final
+    # 五、持股權重 + T+1 處理
     # =============================================================================
     N_BULL, N_BEAR = 16, 5
     score_ranks = score.rank(axis=1, ascending=False)
-
     bull_mask = score_ranks <= N_BULL
     bear_mask = score_ranks <= N_BEAR
 
@@ -107,7 +117,7 @@ def run_full_backtest():
 
     raw_position = weight_bull.where(~is_bear_mask, weight_bear).fillna(0)
 
-    # T+1 漲停處理
+    # T+1 處理
     limit_pct = pd.Series(0.095, index=price.index)
     limit_pct.loc[:'2015-05-31'] = 0.065
     limit_up_price_next = price.mul(1 + limit_pct, axis=0)
@@ -136,4 +146,6 @@ def run_full_backtest():
     )
 
     print("✅ 完整回測執行完成！")
+    
+    # 回傳所有需要的變數
     return report, position_final, price, score, final_cond, rs_fixed, peg, dd, corr_mkt, regime, weights, full_score_matrix
