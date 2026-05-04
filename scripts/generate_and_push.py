@@ -305,7 +305,8 @@ market_rank = add_history_to_items(market_rank)
 
 # 最終存檔
 result_json = {
-    "latest_date": datetime.now(ZoneInfo("Asia/Taipei")).strftime('%Y-%m-%d %H:%M'),  # 台灣時間
+    "latest_date": str(latest_dt.date()),                    # 給策略頁用的純日期
+    "updated_at": datetime.now(ZoneInfo("Asia/Taipei")).strftime('%Y-%m-%d %H:%M'),  # 給首頁用的完整時間
     "compare_date": str(compare_dt.date()) if compare_dt else None,
     "rebalance_base_date": str(real_rebalance_dt.date()),
     "current_holdings_rank": current_holdings_rank,
