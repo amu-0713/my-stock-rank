@@ -1,10 +1,14 @@
 import { useState, useEffect } from 'react'
 
 export default function AppSidebarLayout({ children, contentClassName = 'max-w-6xl' }) {
-  // 從 localStorage 讀取上次狀態，預設為開啟
+  // 從 localStorage 讀取狀態
+  // 預設：手機版關閉、電腦版開啟
   const [sidebarOpen, setSidebarOpen] = useState(() => {
     const saved = localStorage.getItem('sidebarOpen')
-    return saved !== null ? saved === 'true' : true
+    if (saved !== null) return saved === 'true'
+
+    // 第一次使用時：手機 (寬度 < 768px) 預設關閉，電腦開啟
+    return window.innerWidth >= 768
   })
 
   // 狀態改變時存到 localStorage
@@ -23,7 +27,7 @@ export default function AppSidebarLayout({ children, contentClassName = 'max-w-6
         >
           &gt;
         </button>
-) : null}
+      ) : null}
 
       <aside
         className={`
