@@ -6,7 +6,7 @@ import { STRATEGY_ENTRIES } from '../data/strategyEntries.js'
 export default function HomePage() {
   const [data, setData] = useState(null)
 
-  // 抓取 result.json 取得最新日期
+  // 抓取 result.json
   useEffect(() => {
     fetch('/result.json', { cache: 'no-store' })
       .then(async (res) => {
@@ -76,16 +76,11 @@ export default function HomePage() {
             <div className="flex flex-wrap gap-x-2 gap-y-0.5">
               <dt className="text-zinc-500">最近更新時間</dt>
               <dd>
-                {data?.latest_date 
-                ? new Date(data.latest_date).toLocaleString('zh-TW', { 
-                    year: 'numeric', 
-                    month: '2-digit', 
-                    day: '2-digit', 
-                    hour: '2-digit', 
-                    minute: '2-digit',
-                    hour12: false   // 關鍵：強制24小時制
-                  }) 
-                : '—'}
+                {data?.updated_at 
+                  ? data.updated_at 
+                  : (data?.latest_date 
+                      ? `${data.latest_date} 晚上更新` 
+                      : '—')}
               </dd>
             </div>
             <div className="flex flex-wrap gap-x-2 gap-y-0.5">
