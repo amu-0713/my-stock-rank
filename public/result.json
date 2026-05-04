@@ -1,8 +1,20 @@
 {
   "latest_date": "2026-04-30",
-  "updated_at": "2026-05-04 16:09",
+  "updated_at": "2026-05-04 16:54",
   "compare_date": "2026-04-23",
   "rebalance_base_date": "2026-03-31",
+  "overview": {
+    "start_date": "2010-03-31",
+    "total_return_all": 62263.58,
+    "annual_return_all": 49.17,
+    "total_return_ytd": 79.25,
+    "total_return_1y": 142.65,
+    "total_return_3y": 258.82,
+    "total_return_5y": 583.95,
+    "max_drawdown": -29.75,
+    "sharpe_ratio": 1.75,
+    "current_holdings": 16
+  },
   "current_holdings_rank": [
     {
       "base_rank": 1,
