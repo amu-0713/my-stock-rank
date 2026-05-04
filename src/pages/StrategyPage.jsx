@@ -82,7 +82,7 @@ export default function StrategyPage() {
       `${TEXT.rebalanceBaseDate}${data?.rebalance_base_date ?? '—'}`,
     ]
   
-    return parts.join(' ｜ ')
+    return parts.join('｜')
   }, [data, isStrategy1])
 
   const title = STRATEGY_TITLES[id] ?? `策略${id}`
