@@ -7,6 +7,7 @@ from pathlib import Path
 from datetime import datetime
 from zoneinfo import ZoneInfo
 
+from finlab import data
 from shared_backtest import run_full_backtest
 
 print("🚀 GitHub Actions 一鍵更新開始...")
