@@ -4,34 +4,33 @@ import numpy as np
 import plotly.graph_objects as go
 import plotly.express as px
 from pathlib import Path
-from datetime import datetime
 from shared_backtest import run_full_backtest
 
 print("🚀 開始產生首頁圖表...")
 
-# 執行完整回測
+# 確保資料夾存在
+chart_dir = Path("public/charts")
+chart_dir.mkdir(parents=True, exist_ok=True)
+
+# 執行完整回測（共用）
 report, position_final, price, score = run_full_backtest()
 
 daily_return = report.creturn.pct_change().fillna(0)
 cum_return = (1 + daily_return).cumprod()
 
-# 建立圖表資料夾
-chart_dir = Path("public/charts")
-chart_dir.mkdir(parents=True, exist_ok=True)
-
 # ====================== 1. 累積報酬曲線 ======================
 fig1 = go.Figure()
 fig1.add_trace(go.Scatter(
     x=cum_return.index, 
-    y=cum_return * 100 - 100,
-    mode='lines',
+    y=cum_return*100 - 100,
+    mode='lines', 
     name='動態多因子策略',
     line=dict(color='#1E40AF', width=3)
 ))
 fig1.add_trace(go.Scatter(
     x=cum_return.index, 
-    y=(1 + report.daily_benchmark.pct_change()).cumprod() * 100 - 100,
-    mode='lines',
+    y=(1 + report.daily_benchmark.pct_change()).cumprod()*100 - 100,
+    mode='lines', 
     name='0050 指數',
     line=dict(color='#94A3B8', width=2, dash='dash')
 ))
@@ -40,14 +39,13 @@ fig1.update_layout(
     xaxis_title="日期",
     yaxis_title="累積報酬 (%)",
     template="plotly_white",
-    height=520,
-    hovermode="x unified"
+    height=520
 )
 fig1.write_image(str(chart_dir / "cumulative_return.png"), scale=3)
 print("✅ cumulative_return.png 已儲存")
 
 # ====================== 2. 年度報酬熱力圖 ======================
-yearly = daily_return.resample('YE').sum() * 100
+yearly = (daily_return.resample('YE').sum() * 100).round(1)
 fig2 = px.imshow([yearly.values],
                  labels=dict(x="年度", color="報酬率 (%)"),
                  color_continuous_scale='RdYlGn',
@@ -67,5 +65,4 @@ fig3.update_layout(title="滾動報酬走勢 (1年 / 3年)", height=480)
 fig3.write_image(str(chart_dir / "rolling_return.png"), scale=3)
 print("✅ rolling_return.png 已儲存")
 
-print(f"\n🎉 所有圖表已產生完成！共 {len(list(chart_dir.glob('*.png')))} 張")
-print(f"存放位置：{chart_dir}")
+print(f"\n🎉 所有圖表產生完成！存放在 public/charts/")
