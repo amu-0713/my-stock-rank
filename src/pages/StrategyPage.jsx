@@ -75,26 +75,17 @@ export default function StrategyPage() {
   )
 
   const strategyHeaderText = useMemo(() => {
-    if (!isStrategy1) return TEXT.strategyDataPageconst strategyHeaderText = useMemo(() => {
-  if (!isStrategy1) return TEXT.strategyDataPage
-
-  const latestDateOnly = data?.latest_date 
-    ? data.latest_date.split(' ')[0]   // 只取日期，移除時間
-    : '—'
-
-  const parts = [
-    `${TEXT.latestDate}${latestDateOnly}`,
-    `${TEXT.rebalanceBaseDate}${data?.rebalance_base_date ?? '—'}`,
-  ]
-
-  return parts.join(' ｜ ')
-}, [data, isStrategy1])
-
+    if (!isStrategy1) return TEXT.strategyDataPage
+  
+    const latestDateOnly = data?.latest_date 
+      ? data.latest_date.split(' ')[0]   // 只取日期，移除時間
+      : '—'
+  
     const parts = [
-      `${TEXT.latestDate}${data?.latest_date ?? '--'}`,
-      `${TEXT.rebalanceBaseDate}${data?.rebalance_base_date ?? '--'}`,
+      `${TEXT.latestDate}${latestDateOnly}`,
+      `${TEXT.rebalanceBaseDate}${data?.rebalance_base_date ?? '—'}`,
     ]
-
+  
     return parts.join(' ｜ ')
   }, [data, isStrategy1])
 
