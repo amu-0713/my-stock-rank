@@ -159,7 +159,9 @@ w = weights.apply(lambda x: x[curr_regime])
 score_raw_today = r_rs_today * w["rs"] + r_peg_today * w["peg"] + r_corr_today * w["corr"] + r_dd_today * w["dd"]
 
 compare_dt = get_compare_dt(valid_dates, latest_dt, days=7)
-
+prev_current_holdings_rank_map = {}
+prev_filtered_rank_map = {}
+prev_market_rank_map = {}
 if compare_dt is not None:
     # 使用你原本的比較邏輯（只補這部分）
     r_rs_prev = rs_fixed.loc[compare_dt].rank(pct=True)
