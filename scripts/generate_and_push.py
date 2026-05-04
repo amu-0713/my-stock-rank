@@ -2,14 +2,12 @@
 import os
 import finlab
 import pandas as pd
-import numpy as np
 import json
 from pathlib import Path
 from datetime import datetime
 from zoneinfo import ZoneInfo
 
-from finlab import data
-from finlab.backtest import sim
+from shared_backtest import run_full_backtest   # ← 共用完整回測
 
 print("🚀 GitHub Actions 一鍵更新開始...")
 
@@ -21,97 +19,18 @@ if finlab_token:
 else:
     print("⚠️ 未設定 FINLAB_TOKEN")
 
+# =============================================================================
+# 1. 執行完整回測（共用）
+# =============================================================================
+report, position_final, price, score = run_full_backtest()
 
 # =============================================================================
-# 一、資料抓取與基礎指標計算
-# =============================================================================
-print("📡 抓取 FinLab 資料...")
-
-price = data.get('price:收盤價').loc['2006':'2026']
-open_p = data.get('price:開盤價').loc['2006':'2026']
-pe = data.get('price_earning_ratio:本益比').loc['2006':'2026']
-rev_m = data.get('monthly_revenue:當月營收').loc['2006':'2026']
-vol = data.get('price:成交金額').loc['2006':'2026']
-mkt_p = price['0050']
-
-for df in [price, open_p, pe, rev_m, vol]:
-    df.columns = df.columns.astype(str)
-
-ma20 = price.rolling(20).mean()
-ma60 = price.rolling(60).mean()
-ma120 = price.rolling(120).mean()
-mkt_30 = mkt_p.rolling(30).mean()
-mkt_60 = mkt_p.rolling(60).mean()
-
-is_bear = mkt_30 < mkt_60
-c_ma_filter = (ma20 > ma60) & (ma60 > ma120)
-
-rev_ma3 = rev_m.rolling(3).mean()
-rev_g = (rev_m / rev_m.shift(12)) - 1
-growth_pct = (rev_g * 100).replace(0, np.nan)
-peg = pe / growth_pct
-
-c_rev_positive = rev_ma3 > 0
-c_peg_range = (peg > 0.2) & (peg < 1.8)
-c_rev_high = rev_ma3 == rev_ma3.rolling(12).max()
-c_hist = rev_m.notnull().rolling(13).min() == 1
-c_valid = peg.notnull() & rev_g.notnull()
-c_liq = vol.rolling(20).min() > 1e6
-
-final_cond = (c_rev_positive & c_peg_range & c_rev_high & c_hist & 
-              c_valid & c_ma_filter & c_liq).fillna(False)
-
-rs_fixed = price.ffill().pct_change(80, fill_method=None)
-rets = price.pct_change(fill_method=None)
-mkt_rets = mkt_p.pct_change(fill_method=None)
-dd = rets.where(rets < 0, 0).rolling(20).std().replace(0, np.nan)
-corr_mkt = rets.rolling(60).corr(mkt_rets)
-
-r_rs = rs_fixed.where(final_cond).rank(axis=1, pct=True)
-r_peg = (1 / peg).where(final_cond).rank(axis=1, pct=True)
-r_dd = (-dd).where(final_cond).rank(axis=1, pct=True)
-c_corr = final_cond & (corr_mkt < 0.5)
-r_corr = (-corr_mkt).where(c_corr).rank(axis=1, pct=True)
-
-is_bear_mask = is_bear.reindex(r_rs.index).ffill().fillna(True)
-regime = pd.Series(np.where(is_bear_mask, 'bear', 'bull'), index=r_rs.index)
-
-weights = pd.DataFrame({
-    'rs': {'bull': 0.3, 'bear': 0.3},
-    'peg': {'bull': 0.3, 'bear': 0.0},
-    'corr': {'bull': 0.0, 'bear': 0.3},
-    'dd': {'bull': 0.4, 'bear': 0.4},
-})
-
-w_rs_dyn = regime.map(weights['rs'])
-w_peg_dyn = regime.map(weights['peg'])
-w_corr_dyn = regime.map(weights['corr'])
-w_dd_dyn = regime.map(weights['dd'])
-
-score = (r_rs.mul(w_rs_dyn, axis=0).fillna(0) + 
-         r_peg.mul(w_peg_dyn, axis=0).fillna(0) + 
-         r_corr.mul(w_corr_dyn, axis=0).fillna(0) + 
-         r_dd.mul(w_dd_dyn, axis=0).fillna(0))
-
-r_rs_all = rs_fixed.rank(axis=1, pct=True)
-r_peg_all = (1 / peg).rank(axis=1, pct=True)
-r_dd_all = (-dd).rank(axis=1, pct=True)
-r_corr_all = (-corr_mkt).rank(axis=1, pct=True)
-
-full_score_matrix = (r_rs_all.mul(w_rs_dyn, axis=0).fillna(0) + 
-                     r_peg_all.mul(w_peg_dyn, axis=0).fillna(0) + 
-                     r_corr_all.mul(w_corr_dyn, axis=0).fillna(0) + 
-                     r_dd_all.mul(w_dd_dyn, axis=0).fillna(0))
-
-# =============================================================================
-# JSON 產生部分（排名）
+# 2. 產生排名資料
 # =============================================================================
 print("🔄 產生最新排名...")
 
-valid_dates = score.index.intersection(peg.index).intersection(dd.index)\
-                       .intersection(rs_fixed.index).intersection(price.index)
-latest_dt = valid_dates.max()
-print(f"✅ 使用最新資料日期: {latest_dt.date()}")
+latest_dt = score.index[-1]
+valid_dates = score.index
 
 # 季度基準日
 curr_year, curr_month = latest_dt.year, latest_dt.month
@@ -125,13 +44,15 @@ else:
     rebalance_date_str = f"{curr_year}-12-31"
 
 real_rebalance_dt = score.index[score.index >= pd.to_datetime(rebalance_date_str)].min()
-fixed_hold_ids = score.loc[real_rebalance_dt].sort_values(ascending=False).head(16).index
 
+compare_dt = get_compare_dt(valid_dates, latest_dt, days=7)   # 使用下面定義的函數
+
+# ====================== 公司資訊 ======================
 company_info = data.get("company_basic_info").set_index("stock_id")
 company_short_name_map = company_info["公司簡稱"]
 company_full_name_map = company_info["公司名稱"]
 
-# 共用函數
+# ====================== 共用函數（保留你原本的） ======================
 def score_to_display(val):
     if pd.isna(val): return 0.0
     return round(float(60 + (val - 0.3) / 0.7 * 40), 2)
@@ -304,54 +225,8 @@ market_rank = [build_stock_item(sid, row, row["base_rank"], prev_market_rank_map
 current_holdings_rank = add_history_to_items(current_holdings_rank)
 filtered_rank = add_history_to_items(filtered_rank)
 market_rank = add_history_to_items(market_rank)
-# ====================== 完整策略回測 ======================
-print("🚀 產生 position_final 與執行真實回測...")
-
-N_BULL = 16
-N_BEAR = 5
-
-score_ranks = score.rank(axis=1, ascending=False)
-
-bull_mask = score_ranks <= N_BULL
-bear_mask = score_ranks <= N_BEAR
-
-weight_bull = bull_mask.div(bull_mask.sum(axis=1).replace(0, np.nan), axis=0).fillna(0)
-weight_bear = bear_mask.div(bear_mask.sum(axis=1).replace(0, np.nan), axis=0).fillna(0)
-
-raw_position = weight_bull.where(~is_bear_mask, weight_bear).fillna(0)
-
-# T+1 漲停買不到處理
-limit_pct = pd.Series(0.095, index=price.index)
-limit_pct.loc[:'2015-05-31'] = 0.065
-limit_up_price_next = price.mul(1 + limit_pct, axis=0)
-cannot_buy_t1 = open_p.shift(-1) >= limit_up_price_next
-
-target_pos_qe = raw_position.resample('QE').last()
-prev_target_pos_qe = target_pos_qe.shift(1).fillna(0)
-prev_position = prev_target_pos_qe.reindex(raw_position.index).ffill().fillna(0)
-
-buy_order = raw_position > prev_position
-position_final = raw_position.copy()
-blocked_buy = buy_order & cannot_buy_t1
-position_final[blocked_buy] = prev_position[blocked_buy]
-
-position_final = position_final.reindex(index=price.index, columns=price.columns).fillna(0)
-
-# 執行回測
-report = sim(
-    position_final.loc['2010':'2026'],
-    resample='QE',
-    trade_at_price='open',
-    fee_ratio=0.001425,
-    tax_ratio=0.003,
-    position_limit=0.2,
-    market='TW_STOCK',
-    name='動態多因子策略',
-)
-
 # ====================== 計算 overview ======================
 print("🚀 開始計算首頁進階指標...")
-
 daily_return = report.creturn.pct_change().fillna(0)
 
 def calc_performance(ret_series, start_date=None):
@@ -362,9 +237,7 @@ def calc_performance(ret_series, start_date=None):
     days = (ret_series.index[-1] - ret_series.index[0]).days if len(ret_series) > 1 else 1
     years = days / 365.25
     annual_ret = ((1 + total_ret/100) ** (1/years) - 1) * 100 if years > 0 else 0
-    rolling_max = cum.cummax()
-    drawdown = (cum - rolling_max) / rolling_max
-    max_dd = drawdown.min() * 100
+    max_dd = ((cum / cum.cummax()) - 1).min() * 100
     sharpe = (ret_series.mean() * 252 - 0.02) / (ret_series.std() * np.sqrt(252)) if ret_series.std() != 0 else 0
     return {
         "total_return": round(total_ret, 2),
@@ -386,9 +259,7 @@ overview = {
     "current_holdings": 16
 }
 
-print("✅ 指標計算完成")
-
-# ====================== 最終 result_json ======================
+# ====================== 最終輸出 ======================
 result_json = {
     "latest_date": str(latest_dt.date()),
     "updated_at": datetime.now(ZoneInfo("Asia/Taipei")).strftime('%Y-%m-%d %H:%M'),
