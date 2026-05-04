@@ -136,4 +136,4 @@ def run_full_backtest():
     )
 
     print("✅ 完整回測執行完成！")
-    return report, position_final, price, score
+    return report, position_final, price, score, final_cond, rs_fixed, peg, dd, corr_mkt, regime, weights, full_score_matrix
