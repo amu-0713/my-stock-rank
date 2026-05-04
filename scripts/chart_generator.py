@@ -1,5 +1,6 @@
 # scripts/chart_generator.py
 import os
+import finlab
 import pandas as pd
 import numpy as np
 import plotly.graph_objects as go
