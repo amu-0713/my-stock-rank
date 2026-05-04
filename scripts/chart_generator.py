@@ -7,7 +7,13 @@ from pathlib import Path
 from shared_backtest import run_full_backtest
 
 print("🚀 開始產生首頁圖表...")
-
+# ====================== FinLab 登入 ======================
+finlab_token = os.environ.get('FINLAB_TOKEN')
+if finlab_token:
+    finlab.login(finlab_token)
+    print("✅ FinLab 登入成功 (使用 Token)")
+else:
+    print("⚠️ 未設定 FINLAB_TOKEN")
 # 確保資料夾存在
 chart_dir = Path("public/charts")
 chart_dir.mkdir(parents=True, exist_ok=True)
