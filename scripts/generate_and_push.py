@@ -28,9 +28,15 @@ report, position_final, price, score, final_cond, rs_fixed, peg, dd, corr_mkt, r
 # =============================================================================
 # 2. 產生排名資料
 # =============================================================================
-print("🔄 產生最新排名...")
-latest_dt = score.index[-1]
-valid_dates = score.index
+# 找到最後一個所有必要資料都存在的日期
+valid_dates = score.index.intersection(rs_fixed.index)\
+                        .intersection(peg.index)\
+                        .intersection(dd.index)\
+                        .intersection(corr_mkt.index)
+
+latest_dt = valid_dates.max()
+
+print(f"✅ 使用最新完整資料日期: {latest_dt.date()}")
 
 # 季度基準日
 curr_year, curr_month = latest_dt.year, latest_dt.month
