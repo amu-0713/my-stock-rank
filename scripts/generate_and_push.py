@@ -302,13 +302,56 @@ market_rank = [build_stock_item(sid, row, row["base_rank"], prev_market_rank_map
 current_holdings_rank = add_history_to_items(current_holdings_rank)
 filtered_rank = add_history_to_items(filtered_rank)
 market_rank = add_history_to_items(market_rank)
+# ====================== 取得每日報酬 ======================
+daily_return = report.creturn.pct_change().fillna(0)
 
-# 最終存檔
+def calc_performance(ret_series, start_date=None):
+    if start_date:
+        ret_series = ret_series.loc[start_date:]
+    
+    cum = (1 + ret_series).cumprod()
+    total_ret = (cum.iloc[-1] - 1) * 100
+    
+    days = (ret_series.index[-1] - ret_series.index[0]).days
+    years = days / 365.25 if days > 0 else 1
+    annual_ret = ((1 + total_ret/100) ** (1/years) - 1) * 100 if years > 0 else 0
+    
+    rolling_max = cum.cummax()
+    drawdown = (cum - rolling_max) / rolling_max
+    max_dd = drawdown.min() * 100
+    
+    sharpe = (ret_series.mean() * 252 - 0.02) / (ret_series.std() * np.sqrt(252)) if ret_series.std() != 0 else 0
+    
+    return {
+        "total_return": round(total_ret, 2),
+        "annual_return": round(annual_ret, 2),
+        "max_drawdown": round(max_dd, 2),
+        "sharpe_ratio": round(sharpe, 2)
+    }
+# ====================== 計算指標 ======================
+overview = {
+    "start_date": "2010-03-31",
+    "total_return_all": calc_performance(daily_return)["total_return"],
+    "annual_return_all": calc_performance(daily_return)["annual_return"],
+    
+    "total_return_ytd": calc_performance(daily_return, f"{datetime.now().year}-01-01")["total_return"],
+    "total_return_1y": calc_performance(daily_return, datetime.now().replace(year=datetime.now().year-1))["total_return"],
+    "total_return_3y": calc_performance(daily_return, datetime.now().replace(year=datetime.now().year-3))["total_return"],
+    "total_return_5y": calc_performance(daily_return, datetime.now().replace(year=datetime.now().year-5))["total_return"],
+    
+    "max_drawdown": calc_performance(daily_return)["max_drawdown"],
+    "sharpe_ratio": calc_performance(daily_return)["sharpe_ratio"],
+    "current_holdings": 16
+}
+# ====================== 存入 result_json ======================
 result_json = {
-    "latest_date": str(latest_dt.date()),                    # 給策略頁用的純日期
-    "updated_at": datetime.now(ZoneInfo("Asia/Taipei")).strftime('%Y-%m-%d %H:%M'),  # 給首頁用的完整時間
+    "latest_date": str(latest_dt.date()),
+    "updated_at": datetime.now(ZoneInfo("Asia/Taipei")).strftime('%Y-%m-%d %H:%M'),
     "compare_date": str(compare_dt.date()) if compare_dt else None,
     "rebalance_base_date": str(real_rebalance_dt.date()),
+    
+    "overview": overview,                    # ← 新增
+    
     "current_holdings_rank": current_holdings_rank,
     "filtered_rank": filtered_rank,
     "market_rank": market_rank
