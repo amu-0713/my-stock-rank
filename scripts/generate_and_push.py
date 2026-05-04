@@ -302,10 +302,22 @@ market_rank = [build_stock_item(sid, row, row["base_rank"], prev_market_rank_map
 current_holdings_rank = add_history_to_items(current_holdings_rank)
 filtered_rank = add_history_to_items(filtered_rank)
 market_rank = add_history_to_items(market_rank)
-# ====================== 計算首頁進階指標 ======================
+# ====================== 【回測執行 - 必須在這裡】 ======================
+print("🚀 執行回測...")
+
+report = sim(
+    position_final.loc['2010':'2026'],
+    resample='QE',
+    trade_at_price='open',
+    fee_ratio=0.001425,
+    tax_ratio=0.003,
+    position_limit=0.2,
+    market='TW_STOCK',
+    name='動態多因子策略',
+)
+# ====================== 【必須放在 sim() 之後】 ======================
 print("🚀 開始計算首頁進階指標...")
 
-# 從 report 取得每日報酬（安全寫法）
 daily_return = report.creturn.pct_change().fillna(0)
 
 def calc_performance(ret_series, start_date=None):
