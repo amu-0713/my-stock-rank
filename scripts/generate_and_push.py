@@ -304,7 +304,6 @@ filtered_rank = add_history_to_items(filtered_rank)
 market_rank = add_history_to_items(market_rank)
 # ====================== 【回測執行 - 必須在這裡】 ======================
 print("🚀 執行回測...")
-
 report = sim(
     position_final.loc['2010':'2026'],
     resample='QE',
@@ -315,6 +314,7 @@ report = sim(
     market='TW_STOCK',
     name='動態多因子策略',
 )
+
 # ====================== 【必須放在 sim() 之後】 ======================
 print("🚀 開始計算首頁進階指標...")
 
@@ -368,7 +368,7 @@ result_json = {
     "compare_date": str(compare_dt.date()) if compare_dt else None,
     "rebalance_base_date": str(real_rebalance_dt.date()),
     
-    "overview": overview,                    # ← 自動計算的指標
+    "overview": overview,
     
     "current_holdings_rank": current_holdings_rank,
     "filtered_rank": filtered_rank,
@@ -382,5 +382,3 @@ with open(output_path, 'w', encoding='utf-8') as f:
     json.dump(result_json, f, ensure_ascii=False, indent=2)
 
 print(f"✅ result.json 已更新 ({output_path.stat().st_size / 1024:.1f} KB)")
-print(f"最新日期: {result_json['latest_date']}")
-print(f"更新時間: {result_json['updated_at']}")
