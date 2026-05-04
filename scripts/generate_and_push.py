@@ -7,6 +7,7 @@ import json
 from pathlib import Path
 from datetime import datetime
 from zoneinfo import ZoneInfo
+from finlab import data
 from finlab.backtest import sim
 
 print("🚀 GitHub Actions 一鍵更新開始...")
