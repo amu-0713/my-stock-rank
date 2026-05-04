@@ -12,8 +12,8 @@ print("🚀 開始產生首頁圖表...")
 chart_dir = Path("public/charts")
 chart_dir.mkdir(parents=True, exist_ok=True)
 
-# 執行完整回測（共用）
-report, position_final, price, score = run_full_backtest()
+# 執行完整回測
+report, position_final, price, score, *_ = run_full_backtest()   # ← 改這裡
 
 daily_return = report.creturn.pct_change().fillna(0)
 cum_return = (1 + daily_return).cumprod()
