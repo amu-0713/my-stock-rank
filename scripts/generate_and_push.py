@@ -3,6 +3,7 @@ import os
 import finlab
 import pandas as pd
 import json
+import numpy as np
 from pathlib import Path
 from datetime import datetime
 from zoneinfo import ZoneInfo
