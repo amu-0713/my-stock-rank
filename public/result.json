@@ -1,16 +1,16 @@
 {
-  "latest_date": "2026-04-30",
-  "updated_at": "2026-05-04 17:53",
-  "compare_date": "2026-04-23",
+  "latest_date": "2026-05-04",
+  "updated_at": "2026-05-05 12:11",
+  "compare_date": "2026-04-27",
   "rebalance_base_date": "2026-03-31",
   "overview": {
     "start_date": "2010-03-31",
     "total_return_all": 62263.58,
     "annual_return_all": 49.17,
     "total_return_ytd": 79.25,
-    "total_return_1y": 142.65,
-    "total_return_3y": 258.82,
-    "total_return_5y": 583.95,
+    "total_return_1y": 149.18,
+    "total_return_3y": 263.25,
+    "total_return_5y": 586.87,
     "max_drawdown": -29.75,
     "sharpe_ratio": 1.75,
     "current_holdings": 16
@@ -24,21 +24,17 @@
       "stock_id": "2820",
       "name": "華票",
       "full_name": "中華票券金融股份有限公司",
-      "score": 0.770263,
-      "display_score": 86.87,
-      "close": 16.8,
-      "rs_pct": 41.8,
-      "peg_pct": 93.5,
+      "score": 0.812943,
+      "display_score": 89.31,
+      "close": 16.9,
+      "rs_pct": 56.1,
+      "peg_pct": 93.6,
       "dd_pct": 91.0,
-      "corr_pct": 26.3,
+      "corr_pct": 25.7,
       "selected": true,
       "passed_filter": true,
       "failed_conditions": [],
       "history": [
-        {
-          "date": "2026-04-24",
-          "score": 88.1
-        },
         {
           "date": "2026-04-27",
           "score": 89.8
@@ -54,6 +50,10 @@
         {
           "date": "2026-04-30",
           "score": 86.9
+        },
+        {
+          "date": "2026-05-04",
+          "score": 89.3
         }
       ]
     },
@@ -65,13 +65,13 @@
       "stock_id": "3028",
       "name": "增你強",
       "full_name": "增你強股份有限公司",
-      "score": 0.738804,
-      "display_score": 85.07,
-      "close": 68.3,
-      "rs_pct": 93.9,
+      "score": 0.738344,
+      "display_score": 85.05,
+      "close": 69.4,
+      "rs_pct": 93.8,
       "peg_pct": 96.0,
       "dd_pct": 42.3,
-      "corr_pct": 40.4,
+      "corr_pct": 42.1,
       "selected": true,
       "passed_filter": false,
       "failed_conditions": [
@@ -80,10 +80,6 @@
         "季均營收未創高"
       ],
       "history": [
-        {
-          "date": "2026-04-24",
-          "score": 82.0
-        },
         {
           "date": "2026-04-27",
           "score": 82.4
@@ -99,6 +95,10 @@
         {
           "date": "2026-04-30",
           "score": 85.1
+        },
+        {
+          "date": "2026-05-04",
+          "score": 85.0
         }
       ]
     },
@@ -110,13 +110,13 @@
       "stock_id": "2727",
       "name": "王品",
       "full_name": "王品餐飲股份有限公司",
-      "score": 0.71296,
-      "display_score": 83.6,
-      "close": 226.5,
-      "rs_pct": 65.3,
+      "score": 0.713943,
+      "display_score": 83.65,
+      "close": 229.0,
+      "rs_pct": 65.6,
       "peg_pct": 66.3,
       "dd_pct": 79.5,
-      "corr_pct": 57.1,
+      "corr_pct": 53.2,
       "selected": true,
       "passed_filter": false,
       "failed_conditions": [
@@ -125,10 +125,6 @@
         "季均營收未創高"
       ],
       "history": [
-        {
-          "date": "2026-04-24",
-          "score": 82.0
-        },
         {
           "date": "2026-04-27",
           "score": 83.5
@@ -144,6 +140,10 @@
         {
           "date": "2026-04-30",
           "score": 83.6
+        },
+        {
+          "date": "2026-05-04",
+          "score": 83.7
         }
       ]
     },
@@ -152,68 +152,20 @@
       "prev_rank": null,
       "rank_change": null,
       "change_type": "new",
-      "stock_id": "6446",
-      "name": "藥華藥",
-      "full_name": "藥華醫藥股份有限公司",
-      "score": 0.712385,
-      "display_score": 83.56,
-      "close": 661.0,
-      "rs_pct": 85.4,
-      "peg_pct": 82.1,
-      "dd_pct": 52.5,
-      "corr_pct": 54.6,
-      "selected": true,
-      "passed_filter": false,
-      "failed_conditions": [
-        "營收為負",
-        "季均營收未創高"
-      ],
-      "history": [
-        {
-          "date": "2026-04-24",
-          "score": 81.2
-        },
-        {
-          "date": "2026-04-27",
-          "score": 81.1
-        },
-        {
-          "date": "2026-04-28",
-          "score": 81.1
-        },
-        {
-          "date": "2026-04-29",
-          "score": 83.4
-        },
-        {
-          "date": "2026-04-30",
-          "score": 83.6
-        }
-      ]
-    },
-    {
-      "base_rank": 5,
-      "prev_rank": null,
-      "rank_change": null,
-      "change_type": "new",
       "stock_id": "2890",
       "name": "永豐金",
       "full_name": "永豐金融控股股份有限公司",
-      "score": 0.710563,
-      "display_score": 83.46,
-      "close": 30.95,
-      "rs_pct": 69.2,
-      "peg_pct": 92.6,
-      "dd_pct": 56.2,
-      "corr_pct": 19.9,
+      "score": 0.704384,
+      "display_score": 83.11,
+      "close": 30.55,
+      "rs_pct": 67.3,
+      "peg_pct": 92.7,
+      "dd_pct": 56.1,
+      "corr_pct": 27.3,
       "selected": true,
       "passed_filter": true,
       "failed_conditions": [],
       "history": [
-        {
-          "date": "2026-04-24",
-          "score": 84.9
-        },
         {
           "date": "2026-04-27",
           "score": 85.3
@@ -229,76 +181,32 @@
         {
           "date": "2026-04-30",
           "score": 83.5
+        },
+        {
+          "date": "2026-05-04",
+          "score": 83.1
         }
       ]
     },
     {
-      "base_rank": 6,
-      "prev_rank": null,
-      "rank_change": null,
-      "change_type": "new",
-      "stock_id": "5478",
-      "name": "智冠",
-      "full_name": "智冠科技股份有限公司",
-      "score": 0.70739,
-      "display_score": 83.28,
-      "close": 97.0,
-      "rs_pct": 42.3,
-      "peg_pct": 84.1,
-      "dd_pct": 82.1,
-      "corr_pct": 71.6,
-      "selected": true,
-      "passed_filter": false,
-      "failed_conditions": [
-        "營收為負",
-        "季均營收未創高"
-      ],
-      "history": [
-        {
-          "date": "2026-04-24",
-          "score": 82.5
-        },
-        {
-          "date": "2026-04-27",
-          "score": 79.8
-        },
-        {
-          "date": "2026-04-28",
-          "score": 79.5
-        },
-        {
-          "date": "2026-04-29",
-          "score": 82.7
-        },
-        {
-          "date": "2026-04-30",
-          "score": 83.3
-        }
-      ]
-    },
-    {
-      "base_rank": 7,
+      "base_rank": 5,
       "prev_rank": null,
       "rank_change": null,
       "change_type": "new",
       "stock_id": "6861",
       "name": "睿生光電",
       "full_name": "睿生光電股份有限公司",
-      "score": 0.707061,
-      "display_score": 83.26,
-      "close": 328.0,
+      "score": 0.703889,
+      "display_score": 83.08,
+      "close": 360.5,
       "rs_pct": 100.0,
-      "peg_pct": 67.9,
+      "peg_pct": 66.9,
       "dd_pct": 50.8,
-      "corr_pct": 52.7,
+      "corr_pct": 47.1,
       "selected": true,
       "passed_filter": true,
       "failed_conditions": [],
       "history": [
-        {
-          "date": "2026-04-24",
-          "score": 76.6
-        },
         {
           "date": "2026-04-27",
           "score": 77.2
@@ -314,6 +222,98 @@
         {
           "date": "2026-04-30",
           "score": 83.3
+        },
+        {
+          "date": "2026-05-04",
+          "score": 83.1
+        }
+      ]
+    },
+    {
+      "base_rank": 6,
+      "prev_rank": null,
+      "rank_change": null,
+      "change_type": "new",
+      "stock_id": "5478",
+      "name": "智冠",
+      "full_name": "智冠科技股份有限公司",
+      "score": 0.700743,
+      "display_score": 82.9,
+      "close": 96.6,
+      "rs_pct": 39.0,
+      "peg_pct": 84.3,
+      "dd_pct": 82.7,
+      "corr_pct": 73.2,
+      "selected": true,
+      "passed_filter": false,
+      "failed_conditions": [
+        "營收為負",
+        "季均營收未創高"
+      ],
+      "history": [
+        {
+          "date": "2026-04-27",
+          "score": 79.8
+        },
+        {
+          "date": "2026-04-28",
+          "score": 79.5
+        },
+        {
+          "date": "2026-04-29",
+          "score": 82.7
+        },
+        {
+          "date": "2026-04-30",
+          "score": 83.3
+        },
+        {
+          "date": "2026-05-04",
+          "score": 82.9
+        }
+      ]
+    },
+    {
+      "base_rank": 7,
+      "prev_rank": null,
+      "rank_change": null,
+      "change_type": "new",
+      "stock_id": "6446",
+      "name": "藥華藥",
+      "full_name": "藥華醫藥股份有限公司",
+      "score": 0.695656,
+      "display_score": 82.61,
+      "close": 645.0,
+      "rs_pct": 84.0,
+      "peg_pct": 82.5,
+      "dd_pct": 49.0,
+      "corr_pct": 59.6,
+      "selected": true,
+      "passed_filter": false,
+      "failed_conditions": [
+        "營收為負",
+        "季均營收未創高"
+      ],
+      "history": [
+        {
+          "date": "2026-04-27",
+          "score": 81.1
+        },
+        {
+          "date": "2026-04-28",
+          "score": 81.1
+        },
+        {
+          "date": "2026-04-29",
+          "score": 83.4
+        },
+        {
+          "date": "2026-04-30",
+          "score": 83.6
+        },
+        {
+          "date": "2026-05-04",
+          "score": 82.6
         }
       ]
     },
@@ -325,21 +325,17 @@
       "stock_id": "5904",
       "name": "寶雅",
       "full_name": "寶雅國際股份有限公司",
-      "score": 0.675301,
-      "display_score": 81.45,
-      "close": 575.0,
-      "rs_pct": 84.6,
+      "score": 0.675258,
+      "display_score": 81.44,
+      "close": 574.0,
+      "rs_pct": 83.8,
       "peg_pct": 80.1,
-      "dd_pct": 45.2,
-      "corr_pct": 60.6,
+      "dd_pct": 45.9,
+      "corr_pct": 64.0,
       "selected": true,
       "passed_filter": true,
       "failed_conditions": [],
       "history": [
-        {
-          "date": "2026-04-24",
-          "score": 84.1
-        },
         {
           "date": "2026-04-27",
           "score": 81.8
@@ -355,6 +351,10 @@
         {
           "date": "2026-04-30",
           "score": 81.5
+        },
+        {
+          "date": "2026-05-04",
+          "score": 81.4
         }
       ]
     },
@@ -366,21 +366,17 @@
       "stock_id": "6531",
       "name": "愛普*",
       "full_name": "愛普科技股份有限公司",
-      "score": 0.641643,
-      "display_score": 79.52,
-      "close": 840.0,
-      "rs_pct": 96.1,
-      "peg_pct": 78.4,
-      "dd_pct": 29.6,
-      "corr_pct": 51.9,
+      "score": 0.638958,
+      "display_score": 79.37,
+      "close": 924.0,
+      "rs_pct": 96.4,
+      "peg_pct": 77.3,
+      "dd_pct": 29.5,
+      "corr_pct": 43.0,
       "selected": true,
       "passed_filter": true,
       "failed_conditions": [],
       "history": [
-        {
-          "date": "2026-04-24",
-          "score": 75.5
-        },
         {
           "date": "2026-04-27",
           "score": 75.3
@@ -396,6 +392,10 @@
         {
           "date": "2026-04-30",
           "score": 79.5
+        },
+        {
+          "date": "2026-05-04",
+          "score": 79.4
         }
       ]
     },
@@ -407,21 +407,17 @@
       "stock_id": "6874",
       "name": "倍力",
       "full_name": "倍力資訊股份有限公司",
-      "score": 0.639019,
-      "display_score": 79.37,
-      "close": 88.2,
-      "rs_pct": 83.4,
-      "peg_pct": 95.0,
-      "dd_pct": 25.9,
-      "corr_pct": 73.0,
+      "score": 0.638402,
+      "display_score": 79.34,
+      "close": 87.5,
+      "rs_pct": 82.7,
+      "peg_pct": 95.2,
+      "dd_pct": 26.1,
+      "corr_pct": 75.3,
       "selected": true,
       "passed_filter": true,
       "failed_conditions": [],
       "history": [
-        {
-          "date": "2026-04-24",
-          "score": 80.1
-        },
         {
           "date": "2026-04-27",
           "score": 80.2
@@ -437,6 +433,10 @@
         {
           "date": "2026-04-30",
           "score": 79.4
+        },
+        {
+          "date": "2026-05-04",
+          "score": 79.3
         }
       ]
     },
@@ -448,21 +448,17 @@
       "stock_id": "1785",
       "name": "光洋科",
       "full_name": "光洋應用材料科技股份有限公司",
-      "score": 0.601029,
-      "display_score": 77.2,
-      "close": 165.5,
-      "rs_pct": 97.8,
+      "score": 0.600897,
+      "display_score": 77.19,
+      "close": 170.0,
+      "rs_pct": 97.7,
       "peg_pct": 86.5,
       "dd_pct": 12.1,
-      "corr_pct": 50.6,
+      "corr_pct": 50.8,
       "selected": true,
       "passed_filter": true,
       "failed_conditions": [],
       "history": [
-        {
-          "date": "2026-04-24",
-          "score": 77.3
-        },
         {
           "date": "2026-04-27",
           "score": 77.9
@@ -478,6 +474,10 @@
         {
           "date": "2026-04-30",
           "score": 77.2
+        },
+        {
+          "date": "2026-05-04",
+          "score": 77.2
         }
       ]
     },
@@ -489,21 +489,17 @@
       "stock_id": "3167",
       "name": "大量",
       "full_name": "大量科技股份有限公司",
-      "score": 0.586892,
-      "display_score": 76.39,
-      "close": 861.0,
-      "rs_pct": 99.5,
-      "peg_pct": 82.6,
-      "dd_pct": 10.1,
-      "corr_pct": 47.2,
+      "score": 0.589303,
+      "display_score": 76.53,
+      "close": 854.0,
+      "rs_pct": 99.4,
+      "peg_pct": 83.0,
+      "dd_pct": 10.5,
+      "corr_pct": 52.4,
       "selected": true,
       "passed_filter": true,
       "failed_conditions": [],
       "history": [
-        {
-          "date": "2026-04-24",
-          "score": 75.4
-        },
         {
           "date": "2026-04-27",
           "score": 75.5
@@ -519,6 +515,10 @@
         {
           "date": "2026-04-30",
           "score": 76.4
+        },
+        {
+          "date": "2026-05-04",
+          "score": 76.5
         }
       ]
     },
@@ -530,13 +530,13 @@
       "stock_id": "8438",
       "name": "昶昕",
       "full_name": "昶昕實業股份有限公司",
-      "score": 0.580665,
-      "display_score": 76.04,
-      "close": 88.3,
-      "rs_pct": 99.2,
-      "peg_pct": 64.3,
-      "dd_pct": 22.6,
-      "corr_pct": 51.0,
+      "score": 0.578917,
+      "display_score": 75.94,
+      "close": 94.6,
+      "rs_pct": 99.1,
+      "peg_pct": 63.6,
+      "dd_pct": 22.7,
+      "corr_pct": 43.7,
       "selected": true,
       "passed_filter": false,
       "failed_conditions": [
@@ -545,10 +545,6 @@
         "季均營收未創高"
       ],
       "history": [
-        {
-          "date": "2026-04-24",
-          "score": 76.7
-        },
         {
           "date": "2026-04-27",
           "score": 76.9
@@ -564,6 +560,10 @@
         {
           "date": "2026-04-30",
           "score": 76.0
+        },
+        {
+          "date": "2026-05-04",
+          "score": 75.9
         }
       ]
     },
@@ -575,21 +575,17 @@
       "stock_id": "6739",
       "name": "竹陞科技",
       "full_name": "竹陞科技股份有限公司",
-      "score": 0.576314,
-      "display_score": 75.79,
-      "close": 1420.0,
-      "rs_pct": 95.1,
-      "peg_pct": 77.7,
+      "score": 0.576519,
+      "display_score": 75.8,
+      "close": 1460.0,
+      "rs_pct": 95.3,
+      "peg_pct": 77.6,
       "dd_pct": 14.4,
-      "corr_pct": 42.3,
+      "corr_pct": 42.7,
       "selected": true,
       "passed_filter": true,
       "failed_conditions": [],
       "history": [
-        {
-          "date": "2026-04-24",
-          "score": 75.2
-        },
         {
           "date": "2026-04-27",
           "score": 75.3
@@ -605,6 +601,10 @@
         {
           "date": "2026-04-30",
           "score": 75.8
+        },
+        {
+          "date": "2026-05-04",
+          "score": 75.8
         }
       ]
     },
@@ -616,21 +616,17 @@
       "stock_id": "2360",
       "name": "致茂",
       "full_name": "致茂電子股份有限公司",
-      "score": 0.548443,
-      "display_score": 74.2,
-      "close": 2120.0,
-      "rs_pct": 98.6,
-      "peg_pct": 73.8,
-      "dd_pct": 7.8,
-      "corr_pct": 21.5,
+      "score": 0.546237,
+      "display_score": 74.07,
+      "close": 2310.0,
+      "rs_pct": 98.9,
+      "peg_pct": 72.6,
+      "dd_pct": 8.0,
+      "corr_pct": 18.3,
       "selected": true,
       "passed_filter": true,
       "failed_conditions": [],
       "history": [
-        {
-          "date": "2026-04-24",
-          "score": 73.3
-        },
         {
           "date": "2026-04-27",
           "score": 73.4
@@ -646,6 +642,10 @@
         {
           "date": "2026-04-30",
           "score": 74.2
+        },
+        {
+          "date": "2026-05-04",
+          "score": 74.1
         }
       ]
     },
@@ -657,21 +657,17 @@
       "stock_id": "3264",
       "name": "欣銓",
       "full_name": "欣銓科技股份有限公司",
-      "score": 0.543892,
-      "display_score": 73.94,
-      "close": 195.0,
-      "rs_pct": 96.7,
-      "peg_pct": 75.4,
-      "dd_pct": 6.9,
-      "corr_pct": 28.5,
+      "score": 0.541533,
+      "display_score": 73.8,
+      "close": 214.5,
+      "rs_pct": 97.3,
+      "peg_pct": 73.9,
+      "dd_pct": 7.0,
+      "corr_pct": 22.6,
       "selected": true,
       "passed_filter": true,
       "failed_conditions": [],
       "history": [
-        {
-          "date": "2026-04-24",
-          "score": 75.2
-        },
         {
           "date": "2026-04-27",
           "score": 74.0
@@ -687,6 +683,10 @@
         {
           "date": "2026-04-30",
           "score": 73.9
+        },
+        {
+          "date": "2026-05-04",
+          "score": 73.8
         }
       ]
     }
@@ -700,21 +700,17 @@
       "stock_id": "2820",
       "name": "華票",
       "full_name": "中華票券金融股份有限公司",
-      "score": 0.770263,
-      "display_score": 86.87,
-      "close": 16.8,
-      "rs_pct": 41.8,
-      "peg_pct": 93.5,
+      "score": 0.812943,
+      "display_score": 89.31,
+      "close": 16.9,
+      "rs_pct": 56.1,
+      "peg_pct": 93.6,
       "dd_pct": 91.0,
-      "corr_pct": 26.3,
+      "corr_pct": 25.7,
       "selected": true,
       "passed_filter": true,
       "failed_conditions": [],
       "history": [
-        {
-          "date": "2026-04-24",
-          "score": 88.1
-        },
         {
           "date": "2026-04-27",
           "score": 89.8
@@ -730,6 +726,10 @@
         {
           "date": "2026-04-30",
           "score": 86.9
+        },
+        {
+          "date": "2026-05-04",
+          "score": 89.3
         }
       ]
     },
@@ -741,13 +741,13 @@
       "stock_id": "3028",
       "name": "增你強",
       "full_name": "增你強股份有限公司",
-      "score": 0.738804,
-      "display_score": 85.07,
-      "close": 68.3,
-      "rs_pct": 93.9,
+      "score": 0.738344,
+      "display_score": 85.05,
+      "close": 69.4,
+      "rs_pct": 93.8,
       "peg_pct": 96.0,
       "dd_pct": 42.3,
-      "corr_pct": 40.4,
+      "corr_pct": 42.1,
       "selected": true,
       "passed_filter": false,
       "failed_conditions": [
@@ -756,10 +756,6 @@
         "季均營收未創高"
       ],
       "history": [
-        {
-          "date": "2026-04-24",
-          "score": 82.0
-        },
         {
           "date": "2026-04-27",
           "score": 82.4
@@ -775,6 +771,10 @@
         {
           "date": "2026-04-30",
           "score": 85.1
+        },
+        {
+          "date": "2026-05-04",
+          "score": 85.0
         }
       ]
     },
@@ -786,13 +786,13 @@
       "stock_id": "2727",
       "name": "王品",
       "full_name": "王品餐飲股份有限公司",
-      "score": 0.71296,
-      "display_score": 83.6,
-      "close": 226.5,
-      "rs_pct": 65.3,
+      "score": 0.713943,
+      "display_score": 83.65,
+      "close": 229.0,
+      "rs_pct": 65.6,
       "peg_pct": 66.3,
       "dd_pct": 79.5,
-      "corr_pct": 57.1,
+      "corr_pct": 53.2,
       "selected": true,
       "passed_filter": false,
       "failed_conditions": [
@@ -801,10 +801,6 @@
         "季均營收未創高"
       ],
       "history": [
-        {
-          "date": "2026-04-24",
-          "score": 82.0
-        },
         {
           "date": "2026-04-27",
           "score": 83.5
@@ -820,6 +816,10 @@
         {
           "date": "2026-04-30",
           "score": 83.6
+        },
+        {
+          "date": "2026-05-04",
+          "score": 83.7
         }
       ]
     },
@@ -828,68 +828,20 @@
       "prev_rank": null,
       "rank_change": null,
       "change_type": "new",
-      "stock_id": "6446",
-      "name": "藥華藥",
-      "full_name": "藥華醫藥股份有限公司",
-      "score": 0.712385,
-      "display_score": 83.56,
-      "close": 661.0,
-      "rs_pct": 85.4,
-      "peg_pct": 82.1,
-      "dd_pct": 52.5,
-      "corr_pct": 54.6,
-      "selected": true,
-      "passed_filter": false,
-      "failed_conditions": [
-        "營收為負",
-        "季均營收未創高"
-      ],
-      "history": [
-        {
-          "date": "2026-04-24",
-          "score": 81.2
-        },
-        {
-          "date": "2026-04-27",
-          "score": 81.1
-        },
-        {
-          "date": "2026-04-28",
-          "score": 81.1
-        },
-        {
-          "date": "2026-04-29",
-          "score": 83.4
-        },
-        {
-          "date": "2026-04-30",
-          "score": 83.6
-        }
-      ]
-    },
-    {
-      "base_rank": 5,
-      "prev_rank": null,
-      "rank_change": null,
-      "change_type": "new",
       "stock_id": "2890",
       "name": "永豐金",
       "full_name": "永豐金融控股股份有限公司",
-      "score": 0.710563,
-      "display_score": 83.46,
-      "close": 30.95,
-      "rs_pct": 69.2,
-      "peg_pct": 92.6,
-      "dd_pct": 56.2,
-      "corr_pct": 19.9,
+      "score": 0.704384,
+      "display_score": 83.11,
+      "close": 30.55,
+      "rs_pct": 67.3,
+      "peg_pct": 92.7,
+      "dd_pct": 56.1,
+      "corr_pct": 27.3,
       "selected": true,
       "passed_filter": true,
       "failed_conditions": [],
       "history": [
-        {
-          "date": "2026-04-24",
-          "score": 84.9
-        },
         {
           "date": "2026-04-27",
           "score": 85.3
@@ -905,76 +857,32 @@
         {
           "date": "2026-04-30",
           "score": 83.5
+        },
+        {
+          "date": "2026-05-04",
+          "score": 83.1
         }
       ]
     },
     {
-      "base_rank": 6,
-      "prev_rank": null,
-      "rank_change": null,
-      "change_type": "new",
-      "stock_id": "5478",
-      "name": "智冠",
-      "full_name": "智冠科技股份有限公司",
-      "score": 0.70739,
-      "display_score": 83.28,
-      "close": 97.0,
-      "rs_pct": 42.3,
-      "peg_pct": 84.1,
-      "dd_pct": 82.1,
-      "corr_pct": 71.6,
-      "selected": true,
-      "passed_filter": false,
-      "failed_conditions": [
-        "營收為負",
-        "季均營收未創高"
-      ],
-      "history": [
-        {
-          "date": "2026-04-24",
-          "score": 82.5
-        },
-        {
-          "date": "2026-04-27",
-          "score": 79.8
-        },
-        {
-          "date": "2026-04-28",
-          "score": 79.5
-        },
-        {
-          "date": "2026-04-29",
-          "score": 82.7
-        },
-        {
-          "date": "2026-04-30",
-          "score": 83.3
-        }
-      ]
-    },
-    {
-      "base_rank": 7,
+      "base_rank": 5,
       "prev_rank": null,
       "rank_change": null,
       "change_type": "new",
       "stock_id": "6861",
       "name": "睿生光電",
       "full_name": "睿生光電股份有限公司",
-      "score": 0.707061,
-      "display_score": 83.26,
-      "close": 328.0,
+      "score": 0.703889,
+      "display_score": 83.08,
+      "close": 360.5,
       "rs_pct": 100.0,
-      "peg_pct": 67.9,
+      "peg_pct": 66.9,
       "dd_pct": 50.8,
-      "corr_pct": 52.7,
+      "corr_pct": 47.1,
       "selected": true,
       "passed_filter": true,
       "failed_conditions": [],
       "history": [
-        {
-          "date": "2026-04-24",
-          "score": 76.6
-        },
         {
           "date": "2026-04-27",
           "score": 77.2
@@ -990,6 +898,98 @@
         {
           "date": "2026-04-30",
           "score": 83.3
+        },
+        {
+          "date": "2026-05-04",
+          "score": 83.1
+        }
+      ]
+    },
+    {
+      "base_rank": 6,
+      "prev_rank": null,
+      "rank_change": null,
+      "change_type": "new",
+      "stock_id": "5478",
+      "name": "智冠",
+      "full_name": "智冠科技股份有限公司",
+      "score": 0.700743,
+      "display_score": 82.9,
+      "close": 96.6,
+      "rs_pct": 39.0,
+      "peg_pct": 84.3,
+      "dd_pct": 82.7,
+      "corr_pct": 73.2,
+      "selected": true,
+      "passed_filter": false,
+      "failed_conditions": [
+        "營收為負",
+        "季均營收未創高"
+      ],
+      "history": [
+        {
+          "date": "2026-04-27",
+          "score": 79.8
+        },
+        {
+          "date": "2026-04-28",
+          "score": 79.5
+        },
+        {
+          "date": "2026-04-29",
+          "score": 82.7
+        },
+        {
+          "date": "2026-04-30",
+          "score": 83.3
+        },
+        {
+          "date": "2026-05-04",
+          "score": 82.9
+        }
+      ]
+    },
+    {
+      "base_rank": 7,
+      "prev_rank": null,
+      "rank_change": null,
+      "change_type": "new",
+      "stock_id": "6446",
+      "name": "藥華藥",
+      "full_name": "藥華醫藥股份有限公司",
+      "score": 0.695656,
+      "display_score": 82.61,
+      "close": 645.0,
+      "rs_pct": 84.0,
+      "peg_pct": 82.5,
+      "dd_pct": 49.0,
+      "corr_pct": 59.6,
+      "selected": true,
+      "passed_filter": false,
+      "failed_conditions": [
+        "營收為負",
+        "季均營收未創高"
+      ],
+      "history": [
+        {
+          "date": "2026-04-27",
+          "score": 81.1
+        },
+        {
+          "date": "2026-04-28",
+          "score": 81.1
+        },
+        {
+          "date": "2026-04-29",
+          "score": 83.4
+        },
+        {
+          "date": "2026-04-30",
+          "score": 83.6
+        },
+        {
+          "date": "2026-05-04",
+          "score": 82.6
         }
       ]
     },
@@ -1001,21 +1001,17 @@
       "stock_id": "5904",
       "name": "寶雅",
       "full_name": "寶雅國際股份有限公司",
-      "score": 0.675301,
-      "display_score": 81.45,
-      "close": 575.0,
-      "rs_pct": 84.6,
+      "score": 0.675258,
+      "display_score": 81.44,
+      "close": 574.0,
+      "rs_pct": 83.8,
       "peg_pct": 80.1,
-      "dd_pct": 45.2,
-      "corr_pct": 60.6,
+      "dd_pct": 45.9,
+      "corr_pct": 64.0,
       "selected": true,
       "passed_filter": true,
       "failed_conditions": [],
       "history": [
-        {
-          "date": "2026-04-24",
-          "score": 84.1
-        },
         {
           "date": "2026-04-27",
           "score": 81.8
@@ -1031,6 +1027,10 @@
         {
           "date": "2026-04-30",
           "score": 81.5
+        },
+        {
+          "date": "2026-05-04",
+          "score": 81.4
         }
       ]
     },
@@ -1042,21 +1042,17 @@
       "stock_id": "6531",
       "name": "愛普*",
       "full_name": "愛普科技股份有限公司",
-      "score": 0.641643,
-      "display_score": 79.52,
-      "close": 840.0,
-      "rs_pct": 96.1,
-      "peg_pct": 78.4,
-      "dd_pct": 29.6,
-      "corr_pct": 51.9,
+      "score": 0.638958,
+      "display_score": 79.37,
+      "close": 924.0,
+      "rs_pct": 96.4,
+      "peg_pct": 77.3,
+      "dd_pct": 29.5,
+      "corr_pct": 43.0,
       "selected": true,
       "passed_filter": true,
       "failed_conditions": [],
       "history": [
-        {
-          "date": "2026-04-24",
-          "score": 75.5
-        },
         {
           "date": "2026-04-27",
           "score": 75.3
@@ -1072,6 +1068,10 @@
         {
           "date": "2026-04-30",
           "score": 79.5
+        },
+        {
+          "date": "2026-05-04",
+          "score": 79.4
         }
       ]
     },
@@ -1083,21 +1083,17 @@
       "stock_id": "6874",
       "name": "倍力",
       "full_name": "倍力資訊股份有限公司",
-      "score": 0.639019,
-      "display_score": 79.37,
-      "close": 88.2,
-      "rs_pct": 83.4,
-      "peg_pct": 95.0,
-      "dd_pct": 25.9,
-      "corr_pct": 73.0,
+      "score": 0.638402,
+      "display_score": 79.34,
+      "close": 87.5,
+      "rs_pct": 82.7,
+      "peg_pct": 95.2,
+      "dd_pct": 26.1,
+      "corr_pct": 75.3,
       "selected": true,
       "passed_filter": true,
       "failed_conditions": [],
       "history": [
-        {
-          "date": "2026-04-24",
-          "score": 80.1
-        },
         {
           "date": "2026-04-27",
           "score": 80.2
@@ -1113,6 +1109,10 @@
         {
           "date": "2026-04-30",
           "score": 79.4
+        },
+        {
+          "date": "2026-05-04",
+          "score": 79.3
         }
       ]
     },
@@ -1124,21 +1124,17 @@
       "stock_id": "1785",
       "name": "光洋科",
       "full_name": "光洋應用材料科技股份有限公司",
-      "score": 0.601029,
-      "display_score": 77.2,
-      "close": 165.5,
-      "rs_pct": 97.8,
+      "score": 0.600897,
+      "display_score": 77.19,
+      "close": 170.0,
+      "rs_pct": 97.7,
       "peg_pct": 86.5,
       "dd_pct": 12.1,
-      "corr_pct": 50.6,
+      "corr_pct": 50.8,
       "selected": true,
       "passed_filter": true,
       "failed_conditions": [],
       "history": [
-        {
-          "date": "2026-04-24",
-          "score": 77.3
-        },
         {
           "date": "2026-04-27",
           "score": 77.9
@@ -1154,6 +1150,10 @@
         {
           "date": "2026-04-30",
           "score": 77.2
+        },
+        {
+          "date": "2026-05-04",
+          "score": 77.2
         }
       ]
     },
@@ -1165,21 +1165,17 @@
       "stock_id": "3167",
       "name": "大量",
       "full_name": "大量科技股份有限公司",
-      "score": 0.586892,
-      "display_score": 76.39,
-      "close": 861.0,
-      "rs_pct": 99.5,
-      "peg_pct": 82.6,
-      "dd_pct": 10.1,
-      "corr_pct": 47.2,
+      "score": 0.589303,
+      "display_score": 76.53,
+      "close": 854.0,
+      "rs_pct": 99.4,
+      "peg_pct": 83.0,
+      "dd_pct": 10.5,
+      "corr_pct": 52.4,
       "selected": true,
       "passed_filter": true,
       "failed_conditions": [],
       "history": [
-        {
-          "date": "2026-04-24",
-          "score": 75.4
-        },
         {
           "date": "2026-04-27",
           "score": 75.5
@@ -1195,6 +1191,10 @@
         {
           "date": "2026-04-30",
           "score": 76.4
+        },
+        {
+          "date": "2026-05-04",
+          "score": 76.5
         }
       ]
     },
@@ -1206,13 +1206,13 @@
       "stock_id": "8438",
       "name": "昶昕",
       "full_name": "昶昕實業股份有限公司",
-      "score": 0.580665,
-      "display_score": 76.04,
-      "close": 88.3,
-      "rs_pct": 99.2,
-      "peg_pct": 64.3,
-      "dd_pct": 22.6,
-      "corr_pct": 51.0,
+      "score": 0.578917,
+      "display_score": 75.94,
+      "close": 94.6,
+      "rs_pct": 99.1,
+      "peg_pct": 63.6,
+      "dd_pct": 22.7,
+      "corr_pct": 43.7,
       "selected": true,
       "passed_filter": false,
       "failed_conditions": [
@@ -1221,10 +1221,6 @@
         "季均營收未創高"
       ],
       "history": [
-        {
-          "date": "2026-04-24",
-          "score": 76.7
-        },
         {
           "date": "2026-04-27",
           "score": 76.9
@@ -1240,6 +1236,10 @@
         {
           "date": "2026-04-30",
           "score": 76.0
+        },
+        {
+          "date": "2026-05-04",
+          "score": 75.9
         }
       ]
     },
@@ -1251,21 +1251,17 @@
       "stock_id": "6739",
       "name": "竹陞科技",
       "full_name": "竹陞科技股份有限公司",
-      "score": 0.576314,
-      "display_score": 75.79,
-      "close": 1420.0,
-      "rs_pct": 95.1,
-      "peg_pct": 77.7,
+      "score": 0.576519,
+      "display_score": 75.8,
+      "close": 1460.0,
+      "rs_pct": 95.3,
+      "peg_pct": 77.6,
       "dd_pct": 14.4,
-      "corr_pct": 42.3,
+      "corr_pct": 42.7,
       "selected": true,
       "passed_filter": true,
       "failed_conditions": [],
       "history": [
-        {
-          "date": "2026-04-24",
-          "score": 75.2
-        },
         {
           "date": "2026-04-27",
           "score": 75.3
@@ -1281,6 +1277,10 @@
         {
           "date": "2026-04-30",
           "score": 75.8
+        },
+        {
+          "date": "2026-05-04",
+          "score": 75.8
         }
       ]
     },
@@ -1292,21 +1292,17 @@
       "stock_id": "2360",
       "name": "致茂",
       "full_name": "致茂電子股份有限公司",
-      "score": 0.548443,
-      "display_score": 74.2,
-      "close": 2120.0,
-      "rs_pct": 98.6,
-      "peg_pct": 73.8,
-      "dd_pct": 7.8,
-      "corr_pct": 21.5,
+      "score": 0.546237,
+      "display_score": 74.07,
+      "close": 2310.0,
+      "rs_pct": 98.9,
+      "peg_pct": 72.6,
+      "dd_pct": 8.0,
+      "corr_pct": 18.3,
       "selected": true,
       "passed_filter": true,
       "failed_conditions": [],
       "history": [
-        {
-          "date": "2026-04-24",
-          "score": 73.3
-        },
         {
           "date": "2026-04-27",
           "score": 73.4
@@ -1322,6 +1318,10 @@
         {
           "date": "2026-04-30",
           "score": 74.2
+        },
+        {
+          "date": "2026-05-04",
+          "score": 74.1
         }
       ]
     },
@@ -1333,21 +1333,17 @@
       "stock_id": "3264",
       "name": "欣銓",
       "full_name": "欣銓科技股份有限公司",
-      "score": 0.543892,
-      "display_score": 73.94,
-      "close": 195.0,
-      "rs_pct": 96.7,
-      "peg_pct": 75.4,
-      "dd_pct": 6.9,
-      "corr_pct": 28.5,
+      "score": 0.541533,
+      "display_score": 73.8,
+      "close": 214.5,
+      "rs_pct": 97.3,
+      "peg_pct": 73.9,
+      "dd_pct": 7.0,
+      "corr_pct": 22.6,
       "selected": true,
       "passed_filter": true,
       "failed_conditions": [],
       "history": [
-        {
-          "date": "2026-04-24",
-          "score": 75.2
-        },
         {
           "date": "2026-04-27",
           "score": 74.0
@@ -1363,6 +1359,10 @@
         {
           "date": "2026-04-30",
           "score": 73.9
+        },
+        {
+          "date": "2026-05-04",
+          "score": 73.8
         }
       ]
     }
@@ -1376,21 +1376,17 @@
       "stock_id": "2820",
       "name": "華票",
       "full_name": "中華票券金融股份有限公司",
-      "score": 0.770263,
-      "display_score": 86.87,
-      "close": 16.8,
-      "rs_pct": 41.8,
-      "peg_pct": 93.5,
+      "score": 0.812943,
+      "display_score": 89.31,
+      "close": 16.9,
+      "rs_pct": 56.1,
+      "peg_pct": 93.6,
       "dd_pct": 91.0,
-      "corr_pct": 26.3,
+      "corr_pct": 25.7,
       "selected": true,
       "passed_filter": true,
       "failed_conditions": [],
       "history": [
-        {
-          "date": "2026-04-24",
-          "score": 88.1
-        },
         {
           "date": "2026-04-27",
           "score": 89.8
@@ -1406,6 +1402,10 @@
         {
           "date": "2026-04-30",
           "score": 86.9
+        },
+        {
+          "date": "2026-05-04",
+          "score": 89.3
         }
       ]
     },
@@ -1417,13 +1417,13 @@
       "stock_id": "3028",
       "name": "增你強",
       "full_name": "增你強股份有限公司",
-      "score": 0.738804,
-      "display_score": 85.07,
-      "close": 68.3,
-      "rs_pct": 93.9,
+      "score": 0.738344,
+      "display_score": 85.05,
+      "close": 69.4,
+      "rs_pct": 93.8,
       "peg_pct": 96.0,
       "dd_pct": 42.3,
-      "corr_pct": 40.4,
+      "corr_pct": 42.1,
       "selected": true,
       "passed_filter": false,
       "failed_conditions": [
@@ -1432,10 +1432,6 @@
         "季均營收未創高"
       ],
       "history": [
-        {
-          "date": "2026-04-24",
-          "score": 82.0
-        },
         {
           "date": "2026-04-27",
           "score": 82.4
@@ -1451,6 +1447,10 @@
         {
           "date": "2026-04-30",
           "score": 85.1
+        },
+        {
+          "date": "2026-05-04",
+          "score": 85.0
         }
       ]
     },
@@ -1462,13 +1462,13 @@
       "stock_id": "2727",
       "name": "王品",
       "full_name": "王品餐飲股份有限公司",
-      "score": 0.71296,
-      "display_score": 83.6,
-      "close": 226.5,
-      "rs_pct": 65.3,
+      "score": 0.713943,
+      "display_score": 83.65,
+      "close": 229.0,
+      "rs_pct": 65.6,
       "peg_pct": 66.3,
       "dd_pct": 79.5,
-      "corr_pct": 57.1,
+      "corr_pct": 53.2,
       "selected": true,
       "passed_filter": false,
       "failed_conditions": [
@@ -1477,10 +1477,6 @@
         "季均營收未創高"
       ],
       "history": [
-        {
-          "date": "2026-04-24",
-          "score": 82.0
-        },
         {
           "date": "2026-04-27",
           "score": 83.5
@@ -1496,6 +1492,10 @@
         {
           "date": "2026-04-30",
           "score": 83.6
+        },
+        {
+          "date": "2026-05-04",
+          "score": 83.7
         }
       ]
     },
@@ -1504,68 +1504,20 @@
       "prev_rank": null,
       "rank_change": null,
       "change_type": "new",
-      "stock_id": "6446",
-      "name": "藥華藥",
-      "full_name": "藥華醫藥股份有限公司",
-      "score": 0.712385,
-      "display_score": 83.56,
-      "close": 661.0,
-      "rs_pct": 85.4,
-      "peg_pct": 82.1,
-      "dd_pct": 52.5,
-      "corr_pct": 54.6,
-      "selected": true,
-      "passed_filter": false,
-      "failed_conditions": [
-        "營收為負",
-        "季均營收未創高"
-      ],
-      "history": [
-        {
-          "date": "2026-04-24",
-          "score": 81.2
-        },
-        {
-          "date": "2026-04-27",
-          "score": 81.1
-        },
-        {
-          "date": "2026-04-28",
-          "score": 81.1
-        },
-        {
-          "date": "2026-04-29",
-          "score": 83.4
-        },
-        {
-          "date": "2026-04-30",
-          "score": 83.6
-        }
-      ]
-    },
-    {
-      "base_rank": 5,
-      "prev_rank": null,
-      "rank_change": null,
-      "change_type": "new",
       "stock_id": "2890",
       "name": "永豐金",
       "full_name": "永豐金融控股股份有限公司",
-      "score": 0.710563,
-      "display_score": 83.46,
-      "close": 30.95,
-      "rs_pct": 69.2,
-      "peg_pct": 92.6,
-      "dd_pct": 56.2,
-      "corr_pct": 19.9,
+      "score": 0.704384,
+      "display_score": 83.11,
+      "close": 30.55,
+      "rs_pct": 67.3,
+      "peg_pct": 92.7,
+      "dd_pct": 56.1,
+      "corr_pct": 27.3,
       "selected": true,
       "passed_filter": true,
       "failed_conditions": [],
       "history": [
-        {
-          "date": "2026-04-24",
-          "score": 84.9
-        },
         {
           "date": "2026-04-27",
           "score": 85.3
@@ -1581,76 +1533,32 @@
         {
           "date": "2026-04-30",
           "score": 83.5
+        },
+        {
+          "date": "2026-05-04",
+          "score": 83.1
         }
       ]
     },
     {
-      "base_rank": 6,
-      "prev_rank": null,
-      "rank_change": null,
-      "change_type": "new",
-      "stock_id": "5478",
-      "name": "智冠",
-      "full_name": "智冠科技股份有限公司",
-      "score": 0.70739,
-      "display_score": 83.28,
-      "close": 97.0,
-      "rs_pct": 42.3,
-      "peg_pct": 84.1,
-      "dd_pct": 82.1,
-      "corr_pct": 71.6,
-      "selected": true,
-      "passed_filter": false,
-      "failed_conditions": [
-        "營收為負",
-        "季均營收未創高"
-      ],
-      "history": [
-        {
-          "date": "2026-04-24",
-          "score": 82.5
-        },
-        {
-          "date": "2026-04-27",
-          "score": 79.8
-        },
-        {
-          "date": "2026-04-28",
-          "score": 79.5
-        },
-        {
-          "date": "2026-04-29",
-          "score": 82.7
-        },
-        {
-          "date": "2026-04-30",
-          "score": 83.3
-        }
-      ]
-    },
-    {
-      "base_rank": 7,
+      "base_rank": 5,
       "prev_rank": null,
       "rank_change": null,
       "change_type": "new",
       "stock_id": "6861",
       "name": "睿生光電",
       "full_name": "睿生光電股份有限公司",
-      "score": 0.707061,
-      "display_score": 83.26,
-      "close": 328.0,
+      "score": 0.703889,
+      "display_score": 83.08,
+      "close": 360.5,
       "rs_pct": 100.0,
-      "peg_pct": 67.9,
+      "peg_pct": 66.9,
       "dd_pct": 50.8,
-      "corr_pct": 52.7,
+      "corr_pct": 47.1,
       "selected": true,
       "passed_filter": true,
       "failed_conditions": [],
       "history": [
-        {
-          "date": "2026-04-24",
-          "score": 76.6
-        },
         {
           "date": "2026-04-27",
           "score": 77.2
@@ -1666,6 +1574,98 @@
         {
           "date": "2026-04-30",
           "score": 83.3
+        },
+        {
+          "date": "2026-05-04",
+          "score": 83.1
+        }
+      ]
+    },
+    {
+      "base_rank": 6,
+      "prev_rank": null,
+      "rank_change": null,
+      "change_type": "new",
+      "stock_id": "5478",
+      "name": "智冠",
+      "full_name": "智冠科技股份有限公司",
+      "score": 0.700743,
+      "display_score": 82.9,
+      "close": 96.6,
+      "rs_pct": 39.0,
+      "peg_pct": 84.3,
+      "dd_pct": 82.7,
+      "corr_pct": 73.2,
+      "selected": true,
+      "passed_filter": false,
+      "failed_conditions": [
+        "營收為負",
+        "季均營收未創高"
+      ],
+      "history": [
+        {
+          "date": "2026-04-27",
+          "score": 79.8
+        },
+        {
+          "date": "2026-04-28",
+          "score": 79.5
+        },
+        {
+          "date": "2026-04-29",
+          "score": 82.7
+        },
+        {
+          "date": "2026-04-30",
+          "score": 83.3
+        },
+        {
+          "date": "2026-05-04",
+          "score": 82.9
+        }
+      ]
+    },
+    {
+      "base_rank": 7,
+      "prev_rank": null,
+      "rank_change": null,
+      "change_type": "new",
+      "stock_id": "6446",
+      "name": "藥華藥",
+      "full_name": "藥華醫藥股份有限公司",
+      "score": 0.695656,
+      "display_score": 82.61,
+      "close": 645.0,
+      "rs_pct": 84.0,
+      "peg_pct": 82.5,
+      "dd_pct": 49.0,
+      "corr_pct": 59.6,
+      "selected": true,
+      "passed_filter": false,
+      "failed_conditions": [
+        "營收為負",
+        "季均營收未創高"
+      ],
+      "history": [
+        {
+          "date": "2026-04-27",
+          "score": 81.1
+        },
+        {
+          "date": "2026-04-28",
+          "score": 81.1
+        },
+        {
+          "date": "2026-04-29",
+          "score": 83.4
+        },
+        {
+          "date": "2026-04-30",
+          "score": 83.6
+        },
+        {
+          "date": "2026-05-04",
+          "score": 82.6
         }
       ]
     },
@@ -1677,21 +1677,17 @@
       "stock_id": "5904",
       "name": "寶雅",
       "full_name": "寶雅國際股份有限公司",
-      "score": 0.675301,
-      "display_score": 81.45,
-      "close": 575.0,
-      "rs_pct": 84.6,
+      "score": 0.675258,
+      "display_score": 81.44,
+      "close": 574.0,
+      "rs_pct": 83.8,
       "peg_pct": 80.1,
-      "dd_pct": 45.2,
-      "corr_pct": 60.6,
+      "dd_pct": 45.9,
+      "corr_pct": 64.0,
       "selected": true,
       "passed_filter": true,
       "failed_conditions": [],
       "history": [
-        {
-          "date": "2026-04-24",
-          "score": 84.1
-        },
         {
           "date": "2026-04-27",
           "score": 81.8
@@ -1707,6 +1703,10 @@
         {
           "date": "2026-04-30",
           "score": 81.5
+        },
+        {
+          "date": "2026-05-04",
+          "score": 81.4
         }
       ]
     },
@@ -1718,21 +1718,17 @@
       "stock_id": "6531",
       "name": "愛普*",
       "full_name": "愛普科技股份有限公司",
-      "score": 0.641643,
-      "display_score": 79.52,
-      "close": 840.0,
-      "rs_pct": 96.1,
-      "peg_pct": 78.4,
-      "dd_pct": 29.6,
-      "corr_pct": 51.9,
+      "score": 0.638958,
+      "display_score": 79.37,
+      "close": 924.0,
+      "rs_pct": 96.4,
+      "peg_pct": 77.3,
+      "dd_pct": 29.5,
+      "corr_pct": 43.0,
       "selected": true,
       "passed_filter": true,
       "failed_conditions": [],
       "history": [
-        {
-          "date": "2026-04-24",
-          "score": 75.5
-        },
         {
           "date": "2026-04-27",
           "score": 75.3
@@ -1748,6 +1744,10 @@
         {
           "date": "2026-04-30",
           "score": 79.5
+        },
+        {
+          "date": "2026-05-04",
+          "score": 79.4
         }
       ]
     },
@@ -1759,21 +1759,17 @@
       "stock_id": "6874",
       "name": "倍力",
       "full_name": "倍力資訊股份有限公司",
-      "score": 0.639019,
-      "display_score": 79.37,
-      "close": 88.2,
-      "rs_pct": 83.4,
-      "peg_pct": 95.0,
-      "dd_pct": 25.9,
-      "corr_pct": 73.0,
+      "score": 0.638402,
+      "display_score": 79.34,
+      "close": 87.5,
+      "rs_pct": 82.7,
+      "peg_pct": 95.2,
+      "dd_pct": 26.1,
+      "corr_pct": 75.3,
       "selected": true,
       "passed_filter": true,
       "failed_conditions": [],
       "history": [
-        {
-          "date": "2026-04-24",
-          "score": 80.1
-        },
         {
           "date": "2026-04-27",
           "score": 80.2
@@ -1789,6 +1785,10 @@
         {
           "date": "2026-04-30",
           "score": 79.4
+        },
+        {
+          "date": "2026-05-04",
+          "score": 79.3
         }
       ]
     },
@@ -1800,21 +1800,17 @@
       "stock_id": "1785",
       "name": "光洋科",
       "full_name": "光洋應用材料科技股份有限公司",
-      "score": 0.601029,
-      "display_score": 77.2,
-      "close": 165.5,
-      "rs_pct": 97.8,
+      "score": 0.600897,
+      "display_score": 77.19,
+      "close": 170.0,
+      "rs_pct": 97.7,
       "peg_pct": 86.5,
       "dd_pct": 12.1,
-      "corr_pct": 50.6,
+      "corr_pct": 50.8,
       "selected": true,
       "passed_filter": true,
       "failed_conditions": [],
       "history": [
-        {
-          "date": "2026-04-24",
-          "score": 77.3
-        },
         {
           "date": "2026-04-27",
           "score": 77.9
@@ -1830,6 +1826,10 @@
         {
           "date": "2026-04-30",
           "score": 77.2
+        },
+        {
+          "date": "2026-05-04",
+          "score": 77.2
         }
       ]
     },
@@ -1841,21 +1841,17 @@
       "stock_id": "3167",
       "name": "大量",
       "full_name": "大量科技股份有限公司",
-      "score": 0.586892,
-      "display_score": 76.39,
-      "close": 861.0,
-      "rs_pct": 99.5,
-      "peg_pct": 82.6,
-      "dd_pct": 10.1,
-      "corr_pct": 47.2,
+      "score": 0.589303,
+      "display_score": 76.53,
+      "close": 854.0,
+      "rs_pct": 99.4,
+      "peg_pct": 83.0,
+      "dd_pct": 10.5,
+      "corr_pct": 52.4,
       "selected": true,
       "passed_filter": true,
       "failed_conditions": [],
       "history": [
-        {
-          "date": "2026-04-24",
-          "score": 75.4
-        },
         {
           "date": "2026-04-27",
           "score": 75.5
@@ -1871,6 +1867,10 @@
         {
           "date": "2026-04-30",
           "score": 76.4
+        },
+        {
+          "date": "2026-05-04",
+          "score": 76.5
         }
       ]
     },
@@ -1882,13 +1882,13 @@
       "stock_id": "8438",
       "name": "昶昕",
       "full_name": "昶昕實業股份有限公司",
-      "score": 0.580665,
-      "display_score": 76.04,
-      "close": 88.3,
-      "rs_pct": 99.2,
-      "peg_pct": 64.3,
-      "dd_pct": 22.6,
-      "corr_pct": 51.0,
+      "score": 0.578917,
+      "display_score": 75.94,
+      "close": 94.6,
+      "rs_pct": 99.1,
+      "peg_pct": 63.6,
+      "dd_pct": 22.7,
+      "corr_pct": 43.7,
       "selected": true,
       "passed_filter": false,
       "failed_conditions": [
@@ -1897,10 +1897,6 @@
         "季均營收未創高"
       ],
       "history": [
-        {
-          "date": "2026-04-24",
-          "score": 76.7
-        },
         {
           "date": "2026-04-27",
           "score": 76.9
@@ -1916,6 +1912,10 @@
         {
           "date": "2026-04-30",
           "score": 76.0
+        },
+        {
+          "date": "2026-05-04",
+          "score": 75.9
         }
       ]
     },
@@ -1927,21 +1927,17 @@
       "stock_id": "6739",
       "name": "竹陞科技",
       "full_name": "竹陞科技股份有限公司",
-      "score": 0.576314,
-      "display_score": 75.79,
-      "close": 1420.0,
-      "rs_pct": 95.1,
-      "peg_pct": 77.7,
+      "score": 0.576519,
+      "display_score": 75.8,
+      "close": 1460.0,
+      "rs_pct": 95.3,
+      "peg_pct": 77.6,
       "dd_pct": 14.4,
-      "corr_pct": 42.3,
+      "corr_pct": 42.7,
       "selected": true,
       "passed_filter": true,
       "failed_conditions": [],
       "history": [
-        {
-          "date": "2026-04-24",
-          "score": 75.2
-        },
         {
           "date": "2026-04-27",
           "score": 75.3
@@ -1957,6 +1953,10 @@
         {
           "date": "2026-04-30",
           "score": 75.8
+        },
+        {
+          "date": "2026-05-04",
+          "score": 75.8
         }
       ]
     },
@@ -1968,21 +1968,17 @@
       "stock_id": "2360",
       "name": "致茂",
       "full_name": "致茂電子股份有限公司",
-      "score": 0.548443,
-      "display_score": 74.2,
-      "close": 2120.0,
-      "rs_pct": 98.6,
-      "peg_pct": 73.8,
-      "dd_pct": 7.8,
-      "corr_pct": 21.5,
+      "score": 0.546237,
+      "display_score": 74.07,
+      "close": 2310.0,
+      "rs_pct": 98.9,
+      "peg_pct": 72.6,
+      "dd_pct": 8.0,
+      "corr_pct": 18.3,
       "selected": true,
       "passed_filter": true,
       "failed_conditions": [],
       "history": [
-        {
-          "date": "2026-04-24",
-          "score": 73.3
-        },
         {
           "date": "2026-04-27",
           "score": 73.4
@@ -1998,6 +1994,10 @@
         {
           "date": "2026-04-30",
           "score": 74.2
+        },
+        {
+          "date": "2026-05-04",
+          "score": 74.1
         }
       ]
     },
@@ -2009,21 +2009,17 @@
       "stock_id": "3264",
       "name": "欣銓",
       "full_name": "欣銓科技股份有限公司",
-      "score": 0.543892,
-      "display_score": 73.94,
-      "close": 195.0,
-      "rs_pct": 96.7,
-      "peg_pct": 75.4,
-      "dd_pct": 6.9,
-      "corr_pct": 28.5,
+      "score": 0.541533,
+      "display_score": 73.8,
+      "close": 214.5,
+      "rs_pct": 97.3,
+      "peg_pct": 73.9,
+      "dd_pct": 7.0,
+      "corr_pct": 22.6,
       "selected": true,
       "passed_filter": true,
       "failed_conditions": [],
       "history": [
-        {
-          "date": "2026-04-24",
-          "score": 75.2
-        },
         {
           "date": "2026-04-27",
           "score": 74.0
@@ -2039,6 +2035,10 @@
         {
           "date": "2026-04-30",
           "score": 73.9
+        },
+        {
+          "date": "2026-05-04",
+          "score": 73.8
         }
       ]
     }
