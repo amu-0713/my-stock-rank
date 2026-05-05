@@ -5,7 +5,7 @@ import { STRATEGY_ENTRIES } from '../data/strategyEntries.js'
 
 export default function HomePage() {
   const [data, setData] = useState(null)
-
+  const [selectedPeriod, setSelectedPeriod] = useState('5Y');
   // 抓取 result.json
   useEffect(() => {
     fetch('/result.json', { cache: 'no-store' })
@@ -65,32 +65,37 @@ export default function HomePage() {
                         回測期間：2010 - {data?.latest_date ? new Date(data.latest_date).getFullYear() : '2026'}
                       </p>
 
-                      {/* 時間切換按鈕 */}
-                      <div className="flex gap-2 mt-4 mb-4">
-                        {['3Y', '5Y', '10Y', 'ALL'].map((period) => (
-                          <button
-                            key={period}
-                            className={`px-4 py-1.5 text-sm font-medium rounded-xl transition flex-1 ${
-                              period === '5Y' ? 'bg-zinc-900 text-white shadow' : 'bg-zinc-100 text-zinc-600 hover:bg-zinc-200'
-                            }`}
-                          >
-                            {period}
-                          </button>
-                        ))}
+                      {/* 時間切換按鈕 + 圖表切換 */}
+                      <div className="mt-4 mb-4">
+                        <div className="flex gap-2">
+                          {['3Y', '5Y', '10Y', 'ALL'].map((period) => (
+                            <button
+                              key={period}
+                              onClick={() => setSelectedPeriod(period)}
+                              className={`px-4 py-1.5 text-sm font-medium rounded-xl transition flex-1 ${
+                                selectedPeriod === period 
+                                  ? 'bg-zinc-900 text-white shadow' 
+                                  : 'bg-zinc-100 text-zinc-600 hover:bg-zinc-200'
+                              }`}
+                            >
+                              {period}
+                            </button>
+                          ))}
+                        </div>
                       </div>
-
-                      {/* 圖表區 - 顯示 5Y 預設 */}
+                      
+                      {/* 圖表區 - 動態切換 */}
                       <div className="bg-zinc-50 border border-dashed border-zinc-300 rounded-2xl h-[280px] flex items-center justify-center mb-3 overflow-hidden">
-                        <img 
-                          src="/charts/cumulative_5y.png" 
-                          alt="策略 vs 大盤績效"
+                        <img
+                          src={`/charts/cumulative_${selectedPeriod.toLowerCase()}.png`}
+                          alt={`策略 vs 大盤績效 ${selectedPeriod}`}
                           className="max-h-full max-w-full object-contain"
                           onError={(e) => {
                             e.target.style.display = 'none';
                             e.target.parentElement.innerHTML = `
                               <div class="text-center">
                                 <div class="text-5xl mb-3 opacity-40">📈</div>
-                                <p class="font-medium text-zinc-400">策略 vs 大盤績效</p>
+                                <p class="font-medium text-zinc-400">策略 vs 大盤績效 (${selectedPeriod})</p>
                                 <p class="text-xs text-zinc-400 mt-1">圖表由 GitHub Actions 自動更新</p>
                               </div>
                             `;
