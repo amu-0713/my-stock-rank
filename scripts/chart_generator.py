@@ -1,76 +1,68 @@
-# scripts/chart_generator.py
 import os
 import finlab
 import pandas as pd
-import numpy as np
-import plotly.graph_objects as go
-import plotly.express as px
 from pathlib import Path
 from shared_backtest import run_full_backtest
+import plotly.graph_objects as go
 
-print("🚀 開始產生首頁圖表...")
-# ====================== FinLab 登入 ======================
+print("🚀 開始產生首頁策略績效圖表...")
+
+# FinLab 登入
 finlab_token = os.environ.get('FINLAB_TOKEN')
 if finlab_token:
     finlab.login(finlab_token)
-    print("✅ FinLab 登入成功 (使用 Token)")
+    print("✅ FinLab 登入成功")
 else:
-    print("⚠️ 未設定 FINLAB_TOKEN")
+    print("⚠️ 未設定 FINLAB_TOKEN，使用本地資料")
+
 # 確保資料夾存在
 chart_dir = Path("public/charts")
 chart_dir.mkdir(parents=True, exist_ok=True)
 
-# 執行完整回測
-report, position_final, price, score, *_ = run_full_backtest()   # ← 改這裡
+# 執行回測
+report, position_final, price, score, *_ = run_full_backtest()
 
 daily_return = report.creturn.pct_change().fillna(0)
-cum_return = (1 + daily_return).cumprod()
+cum_return = (1 + daily_return).cumprod() * 100 - 100
+benchmark_cum = (1 + report.daily_benchmark.pct_change()).cumprod() * 100 - 100
 
-# ====================== 1. 累積報酬曲線 ======================
-fig1 = go.Figure()
-fig1.add_trace(go.Scatter(
-    x=cum_return.index, 
-    y=cum_return*100 - 100,
-    mode='lines', 
-    name='動態多因子策略',
-    line=dict(color='#1E40AF', width=3)
-))
-fig1.add_trace(go.Scatter(
-    x=cum_return.index, 
-    y=(1 + report.daily_benchmark.pct_change()).cumprod()*100 - 100,
-    mode='lines', 
-    name='0050 指數',
-    line=dict(color='#94A3B8', width=2, dash='dash')
-))
-fig1.update_layout(
-    title="策略累積報酬曲線 (2010 年至今)",
-    xaxis_title="日期",
-    yaxis_title="累積報酬 (%)",
-    template="plotly_white",
-    height=520
-)
-fig1.write_image(str(chart_dir / "cumulative_return.png"), scale=3)
-print("✅ cumulative_return.png 已儲存")
+# 產生 4 張圖
+periods = {
+    'ALL': cum_return.index,
+    '10Y': cum_return.last('10Y').index,
+    '5Y': cum_return.last('5Y').index,
+    '3Y': cum_return.last('3Y').index,
+}
 
-# ====================== 2. 年度報酬熱力圖 ======================
-yearly = (daily_return.resample('YE').sum() * 100).round(1)
-fig2 = px.imshow([yearly.values],
-                 labels=dict(x="年度", color="報酬率 (%)"),
-                 color_continuous_scale='RdYlGn',
-                 text_auto=True)
-fig2.update_layout(title="年度報酬熱力圖", height=280)
-fig2.write_image(str(chart_dir / "annual_heatmap.png"), scale=3)
-print("✅ annual_heatmap.png 已儲存")
-
-# ====================== 3. 滾動報酬 ======================
-rolling_1y = daily_return.rolling(252).sum() * 100
-rolling_3y = daily_return.rolling(756).sum() * 100
-
-fig3 = go.Figure()
-fig3.add_trace(go.Scatter(x=rolling_1y.index, y=rolling_1y, name="1年滾動報酬", line=dict(color="#1E40AF")))
-fig3.add_trace(go.Scatter(x=rolling_3y.index, y=rolling_3y, name="3年滾動報酬", line=dict(color="#3B82F6")))
-fig3.update_layout(title="滾動報酬走勢 (1年 / 3年)", height=480)
-fig3.write_image(str(chart_dir / "rolling_return.png"), scale=3)
-print("✅ rolling_return.png 已儲存")
+for name, idx in periods.items():
+    fig = go.Figure()
+    
+    # 策略線
+    fig.add_trace(go.Scatter(
+        x=idx, y=cum_return.loc[idx],
+        mode='lines', name='動態多因子策略',
+        line=dict(color='#1E40AF', width=3)
+    ))
+    
+    # 大盤線
+    fig.add_trace(go.Scatter(
+        x=idx, y=benchmark_cum.loc[idx],
+        mode='lines', name='0050 大盤',
+        line=dict(color='#94A3B8', width=2, dash='dash')
+    ))
+    
+    fig.update_layout(
+        title=f"策略 vs 大盤績效 ({name})",
+        xaxis_title="日期",
+        yaxis_title="累積報酬 (%)",
+        template="plotly_white",
+        height=380,
+        margin=dict(l=40, r=40, t=60, b=40),
+        legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="right", x=1)
+    )
+    
+    filename = f"cumulative_{name.lower()}.png"
+    fig.write_image(str(chart_dir / filename), scale=3)
+    print(f"✅ 已產生 {filename}")
 
 print(f"\n🎉 所有圖表產生完成！存放在 public/charts/")
