@@ -96,13 +96,37 @@ def get_cond_value(cond_df, dt, sid):
 
 def get_failed_conditions(sid, dt):
     fail = []
-    if not get_cond_value(final_cond, dt, sid): fail.append("營收為負")
-    peg_series = peg.loc[:dt, sid].dropna()
-    if len(peg_series) > 0:
-        last_peg = peg_series.iloc[-1]
-        if last_peg >= 1.8: fail.append("PEG過高")
-        elif last_peg <= 0.2: fail.append("PEG過低")
-    if not get_cond_value(final_cond, dt, sid): fail.append("季均營收未創高")  # 簡化
+    
+    # 1. 營收相關檢查
+    if not get_cond_value(c_rev_positive, dt, sid):
+        fail.append("當季營收為負或零")
+    
+    if not get_cond_value(c_rev_high, dt, sid):
+        fail.append("季均營收未創12個月新高")
+    
+    if not get_cond_value(c_hist, dt, sid):
+        fail.append("營收資料不足（少於13個月）")
+    
+    # 2. PEG 檢查
+    if sid in peg.columns:
+        peg_value = peg.loc[dt, sid]
+        if pd.notna(peg_value):
+            if peg_value <= 0.2:
+                fail.append("PEG過低 (< 0.2)")
+            elif peg_value >= 1.8:
+                fail.append("PEG過高 (> 1.8)")
+    
+    # 3. 其他重要濾網
+    if not get_cond_value(c_ma_filter, dt, sid):
+        fail.append("均線未呈多頭排列")
+    
+    if not get_cond_value(c_liq, dt, sid):
+        fail.append("流動性不足（成交金額太低）")
+    
+    # 4. 如果 final_cond 整體失敗，但上面沒抓到，給一個兜底原因
+    if not get_cond_value(final_cond, dt, sid) and not fail:
+        fail.append("未通過綜合濾網")
+    
     return fail
 
 def build_stock_item(sid, row, base_rank, prev_rank_map, selected=None, passed_filter=None):
