@@ -5,7 +5,8 @@ import { STRATEGY_ENTRIES } from '../data/strategyEntries.js'
 
 export default function HomePage() {
   const [data, setData] = useState(null)
-  const [selectedPeriod, setSelectedPeriod] = useState('5Y');
+  const [selectedPeriod, setSelectedPeriod] = useState('5Y')
+
   // 抓取 result.json
   useEffect(() => {
     fetch('/result.json', { cache: 'no-store' })
@@ -42,7 +43,6 @@ export default function HomePage() {
 
           <ul className="mt-3 grid gap-4 sm:grid-cols-2 sm:gap-5">
             {STRATEGY_ENTRIES.map((s) => {
-              // 只針對動態多因子做加強版卡片
               if (s.name === '動態多因子') {
                 return (
                   <li key={s.id}>
@@ -73,8 +73,8 @@ export default function HomePage() {
                               key={period}
                               onClick={() => setSelectedPeriod(period)}
                               className={`px-4 py-1.5 text-sm font-medium rounded-xl transition flex-1 ${
-                                selectedPeriod === period 
-                                  ? 'bg-zinc-900 text-white shadow' 
+                                selectedPeriod === period
+                                  ? 'bg-zinc-900 text-white shadow'
                                   : 'bg-zinc-100 text-zinc-600 hover:bg-zinc-200'
                               }`}
                             >
@@ -83,7 +83,7 @@ export default function HomePage() {
                           ))}
                         </div>
                       </div>
-                      
+
                       {/* 圖表區 - 動態切換 */}
                       <div className="bg-zinc-50 border border-dashed border-zinc-300 rounded-2xl h-[280px] flex items-center justify-center mb-3 overflow-hidden">
                         <img
@@ -128,7 +128,7 @@ export default function HomePage() {
                         <div className="rounded-2xl bg-white border p-2.5">
                           <div className="flex items-center gap-2 text-blue-600">
                             <span className="text-lg">📊</span>
-                            <span className="text-[16px]font-medium">夏普比率</span>
+                            <span className="text-[16px] font-medium">夏普比率</span>
                           </div>
                           <div className="mt-2 text-[24px] font-bold text-blue-600">
                             {overview.sharpe_ratio?.toFixed(2) || '—'}
@@ -163,11 +163,9 @@ export default function HomePage() {
                         <p className="mt-1.5 text-sm leading-snug text-zinc-600">{s.tagline}</p>
                       </div>
                     </div>
-
                     <div className="mt-4 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-zinc-500">
                       <span>更新：{s.updateNote}</span>
                     </div>
-
                     <div className="mt-5">
                       <span className="inline-flex items-center justify-center rounded-lg bg-zinc-900 px-4 py-2 text-sm font-medium text-white transition group-hover:bg-zinc-800">
                         進入策略
@@ -180,7 +178,7 @@ export default function HomePage() {
           </ul>
         </section>
 
-        {/* 更新與聯絡 */}
+        {/* 更新與聯絡、免責聲明保持不變 */}
         <section id="meta" className="mt-12 scroll-mt-8 rounded-xl border border-zinc-200/80 bg-zinc-50/80 px-5 py-4">
           <h2 className="text-xs font-medium uppercase tracking-wide text-zinc-500">更新與聯絡</h2>
           <dl className="mt-3 space-y-2 text-sm text-zinc-700">
@@ -201,7 +199,6 @@ export default function HomePage() {
           </dl>
         </section>
 
-        {/* 免責聲明 */}
         <section id="disclaimer" className="mt-8 scroll-mt-8 pb-10">
           <div className="rounded-xl border border-zinc-200/80 bg-white px-5 py-4">
             <h2 className="text-sm font-semibold text-zinc-900">免責聲明</h2>
