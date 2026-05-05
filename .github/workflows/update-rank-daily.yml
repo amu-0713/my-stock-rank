@@ -2,8 +2,8 @@ name: 每日自動更新排名與圖表
 
 on:
   schedule:
-    - cron: '0 8 * * *'   # 台灣時間晚上 7:30
-  workflow_dispatch:        # 允許手動執行
+    - cron: '0 8 * * *'   # 台灣時間晚上 7:30（你原本的設定）
+  workflow_dispatch:      # 允許手動執行
 
 permissions:
   contents: write
@@ -11,10 +11,12 @@ permissions:
 jobs:
   update:
     runs-on: ubuntu-latest
-    
+   
     steps:
       - name: Checkout 最新程式碼
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: 設定 Python
         uses: actions/setup-python@v5
@@ -22,7 +24,9 @@ jobs:
           python-version: '3.11'
 
       - name: 安裝依賴
-        run: pip install finlab pandas numpy plotly kaleido
+        run: |
+          python -m pip install --upgrade pip
+          pip install finlab pandas numpy plotly kaleido
 
       - name: 執行排名更新 (result.json)
         env:
