@@ -23,9 +23,9 @@ else:
 
 # =============================================================================
 # 1. 執行完整回測（共用）
-# =============================================================================
-report, position_final, price, score, final_cond, rs_fixed, peg, dd, corr_mkt, regime, weights, full_score_matrix = run_full_backtest()
-
+# ===========================================================================
+report, position_final, price, score, final_cond, rs_fixed, peg, dd, corr_mkt, regime, weights, full_score_matrix, \
+c_rev_positive, c_rev_high, c_hist, c_ma_filter, c_liq = run_full_backtest()
 # =============================================================================
 # 2. 產生排名資料
 # =============================================================================
