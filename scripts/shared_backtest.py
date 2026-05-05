@@ -148,4 +148,11 @@ def run_full_backtest():
     print("✅ 完整回測執行完成！")
     
     # 回傳所有需要的變數
-    return report, position_final, price, score, final_cond, rs_fixed, peg, dd, corr_mkt, regime, weights, full_score_matrix
+    return (
+    report, position_final, price, score, 
+    final_cond, rs_fixed, peg, dd, corr_mkt, 
+    regime, weights, full_score_matrix,
+    # 新增下面這些，讓 get_failed_conditions 能用到
+    c_rev_positive, c_rev_high, c_hist, 
+    c_ma_filter, c_liq
+    )
