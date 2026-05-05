@@ -102,7 +102,7 @@ def get_failed_conditions(sid, dt):
         fail.append("當季營收為負或零")
     
     if not get_cond_value(c_rev_high, dt, sid):
-        fail.append("季均營收未創12個月新高")
+        fail.append("季均營收未創新高")
     
     if not get_cond_value(c_hist, dt, sid):
         fail.append("營收資料不足（少於13個月）")
@@ -112,9 +112,9 @@ def get_failed_conditions(sid, dt):
         peg_value = peg.loc[dt, sid]
         if pd.notna(peg_value):
             if peg_value <= 0.2:
-                fail.append("PEG過低 (< 0.2)")
+                fail.append("PEG過低")
             elif peg_value >= 1.8:
-                fail.append("PEG過高 (> 1.8)")
+                fail.append("PEG過高")
     
     # 3. 其他重要濾網
     if not get_cond_value(c_ma_filter, dt, sid):
