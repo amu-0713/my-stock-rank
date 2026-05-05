@@ -184,6 +184,7 @@ if compare_dt is not None:
     df_m_prev = df_m_prev[df_m_prev["score"] > 0]
     prev_market_rank_map = build_rank_map(df_m_prev)
 
+# ====================== 目前持股排名 ======================
 df_h = pd.DataFrame({
     "score": score_raw_today.reindex(fixed_hold_ids),
     "close": price.loc[latest_dt].reindex(fixed_hold_ids),
@@ -195,11 +196,37 @@ df_h = pd.DataFrame({
 })
 df_h = df_h.sort_values("score", ascending=False).copy()
 df_h["base_rank"] = range(1, len(df_h) + 1)
-current_holdings_rank = [build_stock_item(sid, row, row["base_rank"], {}, True, row["passed_filter"]) for sid, row in df_h.iterrows()]
+current_holdings_rank = [build_stock_item(sid, row, row["base_rank"], prev_current_holdings_rank_map, True, row["passed_filter"]) for sid, row in df_h.iterrows()]
 
-# 簡化版 filtered 和 market（可之後再補完整）
-filtered_rank = current_holdings_rank[:30]   # 暫時
-market_rank = current_holdings_rank[:100]    # 暫時
+# ====================== 條件篩選排名（全量，不限制） ======================
+filtered_ids = final_cond.loc[latest_dt][final_cond.loc[latest_dt]].index
+df_f = pd.DataFrame({
+    "score": score_raw_today.reindex(filtered_ids),
+    "close": price.loc[latest_dt].reindex(filtered_ids),
+    "rs_pct": r_rs_today.reindex(filtered_ids),
+    "peg_pct": r_peg_today.reindex(filtered_ids),
+    "dd_pct": r_dd_today.reindex(filtered_ids),
+    "corr_pct": r_corr_today.reindex(filtered_ids),
+    "passed_filter": True
+})
+df_f = df_f.sort_values("score", ascending=False).copy()
+df_f["base_rank"] = range(1, len(df_f) + 1)
+filtered_rank = [build_stock_item(sid, row, row["base_rank"], prev_filtered_rank_map, False, True) for sid, row in df_f.iterrows()]
+
+# ====================== 全市場排名（全量，不限制） ======================
+df_m = pd.DataFrame({
+    "score": score_raw_today,
+    "close": price.loc[latest_dt],
+    "rs_pct": r_rs_today,
+    "peg_pct": r_peg_today,
+    "dd_pct": r_dd_today,
+    "corr_pct": r_corr_today,
+    "passed_filter": final_cond.loc[latest_dt]
+})
+df_m = df_m[df_m["score"] > 0].copy()
+df_m = df_m.sort_values("score", ascending=False)
+df_m["base_rank"] = range(1, len(df_m) + 1)
+market_rank = [build_stock_item(sid, row, row["base_rank"], prev_market_rank_map, False, bool(row["passed_filter"])) for sid, row in df_m.iterrows()]
 
 current_holdings_rank = add_history_to_items(current_holdings_rank)
 filtered_rank = add_history_to_items(filtered_rank)
