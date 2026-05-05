@@ -33,10 +33,10 @@ jobs:
           FINLAB_TOKEN: ${{ secrets.FINLAB_TOKEN }}
         run: python scripts/generate_and_push.py
 
-      - name: 執行圖表生成
-        env:
-          FINLAB_TOKEN: ${{ secrets.FINLAB_TOKEN }}
-        run: python scripts/chart_generator.py
+      #- name: 執行圖表生成
+       # env:
+         # FINLAB_TOKEN: ${{ secrets.FINLAB_TOKEN }}
+        #run: python scripts/chart_generator.py
 
       - name: Commit & Push 更新
         uses: EndBug/add-and-commit@v10
