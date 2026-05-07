@@ -317,7 +317,14 @@ print(f"更新時間: {result_json['updated_at']}")
 print("🚀 開始產生 chart_data.json...")
 
 def get_pts(series, benchmark_series, start_dt):
-    mask = series.index >= pd.to_datetime(start_dt)
+    # 確保 start_dt 是 tz-naive（和 index 一致）
+    if isinstance(start_dt, str):
+        start_dt = pd.to_datetime(start_dt)
+    else:
+        # 把 tz-aware 轉成 tz-naive
+        start_dt = pd.to_datetime(start_dt).tz_localize(None)
+    
+    mask = series.index >= start_dt
     target = series[mask]
     target_bench = benchmark_series.reindex(target.index).ffill()
     
@@ -340,6 +347,7 @@ def get_pts(series, benchmark_series, start_dt):
     return combined
 
 now = datetime.now(ZoneInfo("Asia/Taipei"))
+
 chart_json = {
     "今年": get_pts(report.creturn, report.benchmark, f"{now.year}-01-01"),
     "1年": get_pts(report.creturn, report.benchmark, now - pd.Timedelta(days=365)),
