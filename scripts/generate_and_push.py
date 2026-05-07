@@ -311,3 +311,47 @@ with open(output_path, 'w', encoding='utf-8') as f:
 print(f"✅ result.json 已更新 ({output_path.stat().st_size / 1024:.1f} KB)")
 print(f"最新日期: {result_json['latest_date']}")
 print(f"更新時間: {result_json['updated_at']}")
+# =============================================================================
+# 3. 產生 chart_data.json（給 Homepage AreaChart 使用）
+# =============================================================================
+print("🚀 開始產生 chart_data.json...")
+
+def get_pts(series, benchmark_series, start_dt):
+    mask = series.index >= pd.to_datetime(start_dt)
+    target = series[mask]
+    target_bench = benchmark_series.reindex(target.index).ffill()
+    
+    if len(target) == 0:
+        return []
+    
+    base = target.iloc[0]
+    base_bench = target_bench.iloc[0]
+    
+    norm = ((target / base) - 1) * 100
+    norm_bench = ((target_bench / base_bench) - 1) * 100
+    
+    combined = []
+    for d in target.index:
+        combined.append({
+            "date": d.strftime('%Y-%m-%d'),
+            "returns": round(float(norm.loc[d]), 2),
+            "benchmark": round(float(norm_bench.loc[d]), 2)
+        })
+    return combined
+
+now = datetime.now(ZoneInfo("Asia/Taipei"))
+chart_json = {
+    "今年": get_pts(report.creturn, report.benchmark, f"{now.year}-01-01"),
+    "1年": get_pts(report.creturn, report.benchmark, now - pd.Timedelta(days=365)),
+    "5年": get_pts(report.creturn, report.benchmark, now - pd.Timedelta(days=5*365)),
+    "全部": get_pts(report.creturn, report.benchmark, report.creturn.index.min())
+}
+
+chart_path = Path("public/chart_data.json")
+chart_path.parent.mkdir(parents=True, exist_ok=True)
+
+with open(chart_path, 'w', encoding='utf-8') as f:
+    json.dump(chart_json, f, ensure_ascii=False, indent=2)
+
+print(f"✅ chart_data.json 已更新 ({chart_path.stat().st_size / 1024:.1f} KB)")
+print(f"今年最新策略報酬: {chart_json['今年'][-1]['returns'] if chart_json['今年'] else 'N/A'}%")
