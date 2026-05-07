@@ -145,14 +145,31 @@ def run_full_backtest():
         name='動態多因子策略'
     )
 
+    # ✅ 新增：明確設定 benchmark（確保 chart_data.json 能用到）
+    if not hasattr(report, 'benchmark') or report.benchmark is None:
+        print("⚠️ 手動補充 benchmark（加權指數）")
+        benchmark = data.get('benchmark_return:發行量加權股價報酬指數').squeeze()
+        report.benchmark = benchmark.reindex(report.creturn.index).ffill()
+
     print("✅ 完整回測執行完成！")
     
-    # 回傳所有需要的變數
+    # ====================== 回傳所有需要的值 ======================
     return (
-    report, position_final, price, score, 
-    final_cond, rs_fixed, peg, dd, corr_mkt, 
-    regime, weights, full_score_matrix,
-    # 新增下面這些，讓 get_failed_conditions 能用到
-    c_rev_positive, c_rev_high, c_hist, 
-    c_ma_filter, c_liq
+        report, 
+        position_final, 
+        price, 
+        score, 
+        final_cond, 
+        rs_fixed, 
+        peg, 
+        dd, 
+        corr_mkt, 
+        regime, 
+        weights, 
+        full_score_matrix,
+        c_rev_positive, 
+        c_rev_high, 
+        c_hist, 
+        c_ma_filter, 
+        c_liq
     )
