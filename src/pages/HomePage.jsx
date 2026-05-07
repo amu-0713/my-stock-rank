@@ -321,20 +321,79 @@ export default function HomePage() {
           <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/40 backdrop-blur-sm animate-in fade-in duration-200">
             <div className="bg-white rounded-3xl max-w-md w-full shadow-2xl overflow-hidden animate-in zoom-in-95 duration-200">
               <div className="flex justify-between items-center px-6 py-4 border-b border-zinc-100 bg-zinc-50">
-                <h3 className="font-bold text-zinc-900">策略邏輯介紹</h3>
-                <button onClick={() => setIsModalOpen(false)} className="p-2 hover:bg-zinc-200 rounded-full transition-colors">
+                <h3 className="font-bold text-zinc-900">動態多因子策略邏輯介紹</h3>
+                <button 
+                  onClick={() => setIsModalOpen(false)} 
+                  className="p-2 hover:bg-zinc-200 rounded-full transition-colors"
+                >
                   <X size={20} className="text-zinc-500" />
                 </button>
               </div>
+              
               <div className="p-8">
-                <div className="space-y-4">
-                  <p className="text-zinc-600 leading-relaxed">
-                    這裡放測試字樣。本策略採用自動化量化選股模型，每日更新各項因子分數。
+                <div className="space-y-5 text-zinc-600 leading-relaxed">
+                  <p className="text-[15px]">
+                    本策略為每季換股的量化多因子模型。
                   </p>
-                  <div className="p-4 bg-emerald-50 rounded-2xl border border-emerald-100 text-sm text-emerald-800">
-                    測試內容：Inverse Matrix 邏輯與多重因子權重配置。
+                  
+                  <p className="text-[15px]">
+                    完全以固定邏輯規則運作，不含人工主觀挑選，純粹由量化條件與數學模型驅動。
+                  </p>
+
+                  <p className="text-[15px]">
+                    先透過基本濾網篩選合格股票，再依牛熊市濾網判斷市場狀態，動態調整因子權重進行排名。
+                  </p>
+
+                  <div className="pt-2">
+                    <p className="font-medium text-zinc-800 mb-3">因子權重配置：</p>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      
+                      {/* 牛市方塊 */}
+                      <div className="bg-zinc-50 rounded-3xl p-6 border border-zinc-100 h-full">
+                        <div className="font-semibold text-emerald-700 mb-3 ">牛市</div>
+                        <div className="space-y-2 text-[15px]">
+                          <div className="flex items-start gap-2">
+                            <span className="text-emerald-600 mt-0.5">·</span>
+                            <span>相對強弱</span>
+                          </div>
+                          <div className="flex items-start gap-2">
+                            <span className="text-emerald-600 mt-0.5">·</span>
+                            <span>PEG</span>
+                          </div>
+                          <div className="flex items-start gap-2">
+                            <span className="text-emerald-600 mt-0.5">·</span>
+                            <span>低回撤</span>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* 熊市方塊 */}
+                      <div className="bg-zinc-50 rounded-3xl p-6 border border-zinc-100 h-full">
+                        <div className="font-semibold text-emerald-700 mb-3 ">熊市</div>
+                        <div className="space-y-2 text-[15px]">
+                          <div className="flex items-start gap-2">
+                            <span className="text-emerald-600 mt-0.5">·</span>
+                            <span>相對強弱</span>
+                          </div>
+                          <div className="flex items-start gap-2">
+                            <span className="text-emerald-600 mt-0.5">·</span>
+                            <span>低相關性</span>
+                          </div>
+                          <div className="flex items-start gap-2">
+                            <span className="text-emerald-600 mt-0.5">·</span>
+                            <span>低回撤</span>
+                          </div>
+                        </div>
+                      </div>
+
+                    </div>
                   </div>
+
+                  <p className="text-xs text-zinc-500 pt-4 border-t">
+                    點擊「進入策略」查看完整排名、持股明細與詳細選股邏輯
+                  </p>
                 </div>
+
                 <button 
                   onClick={() => setIsModalOpen(false)}
                   className="w-full mt-8 bg-zinc-900 text-white py-3 rounded-xl font-medium hover:bg-zinc-800 transition-colors"
