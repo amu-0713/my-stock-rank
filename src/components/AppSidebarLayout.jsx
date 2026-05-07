@@ -34,7 +34,7 @@ export default function AppSidebarLayout({ children, contentClassName = 'max-w-6
           absolute inset-y-0 left-0 z-40
           bg-black text-white h-full
           transition-all duration-300
-          ${sidebarOpen ? 'w-56' : 'w-0'}
+          ${sidebarOpen ? 'w-72' : 'w-0'}
           overflow-hidden
           border-r border-zinc-200
         `}
@@ -85,7 +85,7 @@ export default function AppSidebarLayout({ children, contentClassName = 'max-w-6
         className={`
           h-full overflow-y-auto
           transition-all duration-300
-          ${sidebarOpen ? 'ml-56' : 'ml-0'}
+          ${sidebarOpen ? 'ml-54' : 'ml-0'}
         `}
       >
         <div
