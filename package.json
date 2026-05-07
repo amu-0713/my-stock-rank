@@ -14,7 +14,9 @@
     "react": "^19.2.4",
     "react-chartjs-2": "^5.3.1",
     "react-dom": "^19.2.4",
-    "react-router-dom": "^7.14.1"
+    "react-router-dom": "^7.14.1",
+    "recharts": "^2.15.0",
+    "lucide-react": "^0.441.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.4",
