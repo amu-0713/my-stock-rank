@@ -363,3 +363,12 @@ with open(chart_path, 'w', encoding='utf-8') as f:
 
 print(f"✅ chart_data.json 已更新 ({chart_path.stat().st_size / 1024:.1f} KB)")
 print(f"今年最新策略報酬: {chart_json['今年'][-1]['returns'] if chart_json['今年'] else 'N/A'}%")
+# =============================================================================
+# 4. 讓 overview 的 YTD 與 chart_data 保持一致
+# =============================================================================
+if chart_json["今年"]:
+    latest_ytd = chart_json["今年"][-1]["returns"]
+    overview["total_return_ytd"] = round(latest_ytd, 2)
+    print(f"✅ 已同步今年報酬率: +{latest_ytd}%")
+else:
+    print("⚠️ 無法同步今年報酬率")
