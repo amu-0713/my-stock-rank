@@ -1,425 +1,151 @@
-import { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
-import { 
-  AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid
-} from 'recharts'
-import { Info, X } from 'lucide-react' // 🌟 引入圖示
+import { useEffect, useMemo, useState } from 'react'
+import { Link, useParams } from 'react-router-dom'
 import AppSidebarLayout from '../components/AppSidebarLayout.jsx'
-import { STRATEGY_ENTRIES } from '../data/strategyEntries.js'
+import Tabs from '../components/Tabs.jsx'
+import RankList from '../components/RankList.jsx'
 
-const CustomFinalLabel = (props) => {
-  const { x, y, value, stroke, index, data } = props;
-  if (!data || index !== data.length - 1) return null;
+const TEXT = {
+  loadErrorPrefix: '讀取資料失敗：HTTP ',
+  loadError: '讀取資料失敗',
+  currentHoldingsRank: '目前持股排名',
+  filteredRank: '條件篩選排名',
+  marketRank: '市場總排名',
+  strategyDataPage: '策略資料頁面',
+  latestDate: '最新日期：',
+  rebalanceBaseDate: '調倉基準日：',
+  strategyInfo: '策略說明',
+  loading: '資料載入中...',
+  verifyJsonPrefix: '請確認 ',
+  verifyJsonSuffix: ' 已存在且格式正確。',
+}
 
-  return (
-    <g>
-      <circle cx={x} cy={y} r={4} fill={stroke} />
-      <text 
-        x={x - 5} 
-        y={y - 12} 
-        fill={stroke} 
-        fontSize={12} 
-        fontWeight="bold" 
-        textAnchor="end"
-      >
-        +{value.toFixed(1)}%
-      </text>
-    </g>
-  );
-};
+const STRATEGY_TITLES = {
+  '1': '動態多因子策略',
+  '2': '高息低波策略',
+}
 
-export default function HomePage() {
+export default function StrategyPage() {
+  const { id } = useParams()
+
+  const isStrategy1 = id === '1'
+  const isStrategy2 = id === '2'
+
+  const [activeTab, setActiveTab] = useState('current_holdings_rank')
   const [data, setData] = useState(null)
-  const [chartData, setChartData] = useState(null)
-  const [selectedPeriod, setSelectedPeriod] = useState('今年')
-  const [isModalOpen, setIsModalOpen] = useState(false) // 🌟 控制 Modal 狀態
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState(null)
 
   useEffect(() => {
+    if (!isStrategy1) return
+
+    let cancelled = false
+    setLoading(true)
+    setError(null)
+
     fetch('/result.json', { cache: 'no-store' })
-      .then(res => res.ok ? res.json() : Promise.reject())
-      .then(json => setData(json))
-      .catch(e => console.error('Loading failed:', e))
+      .then(async (res) => {
+        if (!res.ok) throw new Error(`${TEXT.loadErrorPrefix}${res.status}`)
+        return await res.json()
+      })
+      .then((json) => {
+        if (cancelled) return
+        setData(json)
+      })
+      .catch((e) => {
+        if (cancelled) return
+        setError(e instanceof Error ? e.message : TEXT.loadError)
+      })
+      .finally(() => {
+        if (cancelled) return
+        setLoading(false)
+      })
 
-    fetch('/chart_data.json', { cache: 'no-store' })
-      .then(res => res.ok ? res.json() : Promise.reject())
-      .then(json => setChartData(json))
-      .catch(e => console.error('Loading failed:', e))
-  }, [])
-
-  const overview = data?.overview || {}
-
-  const CustomTooltip = ({ active, payload }) => {
-    if (active && payload && payload.length) {
-      const strategy = payload.find(p => p.dataKey === 'returns');
-      const benchmark = payload.find(p => p.dataKey === 'benchmark');
-  
-      return (
-        <div className="rounded-lg border border-zinc-200 bg-white p-3 shadow-md min-w-[140px]">
-          <p className="text-[11px] text-zinc-500 mb-2 border-b pb-1">
-            {payload[0].payload.date}
-          </p>
-          <div className="space-y-1.5">
-            <div className="flex justify-between items-center gap-4">
-              <span className="text-xs text-emerald-600 font-medium">策略</span>
-              <span className="text-sm font-bold text-emerald-600">
-                {strategy?.value > 0 ? '+' : ''}{strategy?.value}%
-              </span>
-            </div>
-            <div className="flex justify-between items-center gap-4">
-              <span className="text-xs text-zinc-400 font-medium">大盤</span>
-              <span className="text-sm font-bold text-zinc-500">
-                {benchmark?.value > 0 ? '+' : ''}{benchmark?.value}%
-              </span>
-            </div>
-          </div>
-        </div>
-      );
+    return () => {
+      cancelled = true
     }
-    return null;
-  };
+  }, [isStrategy1])
+
+  const tabItems = useMemo(
+    () => [
+      { id: 'current_holdings_rank', label: TEXT.currentHoldingsRank },
+      { id: 'filtered_rank', label: TEXT.filteredRank },
+      { id: 'market_rank', label: TEXT.marketRank },
+    ],
+    [],
+  )
+
+  const strategyHeaderText = useMemo(() => {
+    if (!isStrategy1) return TEXT.strategyDataPage
+  
+    const parts = [
+      `${TEXT.latestDate}${data?.latest_date ?? '—'}`,
+      `${TEXT.rebalanceBaseDate}${data?.rebalance_base_date ?? '—'}`,
+    ]
+  
+    return parts.join(' | ')
+  }, [data, isStrategy1])
+
+  const title = STRATEGY_TITLES[id] ?? `策略${id}`
 
   return (
-    <AppSidebarLayout contentClassName="max-w-6xl">
-      <div id="top">
-        <header className="border-b border-zinc-200/80 pb-4">
-          <h1 className="text-2xl font-semibold tracking-tight text-zinc-900 sm:text-[1.65rem]">
-            量化選股策略排名
-          </h1>
-          <p className="mt-3 max-w-2xl text-[15px] leading-relaxed text-zinc-600">
-            提供策略入口與最新資訊摘要，讓使用者從首頁直接進入各策略頁面查看排名與分數表現。
-          </p>
-        </header>
+    <AppSidebarLayout contentClassName="max-w-[960px] mx-auto">
+      <div className="flex h-[calc(100vh-3rem)] min-h-0 flex-col sm:h-[calc(100vh-5rem)] max-w-[960px] mx-auto">
+        <div className="sticky top-0 z-50 space-y-4 border-b border-zinc-200 bg-zinc-50 pb-4 shadow-sm sm:space-y-6 sm:pb-6">
+          <div className="flex items-start justify-between gap-3">
+            <div>
+              <div className="pl-4 text-lg font-semibold sm:text-xl">{title}</div>
+              <div className="mt-1 pl-4 text-xs text-zinc-600 sm:text-sm">{strategyHeaderText}</div>
+            </div>
 
-        <section id="strategies" className="mt-3 scroll-mt-8">
-          <h2 className="text-sm font-medium uppercase tracking-wide text-zinc-500">策略</h2>
-          <p className="mt-1 text-sm text-zinc-600">選擇要查看的策略頁，從首頁作為主要入口進入。</p>
-          
-          <ul className="mt-3 grid gap-4 sm:grid-cols-2 sm:gap-5">
-            {STRATEGY_ENTRIES.map((s) => {
-              if (s.name === '動態多因子') {
-                const currentData = chartData ? chartData[selectedPeriod] : [];
-                return (
-                  <li key={s.id}>
-                    <div className="group flex h-full flex-col rounded-2xl border border-zinc-200/90 bg-white p-6 shadow-sm transition hover:border-zinc-300 hover:shadow-md">
-                      
-                      <div className="flex items-start justify-between gap-3">
-                        <div className="min-w-0 flex-1">
-                          <div className="text-base font-semibold text-zinc-900">{s.name}</div>
-                          <p className="mt-1.5 text-sm leading-snug text-zinc-600">{s.tagline}</p>
-                        </div>
-                        
-                        {/* 🌟 修改區域：驚嘆號與進入按鈕 */}
-                        <div className="flex items-center gap-2">
-                          <div className="relative group/info">
-                            <button 
-                              onClick={() => setIsModalOpen(true)}
-                              className="p-2 rounded-full bg-zinc-100 text-zinc-500 hover:bg-zinc-200 transition-colors"
-                            >
-                              <Info size={18} />
-                            </button>
-                            {/* Hover Tooltip */}
-                            <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-2 py-1 bg-zinc-800 text-white text-[10px] rounded opacity-0 group-hover/info:opacity-100 transition-opacity whitespace-nowrap pointer-events-none z-20">
-                              策略介紹
-                              <div className="absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-zinc-800"></div>
-                            </div>
-                          </div>
+            <div className="flex shrink-0 items-center gap-2">
+              <Link
+                to={`/strategy/${id}/info`}
+                className="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-zinc-200 bg-white text-sm text-zinc-700 shadow-sm hover:bg-zinc-50"
+                aria-label={TEXT.strategyInfo}
+                title={TEXT.strategyInfo}
+              >
+                ?
+              </Link>
+            </div>
+          </div>
 
-                          <Link
-                            to={s.to}
-                            className="inline-flex items-center justify-center rounded-lg bg-zinc-900 px-5 py-2.5 text-sm font-medium text-white transition hover:bg-zinc-800 whitespace-nowrap"
-                          >
-                            進入策略
-                          </Link>
-                        </div>
-                      </div>
+          {isStrategy1 ? <Tabs items={tabItems} activeId={activeTab} onChange={setActiveTab} /> : null}
+        </div>
 
-                      <p className="mt-3 text-sm text-zinc-500">
-                        回測期間：2010 - {data?.latest_date ? new Date(data.latest_date).getFullYear() : '2026'}
-                      </p>
-
-                      <div className="mt-4 mb-4">
-                        <div className="flex gap-2">
-                          {['今年', '1年', '5年', '全部'].map((period) => (
-                            <button
-                              key={period}
-                              onClick={() => setSelectedPeriod(period)}
-                              className={`px-4 py-1.5 text-sm font-medium rounded-xl transition flex-1 ${
-                                selectedPeriod === period ? 'bg-zinc-900 text-white shadow' : 'bg-zinc-100 text-zinc-600 hover:bg-zinc-200'
-                              }`}
-                            >
-                              {period}
-                            </button>
-                          ))}
-                        </div>
-                      </div>
-
-                      {/* 圖表區 - 保持不變 */}
-                      <div className="relative bg-zinc-50 border border-zinc-200 rounded-2xl h-[280px] mb-3 overflow-hidden">
-                        <div className="absolute top-4 left-6 z-10 pointer-events-none">
-                          <h3 className="text-lg font-bold text-zinc-700 flex items-center gap-1.5">
-                            策略 <span className="text-[20px] text-zinc-400 font-normal">vs.</span> 大盤績效
-                          </h3>
-                        </div>
-
-                        {chartData ? (
-                          <ResponsiveContainer width="100%" height="100%">
-                            <AreaChart 
-                              data={currentData}
-                              margin={{ top: 45, right: 0, left: 0, bottom: 0 }} 
-                              onMouseMove={(e) => {
-                                if (e && e.activeTooltipIndex !== undefined) return;
-                              }}
-                            >
-                              <defs>
-                                <linearGradient id="colorReturns" x1="0" y1="0" x2="0" y2="1">
-                                  <stop offset="5%" stopColor="#10b981" stopOpacity={0.3}/>
-                                  <stop offset="95%" stopColor="#10b981" stopOpacity={0}/>
-                                </linearGradient>
-                              </defs>
-                              <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#e4e4e7" />
-                              <XAxis 
-                                dataKey="date" 
-                                hide={false}
-                                axisLine={false}
-                                tickLine={false}
-                                tick={{ fill: '#52525b', fontSize: 11, fontWeight: 500 }} 
-                                interval={0} 
-                                padding={{ left: 20, right: 30 }} 
-                                tickFormatter={(str, index) => {
-                                  const currDate = new Date(str);
-                                  const currYear = currDate.getFullYear();
-                                  const currMonth = currDate.getMonth() + 1;
-                                  const prevData = currentData[index - 1];
-                                  const prevDate = prevData ? new Date(prevData.date) : null;
-                                  const isNewYear = prevDate ? currYear !== prevDate.getFullYear() : true;
-                                  const isNewMonth = prevDate ? currMonth !== (prevDate.getMonth() + 1) : true;
-                                  if (selectedPeriod === '今年') {
-                                    if (isNewMonth && currMonth % 2 !== 0) return `${currMonth}月`;
-                                  } else if (selectedPeriod === '1年') {
-                                    if (isNewMonth && (currMonth - 1) % 3 === 0) return `${currYear}/${currMonth}`;
-                                  } else if (selectedPeriod === '5年') {
-                                    if (isNewYear && currYear % 2 === 0) return `${currYear}`;
-                                  } else if (selectedPeriod === '全部') {
-                                    if (isNewYear && currYear % 5 === 0) return `${currYear}`;
-                                  }
-                                  return "";
-                                }}
-                              />
-                              <YAxis hide domain={['dataMin', 'dataMax']} />
-                              <Tooltip 
-                                content={<CustomTooltip />} 
-                                trigger="axis"
-                                shared={true}
-                                defaultIndex={currentData?.length - 1} 
-                                wrapperStyle={{ visibility: 'visible', pointerEvents: 'none' }}
-                              />
-                              <Area
-                                type="monotone"
-                                dataKey="benchmark" 
-                                stroke="#71717a" 
-                                strokeWidth={1.5}
-                                strokeDasharray="4 4"
-                                fill="transparent"
-                                isAnimationActive={false}
-                                dot={false}
-                                connectNulls={true}
-                              />
-                              <Area
-                                type="monotone" 
-                                dataKey="returns" 
-                                stroke="#10b981" 
-                                strokeWidth={2.5} 
-                                fillOpacity={1}
-                                fill="url(#colorReturns)"
-                                isAnimationActive={false}
-                                label={<CustomFinalLabel data={currentData} />}
-                                activeDot={{ r: 5, strokeWidth: 0 }}
-                                connectNulls={true}
-                              />
-                            </AreaChart>
-                          </ResponsiveContainer>
-                        ) : (
-                          <div className="h-full w-full flex items-center justify-center text-zinc-400 text-sm">
-                            數據載入中...
-                          </div>
-                        )}
-                      </div>
-
-                      {/* KPI 小卡 - 保持不變 */}
-                      <div className="grid grid-cols-2 gap-1.5">
-                        <div className="rounded-2xl bg-white border p-2.5">
-                          <div className="flex items-center gap-2 text-emerald-600">
-                            <span className="text-lg">📈</span>
-                            <span className="text-[16px] font-medium">年化報酬</span>
-                          </div>
-                          <div className="mt-2 text-[24px] font-bold text-emerald-600">
-                            +{overview.annual_return_all?.toFixed(1) || '—'}%
-                          </div>
-                        </div>
-                        <div className="rounded-2xl bg-white border p-2.5">
-                          <div className="flex items-center gap-2 text-red-600">
-                            <span className="text-lg">📉</span>
-                            <span className="text-[16px] font-medium">最大回撤</span>
-                          </div>
-                          <div className="mt-2 text-[24px] font-bold text-red-600">
-                            {overview.max_drawdown?.toFixed(1) || '—'}%
-                          </div>
-                        </div>
-                        <div className="rounded-2xl bg-white border p-2.5">
-                          <div className="flex items-center gap-2 text-blue-600">
-                            <span className="text-lg">📊</span>
-                            <span className="text-[16px] font-medium">夏普比率</span>
-                          </div>
-                          <div className="mt-2 text-[24px] font-bold text-blue-600">
-                            {overview.sharpe_ratio?.toFixed(2) || '—'}
-                          </div>
-                        </div>
-                        <div className="rounded-2xl bg-white border p-2.5">
-                          <div className="flex items-center gap-2 text-emerald-600">
-                            <span className="text-lg">📅</span>
-                            <span className="text-[16px] font-medium">今年報酬</span>
-                          </div>
-                          <div className="mt-2 text-[24px] font-bold text-emerald-600">
-                            +{overview.total_return_ytd?.toFixed(1) || '—'}%
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </li>
-                )
-              }
-
-              return (
-                <li key={s.id}>
-                  <Link
-                    to={s.to}
-                    className="group flex h-full flex-col rounded-2xl border border-zinc-200/90 bg-white p-5 shadow-sm transition hover:border-zinc-300 hover:shadow-md focus:outline-none focus:ring-2 focus:ring-zinc-900/10"
-                  >
-                    <div className="flex items-start justify-between gap-3">
-                      <div className="min-w-0">
-                        <div className="text-base font-semibold text-zinc-900">{s.name}</div>
-                        <p className="mt-1.5 text-sm leading-snug text-zinc-600">{s.tagline}</p>
-                      </div>
-                    </div>
-                    <div className="mt-4 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-zinc-500">
-                      <span>更新：{s.updateNote}</span>
-                    </div>
-                    <div className="mt-5">
-                      <span className="inline-flex items-center justify-center rounded-lg bg-zinc-900 px-4 py-2 text-sm font-medium text-white transition group-hover:bg-zinc-800">
-                        進入策略
-                      </span>
-                    </div>
-                  </Link>
-                </li>
-              )
-            })}
-          </ul>
-        </section>
-
-        {/* 🌟 策略介紹 Modal */}
-        {isModalOpen && (
-          <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/40 backdrop-blur-sm animate-in fade-in duration-200">
-            <div className="bg-white rounded-3xl max-w-md w-full shadow-2xl overflow-hidden animate-in zoom-in-95 duration-200">
-              <div className="flex justify-between items-center px-6 py-4 border-b border-zinc-100 bg-zinc-50">
-                <h3 className="font-bold text-zinc-900">「 動態多因子 」策略邏輯介紹</h3>
-                <button 
-                  onClick={() => setIsModalOpen(false)} 
-                  className="p-2 hover:bg-zinc-200 rounded-full transition-colors"
-                >
-                  <X size={20} className="text-zinc-500" />
-                </button>
+        <div className="min-h-0 flex-1 overflow-y-auto bg-zinc-50">
+          {isStrategy1 ? (
+            loading ? (
+              <div className="rounded-xl border border-zinc-200 bg-white p-5 text-sm text-zinc-600">
+                {TEXT.loading}
               </div>
-              
-              <div className="p-8">
-                <div className="space-y-5 text-zinc-600 leading-relaxed">
-                  <p className="text-[15px]">
-                    本策略為<span className="font-bold text-zinc-900">每季換股</span>的量化多因子模型。
-                  </p>
-                  
-                  <p className="text-[15px]">
-                    完全以<span className="font-bold text-zinc-900">固定邏輯規則</span>運作，不含人工主觀挑選，純粹由量化條件與數學模型驅動。
-                  </p>
-
-                  <p className="text-[15px]">
-                    先透過基本濾網篩選合格股票，再依牛熊市濾網判斷市場狀態，<span className="font-bold text-zinc-900">動態調整因子權重</span>進行排名。
-                  </p>
-
-                  <div className="pt-2">
-                    <p className="font-medium text-zinc-800 mb-4">因子權重配置：</p>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                      <div className="bg-white border border-zinc-200 rounded-3xl p-6 shadow-sm">
-                        <div className="font-semibold text-emerald-700 mb-4">牛市</div>
-                        <div className="space-y-3 text-[15px]">
-                          <div className="flex items-start gap-2.5">
-                            <span className="text-emerald-600 text-lg leading-none mt-0.5">•</span>
-                            <span>相對強弱</span>
-                          </div>
-                          <div className="flex items-start gap-2.5">
-                            <span className="text-emerald-600 text-lg leading-none mt-0.5">•</span>
-                            <span>PEG</span>
-                          </div>
-                          <div className="flex items-start gap-2.5">
-                            <span className="text-emerald-600 text-lg leading-none mt-0.5">•</span>
-                            <span>低回撤</span>
-                          </div>
-                        </div>
-                      </div>
-
-                      <div className="bg-white border border-zinc-200 rounded-3xl p-6 shadow-sm">
-                        <div className="font-semibold text-emerald-700 mb-4">熊市</div>
-                        <div className="space-y-3 text-[15px]">
-                          <div className="flex items-start gap-2.5">
-                            <span className="text-emerald-600 text-lg leading-none mt-0.5">•</span>
-                            <span>相對強弱</span>
-                          </div>
-                          <div className="flex items-start gap-2.5">
-                            <span className="text-emerald-600 text-lg leading-none mt-0.5">•</span>
-                            <span>低相關性</span>
-                          </div>
-                          <div className="flex items-start gap-2.5">
-                            <span className="text-emerald-600 text-lg leading-none mt-0.5">•</span>
-                            <span>低回撤</span>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <p className="text-xs text-zinc-500 pt-6 border-t">
-                    點擊「進入策略」查看完整排名、持股明細與詳細選股邏輯
-                  </p>
+            ) : error ? (
+              <div className="rounded-xl border border-red-200 bg-white p-5 text-sm text-red-700">
+                {error}
+                <div className="mt-2 text-xs text-zinc-600">
+                  {TEXT.verifyJsonPrefix}
+                  <code>public/result.json</code>
+                  {TEXT.verifyJsonSuffix}
                 </div>
-
-                <button 
-                  onClick={() => setIsModalOpen(false)}
-                  className="w-full mt-8 bg-zinc-900 text-white py-3 rounded-xl font-medium hover:bg-zinc-800 transition-colors"
-                >
-                  我知道了
-                </button>
               </div>
+            ) : (
+              <RankList
+                title={tabItems.find((tab) => tab.id === activeTab)?.label}
+                rows={data?.[activeTab] ?? []}
+                defaultSortKey={data?.default_sort_key}
+                sortableFields={data?.sortable_fields}
+                compareDate={data?.compare_date}
+              />
+            )
+          ) : isStrategy2 ? (
+            <div className="rounded-2xl border border-zinc-200 bg-white p-6 text-sm text-zinc-600 shadow-sm">
+              {title}（尚未開放）
             </div>
-          </div>
-        )}
-
-        {/* 下方內容保持不變 */}
-        <section id="meta" className="mt-12 scroll-mt-8 rounded-xl border border-zinc-200/80 bg-zinc-50/80 px-5 py-4">
-          <h2 className="text-xs font-medium uppercase tracking-wide text-zinc-500">更新與聯絡</h2>
-          <dl className="mt-3 space-y-2 text-sm text-zinc-700">
-            <div className="flex flex-wrap gap-x-2 gap-y-0.5">
-              <dt className="text-zinc-500">最近更新時間</dt>
-              <dd>{data?.updated_at ? data.updated_at : (data?.latest_date ? `${data.latest_date} 晚上更新` : '—')}</dd>
+          ) : (
+            <div className="rounded-2xl border border-zinc-200 bg-white p-6 text-sm text-zinc-600 shadow-sm">
+              {title}
             </div>
-          </dl>
-        </section>
-
-        <section id="disclaimer" className="mt-8 scroll-mt-8 pb-10">
-          <div className="rounded-xl border border-zinc-200/80 bg-white px-5 py-4">
-            <h2 className="text-sm font-semibold text-zinc-900">免責聲明</h2>
-            <p className="mt-2 text-sm leading-relaxed text-zinc-600">
-              本頁資訊僅供研究與介面展示，不構成任何投資建議。實際決策請自行評估風險並確認資料來源與時效性。
-            </p>
-          </div>
-        </section>
+          )}
+        </div>
       </div>
     </AppSidebarLayout>
   )
