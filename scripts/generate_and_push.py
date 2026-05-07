@@ -290,38 +290,15 @@ overview = {
     "current_holdings": 16
 }
 
-# ====================== 最終輸出 ======================
-result_json = {
-    "latest_date": str(latest_dt.date()),
-    "updated_at": datetime.now(ZoneInfo("Asia/Taipei")).strftime('%Y-%m-%d %H:%M'),
-    "compare_date": str(compare_dt.date()) if compare_dt else None,
-    "rebalance_base_date": str(real_rebalance_dt.date()),
-    "overview": overview,
-    "current_holdings_rank": current_holdings_rank,
-    "filtered_rank": filtered_rank,
-    "market_rank": market_rank
-}
-
-output_path = Path("public/result.json")
-output_path.parent.mkdir(parents=True, exist_ok=True)
-
-with open(output_path, 'w', encoding='utf-8') as f:
-    json.dump(result_json, f, ensure_ascii=False, indent=2)
-
-print(f"✅ result.json 已更新 ({output_path.stat().st_size / 1024:.1f} KB)")
-print(f"最新日期: {result_json['latest_date']}")
-print(f"更新時間: {result_json['updated_at']}")
 # =============================================================================
-# 3. 產生 chart_data.json（給 Homepage AreaChart 使用）
+# 3. 產生 chart_data.json + 同步今年報酬
 # =============================================================================
 print("🚀 開始產生 chart_data.json...")
 
 def get_pts(series, benchmark_series, start_dt):
-    # 確保 start_dt 是 tz-naive（和 index 一致）
     if isinstance(start_dt, str):
         start_dt = pd.to_datetime(start_dt)
     else:
-        # 把 tz-aware 轉成 tz-naive
         start_dt = pd.to_datetime(start_dt).tz_localize(None)
     
     mask = series.index >= start_dt
@@ -355,20 +332,35 @@ chart_json = {
     "全部": get_pts(report.creturn, report.benchmark, report.creturn.index.min())
 }
 
-chart_path = Path("public/chart_data.json")
-chart_path.parent.mkdir(parents=True, exist_ok=True)
-
-with open(chart_path, 'w', encoding='utf-8') as f:
-    json.dump(chart_json, f, ensure_ascii=False, indent=2)
-
-print(f"✅ chart_data.json 已更新 ({chart_path.stat().st_size / 1024:.1f} KB)")
-print(f"今年最新策略報酬: {chart_json['今年'][-1]['returns'] if chart_json['今年'] else 'N/A'}%")
-# =============================================================================
-# 4. 讓 overview 的 YTD 與 chart_data 保持一致
-# =============================================================================
-if chart_json["今年"]:
+# === 關鍵同步：覆蓋 result_json 中的今年報酬 ===
+if chart_json.get("今年") and len(chart_json["今年"]) > 0:
     latest_ytd = chart_json["今年"][-1]["returns"]
-    overview["total_return_ytd"] = round(latest_ytd, 2)
+    overview["total_return_ytd"] = round(float(latest_ytd), 2)
     print(f"✅ 已同步今年報酬率: +{latest_ytd}%")
 else:
     print("⚠️ 無法同步今年報酬率")
+
+# ====================== 最終輸出 ======================
+result_json = {
+    "latest_date": str(latest_dt.date()),
+    "updated_at": datetime.now(ZoneInfo("Asia/Taipei")).strftime('%Y-%m-%d %H:%M'),
+    "compare_date": str(compare_dt.date()) if compare_dt else None,
+    "rebalance_base_date": str(real_rebalance_dt.date()),
+    "overview": overview,
+    "current_holdings_rank": current_holdings_rank,
+    "filtered_rank": filtered_rank,
+    "market_rank": market_rank
+}
+
+# 寫入兩個 json
+output_path = Path("public/result.json")
+output_path.parent.mkdir(parents=True, exist_ok=True)
+with open(output_path, 'w', encoding='utf-8') as f:
+    json.dump(result_json, f, ensure_ascii=False, indent=2)
+
+chart_path = Path("public/chart_data.json")
+with open(chart_path, 'w', encoding='utf-8') as f:
+    json.dump(chart_json, f, ensure_ascii=False, indent=2)
+
+print(f"✅ result.json & chart_data.json 已更新")
+print(f"今年報酬最終值: +{overview['total_return_ytd']}%")
