@@ -5,7 +5,7 @@ import { STRATEGY_ENTRIES } from '../data/strategyEntries.js'
 
 export default function HomePage() {
   const [data, setData] = useState(null)
-  const [selectedPeriod, setSelectedPeriod] = useState('5Y')
+  const [selectedPeriod, setSelectedPeriod] = useState('YTD')
 
   // 抓取 result.json
   useEffect(() => {
@@ -68,7 +68,7 @@ export default function HomePage() {
                       {/* 時間切換按鈕 + 圖表切換 */}
                       <div className="mt-4 mb-4">
                         <div className="flex gap-2">
-                          {['3Y', '5Y', '10Y', 'ALL'].map((period) => (
+                          {['YTD', '1Y', '5Y', 'ALL'].map((period) => (
                             <button
                               key={period}
                               onClick={() => setSelectedPeriod(period)}
