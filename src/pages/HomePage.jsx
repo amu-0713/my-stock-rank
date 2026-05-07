@@ -321,7 +321,7 @@ export default function HomePage() {
           <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/40 backdrop-blur-sm animate-in fade-in duration-200">
             <div className="bg-white rounded-3xl max-w-md w-full shadow-2xl overflow-hidden animate-in zoom-in-95 duration-200">
               <div className="flex justify-between items-center px-6 py-4 border-b border-zinc-100 bg-zinc-50">
-                <h3 className="font-bold text-zinc-900">策略邏輯介紹</h3>
+                <h3 className="font-bold text-zinc-900">動態多因子策略邏輯介紹</h3>
                 <button 
                   onClick={() => setIsModalOpen(false)} 
                   className="p-2 hover:bg-zinc-200 rounded-full transition-colors"
