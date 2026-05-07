@@ -92,6 +92,7 @@ export default function HomePage() {
 
         <section id="strategies" className="mt-3 scroll-mt-8">
           <h2 className="text-sm font-medium uppercase tracking-wide text-zinc-500">策略</h2>
+          <p className="mt-1 text-sm text-zinc-600">選擇要查看的策略頁，從首頁作為主要入口進入。</p>
           
           <ul className="mt-3 grid gap-4 sm:grid-cols-2 sm:gap-5">
             {STRATEGY_ENTRIES.map((s) => {
