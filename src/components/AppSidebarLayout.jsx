@@ -85,7 +85,7 @@ export default function AppSidebarLayout({ children, contentClassName = 'max-w-6
         className={`
           h-full overflow-y-auto
           transition-all duration-300
-          ${sidebarOpen ? 'ml-54' : 'ml-0'}
+          ${sidebarOpen ? 'ml-56 md:ml-72' : 'ml-0'}
         `}
       >
         <div
