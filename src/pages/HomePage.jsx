@@ -323,7 +323,7 @@ export default function HomePage() {
       
       {/* 標題列 */}
       <div className="flex justify-between items-center px-6 py-4 border-b border-zinc-100 bg-zinc-50 shrink-0">
-        <h3 className="font-bold text-zinc-900">策略邏輯介紹</h3>
+        <h3 className="font-bold text-zinc-900">「 動態多因子 」策略邏輯介紹</h3>
         <button 
           onClick={() => setIsModalOpen(false)} 
           className="p-2 hover:bg-zinc-200 rounded-full transition-colors"
