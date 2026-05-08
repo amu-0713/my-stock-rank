@@ -49,6 +49,7 @@ jobs:
             echo "檢測到數據變動，正在推送到 GitHub..."
             git add public/
             git commit -m "🤖 每日自動更新排名與圖表: $(date +'%Y-%m-%d %H:%M')"
+            git pull --rebase
             git push
           else
             echo "數據無變動，跳過 Commit。"
