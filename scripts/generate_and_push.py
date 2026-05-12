@@ -61,7 +61,8 @@ company_full_name_map = company_info["公司名稱"]
 def score_to_display(val):
     if pd.isna(val): return 0.0
     mapped_score = 60 + (float(val) - 0.5) / 0.4 * 40
-    return round(float(mapped_score), 1)
+    # 限制最高 100 分，不設下限以反映真實數據
+    return round(min(float(mapped_score), 100.0), 1)
 
 def pct_win(val):
     if pd.isna(val): return None
