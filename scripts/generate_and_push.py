@@ -60,7 +60,8 @@ company_full_name_map = company_info["公司名稱"]
 # ====================== 共用函數 ======================
 def score_to_display(val):
     if pd.isna(val): return 0.0
-    return round(float(60 + (val - 0.3) / 0.7 * 40), 2)
+    mapped_score = 60 + (float(val) - 0.5) / 0.4 * 40
+    return round(float(mapped_score), 1)
 
 def pct_win(val):
     if pd.isna(val): return None
