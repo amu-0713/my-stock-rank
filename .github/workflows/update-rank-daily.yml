@@ -2,7 +2,7 @@ name: 每日自動更新排名與圖表
 
 on:
   schedule:
-    - cron: '12 8 * * 1-5'
+    - cron: '00 8 * * 1-5'
   workflow_dispatch:      # 允許手動執行
 
 permissions:
