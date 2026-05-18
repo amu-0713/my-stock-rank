@@ -228,9 +228,6 @@ def add_history_to_items(items):
     return items
 
 # ====================== 產生三種排名 ======================
-# 【新增】模擬 backtest 實際的換股週期持股狀態：取 1,4,7,10 月底並 forward-fill 到每一天
-actual_holdings_daily = position_final.resample('QE-JAN').last().reindex(position_final.index).ffill()
-
 compare_dt = get_compare_dt(score.index, latest_dt, days=7)
 prev_current_holdings_rank_map = {}
 prev_filtered_rank_map = {}
@@ -239,8 +236,25 @@ prev_market_rank_map = {}
 if compare_dt is not None:
     score_prev = full_score_matrix.loc[compare_dt]
     
-    # 【修改】從 actual_holdings_daily 取出 compare_dt 的實際持股，而非 position_final
-    holdings_prev = actual_holdings_daily.loc[compare_dt][actual_holdings_daily.loc[compare_dt] == 1].index
+    # 💡 完全參考多因子處理方式：根據 compare_dt 計算當時對應的季度換股基準日
+    p_year = compare_dt.year
+    p_month = compare_dt.month
+    if p_month <= 1:
+        prev_reb_str = f"{p_year-1}-10-31"
+    elif 2 <= p_month <= 4:
+        prev_reb_str = f"{p_year}-01-31"
+    elif 5 <= p_month <= 7:
+        prev_reb_str = f"{p_year}-04-30"
+    elif 8 <= p_month <= 10:
+        prev_reb_str = f"{p_year}-07-31"
+    else:
+        prev_reb_str = f"{p_year}-10-31"
+    
+    # 找到 compare_dt 當時實際執行的換股交易日
+    real_rebalance_dt_prev = score.index[score.index >= pd.to_datetime(prev_reb_str)].min()
+    
+    # 修正：從 position_final 撈出「當時換股日」鎖定的實際持股
+    holdings_prev = position_final.loc[real_rebalance_dt_prev][position_final.loc[real_rebalance_dt_prev] == 1].index
     df_h_prev = pd.DataFrame({"score": score_prev.reindex(holdings_prev)})
     prev_current_holdings_rank_map = build_rank_map(df_h_prev)
     
@@ -254,9 +268,12 @@ if compare_dt is not None:
     prev_market_rank_map = build_rank_map(df_m_prev)
 
 # 1. 目前持股排名（不顯示 new）
-# 【修改】從 actual_holdings_daily 取出 latest_dt 的實際持股
-holdings = actual_holdings_daily.loc[latest_dt][actual_holdings_daily.loc[latest_dt] == 1].index
+# 修正：持股名單「嚴格鎖定」在最近一次的換股交易日 (real_rebalance_dt)
+# 這樣就不會撈到每天飄移的全市場前 12 名，而是真正回測持有的股票！
+holdings = position_final.loc[real_rebalance_dt][position_final.loc[real_rebalance_dt] == 1].index
+
 df_h = pd.DataFrame({
+    # 雖然名單鎖定在換股日，但裡面的 score, close, 濾網狀態依然維持顯示今天 (latest_dt) 的最新數據
     "score": raw_score.loc[latest_dt].reindex(holdings),
     "close": price.loc[latest_dt].reindex(holdings),
     "dy_rank": dy_rank.loc[latest_dt].reindex(holdings),
