@@ -68,8 +68,12 @@ candidate_n = 25
 raw_position = pd.DataFrame(0, index=score.index, columns=score.columns, dtype=int)
 
 for dt in score.index:
-    s = score.loc[dt].dropna().sort_values(ascending=False)
-    s = s.head(candidate_n)
+    # 🛡️ 防禦性：第一年因為 rolling(240) 會全為 NaN，直接跳過避免錯誤
+    row_score = score.loc[dt].dropna()
+    if len(row_score) == 0:
+        continue
+        
+    s = row_score.sort_values(ascending=False).head(candidate_n)
 
     fin_selected = []
     non_selected = []
@@ -107,13 +111,15 @@ for dt in score.index:
     raw_position.loc[dt, selected] = 1
 
 # =============================================================================
-# 六、漲停買不到濾網 (與回測完全相同)
+# 六、漲停買不到濾網 (🛠️ 修正時區與形狀錯位 Bug)
 # =============================================================================
 limit_pct = pd.Series(0.095, index=price.index)
 limit_pct.loc[:'2015-05-31'] = 0.065
 limit_up_price_next = price.mul(1 + limit_pct, axis=0)
 
 cannot_buy_t1 = open_p.shift(-1) >= limit_up_price_next
+# 🛡️ 關鍵修正 1：強迫對齊與 raw_position 一模一樣的結構
+cannot_buy_t1 = cannot_buy_t1.reindex_like(raw_position).fillna(False)
 
 # 對齊 QE-JAN 的換股基準機制
 target_pos_qe = raw_position.resample('QE-JAN').last()
@@ -123,7 +129,10 @@ prev_position = prev_target_pos_qe.reindex(raw_position.index).ffill().fillna(0)
 buy_order = raw_position > prev_position
 position_final_x = raw_position.copy()
 
-blocked_buy = (buy_order & cannot_buy_t1).fillna(False)
+# 🛡️ 關鍵修正 2：確保矩陣運算後一定是純布林，且沒有任何 NaN 亂入
+blocked_buy = (buy_order & cannot_buy_t1).astype(bool)
+
+# 執行遮罩替代
 position_final_x[blocked_buy] = prev_position[blocked_buy]
 
 # =============================================================================
@@ -149,7 +158,7 @@ if not hasattr(report_x, 'benchmark') or report_x.benchmark is None:
 print("✅ 回測執行完成！開始生成脫水版前端 JSON 資料...")
 
 # =============================================================================
-# 八、完美脫水版 JSON 生成邏輯 (精準對齊你的回測)
+# 八、完美脫水版 JSON 生成邏輯
 # =============================================================================
 latest_dt = score.index[-1]
 print(f"✅ 最新資料日期: {latest_dt.date()}")
@@ -183,7 +192,7 @@ def score_to_display(val):
     return round(min(float(mapped_score), 100.0), 1)
 
 def pct_win(val):
-    if pd.isna(val): return None  # 轉換成 JSON 的 null
+    if pd.isna(val): return None
     return round(float(val * 100), 1)
 
 def get_compare_dt(index, latest_dt, days=7):
@@ -451,4 +460,4 @@ with open(public_path / "chart_data_2.json", "w", encoding="utf-8") as f:
 with open(public_path / "result_2.json", "w", encoding="utf-8") as f:
     json.dump(result_json, f, ensure_ascii=False, indent=2, allow_nan=False)
 
-print(f"✅ 完美融合完成！全市場共保留 {len(df_m)} 檔活體標的，當前實際持股數 ({len(holdings)}檔) 已達成 100% 同步鎖定！")
+print(f"✅ 完美融合與Bug修復完成！全市場共保留 {len(df_m)} 檔活體標的，現已可以順利在 GitHub Actions 上執行通關！")
