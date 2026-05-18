@@ -22,7 +22,7 @@ else:
     print("⚠️ 未設定 FINLAB_TOKEN")
 
 # =============================================================================
-# 一、資料抓取與基礎指標計算（完全依照你這次給的 txt）
+# 一、資料抓取與基礎指標計算
 # =============================================================================
 price = data.get('price:收盤價')
 open_p = data.get('price:開盤價')
@@ -57,7 +57,7 @@ score = score.where(final_filter)
 full_score_matrix = score.copy()
 
 # =============================================================================
-# 二、選股邏輯（完全依照 txt 原版）
+# 二、選股 + T+1（完全不變）
 # =============================================================================
 max_holdings = 12
 max_financial = 4
@@ -67,7 +67,6 @@ raw_position = pd.DataFrame(0, index=score.index, columns=score.columns, dtype=f
 
 for dt in score.index:
     s = score.loc[dt].dropna().sort_values(ascending=False).head(candidate_n)
-    
     fin_selected, non_selected = [], []
     for stock in s.index:
         if is_fin.get(stock, False):
@@ -77,7 +76,6 @@ for dt in score.index:
             non_selected.append(stock)
         if len(fin_selected) + len(non_selected) >= max_holdings:
             break
-    
     selected = fin_selected + non_selected
     if len(selected) < max_holdings:
         remaining = [stk for stk in s.index if stk not in selected]
@@ -91,7 +89,7 @@ for dt in score.index:
                 break
     raw_position.loc[dt, selected] = 1
 
-# T+1 漲停處理
+# T+1 處理
 limit_pct = pd.Series(0.095, index=price.index)
 limit_pct.loc[:'2015-05-31'] = 0.065
 limit_up_price_next = price.mul(1 + limit_pct, axis=0)
@@ -108,7 +106,7 @@ position_final = raw_position.copy()
 position_final = position_final.where(~blocked_buy, prev_position)
 
 # =============================================================================
-# 三、執行回測
+# 三、回測
 # =============================================================================
 report = sim(
     position_final,
@@ -121,12 +119,12 @@ report = sim(
 )
 
 # =============================================================================
-# 四、產生排名資料（動態多因子全部功能都保留）
+# 四、產生排名資料
 # =============================================================================
 latest_dt = score.index[-1]
 print(f"✅ 使用最新完整資料日期: {latest_dt.date()}")
 
-# ====================== 季度基準日（已修正為 QE-JAN 專用）======================
+# QE-JAN 季度基準日
 curr_year = latest_dt.year
 curr_month = latest_dt.month
 if curr_month <= 1:
@@ -139,14 +137,13 @@ elif 8 <= curr_month <= 10:
     rebalance_date_str = f"{curr_year}-07-31"
 else:
     rebalance_date_str = f"{curr_year}-10-31"
-
 real_rebalance_dt = score.index[score.index >= pd.to_datetime(rebalance_date_str)].min()
 
 company_info = data.get("company_basic_info").set_index("stock_id")
 company_short_name_map = company_info["公司簡稱"]
 company_full_name_map = company_info["公司名稱"]
 
-# ====================== 共用函數（完全一樣） ======================
+# ====================== 共用函數 ======================
 def score_to_display(val):
     if pd.isna(val): return 0.0
     mapped_score = 60 + (float(val) - 0.5) / 0.4 * 40
@@ -187,7 +184,10 @@ def get_cond_value(cond_df, dt, sid):
 def get_failed_conditions_high_div(sid, dt):
     fail = []
     if not get_cond_value(dy_filter, dt, sid):
-        fail.append("殖利率未達高息標準（0.6~0.9）")
+        if get_cond_value(dy_rank > 0.9, dt, sid):   # 過高
+            fail.append("殖利率過高")
+        else:
+            fail.append("殖利率過低")
     if not get_cond_value(liq_filter, dt, sid):
         fail.append("流通性不足")
     if not get_cond_value(ma_filter, dt, sid):
@@ -282,16 +282,16 @@ df_f = df_f.sort_values("score", ascending=False).copy()
 df_f["base_rank"] = range(1, len(df_f) + 1)
 filtered_rank = [build_stock_item_high_div(sid, row, row["base_rank"], prev_filtered_rank_map, False, True) for sid, row in df_f.iterrows()]
 
-# 3. 全市場排名
+# 3. 全市場排名（重點修正：不套濾網）
 df_m = pd.DataFrame({
     "score": score.loc[latest_dt],
     "close": price.loc[latest_dt],
     "dy_rank": dy_rank.loc[latest_dt],
     "std_rank": std_score.loc[latest_dt],
-    "passed_filter": final_filter.loc[latest_dt],
+    "passed_filter": final_filter.loc[latest_dt],   # 只是記錄用
     "industry": industry_map.reindex(score.loc[latest_dt].index)
 })
-df_m = df_m[df_m["score"] > 0].copy()
+df_m = df_m[df_m["score"] > 0].copy()   # 只看有分數的
 df_m = df_m.sort_values("score", ascending=False)
 df_m["base_rank"] = range(1, len(df_m) + 1)
 market_rank = [build_stock_item_high_div(sid, row, row["base_rank"], prev_market_rank_map, False, bool(row["passed_filter"])) for sid, row in df_m.iterrows()]
@@ -301,7 +301,7 @@ current_holdings_rank = add_history_to_items(current_holdings_rank)
 filtered_rank = add_history_to_items(filtered_rank)
 market_rank = add_history_to_items(market_rank)
 
-# ====================== overview & chart_2.json ======================
+# ====================== overview & chart ======================
 daily_return = report.creturn.pct_change().fillna(0)
 
 def calc_performance(ret_series, start_date=None):
@@ -378,5 +378,5 @@ with open(public_path / "result_2.json", 'w', encoding='utf-8') as f:
 with open(public_path / "chart_2.json", 'w', encoding='utf-8') as f:
     json.dump(chart_json, f, ensure_ascii=False, indent=2)
 
-print(f"✅ result_2.json & chart_2.json 已更新（QE-JAN 季度基準日已修正 + history 完整）")
+print(f"✅ result_2.json 已修正（全市場不套濾網 + new 顯示正常 + 殖利率高低分開）")
 print(f"目前持股: {len(current_holdings_rank)} | 條件篩選: {len(filtered_rank)} | 全市場: {len(market_rank)}")
