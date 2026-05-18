@@ -28,7 +28,6 @@ yield_ratio = data.get('price_earning_ratio:殖利率(%)') / 100
 vol = data.get('price:成交金額')
 info = data.get('company_basic_info')
 
-# 產業名稱（已準備好）
 industry_map = info.set_index('stock_id')['產業類別'].astype(str)
 is_fin = industry_map.str.contains('金融').fillna(False)
 
@@ -88,7 +87,7 @@ for dt in score.index:
                 break
     raw_position.loc[dt, selected] = 1
 
-# ====================== 漲停買不到處理 ======================
+# ====================== 漲停買不到處理（已修正為最穩定的寫法） ======================
 limit_pct = pd.Series(0.095, index=price.index)
 limit_pct.loc[:'2015-05-31'] = 0.065
 limit_up_price_next = price.mul(1 + limit_pct, axis=0)
@@ -99,9 +98,11 @@ prev_target_pos_qe = target_pos_qe.shift(1).fillna(0)
 prev_position = prev_target_pos_qe.reindex(raw_position.index).ffill().fillna(0)
 
 buy_order = raw_position > prev_position
-position_final = raw_position.copy()
 blocked_buy = (buy_order & cannot_buy_t1).fillna(False)
-position_final[blocked_buy] = prev_position[blocked_buy]
+
+# ←←← 這裡已改成安全的 .where() 寫法 ←←←
+position_final = raw_position.copy()
+position_final = position_final.where(~blocked_buy, prev_position)
 
 # ====================== 回測 ======================
 report = sim(
@@ -157,7 +158,7 @@ def build_stock_item_high_div(sid, row, base_rank, passed_filter=None):
         "stock_id": str(sid),
         "name": str(company_short_name_map.get(sid, "")),
         "full_name": str(company_full_name_map.get(sid, "")),
-        "industry": str(row.get("industry", "")),          # ← 從 df 直接取
+        "industry": str(row.get("industry", "")),   # ← 從 df 直接取
         "score": round(float(row.get("score", 0)), 6),
         "display_score": score_to_display(row.get("score")),
         "close": float(row.get("close")) if pd.notna(row.get("close")) else None,
@@ -172,7 +173,7 @@ def build_stock_item_high_div(sid, row, base_rank, passed_filter=None):
 # ====================== 最新日期 ======================
 latest_dt = score.index[-1]
 
-# ====================== 產生三種排名（industry 已加入 df 裡） ======================
+# ====================== 產生三種排名（industry 已加入 df） ======================
 # 1. 目前持股排名
 holdings = position_final.loc[latest_dt][position_final.loc[latest_dt] == 1].index
 df_h = pd.DataFrame({
@@ -181,7 +182,7 @@ df_h = pd.DataFrame({
     "dy_rank": dy_rank.loc[latest_dt].reindex(holdings),
     "std_rank": std_score.loc[latest_dt].reindex(holdings),
     "passed_filter": final_filter.loc[latest_dt].reindex(holdings),
-    "industry": industry_map.reindex(holdings)          # ← 直接加進 df
+    "industry": industry_map.reindex(holdings)
 })
 df_h = df_h.sort_values("score", ascending=False).copy()
 df_h["base_rank"] = range(1, len(df_h) + 1)
@@ -195,7 +196,7 @@ df_f = pd.DataFrame({
     "dy_rank": dy_rank.loc[latest_dt].reindex(filtered_ids),
     "std_rank": std_score.loc[latest_dt].reindex(filtered_ids),
     "passed_filter": True,
-    "industry": industry_map.reindex(filtered_ids)      # ← 直接加進 df
+    "industry": industry_map.reindex(filtered_ids)
 })
 df_f = df_f.sort_values("score", ascending=False).copy()
 df_f["base_rank"] = range(1, len(df_f) + 1)
@@ -208,7 +209,7 @@ df_m = pd.DataFrame({
     "dy_rank": dy_rank.loc[latest_dt],
     "std_rank": std_score.loc[latest_dt],
     "passed_filter": final_filter.loc[latest_dt],
-    "industry": industry_map.reindex(score.loc[latest_dt].index)   # ← 直接加進 df
+    "industry": industry_map.reindex(score.loc[latest_dt].index)
 })
 df_m = df_m[df_m["score"] > 0].copy()
 df_m = df_m.sort_values("score", ascending=False)
@@ -292,5 +293,5 @@ with open(public_path / "result_2.json", 'w', encoding='utf-8') as f:
 with open(public_path / "chart_2.json", 'w', encoding='utf-8') as f:
     json.dump(chart_json, f, ensure_ascii=False, indent=2)
 
-print(f"✅ result_2.json & chart_2.json 已更新（df 裡已包含 industry）")
+print(f"✅ result_2.json & chart_2.json 已更新（df 已包含 industry）")
 print(f"目前持股: {len(current_holdings_rank)} | 條件篩選: {len(filtered_rank)} | 全市場: {len(market_rank)}")
