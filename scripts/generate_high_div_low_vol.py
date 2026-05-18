@@ -11,7 +11,7 @@ from zoneinfo import ZoneInfo
 from finlab import data
 from finlab.backtest import sim
 
-print("🚀 執行：高息低波策略（QE-JAN 12檔完美修正版）自動化更新...")
+print("🚀 執行：高息低波策略（QE-JAN 固定持股完美版）自動化更新...")
 
 # FinLab 登入
 finlab_token = os.environ.get('FINLAB_TOKEN')
@@ -168,10 +168,11 @@ def get_rebalance_date_qe_jan(dt):
 real_rebalance_dt = get_rebalance_date_qe_jan(latest_dt)
 print(f"✅ 本季換股基準日: {real_rebalance_dt.date()}")
 
-# 直接向回測引擎最後一天拿真正活體持股明細
-final_backtest_pos = report_x.position.iloc[-1]
-holdings = final_backtest_pos[final_backtest_pos > 0].index
-print(f"✅ 目前實際持股數量: {len(holdings)} 檔")
+# 🎯 🛠️ 核心修正：不要去問 report_x 的最後一天！改向我們自己建立的固定部位機制 (position_final_x) 的本季換股基準日拿名單！
+# 這樣拿到的才是真正的「固定的目前持股名單」！
+holdings_series = position_final_x.loc[real_rebalance_dt]
+holdings = holdings_series[holdings_series > 0].index
+print(f"✅ 目前實際持有（基於 {real_rebalance_dt.date()} 換股日固定）的持股數量: {len(holdings)} 檔")
 
 # 公司名稱對照
 company_info = data.get("company_basic_info").set_index("stock_id")
@@ -208,7 +209,7 @@ def get_rank_change_info(stock_id, prev_rank_map, current_rank, is_filtered=Fals
     change_type = "up" if rank_change > 0 else "down" if rank_change < 0 else "flat"
     return int(prev_rank), rank_change, change_type
 
-# 🎯 🛠️ 終極修復點：直接抽離最原始、未經遮罩的原始三大濾網切片，確保 NaN 殭屍股也能精準抓出失敗原因
+# 原始三大濾網切片
 dy_filter_series = dy_filter.loc[latest_dt]
 liq_filter_series = liq_filter.loc[latest_dt]
 ma_filter_series = ma_filter.loc[latest_dt]
@@ -241,7 +242,6 @@ def build_stock_item_high_div(sid, row, base_rank, prev_rank_map, selected=None,
     raw_score_val = row.get("score")
     valid_score = round(float(raw_score_val), 6) if pd.notna(raw_score_val) else None
     
-    # 🎯 核心防禦：如果外部傳入的 passed_filter 說沒過，或者三大原始濾網任一沒過，就強制定性為 False
     is_passed = bool(passed_filter) if passed_filter is not None else False
     
     item = {
@@ -299,8 +299,7 @@ if compare_dt is not None:
     df_m_prev = pd.DataFrame({"score": raw_score.loc[compare_dt]}).dropna(subset=["score"])
     prev_market_rank_map = build_rank_map(df_m_prev)
 
-# --- 1. 目前實際持股排名 (🎯 完美修復：利用原始因子矩陣進行精準交集判定) ---
-# 計算目前持股在今天是否真正通關原始三大濾網
+# --- 1. 目前實際持股排名 (🎯 完美回歸固定換股日名單) ---
 holdings_passed_series = (dy_filter & liq_filter & ma_filter).loc[latest_dt].reindex(holdings).fillna(False)
 
 df_h = pd.DataFrame({
@@ -434,7 +433,7 @@ if chart_json.get("今年") and len(chart_json["今年"]) > 0:
     overview["total_return_ytd"] = round(float(latest_ytd), 2)
 
 # =============================================================================
-# 十、防禦性 JSON 安全輸出
+# 十、JSON 安全輸出
 # =============================================================================
 result_json = {
     "latest_date": str(latest_dt.date()),
@@ -457,4 +456,4 @@ with open(public_path / "chart_data_2.json", "w", encoding="utf-8") as f:
 with open(public_path / "result_2.json", "w", encoding="utf-8") as f:
     json.dump(result_json, f, ensure_ascii=False, indent=2, allow_nan=False)
 
-print(f"✅ 完美解決！目前持股如果今天有任何人破網，都會精準現形並列出具體未通過條件！")
+print(f"✅ 完美修復！目前持股名單已被成功鎖定在基準日 {real_rebalance_dt.date()}，若有人在今天沒過濾網，會精準在前端抓出失敗原因！")
