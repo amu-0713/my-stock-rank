@@ -455,8 +455,8 @@ with open(public_path / "result_2.json", "w", encoding="utf-8") as f:
 print(f"✅ 語法錯位修正成功！現在可順利通關上線運作。")
 map(df_f_prev)
     
-    df_m_prev = pd.DataFrame({"score": raw_score.loc[compare_dt]}).dropna(subset=["score"])
-    prev_market_rank_map = build_rank_map(df_m_prev)
+df_m_prev = pd.DataFrame({"score": raw_score.loc[compare_dt]}).dropna(subset=["score"])
+prev_market_rank_map = build_rank_map(df_m_prev)
 
 # --- 1. 目前實際持股排名 (🛠️ 誠實反映濾網狀態，移除寫死的 passed_filter=True) ---
 df_h = pd.DataFrame({
