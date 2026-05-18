@@ -228,6 +228,9 @@ def add_history_to_items(items):
     return items
 
 # ====================== 產生三種排名 ======================
+# 【新增】模擬 backtest 實際的換股週期持股狀態：取 1,4,7,10 月底並 forward-fill 到每一天
+actual_holdings_daily = position_final.resample('QE-JAN').last().reindex(position_final.index).ffill()
+
 compare_dt = get_compare_dt(score.index, latest_dt, days=7)
 prev_current_holdings_rank_map = {}
 prev_filtered_rank_map = {}
@@ -235,7 +238,9 @@ prev_market_rank_map = {}
 
 if compare_dt is not None:
     score_prev = full_score_matrix.loc[compare_dt]
-    holdings_prev = position_final.loc[compare_dt][position_final.loc[compare_dt] == 1].index
+    
+    # 【修改】從 actual_holdings_daily 取出 compare_dt 的實際持股，而非 position_final
+    holdings_prev = actual_holdings_daily.loc[compare_dt][actual_holdings_daily.loc[compare_dt] == 1].index
     df_h_prev = pd.DataFrame({"score": score_prev.reindex(holdings_prev)})
     prev_current_holdings_rank_map = build_rank_map(df_h_prev)
     
@@ -249,7 +254,8 @@ if compare_dt is not None:
     prev_market_rank_map = build_rank_map(df_m_prev)
 
 # 1. 目前持股排名（不顯示 new）
-holdings = position_final.loc[latest_dt][position_final.loc[latest_dt] == 1].index
+# 【修改】從 actual_holdings_daily 取出 latest_dt 的實際持股
+holdings = actual_holdings_daily.loc[latest_dt][actual_holdings_daily.loc[latest_dt] == 1].index
 df_h = pd.DataFrame({
     "score": raw_score.loc[latest_dt].reindex(holdings),
     "close": price.loc[latest_dt].reindex(holdings),
