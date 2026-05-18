@@ -11,7 +11,7 @@ from zoneinfo import ZoneInfo
 from finlab import data
 from finlab.backtest import sim
 
-print("🚀 GitHub Actions 一鍵更新 高股息低波動策略...")
+print("🚀 GitHub Actions 一鍵更新 高股息低波策略...")
 
 # FinLab 登入
 finlab_token = os.environ.get('FINLAB_TOKEN')
@@ -72,8 +72,10 @@ for r_dt in rebalance_dates:
     top_stocks = row_score.nlargest(30).index
     
     row_is_fin = is_fin.reindex(top_stocks).fillna(False)
-    fin_stocks = row_is_fin[row_is_fin].index
-    non_fin_stocks = row_is_fin[~row_is_fin].index
+    
+    # 💡【關鍵修復點】：使用 .loc 進行布林過濾，徹底解決 KeyError 型態誤判問題
+    fin_stocks = row_is_fin.loc[row_is_fin].index
+    non_fin_stocks = row_is_fin.loc[~row_is_fin].index
     
     selected_fin = fin_stocks[:5]
     selected_non_fin = non_fin_stocks[:(30 - len(selected_fin))]
@@ -111,7 +113,7 @@ report = sim(
     tax_ratio=0.003,
     position_limit=0.2,
     market='TW_STOCK',
-    name='高股息低波動策略'
+    name='高股息低波策略'
 )
 
 if not hasattr(report, 'benchmark') or report.benchmark is None:
@@ -313,7 +315,7 @@ df_m = pd.DataFrame({
     "passed_filter": (dy_filter & liq_filter & ma_filter).loc[latest_dt],
     "industry": industry_map.reindex(raw_score.loc[latest_dt].index)
 })
-# 🚀【關鍵修正】：全面砍掉下市股/未上市股的歷史殘留空值，回歸當前 ~1800 檔活體股票排名
+# 🚀 全面砍掉下市股/未上市股的歷史殘留空值，回歸當前 ~1800 檔活體股票排名
 df_m = df_m.dropna(subset=["score"])
 df_m = df_m.sort_values("score", ascending=False).copy()
 df_m["base_rank"] = range(1, len(df_m) + 1)
@@ -410,7 +412,7 @@ result_json = {
     "current_holdings_rank": current_holdings_rank,
     "filtered_rank": filtered_rank,
     "market_rank": market_rank,
-    "strategy_name": "高股息低波動策略"
+    "strategy_name": "高股息低波策略"
 }
 
 public_path = Path("public")
@@ -423,4 +425,4 @@ with open(public_path / "chart_data_2.json", "w", encoding="utf-8") as f:
 with open(public_path / "result_2.json", "w", encoding="utf-8") as f:
     json.dump(result_json, f, ensure_ascii=False, indent=2, allow_nan=False)
 
-print(f"✅ 脫水處理完成！全市場有效名次共計 {len(df_m)} 檔。資料已成功安全導出！")
+print(f"✅ 脫水與排除異常代號完畢！全市場有效名次共計 {len(df_m)} 檔。資料已成功安全導出至 public/result_2.json！")
