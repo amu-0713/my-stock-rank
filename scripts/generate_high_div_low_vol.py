@@ -21,7 +21,9 @@ if finlab_token:
 else:
     print("⚠️ 未設定 FINLAB_TOKEN")
 
-# ====================== 資料載入 ======================
+# =============================================================================
+# 一、資料抓取與基礎指標計算（完全依照你這次給的 txt）
+# =============================================================================
 price = data.get('price:收盤價')
 open_p = data.get('price:開盤價')
 yield_ratio = data.get('price_earning_ratio:殖利率(%)') / 100
@@ -34,12 +36,13 @@ is_fin = industry_map.str.contains('金融').fillna(False)
 for df in [price, open_p, yield_ratio, vol]:
     df.columns = df.columns.astype(str)
 
-# ====================== 因子計算 ======================
+# 均線與波動度
 ma240 = price.rolling(240).mean()
 liq_filter = vol.rank(axis=1, pct=True) > 0.5
 ma_filter = price > ma240
 std240 = price.ffill().pct_change(fill_method=None).rolling(240).std()
 
+# 高息低波因子
 dy_rank = yield_ratio.rank(axis=1, pct=True)
 dy_filter = (dy_rank > 0.6) & (dy_rank < 0.9)
 
@@ -47,19 +50,20 @@ std_score = std240.rank(axis=1, pct=True, ascending=False)
 dy_score = dy_rank
 score = dy_score * 0.33 + std_score * 0.67
 
-# ====================== 濾網條件 ======================
-c_dy_filter = dy_filter
-c_liq_filter = liq_filter
-c_ma_filter = ma_filter
-final_filter = c_dy_filter & c_liq_filter & c_ma_filter
+final_filter = dy_filter & liq_filter & ma_filter
 score = score.where(final_filter)
 
-# ====================== 選股邏輯 ======================
+# full_score_matrix（給 history 用）
+full_score_matrix = score.copy()
+
+# =============================================================================
+# 二、選股邏輯（完全依照 txt 原版）
+# =============================================================================
 max_holdings = 12
 max_financial = 4
 candidate_n = 25
 
-raw_position = pd.DataFrame(0, index=score.index, columns=score.columns, dtype=int)
+raw_position = pd.DataFrame(0, index=score.index, columns=score.columns, dtype=float)
 
 for dt in score.index:
     s = score.loc[dt].dropna().sort_values(ascending=False).head(candidate_n)
@@ -87,7 +91,7 @@ for dt in score.index:
                 break
     raw_position.loc[dt, selected] = 1
 
-# ====================== 漲停買不到處理（已修正為最穩定的寫法） ======================
+# T+1 漲停處理
 limit_pct = pd.Series(0.095, index=price.index)
 limit_pct.loc[:'2015-05-31'] = 0.065
 limit_up_price_next = price.mul(1 + limit_pct, axis=0)
@@ -100,11 +104,12 @@ prev_position = prev_target_pos_qe.reindex(raw_position.index).ffill().fillna(0)
 buy_order = raw_position > prev_position
 blocked_buy = (buy_order & cannot_buy_t1).fillna(False)
 
-# ←←← 這裡已改成安全的 .where() 寫法 ←←←
 position_final = raw_position.copy()
 position_final = position_final.where(~blocked_buy, prev_position)
 
-# ====================== 回測 ======================
+# =============================================================================
+# 三、執行回測
+# =============================================================================
 report = sim(
     position_final,
     resample='QE-JAN',
@@ -112,19 +117,36 @@ report = sim(
     fee_ratio=0.001425,
     tax_ratio=0.003,
     name='高股息低波動策略',
-    live_performance_start='2025-12-30',
-    upload=True
+    live_performance_start='2025-12-30'
 )
 
-print("✅ 高股息低波動策略 回測完成")
-report.display()
+# =============================================================================
+# 四、產生排名資料（動態多因子全部功能都保留）
+# =============================================================================
+latest_dt = score.index[-1]
+print(f"✅ 使用最新完整資料日期: {latest_dt.date()}")
 
-# ====================== 公司資訊 ======================
+# ====================== 季度基準日（已修正為 QE-JAN 專用）======================
+curr_year = latest_dt.year
+curr_month = latest_dt.month
+if curr_month <= 1:
+    rebalance_date_str = f"{curr_year-1}-10-31"
+elif 2 <= curr_month <= 4:
+    rebalance_date_str = f"{curr_year}-01-31"
+elif 5 <= curr_month <= 7:
+    rebalance_date_str = f"{curr_year}-04-30"
+elif 8 <= curr_month <= 10:
+    rebalance_date_str = f"{curr_year}-07-31"
+else:
+    rebalance_date_str = f"{curr_year}-10-31"
+
+real_rebalance_dt = score.index[score.index >= pd.to_datetime(rebalance_date_str)].min()
+
 company_info = data.get("company_basic_info").set_index("stock_id")
 company_short_name_map = company_info["公司簡稱"]
 company_full_name_map = company_info["公司名稱"]
 
-# ====================== 共用函數 ======================
+# ====================== 共用函數（完全一樣） ======================
 def score_to_display(val):
     if pd.isna(val): return 0.0
     mapped_score = 60 + (float(val) - 0.5) / 0.4 * 40
@@ -133,6 +155,27 @@ def score_to_display(val):
 def pct_win(val):
     if pd.isna(val): return None
     return round(float(val * 100), 1)
+
+def get_compare_dt(index, latest_dt, days=7):
+    target_dt = latest_dt - pd.Timedelta(days=days)
+    valid_idx = index[index <= target_dt]
+    return valid_idx.max() if len(valid_idx) > 0 else None
+
+def build_rank_map(df, score_col="score"):
+    df = df.copy()
+    df = df.dropna(subset=[score_col])
+    df = df.sort_values(score_col, ascending=False)
+    df["rank"] = range(1, len(df) + 1)
+    return {str(sid): int(row["rank"]) for sid, row in df.iterrows()}
+
+def get_rank_change_info(stock_id, prev_rank_map, current_rank):
+    sid = str(stock_id)
+    prev_rank = prev_rank_map.get(sid)
+    if prev_rank is None:
+        return None, None, "new"
+    rank_change = int(prev_rank - current_rank)
+    change_type = "up" if rank_change > 0 else "down" if rank_change < 0 else "flat"
+    return int(prev_rank), rank_change, change_type
 
 def get_cond_value(cond_df, dt, sid):
     sid = str(sid)
@@ -143,37 +186,74 @@ def get_cond_value(cond_df, dt, sid):
 
 def get_failed_conditions_high_div(sid, dt):
     fail = []
-    sid = str(sid)
-    if not get_cond_value(c_dy_filter, dt, sid):
-        fail.append("股息率未達高息標準（0.6~0.9）")
-    if not get_cond_value(c_liq_filter, dt, sid):
-        fail.append("流動性不足（成交金額太低）")
-    if not get_cond_value(c_ma_filter, dt, sid):
-        fail.append("均線未呈多頭排列")
+    if not get_cond_value(dy_filter, dt, sid):
+        fail.append("殖利率未達高息標準（0.6~0.9）")
+    if not get_cond_value(liq_filter, dt, sid):
+        fail.append("流通性不足")
+    if not get_cond_value(ma_filter, dt, sid):
+        fail.append("股價未站上年線")
     return fail
 
-def build_stock_item_high_div(sid, row, base_rank, passed_filter=None):
+def build_stock_item_high_div(sid, row, base_rank, prev_rank_map, selected=None, passed_filter=None):
+    prev_rank, rank_change, change_type = get_rank_change_info(sid, prev_rank_map, int(base_rank))
     item = {
         "base_rank": int(base_rank),
+        "prev_rank": prev_rank,
+        "rank_change": rank_change,
+        "change_type": change_type,
         "stock_id": str(sid),
         "name": str(company_short_name_map.get(sid, "")),
         "full_name": str(company_full_name_map.get(sid, "")),
-        "industry": str(row.get("industry", "")),   # ← 從 df 直接取
+        "industry": str(row.get("industry", "")),
         "score": round(float(row.get("score", 0)), 6),
         "display_score": score_to_display(row.get("score")),
         "close": float(row.get("close")) if pd.notna(row.get("close")) else None,
         "dy_pct": pct_win(row.get("dy_rank")),
         "std_pct": pct_win(row.get("std_rank")),
     }
+    if selected is not None: item["selected"] = bool(selected)
     if passed_filter is not None:
         item["passed_filter"] = bool(passed_filter)
         item["failed_conditions"] = [] if bool(passed_filter) else get_failed_conditions_high_div(sid, latest_dt)
     return item
 
-# ====================== 最新日期 ======================
-latest_dt = score.index[-1]
+def add_history_to_items(items):
+    for item in items:
+        sid = item["stock_id"]
+        history_list = []
+        current = latest_dt
+        count = 0
+        while count < 5:
+            if current in full_score_matrix.index:
+                val = full_score_matrix.loc[current, sid]
+                display_score = score_to_display(val) if pd.notna(val) else 42.9
+                history_list.append({"date": str(current.date()), "score": round(display_score, 1)})
+                count += 1
+            current = current - pd.Timedelta(days=1)
+            if (latest_dt - current).days > 20: break
+        item["history"] = history_list[::-1]
+    return items
 
-# ====================== 產生三種排名（industry 已加入 df） ======================
+# ====================== 產生三種排名 ======================
+compare_dt = get_compare_dt(score.index, latest_dt, days=7)
+prev_current_holdings_rank_map = {}
+prev_filtered_rank_map = {}
+prev_market_rank_map = {}
+
+if compare_dt is not None:
+    score_prev = full_score_matrix.loc[compare_dt]
+    holdings_prev = position_final.loc[compare_dt][position_final.loc[compare_dt] == 1].index
+    df_h_prev = pd.DataFrame({"score": score_prev.reindex(holdings_prev)})
+    prev_current_holdings_rank_map = build_rank_map(df_h_prev)
+    
+    filtered_ids_prev = final_filter.loc[compare_dt][final_filter.loc[compare_dt]].index
+    df_f_prev = pd.DataFrame({"score": score_prev.reindex(filtered_ids_prev)})
+    prev_filtered_rank_map = build_rank_map(df_f_prev)
+    
+    df_m_prev = pd.DataFrame({"score": score_prev})
+    df_m_prev = df_m_prev[df_m_prev["score"] > 0]
+    prev_market_rank_map = build_rank_map(df_m_prev)
+
 # 1. 目前持股排名
 holdings = position_final.loc[latest_dt][position_final.loc[latest_dt] == 1].index
 df_h = pd.DataFrame({
@@ -186,7 +266,7 @@ df_h = pd.DataFrame({
 })
 df_h = df_h.sort_values("score", ascending=False).copy()
 df_h["base_rank"] = range(1, len(df_h) + 1)
-current_holdings_rank = [build_stock_item_high_div(sid, row, row["base_rank"], row["passed_filter"]) for sid, row in df_h.iterrows()]
+current_holdings_rank = [build_stock_item_high_div(sid, row, row["base_rank"], prev_current_holdings_rank_map, True, row["passed_filter"]) for sid, row in df_h.iterrows()]
 
 # 2. 條件篩選排名
 filtered_ids = final_filter.loc[latest_dt][final_filter.loc[latest_dt]].index
@@ -200,7 +280,7 @@ df_f = pd.DataFrame({
 })
 df_f = df_f.sort_values("score", ascending=False).copy()
 df_f["base_rank"] = range(1, len(df_f) + 1)
-filtered_rank = [build_stock_item_high_div(sid, row, row["base_rank"], True) for sid, row in df_f.iterrows()]
+filtered_rank = [build_stock_item_high_div(sid, row, row["base_rank"], prev_filtered_rank_map, False, True) for sid, row in df_f.iterrows()]
 
 # 3. 全市場排名
 df_m = pd.DataFrame({
@@ -214,10 +294,14 @@ df_m = pd.DataFrame({
 df_m = df_m[df_m["score"] > 0].copy()
 df_m = df_m.sort_values("score", ascending=False)
 df_m["base_rank"] = range(1, len(df_m) + 1)
-market_rank = [build_stock_item_high_div(sid, row, row["base_rank"], bool(row["passed_filter"])) for sid, row in df_m.iterrows()]
+market_rank = [build_stock_item_high_div(sid, row, row["base_rank"], prev_market_rank_map, False, bool(row["passed_filter"])) for sid, row in df_m.iterrows()]
 
-# ====================== 計算 overview ======================
-print("🚀 開始計算首頁進階指標...")
+# 加入 history
+current_holdings_rank = add_history_to_items(current_holdings_rank)
+filtered_rank = add_history_to_items(filtered_rank)
+market_rank = add_history_to_items(market_rank)
+
+# ====================== overview & chart_2.json ======================
 daily_return = report.creturn.pct_change().fillna(0)
 
 def calc_performance(ret_series, start_date=None):
@@ -248,7 +332,6 @@ overview = {
     "current_holdings": len(holdings)
 }
 
-# ====================== chart_2.json ======================
 def get_pts(series, benchmark_series, start_dt):
     if isinstance(start_dt, str):
         start_dt = pd.to_datetime(start_dt)
@@ -277,6 +360,8 @@ chart_json = {
 result_json = {
     "latest_date": str(latest_dt.date()),
     "updated_at": datetime.now(ZoneInfo("Asia/Taipei")).strftime('%Y-%m-%d %H:%M'),
+    "compare_date": str(compare_dt.date()) if compare_dt else None,
+    "rebalance_base_date": str(real_rebalance_dt.date()),
     "overview": overview,
     "current_holdings_rank": current_holdings_rank,
     "filtered_rank": filtered_rank,
@@ -293,5 +378,5 @@ with open(public_path / "result_2.json", 'w', encoding='utf-8') as f:
 with open(public_path / "chart_2.json", 'w', encoding='utf-8') as f:
     json.dump(chart_json, f, ensure_ascii=False, indent=2)
 
-print(f"✅ result_2.json & chart_2.json 已更新（df 已包含 industry）")
+print(f"✅ result_2.json & chart_2.json 已更新（QE-JAN 季度基準日已修正 + history 完整）")
 print(f"目前持股: {len(current_holdings_rank)} | 條件篩選: {len(filtered_rank)} | 全市場: {len(market_rank)}")
