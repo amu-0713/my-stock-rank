@@ -215,13 +215,36 @@ function ScoreModal({ stock, onClose }) {
 
 const DEFAULT_SORT_KEY = 'score'
 const DEFAULT_SORT_DIRECTION = 'desc'
-const SORTABLE_FIELD_SET = new Set(['score', 'rs_pct', 'peg_pct', 'dd_pct', 'rank_change'])
+const SORTABLE_FIELD_SET_BY_STRATEGY = {
+  '1': new Set(['score', 'rs_pct', 'peg_pct', 'dd_pct', 'rank_change']),
+  '2': new Set(['score', 'std_pct', 'dy_pct', 'rank_change']),
+}
+const METRIC_COLUMNS_BY_STRATEGY = {
+  '1': [
+    { key: 'rs_pct', label: 'RS', sortable: true, type: 'pct' },
+    { key: 'peg_pct', label: 'PEG', sortable: true, type: 'pct' },
+    { key: 'dd_pct', label: 'DD', sortable: true, type: 'pct' },
+  ],
+  '2': [
+    { key: 'std_pct', label: 'STD', sortable: true, type: 'pct' },
+    { key: 'dy_pct', label: 'DY', sortable: true, type: 'pct' },
+    { key: 'industry', label: '產業', sortable: false, type: 'text' },
+  ],
+}
 const STOCK_CELL_LAYOUT_CLASS = 'grid grid-cols-[72px_minmax(0,1fr)] items-center gap-3'
 
-function normalizeSortKey(sortKey, sortableFields) {
+function getSortableFieldSet(strategyId) {
+  return SORTABLE_FIELD_SET_BY_STRATEGY[strategyId] ?? SORTABLE_FIELD_SET_BY_STRATEGY['1']
+}
+
+function getMetricColumns(strategyId) {
+  return METRIC_COLUMNS_BY_STRATEGY[strategyId] ?? METRIC_COLUMNS_BY_STRATEGY['1']
+}
+
+function normalizeSortKey(sortKey, sortableFields, sortableFieldSet) {
   if (
     typeof sortKey === 'string' &&
-    SORTABLE_FIELD_SET.has(sortKey) &&
+    sortableFieldSet.has(sortKey) &&
     (!Array.isArray(sortableFields) || sortableFields.includes(sortKey))
   ) {
     return sortKey
@@ -271,9 +294,18 @@ function sortIndicator(sortDirection, isActive) {
   return sortDirection === 'asc' ? '^' : 'v'
 }
 
-export default function RankList({ title, rows, defaultSortKey, sortableFields, compareDate }) {
+export default function RankList({
+  title,
+  rows,
+  defaultSortKey,
+  sortableFields,
+  compareDate,
+  strategyId = '1',
+}) {
   const isFilteredRankList = title === '條件篩選排名'
   const showFilterColumn = !isFilteredRankList
+  const sortableFieldSet = useMemo(() => getSortableFieldSet(strategyId), [strategyId])
+  const metricColumns = useMemo(() => getMetricColumns(strategyId), [strategyId])
 
   const gridCols = showFilterColumn
     ? 'grid-cols-[64px_minmax(150px,220px)_80px_75px_75px_75px_110px_60px]'
@@ -288,8 +320,8 @@ export default function RankList({ title, rows, defaultSortKey, sortableFields, 
       : `${TEXT.change}（vs ${formattedCompareDate}）`
 
   const normalizedDefaultSortKey = useMemo(
-    () => normalizeSortKey(defaultSortKey, sortableFields),
-    [defaultSortKey, sortableFields]
+    () => normalizeSortKey(defaultSortKey, sortableFields, sortableFieldSet),
+    [defaultSortKey, sortableFields, sortableFieldSet]
   )
 
   const [sortKey, setSortKey] = useState(normalizedDefaultSortKey)
@@ -305,9 +337,9 @@ export default function RankList({ title, rows, defaultSortKey, sortableFields, 
   }, [normalizedDefaultSortKey])
 
   const allowedSortableFields = useMemo(() => {
-    if (!Array.isArray(sortableFields) || sortableFields.length === 0) return SORTABLE_FIELD_SET
-    return new Set(sortableFields.filter(f => SORTABLE_FIELD_SET.has(f)))
-  }, [sortableFields])
+    if (!Array.isArray(sortableFields) || sortableFields.length === 0) return sortableFieldSet
+    return new Set(sortableFields.filter(f => sortableFieldSet.has(f)))
+  }, [sortableFields, sortableFieldSet])
 
   const filteredRows = useMemo(() => {
     const safeRows = Array.isArray(rows) ? rows : []
@@ -330,7 +362,7 @@ export default function RankList({ title, rows, defaultSortKey, sortableFields, 
 
   const sortedRows = useMemo(() => {
     const safeRows = Array.isArray(filteredRows) ? filteredRows : []
-    const activeSortKey = normalizeSortKey(sortKey, [...allowedSortableFields])
+    const activeSortKey = normalizeSortKey(sortKey, [...allowedSortableFields], sortableFieldSet)
 
     if (isFilteredRankList && activeSortKey === 'rank_change' && sortDirection === 'new') {
       return [...safeRows].sort((a, b) => {
@@ -352,7 +384,7 @@ export default function RankList({ title, rows, defaultSortKey, sortableFields, 
     }
 
     return [...safeRows].sort((a, b) => compareRows(a, b, activeSortKey, sortDirection))
-  }, [allowedSortableFields, isFilteredRankList, filteredRows, sortDirection, sortKey])
+  }, [allowedSortableFields, isFilteredRankList, filteredRows, sortDirection, sortKey, sortableFieldSet])
 
   const handleSortChange = nextSortKey => {
     if (!allowedSortableFields.has(nextSortKey)) return
@@ -420,32 +452,30 @@ export default function RankList({ title, rows, defaultSortKey, sortableFields, 
               <span className="text-xs">{sortIndicator(sortDirection, sortKey === 'score')}</span>
             </button>
 
-            <button
-              type="button"
-              className={headerClassName(allowedSortableFields.has('rs_pct'), sortKey === 'rs_pct')}
-              onClick={() => handleSortChange('rs_pct')}
-            >
-              <span>RS</span>
-              <span className="text-xs">{sortIndicator(sortDirection, sortKey === 'rs_pct')}</span>
-            </button>
+            {metricColumns.map(column => {
+              if (!column.sortable) {
+                return (
+                  <div
+                    key={column.key}
+                    className="flex min-h-[52px] items-center justify-center text-center"
+                  >
+                    {column.label}
+                  </div>
+                )
+              }
 
-            <button
-              type="button"
-              className={headerClassName(allowedSortableFields.has('peg_pct'), sortKey === 'peg_pct')}
-              onClick={() => handleSortChange('peg_pct')}
-            >
-              <span>PEG</span>
-              <span className="text-xs">{sortIndicator(sortDirection, sortKey === 'peg_pct')}</span>
-            </button>
-
-            <button
-              type="button"
-              className={headerClassName(allowedSortableFields.has('dd_pct'), sortKey === 'dd_pct')}
-              onClick={() => handleSortChange('dd_pct')}
-            >
-              <span>DD</span>
-              <span className="text-xs">{sortIndicator(sortDirection, sortKey === 'dd_pct')}</span>
-            </button>
+              return (
+                <button
+                  key={column.key}
+                  type="button"
+                  className={headerClassName(allowedSortableFields.has(column.key), sortKey === column.key)}
+                  onClick={() => handleSortChange(column.key)}
+                >
+                  <span>{column.label}</span>
+                  <span className="text-xs">{sortIndicator(sortDirection, sortKey === column.key)}</span>
+                </button>
+              )
+            })}
 
             <button
               type="button"
@@ -491,23 +521,22 @@ export default function RankList({ title, rows, defaultSortKey, sortableFields, 
                     </span>
                   </div>
 
-                  <div className="text-center text-sm tabular-nums">
-                    <span className={`${pctBadgeClass(row.rs_pct)} opacity-80`}>
-                      {formatPct(row.rs_pct)}
-                    </span>
-                  </div>
-
-                  <div className="text-center text-sm tabular-nums">
-                    <span className={`${pctBadgeClass(row.peg_pct)} opacity-80`}>
-                      {formatPct(row.peg_pct)}
-                    </span>
-                  </div>
-
-                  <div className="text-center text-sm tabular-nums">
-                    <span className={`${pctBadgeClass(row.dd_pct)} opacity-80`}>
-                      {formatPct(row.dd_pct)}
-                    </span>
-                  </div>
+                  {metricColumns.map(column => (
+                    <div key={column.key} className="text-center text-sm tabular-nums">
+                      {column.type === 'pct' ? (
+                        <span className={`${pctBadgeClass(row[column.key])} opacity-80`}>
+                          {formatPct(row[column.key])}
+                        </span>
+                      ) : (
+                        <span
+                          className="inline-block max-w-full truncate text-zinc-700"
+                          title={row[column.key] ?? ''}
+                        >
+                          {row[column.key] ?? '--'}
+                        </span>
+                      )}
+                    </div>
+                  ))}
 
                   <div className={`flex flex-col items-center justify-center text-sm font-semibold tabular-nums ${rankChange.className} min-h-[52px]`}>
                     <div>{rankChange.mainLabel}</div>
