@@ -134,7 +134,7 @@ if not hasattr(report_x, 'benchmark') or report_x.benchmark is None:
 print("✅ 回測執行完成！開始精準生成三頁排名資料...")
 
 # =============================================================================
-# 八、精準脫水前端 JSON 生成邏輯 (徹底更正 DataFrame 欄位命名)
+# 八、精準脫水前端 JSON 生成邏輯
 # =============================================================================
 latest_dt = score_raw_today.index[-1]
 print(f"✅ 最新資料日期: {latest_dt.date()}")
@@ -227,28 +227,13 @@ def build_stock_item_high_div(sid, row, base_rank, prev_rank_map, selected=None,
         item["failed_conditions"] = [] if bool(passed_filter) else get_failed_conditions_high_div(sid)
     return item
 
-# === 修正重點 1：歷史走勢分數也使用正確 PR ===
-def add_history_to_items(items):
-    if len(items) == 0: return items
-    past_dates = score_raw_today.index[-5:]
-    sub_df = pd.DataFrame(index=past_dates, columns=score_raw_today.columns)
-    
-    for dt in past_dates:
-        dy_pct_h = dy_rank.loc[dt]
-        std_pct_h = std_score.loc[dt]
-        clean_h = dy_pct_h * 0.33 + std_pct_h * 0.67
-        sub_df.loc[dt] = clean_h.map(score_to_display)
-   
-    history_dict = {}
-    for sid in sub_df.columns:
-        history_dict[str(sid)] = [
-            {"date": str(dt.date()), "score": round(float(sub_df.loc[dt, sid]), 1)}
-            for dt in past_dates
-        ]
-    for item in items:
-        sid = item["stock_id"]
-        item["history"] = history_dict.get(sid, [])
-    return items
+# === 新增：強制最佳股票永遠顯示 100%（解決 ties / 下市股壓縮問題）===
+def normalize_pct(series):
+    """強制當日最佳股票的百分位為 1.0（顯示用）"""
+    s = series.dropna()
+    if s.empty:
+        return series
+    return series / s.max()
 
 # ====================== 產生歷史固定持股名單 ======================
 rb_score = loop_score.loc[real_rebalance_dt].dropna().sort_values(ascending=False).head(candidate_n)
@@ -272,23 +257,22 @@ if len(fixed_hold_ids) < max_holdings:
         if len(fixed_hold_ids) >= max_holdings: break
 
 # =============================================================================
-# 🎯 當日因子歸一化 與 純淨總分重新合成 (精準排序核心) ← 修正重點 2
+# 🎯 當日因子歸一化（已強制最佳為 100%）
 # =============================================================================
-dy_pct_today = dy_rank.loc[latest_dt]          # 已經是 0~1 的殖利率 PR
-std_pct_today = std_score.loc[latest_dt]       # 已經是 0~1 的低波 PR（越高越好）
+dy_pct_today = normalize_pct(dy_rank.loc[latest_dt])
+std_pct_today = normalize_pct(std_score.loc[latest_dt])
 
-# 重新合成分數（現在 clean_score 最高會真正接近 1）
 clean_score_today = dy_pct_today * 0.33 + std_pct_today * 0.67
 
-# 歷史 7 天前對比基準計算 ← 修正重點 3
+# 歷史 7 天前對比基準計算
 compare_dt = get_compare_dt(score_raw_today.index, latest_dt, days=7)
 prev_current_holdings_rank_map = {}
 prev_filtered_rank_map = {}
 prev_market_rank_map = {}
 
 if compare_dt is not None:
-    dy_pct_prev = dy_rank.loc[compare_dt]
-    std_pct_prev = std_score.loc[compare_dt]
+    dy_pct_prev = normalize_pct(dy_rank.loc[compare_dt])
+    std_pct_prev = normalize_pct(std_score.loc[compare_dt])
     clean_score_prev = dy_pct_prev * 0.33 + std_pct_prev * 0.67
     
     df_h_prev = pd.DataFrame({"score": clean_score_prev.reindex(fixed_hold_ids)})
@@ -302,7 +286,7 @@ if compare_dt is not None:
     df_m_prev = df_m_prev[df_m_prev["score"] > 0]
     prev_market_rank_map = build_rank_map(df_m_prev)
 
-# ====================== 三頁排名資料組裝與排序 ======================
+# ====================== 三頁排名資料組裝 ======================
 # --- 1. 目前持股排名 ---
 df_h = pd.DataFrame({
     "score": clean_score_today.reindex(fixed_hold_ids),
@@ -340,7 +324,29 @@ df_m = df_m[df_m["score"] > 0].copy().sort_values("score", ascending=False)
 df_m["base_rank"] = range(1, len(df_m) + 1)
 market_rank = [build_stock_item_high_div(sid, row, row["base_rank"], prev_market_rank_map, False, bool(row["passed_filter"])) for sid, row in df_m.iterrows()]
 
-# 附加走勢歷史
+# === 歷史走勢也強制 normalize ===
+def add_history_to_items(items):
+    if len(items) == 0: return items
+    past_dates = score_raw_today.index[-5:]
+    sub_df = pd.DataFrame(index=past_dates, columns=score_raw_today.columns)
+    
+    for dt in past_dates:
+        dy_pct_h = normalize_pct(dy_rank.loc[dt])
+        std_pct_h = normalize_pct(std_score.loc[dt])
+        clean_h = dy_pct_h * 0.33 + std_pct_h * 0.67
+        sub_df.loc[dt] = clean_h.map(score_to_display)
+   
+    history_dict = {}
+    for sid in sub_df.columns:
+        history_dict[str(sid)] = [
+            {"date": str(dt.date()), "score": round(float(sub_df.loc[dt, sid]), 1)}
+            for dt in past_dates
+        ]
+    for item in items:
+        sid = item["stock_id"]
+        item["history"] = history_dict.get(sid, [])
+    return items
+
 current_holdings_rank = add_history_to_items(current_holdings_rank)
 filtered_rank = add_history_to_items(filtered_rank)
 market_rank = add_history_to_items(market_rank)
@@ -419,4 +425,4 @@ with open(public_path / "result_2.json", 'w', encoding='utf-8') as f:
 with open(public_path / "chart_data_2.json", 'w', encoding='utf-8') as f:
     json.dump(chart_json, f, ensure_ascii=False, indent=2)
 
-print(f"============== ✅ 高息低波 欄位名與規格完全校正完成 ==============")
+print(f"============== ✅ 高息低波 欄位名與規格完全校正完成（STD 已強制 100%） ==============")
