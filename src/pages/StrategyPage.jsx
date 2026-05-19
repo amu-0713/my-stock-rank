@@ -108,8 +108,20 @@ export default function StrategyPage() {
           <div className="flex items-start justify-between gap-3">
             <div>
               <div className="pl-4 text-lg font-semibold sm:text-xl">{title}</div>
-              <div className="mt-1 pl-4 text-xs text-zinc-600 sm:text-sm">
-                最新日期：{data?.latest_date ?? '—'}　|　調倉基準日：{data?.rebalance_base_date ?? '—'}
+              {/* 日期資訊 - 手機版自動換行 */}
+              <div className="mt-1 pl-4 flex flex-col sm:flex-row sm:items-center gap-y-1 sm:gap-x-4 text-xs text-zinc-600 sm:text-sm">
+                <div className="flex items-baseline">
+                  <span className="font-medium">最新日期：</span>
+                  <span className="ml-1">{data?.latest_date ?? '—'}</span>
+                </div>
+
+                {/* 桌面版分隔線，手機版隱藏 */}
+                <div className="hidden sm:block text-zinc-300">｜</div>
+
+                <div className="flex items-baseline">
+                  <span className="font-medium">調倉基準日：</span>
+                  <span className="ml-1">{data?.rebalance_base_date ?? '—'}</span>
+                </div>
               </div>
             </div>
 
