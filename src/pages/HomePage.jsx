@@ -298,7 +298,7 @@ const HOME_STRATEGY_CONFIG = {
     resultUrl: '/result.json',
     chartUrl: '/chart_data.json',
     gradientId: 'colorReturns',
-    tagline: '偏成長與綜合因子排序',
+    tagline: '偏進取與動態選股',
   },
   '2': {
     resultUrl: '/result_2.json',
