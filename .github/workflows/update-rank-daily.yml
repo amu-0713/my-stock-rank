@@ -28,11 +28,11 @@ jobs:
           python -m pip install --upgrade pip
           pip install finlab pandas numpy plotly kaleido
       
-      #  - name: 1.執行排名更新 (dynamic_factor)
-        #  env:
-      #      FINLAB_TOKEN: ${{ secrets.FINLAB_TOKEN }}
-      #    run: python scripts/generate_dynamic_factor.py
-      #    continue-on-error: true
+      - name: 1.執行排名更新 (dynamic_factor)
+        env:
+          FINLAB_TOKEN: ${{ secrets.FINLAB_TOKEN }}
+        run: python scripts/generate_dynamic_factor.py
+        continue-on-error: true
       
       - name: 2.執行排名更新 (high_div_low)
         env:
