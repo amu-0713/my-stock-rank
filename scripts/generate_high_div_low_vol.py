@@ -299,10 +299,14 @@ if len(fixed_hold_ids) < max_holdings:
             break
 
 # =============================================================================
-# 🎯 因子今日狀態百分位 (精準脫水排除 NaN 分母版)
+# 🎯 因子今日狀態百分位 (絕對數學歸一化版，封殺所有分母污染)
 # =============================================================================
-r_dy_today = dy_score.loc[latest_dt].dropna().rank(pct=True)
-r_std_today = std_score.loc[latest_dt].dropna().rank(pct=True)
+raw_dy_today = dy_score.loc[latest_dt].dropna().rank(pct=True)
+raw_std_today = std_score.loc[latest_dt].dropna().rank(pct=True)
+
+# 強制除以當日的最大值，讓最高的一檔絕對等於 1.0 (100%)
+r_dy_today = raw_dy_today / raw_dy_today.max() if not raw_dy_today.empty else raw_dy_today
+r_std_today = raw_std_today / raw_std_today.max() if not raw_std_today.empty else raw_std_today
 
 # 歷史 7 天前對比 (完全拿原始無 NaN 的 score_raw_today 做對比基準)
 compare_dt = get_compare_dt(score_raw_today.index, latest_dt, days=7)
@@ -474,4 +478,4 @@ with open(public_path / "result_2.json", 'w', encoding='utf-8') as f:
 with open(public_path / "chart_data_2.json", 'w', encoding='utf-8') as f:
     json.dump(chart_json, f, ensure_ascii=False, indent=2)
 
-print(f"============== ✅ 高息低波 脫水 100% 正確版部署完成 ==============")
+print(f"============== ✅ 高息低波 歸一化 100% 正確版部署完成 ==============")
