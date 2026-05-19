@@ -283,12 +283,14 @@ if len(fixed_hold_ids) < max_holdings:
 # =============================================================================
 # 🎯 當日因子歸一化 與 純淨總分重新合成 (精準排序核心)
 # =============================================================================
-raw_dy_today = dy_score.loc[latest_dt].dropna().rank(pct=True)
-raw_std_today = std_score.loc[latest_dt].dropna().rank(pct=True)
+# ====================== 當日因子百分位（正確版）======================
+# 直接取原本就已經是 PR 的欄位，不要再重 rank！
+dy_pct_today = dy_rank.loc[latest_dt]          # 已經是 0~1 的殖利率 PR
+std_pct_today = std_score.loc[latest_dt]       # 已經是 0~1 的低波 PR（越高越好）
 
+# 重新合成分數（現在 clean_score 最高會真正接近 1）
+clean_score_today = dy_pct_today * 0.33 + std_pct_today * 0.67
 # 脫水防污染校正
-r_dy_today = raw_dy_today / raw_dy_today.max() if not raw_dy_today.empty else raw_dy_today
-r_std_today = raw_std_today / raw_std_today.max() if not raw_std_today.empty else raw_std_today
 
 # 用脫水後的純淨因子，重新合成本日綜合總分
 clean_score_today = r_dy_today * 0.33 + r_std_today * 0.67
@@ -323,8 +325,8 @@ if compare_dt is not None:
 df_h = pd.DataFrame({
     "score": clean_score_today.reindex(fixed_hold_ids),
     "close": price.loc[latest_dt].reindex(fixed_hold_ids),
-    "dy_pct": r_dy_today.reindex(fixed_hold_ids),   # 🎯 這裡改成 dy_pct！
-    "std_pct": r_std_today.reindex(fixed_hold_ids), # 🎯 這裡改成 std_pct！
+    "dy_pct": dy_pct_today.reindex(fixed_hold_ids),      # ← 改這裡
+    "std_pct": std_pct_today.reindex(fixed_hold_ids),    # ← 改這裡
     "passed_filter": final_cond.loc[latest_dt].reindex(fixed_hold_ids).fillna(False)
 })
 df_h = df_h.sort_values("score", ascending=False).copy()
@@ -336,8 +338,8 @@ filtered_ids = final_cond.loc[latest_dt][final_cond.loc[latest_dt]].index
 df_f = pd.DataFrame({
     "score": clean_score_today.reindex(filtered_ids),
     "close": price.loc[latest_dt].reindex(filtered_ids),
-    "dy_pct": r_dy_today.reindex(filtered_ids),   # 🎯 這裡改成 dy_pct！
-    "std_pct": r_std_today.reindex(filtered_ids), # 🎯 這裡改成 std_pct！
+    "dy_pct": dy_pct_today.reindex(filtered_ids),
+    "std_pct": std_pct_today.reindex(filtered_ids),
     "passed_filter": True
 })
 df_f = df_f.dropna(subset=["score"]).sort_values("score", ascending=False).copy()
@@ -348,8 +350,8 @@ filtered_rank = [build_stock_item_high_div(sid, row, row["base_rank"], prev_filt
 df_m = pd.DataFrame({
     "score": clean_score_today,
     "close": price.loc[latest_dt],
-    "dy_pct": r_dy_today,   # 🎯 這裡改成 dy_pct！
-    "std_pct": r_std_today, # 🎯 這裡改成 std_pct！
+    "dy_pct": dy_pct_today,
+    "std_pct": std_pct_today,
     "passed_filter": final_cond.loc[latest_dt]
 })
 df_m = df_m[df_m["score"] > 0].copy().sort_values("score", ascending=False)
