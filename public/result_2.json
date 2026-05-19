@@ -1,6 +1,6 @@
 {
   "latest_date": "2026-05-18",
-  "updated_at": "2026-05-19 14:29",
+  "updated_at": "2026-05-19 14:36",
   "compare_date": "2026-05-11",
   "rebalance_base_date": "2026-04-30",
   "overview": {
@@ -151,7 +151,7 @@
       "display_score": 89.7,
       "close": 170.0,
       "dy_pct": 86.6,
-      "std_pct": 23.8,
+      "std_pct": 23.7,
       "selected": true,
       "passed_filter": false,
       "failed_conditions": [
@@ -275,7 +275,7 @@
       "display_score": 85.0,
       "close": 137.0,
       "dy_pct": 65.2,
-      "std_pct": 20.2,
+      "std_pct": 20.1,
       "selected": true,
       "passed_filter": true,
       "failed_conditions": [],
@@ -440,7 +440,7 @@
       "display_score": 81.1,
       "close": 24.9,
       "dy_pct": 74.4,
-      "std_pct": 30.6,
+      "std_pct": 30.5,
       "selected": true,
       "passed_filter": false,
       "failed_conditions": [
@@ -724,7 +724,7 @@
       "display_score": 85.2,
       "close": 20.2,
       "dy_pct": 77.4,
-      "std_pct": 26.0,
+      "std_pct": 25.9,
       "selected": false,
       "passed_filter": true,
       "failed_conditions": [],
@@ -764,7 +764,7 @@
       "display_score": 85.0,
       "close": 137.0,
       "dy_pct": 65.2,
-      "std_pct": 20.2,
+      "std_pct": 20.1,
       "selected": false,
       "passed_filter": true,
       "failed_conditions": [],
@@ -804,7 +804,7 @@
       "display_score": 84.7,
       "close": 18.0,
       "dy_pct": 83.7,
-      "std_pct": 29.8,
+      "std_pct": 29.7,
       "selected": false,
       "passed_filter": true,
       "failed_conditions": [],
@@ -844,7 +844,7 @@
       "display_score": 84.3,
       "close": 61.3,
       "dy_pct": 76.7,
-      "std_pct": 26.9,
+      "std_pct": 26.8,
       "selected": false,
       "passed_filter": true,
       "failed_conditions": [],
@@ -884,7 +884,7 @@
       "display_score": 83.4,
       "close": 20.25,
       "dy_pct": 80.4,
-      "std_pct": 30.1,
+      "std_pct": 30.0,
       "selected": false,
       "passed_filter": true,
       "failed_conditions": [],
@@ -1004,7 +1004,7 @@
       "display_score": 80.9,
       "close": 136.5,
       "dy_pct": 81.8,
-      "std_pct": 34.6,
+      "std_pct": 34.5,
       "selected": false,
       "passed_filter": true,
       "failed_conditions": [],
@@ -1204,7 +1204,7 @@
       "display_score": 78.5,
       "close": 30.0,
       "dy_pct": 70.7,
-      "std_pct": 32.6,
+      "std_pct": 32.5,
       "selected": false,
       "passed_filter": true,
       "failed_conditions": [],
@@ -1244,7 +1244,7 @@
       "display_score": 78.2,
       "close": 96.8,
       "dy_pct": 66.6,
-      "std_pct": 31.1,
+      "std_pct": 31.0,
       "selected": false,
       "passed_filter": true,
       "failed_conditions": [],
@@ -1284,7 +1284,7 @@
       "display_score": 78.2,
       "close": 54.8,
       "dy_pct": 73.3,
-      "std_pct": 34.4,
+      "std_pct": 34.3,
       "selected": false,
       "passed_filter": true,
       "failed_conditions": [],
@@ -1404,7 +1404,7 @@
       "display_score": 75.8,
       "close": 73.6,
       "dy_pct": 75.5,
-      "std_pct": 39.0,
+      "std_pct": 38.9,
       "selected": false,
       "passed_filter": true,
       "failed_conditions": [],
@@ -1484,7 +1484,7 @@
       "display_score": 74.7,
       "close": 54.3,
       "dy_pct": 68.0,
-      "std_pct": 37.0,
+      "std_pct": 36.9,
       "selected": false,
       "passed_filter": true,
       "failed_conditions": [],
@@ -1524,7 +1524,7 @@
       "display_score": 74.0,
       "close": 76.8,
       "dy_pct": 73.3,
-      "std_pct": 40.6,
+      "std_pct": 40.5,
       "selected": false,
       "passed_filter": true,
       "failed_conditions": [],
@@ -1564,7 +1564,7 @@
       "display_score": 73.7,
       "close": 141.5,
       "dy_pct": 77.3,
-      "std_pct": 43.1,
+      "std_pct": 43.0,
       "selected": false,
       "passed_filter": true,
       "failed_conditions": [],
@@ -1764,7 +1764,7 @@
       "display_score": 72.0,
       "close": 270.0,
       "dy_pct": 86.9,
-      "std_pct": 50.3,
+      "std_pct": 50.2,
       "selected": false,
       "passed_filter": true,
       "failed_conditions": [],
@@ -1844,7 +1844,7 @@
       "display_score": 71.1,
       "close": 212.5,
       "dy_pct": 85.0,
-      "std_pct": 50.8,
+      "std_pct": 50.7,
       "selected": false,
       "passed_filter": true,
       "failed_conditions": [],
@@ -1964,7 +1964,7 @@
       "display_score": 70.1,
       "close": 102.5,
       "dy_pct": 72.6,
-      "std_pct": 46.1,
+      "std_pct": 46.0,
       "selected": false,
       "passed_filter": true,
       "failed_conditions": [],
@@ -2084,7 +2084,7 @@
       "display_score": 69.9,
       "close": 37.7,
       "dy_pct": 84.0,
-      "std_pct": 52.1,
+      "std_pct": 52.0,
       "selected": false,
       "passed_filter": true,
       "failed_conditions": [],
@@ -2164,7 +2164,7 @@
       "display_score": 69.0,
       "close": 123.5,
       "dy_pct": 76.5,
-      "std_pct": 49.7,
+      "std_pct": 49.6,
       "selected": false,
       "passed_filter": true,
       "failed_conditions": [],
@@ -2364,7 +2364,7 @@
       "display_score": 66.4,
       "close": 81.8,
       "dy_pct": 78.9,
-      "std_pct": 54.8,
+      "std_pct": 54.7,
       "selected": false,
       "passed_filter": true,
       "failed_conditions": [],
@@ -2404,7 +2404,7 @@
       "display_score": 66.1,
       "close": 113.0,
       "dy_pct": 88.8,
-      "std_pct": 60.1,
+      "std_pct": 60.0,
       "selected": false,
       "passed_filter": true,
       "failed_conditions": [],
@@ -2764,7 +2764,7 @@
       "display_score": 64.7,
       "close": 116.0,
       "dy_pct": 70.6,
-      "std_pct": 53.2,
+      "std_pct": 53.1,
       "selected": false,
       "passed_filter": true,
       "failed_conditions": [],
@@ -2804,7 +2804,7 @@
       "display_score": 63.5,
       "close": 67.7,
       "dy_pct": 70.4,
-      "std_pct": 54.9,
+      "std_pct": 54.8,
       "selected": false,
       "passed_filter": true,
       "failed_conditions": [],
@@ -2844,7 +2844,7 @@
       "display_score": 63.5,
       "close": 39.4,
       "dy_pct": 65.3,
-      "std_pct": 52.4,
+      "std_pct": 52.3,
       "selected": false,
       "passed_filter": true,
       "failed_conditions": [],
@@ -3004,7 +3004,7 @@
       "display_score": 62.8,
       "close": 181.5,
       "dy_pct": 83.4,
-      "std_pct": 62.3,
+      "std_pct": 62.2,
       "selected": false,
       "passed_filter": true,
       "failed_conditions": [],
@@ -3044,7 +3044,7 @@
       "display_score": 62.8,
       "close": 16.7,
       "dy_pct": 82.5,
-      "std_pct": 61.9,
+      "std_pct": 61.8,
       "selected": false,
       "passed_filter": true,
       "failed_conditions": [],
@@ -3084,7 +3084,7 @@
       "display_score": 62.7,
       "close": 560.0,
       "dy_pct": 72.0,
-      "std_pct": 56.8,
+      "std_pct": 56.7,
       "selected": false,
       "passed_filter": true,
       "failed_conditions": [],
@@ -3284,7 +3284,7 @@
       "display_score": 61.3,
       "close": 39.65,
       "dy_pct": 67.9,
-      "std_pct": 56.9,
+      "std_pct": 56.8,
       "selected": false,
       "passed_filter": true,
       "failed_conditions": [],
@@ -3324,7 +3324,7 @@
       "display_score": 61.3,
       "close": 275.0,
       "dy_pct": 69.3,
-      "std_pct": 57.6,
+      "std_pct": 57.5,
       "selected": false,
       "passed_filter": true,
       "failed_conditions": [],
@@ -3364,7 +3364,7 @@
       "display_score": 60.5,
       "close": 35.45,
       "dy_pct": 61.9,
-      "std_pct": 55.1,
+      "std_pct": 55.0,
       "selected": false,
       "passed_filter": true,
       "failed_conditions": [],
@@ -3404,7 +3404,7 @@
       "display_score": 60.5,
       "close": 171.0,
       "dy_pct": 72.8,
-      "std_pct": 60.5,
+      "std_pct": 60.4,
       "selected": false,
       "passed_filter": true,
       "failed_conditions": [],
@@ -3444,7 +3444,7 @@
       "display_score": 60.4,
       "close": 365.5,
       "dy_pct": 77.0,
-      "std_pct": 62.8,
+      "std_pct": 62.7,
       "selected": false,
       "passed_filter": true,
       "failed_conditions": [],
@@ -3484,7 +3484,7 @@
       "display_score": 60.0,
       "close": 125.0,
       "dy_pct": 69.9,
-      "std_pct": 59.8,
+      "std_pct": 59.7,
       "selected": false,
       "passed_filter": true,
       "failed_conditions": [],
@@ -3524,7 +3524,7 @@
       "display_score": 59.9,
       "close": 366.0,
       "dy_pct": 73.6,
-      "std_pct": 61.8,
+      "std_pct": 61.7,
       "selected": false,
       "passed_filter": true,
       "failed_conditions": [],
@@ -3604,7 +3604,7 @@
       "display_score": 59.2,
       "close": 135.5,
       "dy_pct": 68.2,
-      "std_pct": 60.2,
+      "std_pct": 60.1,
       "selected": false,
       "passed_filter": true,
       "failed_conditions": [],
@@ -3924,7 +3924,7 @@
       "display_score": 57.1,
       "close": 221.0,
       "dy_pct": 73.4,
-      "std_pct": 66.0,
+      "std_pct": 65.9,
       "selected": false,
       "passed_filter": true,
       "failed_conditions": [],
@@ -4004,7 +4004,7 @@
       "display_score": 56.9,
       "close": 73.3,
       "dy_pct": 62.1,
-      "std_pct": 60.7,
+      "std_pct": 60.6,
       "selected": false,
       "passed_filter": true,
       "failed_conditions": [],
@@ -4044,7 +4044,7 @@
       "display_score": 56.8,
       "close": 330.5,
       "dy_pct": 63.9,
-      "std_pct": 61.7,
+      "std_pct": 61.6,
       "selected": false,
       "passed_filter": true,
       "failed_conditions": [],
@@ -4204,7 +4204,7 @@
       "display_score": 54.6,
       "close": 45.1,
       "dy_pct": 61.6,
-      "std_pct": 63.8,
+      "std_pct": 63.7,
       "selected": false,
       "passed_filter": true,
       "failed_conditions": [],
@@ -4244,7 +4244,7 @@
       "display_score": 54.4,
       "close": 116.5,
       "dy_pct": 62.2,
-      "std_pct": 64.5,
+      "std_pct": 64.4,
       "selected": false,
       "passed_filter": true,
       "failed_conditions": [],
@@ -4404,7 +4404,7 @@
       "display_score": 53.1,
       "close": 60.0,
       "dy_pct": 81.9,
-      "std_pct": 76.1,
+      "std_pct": 76.0,
       "selected": false,
       "passed_filter": true,
       "failed_conditions": [],
@@ -4484,7 +4484,7 @@
       "display_score": 51.9,
       "close": 121.5,
       "dy_pct": 64.4,
-      "std_pct": 69.3,
+      "std_pct": 69.2,
       "selected": false,
       "passed_filter": true,
       "failed_conditions": [],
@@ -4724,7 +4724,7 @@
       "display_score": 51.1,
       "close": 623.0,
       "dy_pct": 63.3,
-      "std_pct": 70.0,
+      "std_pct": 69.9,
       "selected": false,
       "passed_filter": true,
       "failed_conditions": [],
@@ -4804,7 +4804,7 @@
       "display_score": 50.4,
       "close": 55.0,
       "dy_pct": 64.0,
-      "std_pct": 71.3,
+      "std_pct": 71.2,
       "selected": false,
       "passed_filter": true,
       "failed_conditions": [],
@@ -4884,7 +4884,7 @@
       "display_score": 48.5,
       "close": 150.0,
       "dy_pct": 61.6,
-      "std_pct": 72.9,
+      "std_pct": 72.8,
       "selected": false,
       "passed_filter": true,
       "failed_conditions": [],
@@ -4924,7 +4924,7 @@
       "display_score": 48.3,
       "close": 28.55,
       "dy_pct": 63.0,
-      "std_pct": 73.9,
+      "std_pct": 73.8,
       "selected": false,
       "passed_filter": true,
       "failed_conditions": [],
@@ -5044,7 +5044,7 @@
       "display_score": 45.3,
       "close": 29.95,
       "dy_pct": 61.7,
-      "std_pct": 77.8,
+      "std_pct": 77.7,
       "selected": false,
       "passed_filter": true,
       "failed_conditions": [],
@@ -5084,7 +5084,7 @@
       "display_score": 45.0,
       "close": 20.55,
       "dy_pct": 76.5,
-      "std_pct": 85.5,
+      "std_pct": 85.4,
       "selected": false,
       "passed_filter": true,
       "failed_conditions": [],
@@ -5124,7 +5124,7 @@
       "display_score": 45.0,
       "close": 1005.0,
       "dy_pct": 67.1,
-      "std_pct": 80.9,
+      "std_pct": 80.8,
       "selected": false,
       "passed_filter": true,
       "failed_conditions": [],
@@ -5164,7 +5164,7 @@
       "display_score": 44.0,
       "close": 218.5,
       "dy_pct": 60.2,
-      "std_pct": 79.0,
+      "std_pct": 78.9,
       "selected": false,
       "passed_filter": true,
       "failed_conditions": [],
@@ -5204,7 +5204,7 @@
       "display_score": 44.0,
       "close": 116.5,
       "dy_pct": 79.4,
-      "std_pct": 88.5,
+      "std_pct": 88.4,
       "selected": false,
       "passed_filter": true,
       "failed_conditions": [],
@@ -5284,7 +5284,7 @@
       "display_score": 43.6,
       "close": 84.1,
       "dy_pct": 73.0,
-      "std_pct": 85.9,
+      "std_pct": 85.8,
       "selected": false,
       "passed_filter": true,
       "failed_conditions": [],
@@ -5484,7 +5484,7 @@
       "display_score": 38.9,
       "close": 403.5,
       "dy_pct": 64.8,
-      "std_pct": 88.8,
+      "std_pct": 88.7,
       "selected": false,
       "passed_filter": true,
       "failed_conditions": [],
@@ -5686,7 +5686,7 @@
       "display_score": 96.1,
       "close": 73.2,
       "dy_pct": 93.2,
-      "std_pct": 17.5,
+      "std_pct": 17.4,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -5730,7 +5730,7 @@
       "display_score": 95.2,
       "close": 44.95,
       "dy_pct": 87.4,
-      "std_pct": 16.0,
+      "std_pct": 15.9,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -5905,7 +5905,7 @@
       "display_score": 94.4,
       "close": 13.7,
       "dy_pct": 94.8,
-      "std_pct": 20.8,
+      "std_pct": 20.7,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -6125,7 +6125,7 @@
       "display_score": 93.6,
       "close": 41.75,
       "dy_pct": 93.1,
-      "std_pct": 21.1,
+      "std_pct": 21.0,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -6298,7 +6298,7 @@
       "display_score": 93.2,
       "close": 39.35,
       "dy_pct": 92.3,
-      "std_pct": 21.3,
+      "std_pct": 21.2,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -6342,7 +6342,7 @@
       "display_score": 93.2,
       "close": 23.1,
       "dy_pct": 90.6,
-      "std_pct": 20.5,
+      "std_pct": 20.4,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -6386,7 +6386,7 @@
       "display_score": 93.2,
       "close": 33.45,
       "dy_pct": 91.3,
-      "std_pct": 20.9,
+      "std_pct": 20.8,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -6430,7 +6430,7 @@
       "display_score": 93.1,
       "close": 122.0,
       "dy_pct": 93.8,
-      "std_pct": 22.2,
+      "std_pct": 22.1,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -6474,7 +6474,7 @@
       "display_score": 93.0,
       "close": 272.0,
       "dy_pct": 93.0,
-      "std_pct": 22.0,
+      "std_pct": 21.9,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -6518,7 +6518,7 @@
       "display_score": 92.9,
       "close": 68.1,
       "dy_pct": 89.5,
-      "std_pct": 20.4,
+      "std_pct": 20.3,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -6950,7 +6950,7 @@
       "display_score": 92.1,
       "close": 288.0,
       "dy_pct": 83.2,
-      "std_pct": 18.5,
+      "std_pct": 18.4,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -7035,7 +7035,7 @@
       "display_score": 92.0,
       "close": 82.2,
       "dy_pct": 88.0,
-      "std_pct": 21.0,
+      "std_pct": 20.9,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -7078,7 +7078,7 @@
       "display_score": 91.9,
       "close": 29.25,
       "dy_pct": 84.8,
-      "std_pct": 19.6,
+      "std_pct": 19.5,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -7206,7 +7206,7 @@
       "display_score": 91.8,
       "close": 63.0,
       "dy_pct": 90.0,
-      "std_pct": 22.3,
+      "std_pct": 22.2,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -7464,7 +7464,7 @@
       "display_score": 91.4,
       "close": 38.25,
       "dy_pct": 87.5,
-      "std_pct": 21.7,
+      "std_pct": 21.6,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -7507,7 +7507,7 @@
       "display_score": 91.3,
       "close": 67.6,
       "dy_pct": 86.8,
-      "std_pct": 21.4,
+      "std_pct": 21.3,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -7593,7 +7593,7 @@
       "display_score": 91.2,
       "close": 24.85,
       "dy_pct": 84.6,
-      "std_pct": 20.6,
+      "std_pct": 20.5,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -7635,7 +7635,7 @@
       "display_score": 91.1,
       "close": 92.0,
       "dy_pct": 87.2,
-      "std_pct": 21.9,
+      "std_pct": 21.8,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -7678,7 +7678,7 @@
       "display_score": 91.1,
       "close": 31.3,
       "dy_pct": 90.1,
-      "std_pct": 23.4,
+      "std_pct": 23.3,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -7722,7 +7722,7 @@
       "display_score": 91.1,
       "close": 14.05,
       "dy_pct": 94.4,
-      "std_pct": 25.6,
+      "std_pct": 25.5,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -7854,7 +7854,7 @@
       "display_score": 90.9,
       "close": 78.5,
       "dy_pct": 88.4,
-      "std_pct": 22.9,
+      "std_pct": 22.8,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -7939,7 +7939,7 @@
       "display_score": 90.9,
       "close": null,
       "dy_pct": 97.7,
-      "std_pct": 27.5,
+      "std_pct": 27.4,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -8025,7 +8025,7 @@
       "display_score": 90.7,
       "close": 44.35,
       "dy_pct": 97.5,
-      "std_pct": 27.7,
+      "std_pct": 27.6,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -8405,7 +8405,7 @@
       "display_score": 90.1,
       "close": 180.0,
       "dy_pct": 95.6,
-      "std_pct": 27.6,
+      "std_pct": 27.5,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -8493,7 +8493,7 @@
       "display_score": 89.9,
       "close": 46.0,
       "dy_pct": 90.8,
-      "std_pct": 25.5,
+      "std_pct": 25.4,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -8537,7 +8537,7 @@
       "display_score": 89.9,
       "close": 74.4,
       "dy_pct": 87.9,
-      "std_pct": 24.1,
+      "std_pct": 24.0,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -8622,7 +8622,7 @@
       "display_score": 89.8,
       "close": 41.8,
       "dy_pct": 96.4,
-      "std_pct": 28.5,
+      "std_pct": 28.4,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -8666,7 +8666,7 @@
       "display_score": 89.7,
       "close": 170.0,
       "dy_pct": 86.6,
-      "std_pct": 23.8,
+      "std_pct": 23.7,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -8792,7 +8792,7 @@
       "display_score": 89.4,
       "close": 39.55,
       "dy_pct": 83.7,
-      "std_pct": 22.8,
+      "std_pct": 22.7,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -8878,7 +8878,7 @@
       "display_score": 89.3,
       "close": 148.0,
       "dy_pct": 76.4,
-      "std_pct": 19.3,
+      "std_pct": 19.2,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -9221,7 +9221,7 @@
       "display_score": 88.9,
       "close": 133.0,
       "dy_pct": 98.5,
-      "std_pct": 30.8,
+      "std_pct": 30.7,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -9307,7 +9307,7 @@
       "display_score": 88.8,
       "close": 64.6,
       "dy_pct": 96.6,
-      "std_pct": 30.0,
+      "std_pct": 29.9,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -9479,7 +9479,7 @@
       "display_score": 88.5,
       "close": 37.5,
       "dy_pct": 81.9,
-      "std_pct": 23.3,
+      "std_pct": 23.2,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -9609,7 +9609,7 @@
       "display_score": 88.4,
       "close": 41.8,
       "dy_pct": 85.8,
-      "std_pct": 25.3,
+      "std_pct": 25.2,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -9652,7 +9652,7 @@
       "display_score": 88.4,
       "close": 30.6,
       "dy_pct": 80.4,
-      "std_pct": 22.7,
+      "std_pct": 22.6,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -9737,7 +9737,7 @@
       "display_score": 88.0,
       "close": 79.8,
       "dy_pct": 92.0,
-      "std_pct": 28.9,
+      "std_pct": 28.8,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -9780,7 +9780,7 @@
       "display_score": 88.0,
       "close": 16.75,
       "dy_pct": 87.1,
-      "std_pct": 26.5,
+      "std_pct": 26.4,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -9910,7 +9910,7 @@
       "display_score": 88.0,
       "close": 39.95,
       "dy_pct": 95.8,
-      "std_pct": 30.9,
+      "std_pct": 30.8,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -10125,7 +10125,7 @@
       "display_score": 87.8,
       "close": 72.9,
       "dy_pct": 75.6,
-      "std_pct": 21.2,
+      "std_pct": 21.1,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -10212,7 +10212,7 @@
       "display_score": 87.5,
       "close": 49.25,
       "dy_pct": 88.1,
-      "std_pct": 27.8,
+      "std_pct": 27.7,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -10384,7 +10384,7 @@
       "display_score": 87.3,
       "close": 30.5,
       "dy_pct": 91.1,
-      "std_pct": 29.6,
+      "std_pct": 29.5,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -10470,7 +10470,7 @@
       "display_score": 87.2,
       "close": 49.3,
       "dy_pct": 88.0,
-      "std_pct": 28.2,
+      "std_pct": 28.1,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -10513,7 +10513,7 @@
       "display_score": 87.2,
       "close": 26.85,
       "dy_pct": 88.8,
-      "std_pct": 28.6,
+      "std_pct": 28.5,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -10597,7 +10597,7 @@
       "display_score": 87.0,
       "close": 26.1,
       "dy_pct": 96.3,
-      "std_pct": 32.5,
+      "std_pct": 32.4,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -10640,7 +10640,7 @@
       "display_score": 87.0,
       "close": 51.0,
       "dy_pct": 97.6,
-      "std_pct": 33.2,
+      "std_pct": 33.1,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -10770,7 +10770,7 @@
       "display_score": 86.7,
       "close": 11.05,
       "dy_pct": 79.6,
-      "std_pct": 24.7,
+      "std_pct": 24.6,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -10941,7 +10941,7 @@
       "display_score": 86.5,
       "close": 56.7,
       "dy_pct": 81.2,
-      "std_pct": 25.9,
+      "std_pct": 25.8,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -10983,7 +10983,7 @@
       "display_score": 86.2,
       "close": 32.45,
       "dy_pct": 77.1,
-      "std_pct": 24.3,
+      "std_pct": 24.2,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -11026,7 +11026,7 @@
       "display_score": 86.2,
       "close": 172.5,
       "dy_pct": 77.2,
-      "std_pct": 24.4,
+      "std_pct": 24.3,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -11069,7 +11069,7 @@
       "display_score": 86.1,
       "close": 16.2,
       "dy_pct": 99.5,
-      "std_pct": 35.5,
+      "std_pct": 35.4,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -11156,7 +11156,7 @@
       "display_score": 86.0,
       "close": 188.5,
       "dy_pct": 81.5,
-      "std_pct": 26.8,
+      "std_pct": 26.7,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -11325,7 +11325,7 @@
       "display_score": 85.8,
       "close": 233.0,
       "dy_pct": 93.7,
-      "std_pct": 33.1,
+      "std_pct": 33.0,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -11411,7 +11411,7 @@
       "display_score": 85.7,
       "close": 90.3,
       "dy_pct": 83.6,
-      "std_pct": 28.3,
+      "std_pct": 28.2,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -11454,7 +11454,7 @@
       "display_score": 85.7,
       "close": 77.1,
       "dy_pct": 90.7,
-      "std_pct": 31.8,
+      "std_pct": 31.7,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -11541,7 +11541,7 @@
       "display_score": 85.6,
       "close": 67.2,
       "dy_pct": 90.2,
-      "std_pct": 31.6,
+      "std_pct": 31.5,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -11670,7 +11670,7 @@
       "display_score": 85.5,
       "close": 15.9,
       "dy_pct": 95.3,
-      "std_pct": 34.3,
+      "std_pct": 34.2,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -11713,7 +11713,7 @@
       "display_score": 85.4,
       "close": 16.9,
       "dy_pct": 75.1,
-      "std_pct": 24.5,
+      "std_pct": 24.4,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -11799,7 +11799,7 @@
       "display_score": 85.3,
       "close": 21.1,
       "dy_pct": 97.8,
-      "std_pct": 35.8,
+      "std_pct": 35.7,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -11972,7 +11972,7 @@
       "display_score": 85.2,
       "close": 20.2,
       "dy_pct": 77.4,
-      "std_pct": 26.0,
+      "std_pct": 25.9,
       "selected": false,
       "passed_filter": true,
       "failed_conditions": [],
@@ -12141,7 +12141,7 @@
       "display_score": 85.0,
       "close": 137.0,
       "dy_pct": 65.2,
-      "std_pct": 20.2,
+      "std_pct": 20.1,
       "selected": false,
       "passed_filter": true,
       "failed_conditions": [],
@@ -12181,7 +12181,7 @@
       "display_score": 85.0,
       "close": 53.3,
       "dy_pct": 87.8,
-      "std_pct": 31.4,
+      "std_pct": 31.3,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -12224,7 +12224,7 @@
       "display_score": 85.0,
       "close": 18.35,
       "dy_pct": 85.3,
-      "std_pct": 30.2,
+      "std_pct": 30.1,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -12267,7 +12267,7 @@
       "display_score": 84.9,
       "close": 9.39,
       "dy_pct": 95.5,
-      "std_pct": 35.3,
+      "std_pct": 35.2,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -12311,7 +12311,7 @@
       "display_score": 84.9,
       "close": 52.8,
       "dy_pct": 85.3,
-      "std_pct": 30.3,
+      "std_pct": 30.2,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -12353,7 +12353,7 @@
       "display_score": 84.9,
       "close": 36.95,
       "dy_pct": 82.7,
-      "std_pct": 29.0,
+      "std_pct": 28.9,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -12396,7 +12396,7 @@
       "display_score": 84.9,
       "close": 84.5,
       "dy_pct": 94.2,
-      "std_pct": 34.7,
+      "std_pct": 34.6,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -12524,7 +12524,7 @@
       "display_score": 84.8,
       "close": 27.35,
       "dy_pct": 92.6,
-      "std_pct": 34.0,
+      "std_pct": 33.9,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -12568,7 +12568,7 @@
       "display_score": 84.8,
       "close": 30.35,
       "dy_pct": 81.0,
-      "std_pct": 28.4,
+      "std_pct": 28.3,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -12611,7 +12611,7 @@
       "display_score": 84.7,
       "close": 18.0,
       "dy_pct": 83.7,
-      "std_pct": 29.8,
+      "std_pct": 29.7,
       "selected": false,
       "passed_filter": true,
       "failed_conditions": [],
@@ -12693,7 +12693,7 @@
       "display_score": 84.6,
       "close": 13.85,
       "dy_pct": 70.8,
-      "std_pct": 23.6,
+      "std_pct": 23.5,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -12907,7 +12907,7 @@
       "display_score": 84.4,
       "close": 91.9,
       "dy_pct": 66.0,
-      "std_pct": 21.6,
+      "std_pct": 21.5,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -12950,7 +12950,7 @@
       "display_score": 84.3,
       "close": 61.3,
       "dy_pct": 76.7,
-      "std_pct": 26.9,
+      "std_pct": 26.8,
       "selected": false,
       "passed_filter": true,
       "failed_conditions": [],
@@ -13119,7 +13119,7 @@
       "display_score": 83.8,
       "close": 161.0,
       "dy_pct": 69.6,
-      "std_pct": 24.2,
+      "std_pct": 24.1,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -13161,7 +13161,7 @@
       "display_score": 83.8,
       "close": 13.0,
       "dy_pct": 73.8,
-      "std_pct": 26.3,
+      "std_pct": 26.2,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -13204,7 +13204,7 @@
       "display_score": 83.8,
       "close": 39.55,
       "dy_pct": 71.5,
-      "std_pct": 25.2,
+      "std_pct": 25.1,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -13547,7 +13547,7 @@
       "display_score": 83.4,
       "close": 20.25,
       "dy_pct": 80.4,
-      "std_pct": 30.1,
+      "std_pct": 30.0,
       "selected": false,
       "passed_filter": true,
       "failed_conditions": [],
@@ -13669,7 +13669,7 @@
       "display_score": 83.2,
       "close": 10.55,
       "dy_pct": 85.5,
-      "std_pct": 32.9,
+      "std_pct": 32.8,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -13712,7 +13712,7 @@
       "display_score": 83.1,
       "close": 82.0,
       "dy_pct": 76.6,
-      "std_pct": 28.7,
+      "std_pct": 28.6,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -13884,7 +13884,7 @@
       "display_score": 82.9,
       "close": 13.6,
       "dy_pct": 79.5,
-      "std_pct": 30.4,
+      "std_pct": 30.3,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -14013,7 +14013,7 @@
       "display_score": 82.7,
       "close": 116.5,
       "dy_pct": 96.6,
-      "std_pct": 39.1,
+      "std_pct": 39.0,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -14057,7 +14057,7 @@
       "display_score": 82.7,
       "close": 34.2,
       "dy_pct": 96.1,
-      "std_pct": 38.9,
+      "std_pct": 38.8,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -14100,7 +14100,7 @@
       "display_score": 82.7,
       "close": 49.1,
       "dy_pct": 88.1,
-      "std_pct": 35.0,
+      "std_pct": 34.9,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -14142,7 +14142,7 @@
       "display_score": 82.7,
       "close": 12.9,
       "dy_pct": 70.0,
-      "std_pct": 26.1,
+      "std_pct": 26.0,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -14228,7 +14228,7 @@
       "display_score": 82.6,
       "close": 93.9,
       "dy_pct": 88.7,
-      "std_pct": 35.4,
+      "std_pct": 35.3,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -14441,7 +14441,7 @@
       "display_score": 82.4,
       "close": 30.55,
       "dy_pct": 59.9,
-      "std_pct": 21.5,
+      "std_pct": 21.4,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -14528,7 +14528,7 @@
       "display_score": 82.4,
       "close": 12.35,
       "dy_pct": 97.4,
-      "std_pct": 40.0,
+      "std_pct": 39.9,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -14571,7 +14571,7 @@
       "display_score": 82.4,
       "close": 97.9,
       "dy_pct": 96.3,
-      "std_pct": 39.5,
+      "std_pct": 39.4,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -14656,7 +14656,7 @@
       "display_score": 82.3,
       "close": 28.75,
       "dy_pct": 69.1,
-      "std_pct": 26.2,
+      "std_pct": 26.1,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -14741,7 +14741,7 @@
       "display_score": 82.2,
       "close": 10.2,
       "dy_pct": 55.2,
-      "std_pct": 19.5,
+      "std_pct": 19.4,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -14785,7 +14785,7 @@
       "display_score": 82.2,
       "close": 22.85,
       "dy_pct": 91.2,
-      "std_pct": 37.3,
+      "std_pct": 37.2,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -14829,7 +14829,7 @@
       "display_score": 82.1,
       "close": 15.15,
       "dy_pct": 98.4,
-      "std_pct": 40.9,
+      "std_pct": 40.8,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -14953,7 +14953,7 @@
       "display_score": 82.0,
       "close": 28.1,
       "dy_pct": 62.2,
-      "std_pct": 23.2,
+      "std_pct": 23.1,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -14996,7 +14996,7 @@
       "display_score": 82.0,
       "close": 24.8,
       "dy_pct": 69.0,
-      "std_pct": 26.6,
+      "std_pct": 26.5,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -15081,7 +15081,7 @@
       "display_score": 82.0,
       "close": 49.85,
       "dy_pct": 98.5,
-      "std_pct": 41.2,
+      "std_pct": 41.1,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -15384,7 +15384,7 @@
       "display_score": 81.8,
       "close": 7.55,
       "dy_pct": 67.0,
-      "std_pct": 25.8,
+      "std_pct": 25.7,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -15600,7 +15600,7 @@
       "display_score": 81.7,
       "close": 68.0,
       "dy_pct": 87.7,
-      "std_pct": 36.2,
+      "std_pct": 36.1,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -15901,7 +15901,7 @@
       "display_score": 81.3,
       "close": 23.65,
       "dy_pct": 89.9,
-      "std_pct": 37.9,
+      "std_pct": 37.8,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -16073,7 +16073,7 @@
       "display_score": 81.1,
       "close": 34.1,
       "dy_pct": 86.4,
-      "std_pct": 36.5,
+      "std_pct": 36.4,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -16115,7 +16115,7 @@
       "display_score": 81.1,
       "close": 148.0,
       "dy_pct": 80.9,
-      "std_pct": 33.8,
+      "std_pct": 33.7,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -16157,7 +16157,7 @@
       "display_score": 81.1,
       "close": 24.9,
       "dy_pct": 74.4,
-      "std_pct": 30.6,
+      "std_pct": 30.5,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -16199,7 +16199,7 @@
       "display_score": 81.0,
       "close": 74.7,
       "dy_pct": 67.6,
-      "std_pct": 27.3,
+      "std_pct": 27.2,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -16371,7 +16371,7 @@
       "display_score": 81.0,
       "close": 43.65,
       "dy_pct": 93.5,
-      "std_pct": 40.2,
+      "std_pct": 40.1,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -16501,7 +16501,7 @@
       "display_score": 80.9,
       "close": 136.5,
       "dy_pct": 81.8,
-      "std_pct": 34.6,
+      "std_pct": 34.5,
       "selected": false,
       "passed_filter": true,
       "failed_conditions": [],
@@ -16541,7 +16541,7 @@
       "display_score": 80.8,
       "close": 38.8,
       "dy_pct": 79.3,
-      "std_pct": 33.4,
+      "std_pct": 33.3,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -16583,7 +16583,7 @@
       "display_score": 80.8,
       "close": 48.7,
       "dy_pct": 97.3,
-      "std_pct": 42.3,
+      "std_pct": 42.2,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -16627,7 +16627,7 @@
       "display_score": 80.7,
       "close": 21.7,
       "dy_pct": 95.1,
-      "std_pct": 41.4,
+      "std_pct": 41.3,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -16715,7 +16715,7 @@
       "display_score": 80.6,
       "close": 30.3,
       "dy_pct": 70.5,
-      "std_pct": 29.5,
+      "std_pct": 29.4,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -16758,7 +16758,7 @@
       "display_score": 80.5,
       "close": 25.95,
       "dy_pct": 75.8,
-      "std_pct": 32.1,
+      "std_pct": 32.0,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -16843,7 +16843,7 @@
       "display_score": 80.4,
       "close": 37.25,
       "dy_pct": 95.8,
-      "std_pct": 42.2,
+      "std_pct": 42.1,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -16929,7 +16929,7 @@
       "display_score": 80.4,
       "close": 25.6,
       "dy_pct": 86.4,
-      "std_pct": 37.6,
+      "std_pct": 37.5,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -17060,7 +17060,7 @@
       "display_score": 80.3,
       "close": 60.7,
       "dy_pct": 83.0,
-      "std_pct": 36.1,
+      "std_pct": 36.0,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -17537,7 +17537,7 @@
       "display_score": 79.7,
       "close": 93.5,
       "dy_pct": 90.2,
-      "std_pct": 40.5,
+      "std_pct": 40.4,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -17580,7 +17580,7 @@
       "display_score": 79.7,
       "close": 46.6,
       "dy_pct": 98.4,
-      "std_pct": 44.6,
+      "std_pct": 44.5,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -17794,7 +17794,7 @@
       "display_score": 79.2,
       "close": 15.15,
       "dy_pct": 98.9,
-      "std_pct": 45.5,
+      "std_pct": 45.4,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -17881,7 +17881,7 @@
       "display_score": 79.1,
       "close": 52.8,
       "dy_pct": 96.0,
-      "std_pct": 44.2,
+      "std_pct": 44.1,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -17967,7 +17967,7 @@
       "display_score": 79.0,
       "close": 56.0,
       "dy_pct": 69.2,
-      "std_pct": 31.2,
+      "std_pct": 31.1,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -18387,7 +18387,7 @@
       "display_score": 78.6,
       "close": 110.0,
       "dy_pct": 83.1,
-      "std_pct": 38.6,
+      "std_pct": 38.5,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -18471,7 +18471,7 @@
       "display_score": 78.5,
       "close": 30.0,
       "dy_pct": 70.7,
-      "std_pct": 32.6,
+      "std_pct": 32.5,
       "selected": false,
       "passed_filter": true,
       "failed_conditions": [],
@@ -18598,7 +18598,7 @@
       "display_score": 78.3,
       "close": 93.2,
       "dy_pct": 93.8,
-      "std_pct": 44.3,
+      "std_pct": 44.2,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -18899,7 +18899,7 @@
       "display_score": 78.2,
       "close": 96.8,
       "dy_pct": 66.6,
-      "std_pct": 31.1,
+      "std_pct": 31.0,
       "selected": false,
       "passed_filter": true,
       "failed_conditions": [],
@@ -18939,7 +18939,7 @@
       "display_score": 78.2,
       "close": 54.8,
       "dy_pct": 73.3,
-      "std_pct": 34.4,
+      "std_pct": 34.3,
       "selected": false,
       "passed_filter": true,
       "failed_conditions": [],
@@ -18979,7 +18979,7 @@
       "display_score": 78.1,
       "close": 18.35,
       "dy_pct": 91.0,
-      "std_pct": 43.2,
+      "std_pct": 43.1,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -19023,7 +19023,7 @@
       "display_score": 78.1,
       "close": 45.55,
       "dy_pct": 91.5,
-      "std_pct": 43.5,
+      "std_pct": 43.4,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -19110,7 +19110,7 @@
       "display_score": 78.0,
       "close": 49.85,
       "dy_pct": 91.8,
-      "std_pct": 43.8,
+      "std_pct": 43.7,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -19154,7 +19154,7 @@
       "display_score": 78.0,
       "close": 14.75,
       "dy_pct": 68.4,
-      "std_pct": 32.3,
+      "std_pct": 32.2,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -19240,7 +19240,7 @@
       "display_score": 77.9,
       "close": 197.5,
       "dy_pct": 97.5,
-      "std_pct": 46.7,
+      "std_pct": 46.6,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -19283,7 +19283,7 @@
       "display_score": 77.9,
       "close": 26.05,
       "dy_pct": 69.6,
-      "std_pct": 33.0,
+      "std_pct": 32.9,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -19755,7 +19755,7 @@
       "display_score": 77.7,
       "close": 110.5,
       "dy_pct": 86.5,
-      "std_pct": 41.7,
+      "std_pct": 41.6,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -19929,7 +19929,7 @@
       "display_score": 77.4,
       "close": 25.9,
       "dy_pct": 66.1,
-      "std_pct": 32.0,
+      "std_pct": 31.9,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -20012,7 +20012,7 @@
       "display_score": 77.3,
       "close": 17.0,
       "dy_pct": 44.9,
-      "std_pct": 21.8,
+      "std_pct": 21.7,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -20182,7 +20182,7 @@
       "display_score": 77.2,
       "close": 40.7,
       "dy_pct": 88.5,
-      "std_pct": 43.4,
+      "std_pct": 43.3,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -20268,7 +20268,7 @@
       "display_score": 77.1,
       "close": 26.35,
       "dy_pct": 87.6,
-      "std_pct": 43.0,
+      "std_pct": 42.9,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -20352,7 +20352,7 @@
       "display_score": 77.1,
       "close": 68.3,
       "dy_pct": 92.4,
-      "std_pct": 45.4,
+      "std_pct": 45.3,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -20396,7 +20396,7 @@
       "display_score": 77.1,
       "close": 39.45,
       "dy_pct": 71.7,
-      "std_pct": 35.2,
+      "std_pct": 35.1,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -20439,7 +20439,7 @@
       "display_score": 77.1,
       "close": 34.75,
       "dy_pct": 70.7,
-      "std_pct": 34.8,
+      "std_pct": 34.7,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -20522,7 +20522,7 @@
       "display_score": 76.9,
       "close": 18.85,
       "dy_pct": 96.8,
-      "std_pct": 47.9,
+      "std_pct": 47.8,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -20609,7 +20609,7 @@
       "display_score": 76.9,
       "close": 24.6,
       "dy_pct": 47.9,
-      "std_pct": 23.9,
+      "std_pct": 23.8,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -20696,7 +20696,7 @@
       "display_score": 76.6,
       "close": 21.95,
       "dy_pct": 64.1,
-      "std_pct": 32.2,
+      "std_pct": 32.1,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -21084,7 +21084,7 @@
       "display_score": 76.1,
       "close": 23.7,
       "dy_pct": 74.3,
-      "std_pct": 38.0,
+      "std_pct": 37.9,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -21169,7 +21169,7 @@
       "display_score": 76.0,
       "close": 62.6,
       "dy_pct": 75.5,
-      "std_pct": 38.7,
+      "std_pct": 38.6,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -21211,7 +21211,7 @@
       "display_score": 76.0,
       "close": 15.85,
       "dy_pct": 59.7,
-      "std_pct": 31.0,
+      "std_pct": 30.9,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -21297,7 +21297,7 @@
       "display_score": 75.8,
       "close": 73.6,
       "dy_pct": 75.5,
-      "std_pct": 39.0,
+      "std_pct": 38.9,
       "selected": false,
       "passed_filter": true,
       "failed_conditions": [],
@@ -21466,7 +21466,7 @@
       "display_score": 75.7,
       "close": 29.4,
       "dy_pct": 92.9,
-      "std_pct": 47.7,
+      "std_pct": 47.6,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -21553,7 +21553,7 @@
       "display_score": 75.6,
       "close": 18.55,
       "dy_pct": 99.9,
-      "std_pct": 51.3,
+      "std_pct": 51.2,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -21639,7 +21639,7 @@
       "display_score": 75.6,
       "close": 19.5,
       "dy_pct": 78.8,
-      "std_pct": 41.0,
+      "std_pct": 40.9,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -21810,7 +21810,7 @@
       "display_score": 75.5,
       "close": 139.5,
       "dy_pct": 81.4,
-      "std_pct": 42.4,
+      "std_pct": 42.3,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -21895,7 +21895,7 @@
       "display_score": 75.3,
       "close": 717.0,
       "dy_pct": 78.1,
-      "std_pct": 41.1,
+      "std_pct": 41.0,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -22194,7 +22194,7 @@
       "display_score": 75.0,
       "close": 160.5,
       "dy_pct": 97.2,
-      "std_pct": 51.0,
+      "std_pct": 50.9,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -22364,7 +22364,7 @@
       "display_score": 74.7,
       "close": 54.3,
       "dy_pct": 68.0,
-      "std_pct": 37.0,
+      "std_pct": 36.9,
       "selected": false,
       "passed_filter": true,
       "failed_conditions": [],
@@ -22404,7 +22404,7 @@
       "display_score": 74.7,
       "close": 20.1,
       "dy_pct": 52.4,
-      "std_pct": 29.3,
+      "std_pct": 29.2,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -22577,7 +22577,7 @@
       "display_score": 74.4,
       "close": 29.5,
       "dy_pct": 38.8,
-      "std_pct": 23.0,
+      "std_pct": 22.9,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -22751,7 +22751,7 @@
       "display_score": 74.2,
       "close": 29.15,
       "dy_pct": 71.9,
-      "std_pct": 39.6,
+      "std_pct": 39.5,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -22794,7 +22794,7 @@
       "display_score": 74.2,
       "close": 172.0,
       "dy_pct": 84.9,
-      "std_pct": 46.0,
+      "std_pct": 45.9,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -22881,7 +22881,7 @@
       "display_score": 74.1,
       "close": 21.4,
       "dy_pct": 76.4,
-      "std_pct": 42.0,
+      "std_pct": 41.9,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -22924,7 +22924,7 @@
       "display_score": 74.1,
       "close": 16.2,
       "dy_pct": 89.0,
-      "std_pct": 48.3,
+      "std_pct": 48.2,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -22967,7 +22967,7 @@
       "display_score": 74.0,
       "close": 76.8,
       "dy_pct": 73.3,
-      "std_pct": 40.6,
+      "std_pct": 40.5,
       "selected": false,
       "passed_filter": true,
       "failed_conditions": [],
@@ -23135,7 +23135,7 @@
       "display_score": 73.9,
       "close": 61.7,
       "dy_pct": 94.8,
-      "std_pct": 51.4,
+      "std_pct": 51.3,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -23178,7 +23178,7 @@
       "display_score": 73.9,
       "close": 47.6,
       "dy_pct": 90.7,
-      "std_pct": 49.4,
+      "std_pct": 49.3,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -23222,7 +23222,7 @@
       "display_score": 73.7,
       "close": 141.5,
       "dy_pct": 77.3,
-      "std_pct": 43.1,
+      "std_pct": 43.0,
       "selected": false,
       "passed_filter": true,
       "failed_conditions": [],
@@ -23262,7 +23262,7 @@
       "display_score": 73.7,
       "close": 45.4,
       "dy_pct": 91.7,
-      "std_pct": 50.2,
+      "std_pct": 50.1,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -23430,7 +23430,7 @@
       "display_score": 73.2,
       "close": 58.9,
       "dy_pct": 75.3,
-      "std_pct": 42.8,
+      "std_pct": 42.7,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -23852,7 +23852,7 @@
       "display_score": 72.7,
       "close": 71.7,
       "dy_pct": 93.9,
-      "std_pct": 52.7,
+      "std_pct": 52.6,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -24157,7 +24157,7 @@
       "display_score": 72.3,
       "close": 48.95,
       "dy_pct": 88.4,
-      "std_pct": 50.6,
+      "std_pct": 50.5,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -24243,7 +24243,7 @@
       "display_score": 72.3,
       "close": 293.0,
       "dy_pct": 62.1,
-      "std_pct": 37.7,
+      "std_pct": 37.6,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -24285,7 +24285,7 @@
       "display_score": 72.2,
       "close": 25.7,
       "dy_pct": 66.3,
-      "std_pct": 39.9,
+      "std_pct": 39.8,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -24328,7 +24328,7 @@
       "display_score": 72.1,
       "close": null,
       "dy_pct": 59.6,
-      "std_pct": 36.7,
+      "std_pct": 36.6,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -24459,7 +24459,7 @@
       "display_score": 72.0,
       "close": 270.0,
       "dy_pct": 86.9,
-      "std_pct": 50.3,
+      "std_pct": 50.2,
       "selected": false,
       "passed_filter": true,
       "failed_conditions": [],
@@ -24584,7 +24584,7 @@
       "display_score": 71.9,
       "close": 96.2,
       "dy_pct": 80.1,
-      "std_pct": 47.2,
+      "std_pct": 47.1,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -24627,7 +24627,7 @@
       "display_score": 71.9,
       "close": 70.8,
       "dy_pct": 99.0,
-      "std_pct": 56.5,
+      "std_pct": 56.4,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -24713,7 +24713,7 @@
       "display_score": 71.7,
       "close": 72.2,
       "dy_pct": 96.1,
-      "std_pct": 55.3,
+      "std_pct": 55.2,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -24755,7 +24755,7 @@
       "display_score": 71.7,
       "close": 35.1,
       "dy_pct": 36.1,
-      "std_pct": 25.7,
+      "std_pct": 25.6,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -25140,7 +25140,7 @@
       "display_score": 71.3,
       "close": 19.7,
       "dy_pct": 78.6,
-      "std_pct": 47.3,
+      "std_pct": 47.2,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -25268,7 +25268,7 @@
       "display_score": 71.1,
       "close": 212.5,
       "dy_pct": 85.0,
-      "std_pct": 50.8,
+      "std_pct": 50.7,
       "selected": false,
       "passed_filter": true,
       "failed_conditions": [],
@@ -25609,7 +25609,7 @@
       "display_score": 70.8,
       "close": 184.0,
       "dy_pct": 83.4,
-      "std_pct": 50.4,
+      "std_pct": 50.3,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -25819,7 +25819,7 @@
       "display_score": 70.4,
       "close": 338.0,
       "dy_pct": 69.5,
-      "std_pct": 44.1,
+      "std_pct": 44.0,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -25861,7 +25861,7 @@
       "display_score": 70.4,
       "close": 165.0,
       "dy_pct": 76.2,
-      "std_pct": 47.5,
+      "std_pct": 47.4,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -25903,7 +25903,7 @@
       "display_score": 70.3,
       "close": 41.3,
       "dy_pct": 63.9,
-      "std_pct": 41.6,
+      "std_pct": 41.5,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -26116,7 +26116,7 @@
       "display_score": 70.1,
       "close": 102.5,
       "dy_pct": 72.6,
-      "std_pct": 46.1,
+      "std_pct": 46.0,
       "selected": false,
       "passed_filter": true,
       "failed_conditions": [],
@@ -26156,7 +26156,7 @@
       "display_score": 70.0,
       "close": 44.3,
       "dy_pct": 72.8,
-      "std_pct": 46.3,
+      "std_pct": 46.2,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -26199,7 +26199,7 @@
       "display_score": 69.9,
       "close": 37.95,
       "dy_pct": 86.9,
-      "std_pct": 53.4,
+      "std_pct": 53.3,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -26363,7 +26363,7 @@
       "display_score": 69.9,
       "close": 251.5,
       "dy_pct": 86.1,
-      "std_pct": 53.1,
+      "std_pct": 53.0,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -26405,7 +26405,7 @@
       "display_score": 69.9,
       "close": 37.7,
       "dy_pct": 84.0,
-      "std_pct": 52.1,
+      "std_pct": 52.0,
       "selected": false,
       "passed_filter": true,
       "failed_conditions": [],
@@ -26660,7 +26660,7 @@
       "display_score": 69.7,
       "close": 45.15,
       "dy_pct": 71.5,
-      "std_pct": 46.2,
+      "std_pct": 46.1,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -26702,7 +26702,7 @@
       "display_score": 69.7,
       "close": 113.5,
       "dy_pct": 76.3,
-      "std_pct": 48.6,
+      "std_pct": 48.5,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -26744,7 +26744,7 @@
       "display_score": 69.6,
       "close": 51.5,
       "dy_pct": 74.9,
-      "std_pct": 48.0,
+      "std_pct": 47.9,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -26873,7 +26873,7 @@
       "display_score": 69.5,
       "close": 162.5,
       "dy_pct": 87.0,
-      "std_pct": 54.1,
+      "std_pct": 54.0,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -26915,7 +26915,7 @@
       "display_score": 69.5,
       "close": 22.6,
       "dy_pct": 42.9,
-      "std_pct": 32.4,
+      "std_pct": 32.3,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -26959,7 +26959,7 @@
       "display_score": 69.5,
       "close": 20.45,
       "dy_pct": 52.0,
-      "std_pct": 36.9,
+      "std_pct": 36.8,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -27177,7 +27177,7 @@
       "display_score": 69.2,
       "close": 86.0,
       "dy_pct": 56.9,
-      "std_pct": 39.7,
+      "std_pct": 39.6,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -27260,7 +27260,7 @@
       "display_score": 69.1,
       "close": 165.0,
       "dy_pct": 96.9,
-      "std_pct": 59.5,
+      "std_pct": 59.4,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -27303,7 +27303,7 @@
       "display_score": 69.0,
       "close": 21.0,
       "dy_pct": 75.4,
-      "std_pct": 49.1,
+      "std_pct": 49.0,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -27346,7 +27346,7 @@
       "display_score": 69.0,
       "close": 123.5,
       "dy_pct": 76.5,
-      "std_pct": 49.7,
+      "std_pct": 49.6,
       "selected": false,
       "passed_filter": true,
       "failed_conditions": [],
@@ -27558,7 +27558,7 @@
       "display_score": 68.9,
       "close": 71.8,
       "dy_pct": 81.3,
-      "std_pct": 52.2,
+      "std_pct": 52.1,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -27643,7 +27643,7 @@
       "display_score": 68.8,
       "close": 80.0,
       "dy_pct": 89.2,
-      "std_pct": 56.3,
+      "std_pct": 56.2,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -27811,7 +27811,7 @@
       "display_score": 68.5,
       "close": 61.3,
       "dy_pct": 60.8,
-      "std_pct": 42.7,
+      "std_pct": 42.6,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -27854,7 +27854,7 @@
       "display_score": 68.5,
       "close": 54.0,
       "dy_pct": 86.8,
-      "std_pct": 55.5,
+      "std_pct": 55.4,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -27983,7 +27983,7 @@
       "display_score": 68.3,
       "close": 43.4,
       "dy_pct": 73.7,
-      "std_pct": 49.3,
+      "std_pct": 49.2,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -28069,7 +28069,7 @@
       "display_score": 68.3,
       "close": 38.05,
       "dy_pct": 54.2,
-      "std_pct": 39.8,
+      "std_pct": 39.7,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -28156,7 +28156,7 @@
       "display_score": 68.3,
       "close": 28.5,
       "dy_pct": 89.6,
-      "std_pct": 57.3,
+      "std_pct": 57.2,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -28199,7 +28199,7 @@
       "display_score": 68.2,
       "close": 41.6,
       "dy_pct": 37.6,
-      "std_pct": 31.7,
+      "std_pct": 31.6,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -28243,7 +28243,7 @@
       "display_score": 68.1,
       "close": 24.05,
       "dy_pct": 61.5,
-      "std_pct": 43.7,
+      "std_pct": 43.6,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -28285,7 +28285,7 @@
       "display_score": 68.0,
       "close": 66.4,
       "dy_pct": 92.8,
-      "std_pct": 59.2,
+      "std_pct": 59.1,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -28329,7 +28329,7 @@
       "display_score": 68.0,
       "close": 99.6,
       "dy_pct": 93.1,
-      "std_pct": 59.4,
+      "std_pct": 59.3,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -28372,7 +28372,7 @@
       "display_score": 67.9,
       "close": 52.6,
       "dy_pct": 67.3,
-      "std_pct": 46.8,
+      "std_pct": 46.7,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -28502,7 +28502,7 @@
       "display_score": 67.8,
       "close": 113.0,
       "dy_pct": 96.7,
-      "std_pct": 61.5,
+      "std_pct": 61.4,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -28589,7 +28589,7 @@
       "display_score": 67.7,
       "close": 35.85,
       "dy_pct": 80.7,
-      "std_pct": 53.7,
+      "std_pct": 53.6,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -28631,7 +28631,7 @@
       "display_score": 67.6,
       "close": 57.5,
       "dy_pct": 67.5,
-      "std_pct": 47.4,
+      "std_pct": 47.3,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -29016,7 +29016,7 @@
       "display_score": 67.3,
       "close": 124.0,
       "dy_pct": 55.9,
-      "std_pct": 42.1,
+      "std_pct": 42.0,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -29143,7 +29143,7 @@
       "display_score": 67.2,
       "close": 11.4,
       "dy_pct": 54.1,
-      "std_pct": 41.3,
+      "std_pct": 41.2,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -29229,7 +29229,7 @@
       "display_score": 67.1,
       "close": 27.4,
       "dy_pct": 75.2,
-      "std_pct": 51.9,
+      "std_pct": 51.8,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -29440,7 +29440,7 @@
       "display_score": 66.8,
       "close": 19.05,
       "dy_pct": 53.9,
-      "std_pct": 41.8,
+      "std_pct": 41.7,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -29870,7 +29870,7 @@
       "display_score": 66.4,
       "close": 81.8,
       "dy_pct": 78.9,
-      "std_pct": 54.8,
+      "std_pct": 54.7,
       "selected": false,
       "passed_filter": true,
       "failed_conditions": [],
@@ -29910,7 +29910,7 @@
       "display_score": 66.3,
       "close": 71.9,
       "dy_pct": 66.3,
-      "std_pct": 48.7,
+      "std_pct": 48.6,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -29953,7 +29953,7 @@
       "display_score": 66.3,
       "close": 11.35,
       "dy_pct": 71.2,
-      "std_pct": 51.1,
+      "std_pct": 51.0,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -30081,7 +30081,7 @@
       "display_score": 66.1,
       "close": 113.0,
       "dy_pct": 88.8,
-      "std_pct": 60.1,
+      "std_pct": 60.0,
       "selected": false,
       "passed_filter": true,
       "failed_conditions": [],
@@ -30164,7 +30164,7 @@
       "display_score": 66.0,
       "close": 93.4,
       "dy_pct": 75.9,
-      "std_pct": 53.8,
+      "std_pct": 53.7,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -30250,7 +30250,7 @@
       "display_score": 65.9,
       "close": 9.64,
       "dy_pct": 35.5,
-      "std_pct": 34.1,
+      "std_pct": 34.0,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -30294,7 +30294,7 @@
       "display_score": 65.9,
       "close": 19.1,
       "dy_pct": 51.2,
-      "std_pct": 41.9,
+      "std_pct": 41.8,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -30550,7 +30550,7 @@
       "display_score": 65.7,
       "close": 51.0,
       "dy_pct": 86.5,
-      "std_pct": 59.6,
+      "std_pct": 59.5,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -30672,7 +30672,7 @@
       "display_score": 65.6,
       "close": 28.35,
       "dy_pct": 63.2,
-      "std_pct": 48.2,
+      "std_pct": 48.1,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -30794,7 +30794,7 @@
       "display_score": 65.6,
       "close": 29.55,
       "dy_pct": 51.6,
-      "std_pct": 42.5,
+      "std_pct": 42.4,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -31348,7 +31348,7 @@
       "display_score": 65.0,
       "close": 101.0,
       "dy_pct": 75.3,
-      "std_pct": 55.0,
+      "std_pct": 54.9,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -31391,7 +31391,7 @@
       "display_score": 65.0,
       "close": 54.4,
       "dy_pct": 64.2,
-      "std_pct": 49.6,
+      "std_pct": 49.5,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -31433,7 +31433,7 @@
       "display_score": 65.0,
       "close": 61.2,
       "dy_pct": 61.1,
-      "std_pct": 48.1,
+      "std_pct": 48.0,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -31475,7 +31475,7 @@
       "display_score": 65.0,
       "close": 41.6,
       "dy_pct": 45.2,
-      "std_pct": 40.3,
+      "std_pct": 40.2,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -31519,7 +31519,7 @@
       "display_score": 64.9,
       "close": 68.0,
       "dy_pct": 79.4,
-      "std_pct": 57.2,
+      "std_pct": 57.1,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -31692,7 +31692,7 @@
       "display_score": 64.8,
       "close": 8.54,
       "dy_pct": 68.5,
-      "std_pct": 52.0,
+      "std_pct": 51.9,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -31778,7 +31778,7 @@
       "display_score": 64.7,
       "close": 148.5,
       "dy_pct": 67.9,
-      "std_pct": 51.8,
+      "std_pct": 51.7,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -31820,7 +31820,7 @@
       "display_score": 64.7,
       "close": 116.0,
       "dy_pct": 70.6,
-      "std_pct": 53.2,
+      "std_pct": 53.1,
       "selected": false,
       "passed_filter": true,
       "failed_conditions": [],
@@ -32033,7 +32033,7 @@
       "display_score": 64.1,
       "close": 48.6,
       "dy_pct": 67.8,
-      "std_pct": 52.8,
+      "std_pct": 52.7,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -32206,7 +32206,7 @@
       "display_score": 64.0,
       "close": 53.5,
       "dy_pct": 90.9,
-      "std_pct": 64.3,
+      "std_pct": 64.2,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -32250,7 +32250,7 @@
       "display_score": 63.9,
       "close": 11.1,
       "dy_pct": 54.7,
-      "std_pct": 46.6,
+      "std_pct": 46.5,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -32294,7 +32294,7 @@
       "display_score": 63.8,
       "close": 95.0,
       "dy_pct": 89.6,
-      "std_pct": 63.9,
+      "std_pct": 63.8,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -32336,7 +32336,7 @@
       "display_score": 63.8,
       "close": 22.3,
       "dy_pct": 56.9,
-      "std_pct": 47.8,
+      "std_pct": 47.7,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -32380,7 +32380,7 @@
       "display_score": 63.8,
       "close": 16.4,
       "dy_pct": 13.4,
-      "std_pct": 26.4,
+      "std_pct": 26.3,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -32510,7 +32510,7 @@
       "display_score": 63.6,
       "close": 24.8,
       "dy_pct": 76.1,
-      "std_pct": 57.5,
+      "std_pct": 57.4,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -32640,7 +32640,7 @@
       "display_score": 63.5,
       "close": 67.7,
       "dy_pct": 70.4,
-      "std_pct": 54.9,
+      "std_pct": 54.8,
       "selected": false,
       "passed_filter": true,
       "failed_conditions": [],
@@ -32680,7 +32680,7 @@
       "display_score": 63.5,
       "close": 39.4,
       "dy_pct": 65.3,
-      "std_pct": 52.4,
+      "std_pct": 52.3,
       "selected": false,
       "passed_filter": true,
       "failed_conditions": [],
@@ -32889,7 +32889,7 @@
       "display_score": 63.3,
       "close": 40.2,
       "dy_pct": 77.8,
-      "std_pct": 58.8,
+      "std_pct": 58.7,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -32972,7 +32972,7 @@
       "display_score": 63.3,
       "close": 17.9,
       "dy_pct": 16.7,
-      "std_pct": 28.8,
+      "std_pct": 28.7,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -33016,7 +33016,7 @@
       "display_score": 63.2,
       "close": 46.3,
       "dy_pct": 99.3,
-      "std_pct": 69.6,
+      "std_pct": 69.5,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -33060,7 +33060,7 @@
       "display_score": 63.2,
       "close": 48.6,
       "dy_pct": 68.8,
-      "std_pct": 54.6,
+      "std_pct": 54.5,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -33270,7 +33270,7 @@
       "display_score": 62.8,
       "close": 181.5,
       "dy_pct": 83.4,
-      "std_pct": 62.3,
+      "std_pct": 62.2,
       "selected": false,
       "passed_filter": true,
       "failed_conditions": [],
@@ -33353,7 +33353,7 @@
       "display_score": 62.8,
       "close": 16.7,
       "dy_pct": 82.5,
-      "std_pct": 61.9,
+      "std_pct": 61.8,
       "selected": false,
       "passed_filter": true,
       "failed_conditions": [],
@@ -33393,7 +33393,7 @@
       "display_score": 62.7,
       "close": 560.0,
       "dy_pct": 72.0,
-      "std_pct": 56.8,
+      "std_pct": 56.7,
       "selected": false,
       "passed_filter": true,
       "failed_conditions": [],
@@ -33433,7 +33433,7 @@
       "display_score": 62.7,
       "close": 16.8,
       "dy_pct": 57.9,
-      "std_pct": 50.0,
+      "std_pct": 49.9,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -33475,7 +33475,7 @@
       "display_score": 62.6,
       "close": 7.99,
       "dy_pct": 15.5,
-      "std_pct": 29.1,
+      "std_pct": 29.0,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -33645,7 +33645,7 @@
       "display_score": 62.5,
       "close": 68.6,
       "dy_pct": 86.2,
-      "std_pct": 64.2,
+      "std_pct": 64.1,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -33688,7 +33688,7 @@
       "display_score": 62.4,
       "close": 48.55,
       "dy_pct": 68.7,
-      "std_pct": 55.7,
+      "std_pct": 55.6,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -33773,7 +33773,7 @@
       "display_score": 62.4,
       "close": 79.0,
       "dy_pct": 50.8,
-      "std_pct": 46.9,
+      "std_pct": 46.8,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -33944,7 +33944,7 @@
       "display_score": 62.3,
       "close": 38.5,
       "dy_pct": 53.6,
-      "std_pct": 48.4,
+      "std_pct": 48.3,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -34072,7 +34072,7 @@
       "display_score": 62.0,
       "close": 36.15,
       "dy_pct": 55.5,
-      "std_pct": 49.8,
+      "std_pct": 49.7,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -34116,7 +34116,7 @@
       "display_score": 62.0,
       "close": 13.6,
       "dy_pct": 22.6,
-      "std_pct": 33.6,
+      "std_pct": 33.5,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -34159,7 +34159,7 @@
       "display_score": 61.9,
       "close": 96.7,
       "dy_pct": 99.9,
-      "std_pct": 71.8,
+      "std_pct": 71.7,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -34202,7 +34202,7 @@
       "display_score": 61.9,
       "close": 47.3,
       "dy_pct": 99.1,
-      "std_pct": 71.4,
+      "std_pct": 71.3,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -34245,7 +34245,7 @@
       "display_score": 61.9,
       "close": 33.6,
       "dy_pct": 57.9,
-      "std_pct": 51.2,
+      "std_pct": 51.1,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -34419,7 +34419,7 @@
       "display_score": 61.7,
       "close": 30.5,
       "dy_pct": 61.2,
-      "std_pct": 53.0,
+      "std_pct": 52.9,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -34628,7 +34628,7 @@
       "display_score": 61.4,
       "close": 38.05,
       "dy_pct": 54.3,
-      "std_pct": 50.1,
+      "std_pct": 50.0,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -34671,7 +34671,7 @@
       "display_score": 61.4,
       "close": 9.53,
       "dy_pct": 23.8,
-      "std_pct": 35.1,
+      "std_pct": 35.0,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -34755,7 +34755,7 @@
       "display_score": 61.3,
       "close": 39.65,
       "dy_pct": 67.9,
-      "std_pct": 56.9,
+      "std_pct": 56.8,
       "selected": false,
       "passed_filter": true,
       "failed_conditions": [],
@@ -34795,7 +34795,7 @@
       "display_score": 61.3,
       "close": 275.0,
       "dy_pct": 69.3,
-      "std_pct": 57.6,
+      "std_pct": 57.5,
       "selected": false,
       "passed_filter": true,
       "failed_conditions": [],
@@ -34835,7 +34835,7 @@
       "display_score": 61.2,
       "close": 29.4,
       "dy_pct": 92.9,
-      "std_pct": 69.4,
+      "std_pct": 69.3,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -34879,7 +34879,7 @@
       "display_score": 61.2,
       "close": 32.3,
       "dy_pct": 94.3,
-      "std_pct": 70.1,
+      "std_pct": 70.0,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -35095,7 +35095,7 @@
       "display_score": 61.1,
       "close": 328.0,
       "dy_pct": 73.4,
-      "std_pct": 59.9,
+      "std_pct": 59.8,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -35137,7 +35137,7 @@
       "display_score": 61.0,
       "close": 30.35,
       "dy_pct": 50.5,
-      "std_pct": 48.8,
+      "std_pct": 48.7,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -35224,7 +35224,7 @@
       "display_score": 60.9,
       "close": 17.0,
       "dy_pct": 10.2,
-      "std_pct": 29.2,
+      "std_pct": 29.1,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -35312,7 +35312,7 @@
       "display_score": 60.7,
       "close": 15.8,
       "dy_pct": 22.9,
-      "std_pct": 35.6,
+      "std_pct": 35.5,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -35440,7 +35440,7 @@
       "display_score": 60.7,
       "close": 63.1,
       "dy_pct": 60.0,
-      "std_pct": 54.0,
+      "std_pct": 53.9,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -35484,7 +35484,7 @@
       "display_score": 60.7,
       "close": 37.9,
       "dy_pct": 99.7,
-      "std_pct": 73.6,
+      "std_pct": 73.5,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -35569,7 +35569,7 @@
       "display_score": 60.6,
       "close": 132.0,
       "dy_pct": 73.1,
-      "std_pct": 60.6,
+      "std_pct": 60.5,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -35612,7 +35612,7 @@
       "display_score": 60.6,
       "close": 59.8,
       "dy_pct": 68.6,
-      "std_pct": 58.4,
+      "std_pct": 58.3,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -35655,7 +35655,7 @@
       "display_score": 60.5,
       "close": 35.45,
       "dy_pct": 61.9,
-      "std_pct": 55.1,
+      "std_pct": 55.0,
       "selected": false,
       "passed_filter": true,
       "failed_conditions": [],
@@ -35695,7 +35695,7 @@
       "display_score": 60.5,
       "close": 171.0,
       "dy_pct": 72.8,
-      "std_pct": 60.5,
+      "std_pct": 60.4,
       "selected": false,
       "passed_filter": true,
       "failed_conditions": [],
@@ -35777,7 +35777,7 @@
       "display_score": 60.4,
       "close": 365.5,
       "dy_pct": 77.0,
-      "std_pct": 62.8,
+      "std_pct": 62.7,
       "selected": false,
       "passed_filter": true,
       "failed_conditions": [],
@@ -35817,7 +35817,7 @@
       "display_score": 60.3,
       "close": 15.2,
       "dy_pct": 4.9,
-      "std_pct": 27.4,
+      "std_pct": 27.3,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -35947,7 +35947,7 @@
       "display_score": 60.0,
       "close": 125.0,
       "dy_pct": 69.9,
-      "std_pct": 59.8,
+      "std_pct": 59.7,
       "selected": false,
       "passed_filter": true,
       "failed_conditions": [],
@@ -35987,7 +35987,7 @@
       "display_score": 59.9,
       "close": 366.0,
       "dy_pct": 73.6,
-      "std_pct": 61.8,
+      "std_pct": 61.7,
       "selected": false,
       "passed_filter": true,
       "failed_conditions": [],
@@ -36027,7 +36027,7 @@
       "display_score": 59.9,
       "close": 113.0,
       "dy_pct": 64.6,
-      "std_pct": 57.4,
+      "std_pct": 57.3,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -36154,7 +36154,7 @@
       "display_score": 59.8,
       "close": 13.05,
       "dy_pct": 4.5,
-      "std_pct": 28.0,
+      "std_pct": 27.9,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -36198,7 +36198,7 @@
       "display_score": 59.7,
       "close": 8.05,
       "dy_pct": 47.4,
-      "std_pct": 49.2,
+      "std_pct": 49.1,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -36242,7 +36242,7 @@
       "display_score": 59.7,
       "close": 45.85,
       "dy_pct": 61.0,
-      "std_pct": 55.9,
+      "std_pct": 55.8,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -36284,7 +36284,7 @@
       "display_score": 59.6,
       "close": 24.0,
       "dy_pct": 98.7,
-      "std_pct": 74.6,
+      "std_pct": 74.5,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -36372,7 +36372,7 @@
       "display_score": 59.5,
       "close": 11.4,
       "dy_pct": 22.8,
-      "std_pct": 37.4,
+      "std_pct": 37.3,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -36628,7 +36628,7 @@
       "display_score": 59.2,
       "close": 135.5,
       "dy_pct": 68.2,
-      "std_pct": 60.2,
+      "std_pct": 60.1,
       "selected": false,
       "passed_filter": true,
       "failed_conditions": [],
@@ -36668,7 +36668,7 @@
       "display_score": 59.2,
       "close": 20.35,
       "dy_pct": 92.2,
-      "std_pct": 72.1,
+      "std_pct": 72.0,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -36795,7 +36795,7 @@
       "display_score": 59.1,
       "close": 22.55,
       "dy_pct": 81.8,
-      "std_pct": 67.1,
+      "std_pct": 67.0,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -36969,7 +36969,7 @@
       "display_score": 59.0,
       "close": 43.0,
       "dy_pct": 62.9,
-      "std_pct": 57.9,
+      "std_pct": 57.8,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -37012,7 +37012,7 @@
       "display_score": 59.0,
       "close": 12.5,
       "dy_pct": 1.9,
-      "std_pct": 27.9,
+      "std_pct": 27.8,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -37230,7 +37230,7 @@
       "display_score": 58.8,
       "close": 42.1,
       "dy_pct": 51.4,
-      "std_pct": 52.5,
+      "std_pct": 52.4,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -37273,7 +37273,7 @@
       "display_score": 58.8,
       "close": 17.8,
       "dy_pct": 31.3,
-      "std_pct": 42.6,
+      "std_pct": 42.5,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -37830,7 +37830,7 @@
       "display_score": 58.0,
       "close": 27.0,
       "dy_pct": 20.0,
-      "std_pct": 38.2,
+      "std_pct": 38.1,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -37916,7 +37916,7 @@
       "display_score": 58.0,
       "close": 63.5,
       "dy_pct": 66.7,
-      "std_pct": 61.3,
+      "std_pct": 61.2,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -37958,7 +37958,7 @@
       "display_score": 58.0,
       "close": 12.0,
       "dy_pct": 43.5,
-      "std_pct": 49.9,
+      "std_pct": 49.8,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -38046,7 +38046,7 @@
       "display_score": 57.9,
       "close": 17.2,
       "dy_pct": 23.5,
-      "std_pct": 40.1,
+      "std_pct": 40.0,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -38176,7 +38176,7 @@
       "display_score": 57.8,
       "close": 17.7,
       "dy_pct": 23.6,
-      "std_pct": 40.4,
+      "std_pct": 40.3,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -38261,7 +38261,7 @@
       "display_score": 57.6,
       "close": 62.1,
       "dy_pct": 60.4,
-      "std_pct": 58.7,
+      "std_pct": 58.6,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -38474,7 +38474,7 @@
       "display_score": 57.5,
       "close": 32.5,
       "dy_pct": 33.7,
-      "std_pct": 45.8,
+      "std_pct": 45.7,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -38518,7 +38518,7 @@
       "display_score": 57.5,
       "close": 29.25,
       "dy_pct": 68.5,
-      "std_pct": 63.0,
+      "std_pct": 62.9,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -38683,7 +38683,7 @@
       "display_score": 57.3,
       "close": 16.25,
       "dy_pct": 59.1,
-      "std_pct": 58.5,
+      "std_pct": 58.4,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -38809,7 +38809,7 @@
       "display_score": 57.3,
       "close": 33.65,
       "dy_pct": 72.0,
-      "std_pct": 65.0,
+      "std_pct": 64.9,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -38891,7 +38891,7 @@
       "display_score": 57.1,
       "close": 221.0,
       "dy_pct": 73.4,
-      "std_pct": 66.0,
+      "std_pct": 65.9,
       "selected": false,
       "passed_filter": true,
       "failed_conditions": [],
@@ -38931,7 +38931,7 @@
       "display_score": 57.0,
       "close": 126.0,
       "dy_pct": 77.1,
-      "std_pct": 67.8,
+      "std_pct": 67.7,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -39055,7 +39055,7 @@
       "display_score": 56.9,
       "close": 10.85,
       "dy_pct": 5.4,
-      "std_pct": 32.7,
+      "std_pct": 32.6,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -39141,7 +39141,7 @@
       "display_score": 56.9,
       "close": 73.3,
       "dy_pct": 62.1,
-      "std_pct": 60.7,
+      "std_pct": 60.6,
       "selected": false,
       "passed_filter": true,
       "failed_conditions": [],
@@ -39223,7 +39223,7 @@
       "display_score": 56.8,
       "close": 330.5,
       "dy_pct": 63.9,
-      "std_pct": 61.7,
+      "std_pct": 61.6,
       "selected": false,
       "passed_filter": true,
       "failed_conditions": [],
@@ -39394,7 +39394,7 @@
       "display_score": 56.7,
       "close": 20.1,
       "dy_pct": 52.3,
-      "std_pct": 56.2,
+      "std_pct": 56.1,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -39732,7 +39732,7 @@
       "display_score": 56.2,
       "close": 59.0,
       "dy_pct": 43.8,
-      "std_pct": 52.6,
+      "std_pct": 52.5,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -39774,7 +39774,7 @@
       "display_score": 56.0,
       "close": 39.5,
       "dy_pct": 98.2,
-      "std_pct": 79.7,
+      "std_pct": 79.6,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -39861,7 +39861,7 @@
       "display_score": 55.9,
       "close": 21.4,
       "dy_pct": 15.7,
-      "std_pct": 39.3,
+      "std_pct": 39.2,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -40077,7 +40077,7 @@
       "display_score": 55.7,
       "close": 51.0,
       "dy_pct": 93.4,
-      "std_pct": 77.9,
+      "std_pct": 77.8,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -40121,7 +40121,7 @@
       "display_score": 55.7,
       "close": 125.5,
       "dy_pct": 46.3,
-      "std_pct": 54.7,
+      "std_pct": 54.6,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -40206,7 +40206,7 @@
       "display_score": 55.6,
       "close": 79.1,
       "dy_pct": 59.8,
-      "std_pct": 61.4,
+      "std_pct": 61.3,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -40249,7 +40249,7 @@
       "display_score": 55.6,
       "close": 58.6,
       "dy_pct": 53.0,
-      "std_pct": 58.1,
+      "std_pct": 58.0,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -40379,7 +40379,7 @@
       "display_score": 55.5,
       "close": 25.1,
       "dy_pct": 67.1,
-      "std_pct": 65.2,
+      "std_pct": 65.1,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -40421,7 +40421,7 @@
       "display_score": 55.5,
       "close": 61.3,
       "dy_pct": 62.3,
-      "std_pct": 62.9,
+      "std_pct": 62.8,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -40464,7 +40464,7 @@
       "display_score": 55.4,
       "close": 20.1,
       "dy_pct": 52.3,
-      "std_pct": 58.0,
+      "std_pct": 57.9,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -40508,7 +40508,7 @@
       "display_score": 55.4,
       "close": 30.4,
       "dy_pct": 91.4,
-      "std_pct": 77.3,
+      "std_pct": 77.2,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -40552,7 +40552,7 @@
       "display_score": 55.4,
       "close": 99.9,
       "dy_pct": 63.1,
-      "std_pct": 63.4,
+      "std_pct": 63.3,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -40636,7 +40636,7 @@
       "display_score": 55.4,
       "close": 130.5,
       "dy_pct": 82.8,
-      "std_pct": 73.1,
+      "std_pct": 73.0,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -40765,7 +40765,7 @@
       "display_score": 55.2,
       "close": 10.0,
       "dy_pct": 47.5,
-      "std_pct": 56.0,
+      "std_pct": 55.9,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -40853,7 +40853,7 @@
       "display_score": 55.0,
       "close": 27.05,
       "dy_pct": 9.8,
-      "std_pct": 37.8,
+      "std_pct": 37.7,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -40897,7 +40897,7 @@
       "display_score": 54.9,
       "close": 24.05,
       "dy_pct": 10.7,
-      "std_pct": 38.3,
+      "std_pct": 38.2,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -41115,7 +41115,7 @@
       "display_score": 54.7,
       "close": 95.0,
       "dy_pct": 75.2,
-      "std_pct": 70.4,
+      "std_pct": 70.3,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -41157,7 +41157,7 @@
       "display_score": 54.7,
       "close": 99.7,
       "dy_pct": 58.3,
-      "std_pct": 62.1,
+      "std_pct": 62.0,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -41244,7 +41244,7 @@
       "display_score": 54.6,
       "close": 45.1,
       "dy_pct": 61.6,
-      "std_pct": 63.8,
+      "std_pct": 63.7,
       "selected": false,
       "passed_filter": true,
       "failed_conditions": [],
@@ -41414,7 +41414,7 @@
       "display_score": 54.4,
       "close": 116.5,
       "dy_pct": 62.2,
-      "std_pct": 64.5,
+      "std_pct": 64.4,
       "selected": false,
       "passed_filter": true,
       "failed_conditions": [],
@@ -41541,7 +41541,7 @@
       "display_score": 54.3,
       "close": 2240.0,
       "dy_pct": 34.5,
-      "std_pct": 50.9,
+      "std_pct": 50.8,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -41583,7 +41583,7 @@
       "display_score": 54.3,
       "close": 19.1,
       "dy_pct": 22.6,
-      "std_pct": 45.1,
+      "std_pct": 45.0,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -42019,7 +42019,7 @@
       "display_score": 54.0,
       "close": 88.4,
       "dy_pct": 69.4,
-      "std_pct": 68.6,
+      "std_pct": 68.5,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -42061,7 +42061,7 @@
       "display_score": 53.9,
       "close": 67.9,
       "dy_pct": 75.0,
-      "std_pct": 71.5,
+      "std_pct": 71.4,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -42272,7 +42272,7 @@
       "display_score": 53.6,
       "close": 33.35,
       "dy_pct": 41.3,
-      "std_pct": 55.4,
+      "std_pct": 55.3,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -42314,7 +42314,7 @@
       "display_score": 53.5,
       "close": 21.45,
       "dy_pct": 28.1,
-      "std_pct": 48.9,
+      "std_pct": 48.8,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -42572,7 +42572,7 @@
       "display_score": 53.3,
       "close": 19.75,
       "dy_pct": 38.6,
-      "std_pct": 54.5,
+      "std_pct": 54.4,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -42616,7 +42616,7 @@
       "display_score": 53.2,
       "close": 11.6,
       "dy_pct": 22.2,
-      "std_pct": 46.5,
+      "std_pct": 46.4,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -42826,7 +42826,7 @@
       "display_score": 53.1,
       "close": 60.0,
       "dy_pct": 81.9,
-      "std_pct": 76.1,
+      "std_pct": 76.0,
       "selected": false,
       "passed_filter": true,
       "failed_conditions": [],
@@ -42910,7 +42910,7 @@
       "display_score": 53.0,
       "close": 80.1,
       "dy_pct": 77.9,
-      "std_pct": 74.3,
+      "std_pct": 74.2,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -43207,7 +43207,7 @@
       "display_score": 52.6,
       "close": 18.25,
       "dy_pct": 49.6,
-      "std_pct": 60.9,
+      "std_pct": 60.8,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -43295,7 +43295,7 @@
       "display_score": 52.4,
       "close": 55.5,
       "dy_pct": 63.6,
-      "std_pct": 68.1,
+      "std_pct": 68.0,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -43425,7 +43425,7 @@
       "display_score": 52.3,
       "close": 27.35,
       "dy_pct": 15.2,
-      "std_pct": 44.4,
+      "std_pct": 44.3,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -43469,7 +43469,7 @@
       "display_score": 52.3,
       "close": 36.3,
       "dy_pct": 55.3,
-      "std_pct": 64.1,
+      "std_pct": 64.0,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -43512,7 +43512,7 @@
       "display_score": 52.2,
       "close": 95.5,
       "dy_pct": 54.0,
-      "std_pct": 63.7,
+      "std_pct": 63.6,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -43598,7 +43598,7 @@
       "display_score": 52.2,
       "close": 7.85,
       "dy_pct": 11.7,
-      "std_pct": 42.9,
+      "std_pct": 42.8,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -43684,7 +43684,7 @@
       "display_score": 52.1,
       "close": 51.0,
       "dy_pct": 86.6,
-      "std_pct": 79.9,
+      "std_pct": 79.8,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -43769,7 +43769,7 @@
       "display_score": 52.0,
       "close": 60.0,
       "dy_pct": 59.9,
-      "std_pct": 66.9,
+      "std_pct": 66.8,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -43856,7 +43856,7 @@
       "display_score": 51.9,
       "close": null,
       "dy_pct": 15.7,
-      "std_pct": 45.2,
+      "std_pct": 45.1,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -43986,7 +43986,7 @@
       "display_score": 51.9,
       "close": 121.5,
       "dy_pct": 64.4,
-      "std_pct": 69.3,
+      "std_pct": 69.2,
       "selected": false,
       "passed_filter": true,
       "failed_conditions": [],
@@ -44066,7 +44066,7 @@
       "display_score": 51.8,
       "close": 15.35,
       "dy_pct": 60.9,
-      "std_pct": 67.7,
+      "std_pct": 67.6,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -44192,7 +44192,7 @@
       "display_score": 51.7,
       "close": 24.1,
       "dy_pct": 13.8,
-      "std_pct": 44.7,
+      "std_pct": 44.6,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -44406,7 +44406,7 @@
       "display_score": 51.5,
       "close": 153.5,
       "dy_pct": 69.9,
-      "std_pct": 72.6,
+      "std_pct": 72.5,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -44578,7 +44578,7 @@
       "display_score": 51.4,
       "close": 17.2,
       "dy_pct": 57.1,
-      "std_pct": 66.4,
+      "std_pct": 66.3,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -44622,7 +44622,7 @@
       "display_score": 51.4,
       "close": 223.5,
       "dy_pct": 76.9,
-      "std_pct": 76.2,
+      "std_pct": 76.1,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -44918,7 +44918,7 @@
       "display_score": 51.2,
       "close": 60.4,
       "dy_pct": 26.3,
-      "std_pct": 51.6,
+      "std_pct": 51.5,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -45046,7 +45046,7 @@
       "display_score": 51.1,
       "close": 33.5,
       "dy_pct": 58.0,
-      "std_pct": 67.3,
+      "std_pct": 67.2,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -45133,7 +45133,7 @@
       "display_score": 51.1,
       "close": 623.0,
       "dy_pct": 63.3,
-      "std_pct": 70.0,
+      "std_pct": 69.9,
       "selected": false,
       "passed_filter": true,
       "failed_conditions": [],
@@ -45304,7 +45304,7 @@
       "display_score": 50.8,
       "close": 5.95,
       "dy_pct": 0.6,
-      "std_pct": 39.4,
+      "std_pct": 39.3,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -45517,7 +45517,7 @@
       "display_score": 50.6,
       "close": 78.8,
       "dy_pct": 53.0,
-      "std_pct": 65.6,
+      "std_pct": 65.5,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -45560,7 +45560,7 @@
       "display_score": 50.6,
       "close": 166.0,
       "dy_pct": 61.4,
-      "std_pct": 69.8,
+      "std_pct": 69.7,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -45687,7 +45687,7 @@
       "display_score": 50.4,
       "close": 55.0,
       "dy_pct": 64.0,
-      "std_pct": 71.3,
+      "std_pct": 71.2,
       "selected": false,
       "passed_filter": true,
       "failed_conditions": [],
@@ -45856,7 +45856,7 @@
       "display_score": 50.2,
       "close": 47.75,
       "dy_pct": 15.4,
-      "std_pct": 47.6,
+      "std_pct": 47.5,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -45899,7 +45899,7 @@
       "display_score": 50.2,
       "close": 21.95,
       "dy_pct": 17.0,
-      "std_pct": 48.5,
+      "std_pct": 48.4,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -46030,7 +46030,7 @@
       "display_score": 50.0,
       "close": 115.5,
       "dy_pct": 49.3,
-      "std_pct": 64.6,
+      "std_pct": 64.5,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -46072,7 +46072,7 @@
       "display_score": 49.9,
       "close": 708.0,
       "dy_pct": 80.6,
-      "std_pct": 80.2,
+      "std_pct": 80.1,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -46114,7 +46114,7 @@
       "display_score": 49.9,
       "close": 18.0,
       "dy_pct": 43.6,
-      "std_pct": 62.0,
+      "std_pct": 61.9,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -46459,7 +46459,7 @@
       "display_score": 49.5,
       "close": 26.65,
       "dy_pct": 48.8,
-      "std_pct": 65.1,
+      "std_pct": 65.0,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -46502,7 +46502,7 @@
       "display_score": 49.5,
       "close": 12.05,
       "dy_pct": 21.1,
-      "std_pct": 51.5,
+      "std_pct": 51.4,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -46588,7 +46588,7 @@
       "display_score": 49.3,
       "close": 61.1,
       "dy_pct": 73.5,
-      "std_pct": 77.7,
+      "std_pct": 77.6,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -46717,7 +46717,7 @@
       "display_score": 48.9,
       "close": 11.95,
       "dy_pct": 23.7,
-      "std_pct": 53.6,
+      "std_pct": 53.5,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -46887,7 +46887,7 @@
       "display_score": 48.7,
       "close": 8.13,
       "dy_pct": 9.7,
-      "std_pct": 47.1,
+      "std_pct": 47.0,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -46973,7 +46973,7 @@
       "display_score": 48.6,
       "close": 34.05,
       "dy_pct": 48.2,
-      "std_pct": 66.2,
+      "std_pct": 66.1,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -47016,7 +47016,7 @@
       "display_score": 48.6,
       "close": 16.3,
       "dy_pct": 29.5,
-      "std_pct": 57.0,
+      "std_pct": 56.9,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -47060,7 +47060,7 @@
       "display_score": 48.6,
       "close": 94.2,
       "dy_pct": 62.0,
-      "std_pct": 73.0,
+      "std_pct": 72.9,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -47103,7 +47103,7 @@
       "display_score": 48.5,
       "close": 18.45,
       "dy_pct": 36.1,
-      "std_pct": 60.3,
+      "std_pct": 60.2,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -47189,7 +47189,7 @@
       "display_score": 48.5,
       "close": 150.0,
       "dy_pct": 61.6,
-      "std_pct": 72.9,
+      "std_pct": 72.8,
       "selected": false,
       "passed_filter": true,
       "failed_conditions": [],
@@ -47229,7 +47229,7 @@
       "display_score": 48.5,
       "close": 164.0,
       "dy_pct": 83.3,
-      "std_pct": 83.7,
+      "std_pct": 83.6,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -47314,7 +47314,7 @@
       "display_score": 48.4,
       "close": 3.41,
       "dy_pct": 15.6,
-      "std_pct": 50.5,
+      "std_pct": 50.4,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -47400,7 +47400,7 @@
       "display_score": 48.3,
       "close": 28.55,
       "dy_pct": 63.0,
-      "std_pct": 73.9,
+      "std_pct": 73.8,
       "selected": false,
       "passed_filter": true,
       "failed_conditions": [],
@@ -47440,7 +47440,7 @@
       "display_score": 48.3,
       "close": 83.0,
       "dy_pct": 54.4,
-      "std_pct": 69.7,
+      "std_pct": 69.6,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -47482,7 +47482,7 @@
       "display_score": 48.3,
       "close": 30.0,
       "dy_pct": 3.9,
-      "std_pct": 44.9,
+      "std_pct": 44.8,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -47525,7 +47525,7 @@
       "display_score": 48.2,
       "close": 13.4,
       "dy_pct": 49.9,
-      "std_pct": 67.6,
+      "std_pct": 67.5,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -47654,7 +47654,7 @@
       "display_score": 48.1,
       "close": 18.6,
       "dy_pct": 67.8,
-      "std_pct": 76.6,
+      "std_pct": 76.5,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -47781,7 +47781,7 @@
       "display_score": 48.0,
       "close": 25.9,
       "dy_pct": 37.0,
-      "std_pct": 61.6,
+      "std_pct": 61.5,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -47825,7 +47825,7 @@
       "display_score": 48.0,
       "close": 9.53,
       "dy_pct": 48.8,
-      "std_pct": 67.4,
+      "std_pct": 67.3,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -47910,7 +47910,7 @@
       "display_score": 47.9,
       "close": 88.4,
       "dy_pct": 53.5,
-      "std_pct": 69.9,
+      "std_pct": 69.8,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -47952,7 +47952,7 @@
       "display_score": 47.9,
       "close": 166.5,
       "dy_pct": 51.5,
-      "std_pct": 68.9,
+      "std_pct": 68.8,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -47994,7 +47994,7 @@
       "display_score": 47.8,
       "close": 52.7,
       "dy_pct": 67.2,
-      "std_pct": 76.7,
+      "std_pct": 76.6,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -48036,7 +48036,7 @@
       "display_score": 47.8,
       "close": 19.15,
       "dy_pct": 41.4,
-      "std_pct": 64.0,
+      "std_pct": 63.9,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -48166,7 +48166,7 @@
       "display_score": 47.7,
       "close": 35.15,
       "dy_pct": 10.6,
-      "std_pct": 49.0,
+      "std_pct": 48.9,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -48210,7 +48210,7 @@
       "display_score": 47.7,
       "close": 30.75,
       "dy_pct": 62.7,
-      "std_pct": 74.7,
+      "std_pct": 74.6,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -48252,7 +48252,7 @@
       "display_score": 47.7,
       "close": 11.95,
       "dy_pct": 5.2,
-      "std_pct": 46.4,
+      "std_pct": 46.3,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -48296,7 +48296,7 @@
       "display_score": 47.6,
       "close": 186.0,
       "dy_pct": 54.5,
-      "std_pct": 70.8,
+      "std_pct": 70.7,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -48339,7 +48339,7 @@
       "display_score": 47.6,
       "close": 10.1,
       "dy_pct": 1.0,
-      "std_pct": 44.5,
+      "std_pct": 44.4,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -48427,7 +48427,7 @@
       "display_score": 47.5,
       "close": 23.15,
       "dy_pct": 20.7,
-      "std_pct": 54.2,
+      "std_pct": 54.1,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -48471,7 +48471,7 @@
       "display_score": 47.5,
       "close": 13.8,
       "dy_pct": 49.4,
-      "std_pct": 68.4,
+      "std_pct": 68.3,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -48641,7 +48641,7 @@
       "display_score": 47.4,
       "close": 18.05,
       "dy_pct": 20.3,
-      "std_pct": 54.3,
+      "std_pct": 54.2,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -48855,7 +48855,7 @@
       "display_score": 47.1,
       "close": 232.0,
       "dy_pct": 50.3,
-      "std_pct": 69.5,
+      "std_pct": 69.4,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -48897,7 +48897,7 @@
       "display_score": 47.1,
       "close": 12.65,
       "dy_pct": 4.6,
-      "std_pct": 47.0,
+      "std_pct": 46.9,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -49116,7 +49116,7 @@
       "display_score": 46.6,
       "close": 164.5,
       "dy_pct": 51.8,
-      "std_pct": 71.0,
+      "std_pct": 70.9,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -49202,7 +49202,7 @@
       "display_score": 46.6,
       "close": 20.4,
       "dy_pct": 39.3,
-      "std_pct": 64.9,
+      "std_pct": 64.8,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -49244,7 +49244,7 @@
       "display_score": 46.5,
       "close": 135.5,
       "dy_pct": 27.3,
-      "std_pct": 59.0,
+      "std_pct": 58.9,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -49286,7 +49286,7 @@
       "display_score": 46.5,
       "close": 83.0,
       "dy_pct": 43.1,
-      "std_pct": 66.8,
+      "std_pct": 66.7,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -49372,7 +49372,7 @@
       "display_score": 46.5,
       "close": 147.0,
       "dy_pct": 59.5,
-      "std_pct": 74.9,
+      "std_pct": 74.8,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -49414,7 +49414,7 @@
       "display_score": 46.4,
       "close": 31.45,
       "dy_pct": 46.2,
-      "std_pct": 68.5,
+      "std_pct": 68.4,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -49672,7 +49672,7 @@
       "display_score": 46.2,
       "close": 57.0,
       "dy_pct": 40.2,
-      "std_pct": 65.8,
+      "std_pct": 65.7,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -49974,7 +49974,7 @@
       "display_score": 46.0,
       "close": 115.5,
       "dy_pct": 46.1,
-      "std_pct": 69.1,
+      "std_pct": 69.0,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -50101,7 +50101,7 @@
       "display_score": 45.9,
       "close": 15.85,
       "dy_pct": 38.5,
-      "std_pct": 65.5,
+      "std_pct": 65.4,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -50145,7 +50145,7 @@
       "display_score": 45.8,
       "close": 157.5,
       "dy_pct": 49.8,
-      "std_pct": 71.1,
+      "std_pct": 71.0,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -50188,7 +50188,7 @@
       "display_score": 45.8,
       "close": 14.05,
       "dy_pct": 98.0,
-      "std_pct": 94.9,
+      "std_pct": 94.8,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -50232,7 +50232,7 @@
       "display_score": 45.7,
       "close": 28.85,
       "dy_pct": 12.5,
-      "std_pct": 52.9,
+      "std_pct": 52.8,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -50276,7 +50276,7 @@
       "display_score": 45.7,
       "close": 30.5,
       "dy_pct": 43.0,
-      "std_pct": 67.9,
+      "std_pct": 67.8,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -50320,7 +50320,7 @@
       "display_score": 45.7,
       "close": 46.3,
       "dy_pct": 55.7,
-      "std_pct": 74.2,
+      "std_pct": 74.1,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -50450,7 +50450,7 @@
       "display_score": 45.7,
       "close": 24.95,
       "dy_pct": 23.2,
-      "std_pct": 58.3,
+      "std_pct": 58.2,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -50579,7 +50579,7 @@
       "display_score": 45.5,
       "close": 123.5,
       "dy_pct": 47.9,
-      "std_pct": 70.6,
+      "std_pct": 70.5,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -50709,7 +50709,7 @@
       "display_score": 45.4,
       "close": 53.2,
       "dy_pct": 56.0,
-      "std_pct": 74.8,
+      "std_pct": 74.7,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -50751,7 +50751,7 @@
       "display_score": 45.4,
       "close": 15.5,
       "dy_pct": 14.6,
-      "std_pct": 54.4,
+      "std_pct": 54.3,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -50795,7 +50795,7 @@
       "display_score": 45.4,
       "close": 32.3,
       "dy_pct": 59.2,
-      "std_pct": 76.4,
+      "std_pct": 76.3,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -50923,7 +50923,7 @@
       "display_score": 45.3,
       "close": 25.5,
       "dy_pct": 20.9,
-      "std_pct": 57.7,
+      "std_pct": 57.6,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -50967,7 +50967,7 @@
       "display_score": 45.3,
       "close": 29.95,
       "dy_pct": 61.7,
-      "std_pct": 77.8,
+      "std_pct": 77.7,
       "selected": false,
       "passed_filter": true,
       "failed_conditions": [],
@@ -51135,7 +51135,7 @@
       "display_score": 45.2,
       "close": 23.8,
       "dy_pct": 78.3,
-      "std_pct": 86.1,
+      "std_pct": 86.0,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -51264,7 +51264,7 @@
       "display_score": 45.1,
       "close": 24.45,
       "dy_pct": 21.3,
-      "std_pct": 58.2,
+      "std_pct": 58.1,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -51307,7 +51307,7 @@
       "display_score": 45.1,
       "close": 18.0,
       "dy_pct": 55.6,
-      "std_pct": 75.1,
+      "std_pct": 75.0,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -51351,7 +51351,7 @@
       "display_score": 45.0,
       "close": 20.55,
       "dy_pct": 76.5,
-      "std_pct": 85.5,
+      "std_pct": 85.4,
       "selected": false,
       "passed_filter": true,
       "failed_conditions": [],
@@ -51391,7 +51391,7 @@
       "display_score": 45.0,
       "close": 1005.0,
       "dy_pct": 67.1,
-      "std_pct": 80.9,
+      "std_pct": 80.8,
       "selected": false,
       "passed_filter": true,
       "failed_conditions": [],
@@ -51431,7 +51431,7 @@
       "display_score": 45.0,
       "close": 22.15,
       "dy_pct": 45.4,
-      "std_pct": 70.2,
+      "std_pct": 70.1,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -51474,7 +51474,7 @@
       "display_score": 45.0,
       "close": 48.1,
       "dy_pct": 16.0,
-      "std_pct": 55.8,
+      "std_pct": 55.7,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -51516,7 +51516,7 @@
       "display_score": 44.9,
       "close": 25.85,
       "dy_pct": 56.8,
-      "std_pct": 75.9,
+      "std_pct": 75.8,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -51645,7 +51645,7 @@
       "display_score": 44.8,
       "close": 15.3,
       "dy_pct": 5.2,
-      "std_pct": 50.7,
+      "std_pct": 50.6,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -51689,7 +51689,7 @@
       "display_score": 44.7,
       "close": 15.2,
       "dy_pct": 30.3,
-      "std_pct": 63.2,
+      "std_pct": 63.1,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -51904,7 +51904,7 @@
       "display_score": 44.6,
       "close": 13.75,
       "dy_pct": 10.4,
-      "std_pct": 53.5,
+      "std_pct": 53.4,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -51948,7 +51948,7 @@
       "display_score": 44.6,
       "close": 8.47,
       "dy_pct": 2.2,
-      "std_pct": 49.5,
+      "std_pct": 49.4,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -52122,7 +52122,7 @@
       "display_score": 44.5,
       "close": 14.55,
       "dy_pct": 39.9,
-      "std_pct": 68.3,
+      "std_pct": 68.2,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -52209,7 +52209,7 @@
       "display_score": 44.2,
       "close": 388.0,
       "dy_pct": 53.3,
-      "std_pct": 75.3,
+      "std_pct": 75.2,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -52296,7 +52296,7 @@
       "display_score": 44.1,
       "close": 22.6,
       "dy_pct": 33.4,
-      "std_pct": 65.7,
+      "std_pct": 65.6,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -52340,7 +52340,7 @@
       "display_score": 44.0,
       "close": 76.9,
       "dy_pct": 66.4,
-      "std_pct": 82.0,
+      "std_pct": 81.9,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -52425,7 +52425,7 @@
       "display_score": 44.0,
       "close": 4.8,
       "dy_pct": 4.7,
-      "std_pct": 51.7,
+      "std_pct": 51.6,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -52469,7 +52469,7 @@
       "display_score": 44.0,
       "close": 218.5,
       "dy_pct": 60.2,
-      "std_pct": 79.0,
+      "std_pct": 78.9,
       "selected": false,
       "passed_filter": true,
       "failed_conditions": [],
@@ -52509,7 +52509,7 @@
       "display_score": 44.0,
       "close": 116.5,
       "dy_pct": 79.4,
-      "std_pct": 88.5,
+      "std_pct": 88.4,
       "selected": false,
       "passed_filter": true,
       "failed_conditions": [],
@@ -52593,7 +52593,7 @@
       "display_score": 43.9,
       "close": 103.5,
       "dy_pct": 56.7,
-      "std_pct": 77.4,
+      "std_pct": 77.3,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -52721,7 +52721,7 @@
       "display_score": 43.7,
       "close": 24.85,
       "dy_pct": 47.7,
-      "std_pct": 73.2,
+      "std_pct": 73.1,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -52933,7 +52933,7 @@
       "display_score": 43.6,
       "close": 84.5,
       "dy_pct": 57.7,
-      "std_pct": 78.3,
+      "std_pct": 78.2,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -52976,7 +52976,7 @@
       "display_score": 43.6,
       "close": 12.9,
       "dy_pct": 4.8,
-      "std_pct": 52.3,
+      "std_pct": 52.2,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -53102,7 +53102,7 @@
       "display_score": 43.6,
       "close": 84.1,
       "dy_pct": 73.0,
-      "std_pct": 85.9,
+      "std_pct": 85.8,
       "selected": false,
       "passed_filter": true,
       "failed_conditions": [],
@@ -53610,7 +53610,7 @@
       "display_score": 43.3,
       "close": 33.85,
       "dy_pct": 45.0,
-      "std_pct": 72.5,
+      "std_pct": 72.4,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -53653,7 +53653,7 @@
       "display_score": 43.3,
       "close": 63.4,
       "dy_pct": 56.1,
-      "std_pct": 78.1,
+      "std_pct": 78.0,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -53695,7 +53695,7 @@
       "display_score": 43.2,
       "close": 60.3,
       "dy_pct": 65.4,
-      "std_pct": 82.7,
+      "std_pct": 82.6,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -53779,7 +53779,7 @@
       "display_score": 43.2,
       "close": 757.0,
       "dy_pct": 50.7,
-      "std_pct": 75.5,
+      "std_pct": 75.4,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -53909,7 +53909,7 @@
       "display_score": 43.1,
       "close": 120.0,
       "dy_pct": 57.2,
-      "std_pct": 78.9,
+      "std_pct": 78.8,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -54039,7 +54039,7 @@
       "display_score": 43.0,
       "close": 260.5,
       "dy_pct": 44.6,
-      "std_pct": 72.7,
+      "std_pct": 72.6,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -54123,7 +54123,7 @@
       "display_score": 43.0,
       "close": 15.7,
       "dy_pct": 23.0,
-      "std_pct": 62.2,
+      "std_pct": 62.1,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -54167,7 +54167,7 @@
       "display_score": 43.0,
       "close": 20.05,
       "dy_pct": 34.8,
-      "std_pct": 68.0,
+      "std_pct": 67.9,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -54211,7 +54211,7 @@
       "display_score": 42.9,
       "close": 48.85,
       "dy_pct": 55.4,
-      "std_pct": 78.2,
+      "std_pct": 78.1,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -54253,7 +54253,7 @@
       "display_score": 42.9,
       "close": 12.75,
       "dy_pct": 47.0,
-      "std_pct": 74.1,
+      "std_pct": 74.0,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -54339,7 +54339,7 @@
       "display_score": 42.9,
       "close": 31.6,
       "dy_pct": 42.4,
-      "std_pct": 71.9,
+      "std_pct": 71.8,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -54382,7 +54382,7 @@
       "display_score": 42.9,
       "close": 46.5,
       "dy_pct": 60.5,
-      "std_pct": 80.8,
+      "std_pct": 80.7,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -54510,7 +54510,7 @@
       "display_score": 42.8,
       "close": 35.7,
       "dy_pct": 34.6,
-      "std_pct": 68.2,
+      "std_pct": 68.1,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -54598,7 +54598,7 @@
       "display_score": 42.7,
       "close": 111.0,
       "dy_pct": 50.8,
-      "std_pct": 76.3,
+      "std_pct": 76.2,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -54726,7 +54726,7 @@
       "display_score": 42.6,
       "close": 1390.0,
       "dy_pct": 60.6,
-      "std_pct": 81.3,
+      "std_pct": 81.2,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -54854,7 +54854,7 @@
       "display_score": 42.5,
       "close": 219.0,
       "dy_pct": 54.6,
-      "std_pct": 78.5,
+      "std_pct": 78.4,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -54940,7 +54940,7 @@
       "display_score": 42.4,
       "close": 12.55,
       "dy_pct": 9.0,
-      "std_pct": 56.1,
+      "std_pct": 56.0,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -55028,7 +55028,7 @@
       "display_score": 42.4,
       "close": 205.5,
       "dy_pct": 50.9,
-      "std_pct": 76.8,
+      "std_pct": 76.7,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -55158,7 +55158,7 @@
       "display_score": 42.2,
       "close": 14.25,
       "dy_pct": 15.6,
-      "std_pct": 59.7,
+      "std_pct": 59.6,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -55202,7 +55202,7 @@
       "display_score": 42.1,
       "close": 13.25,
       "dy_pct": 2.4,
-      "std_pct": 53.3,
+      "std_pct": 53.2,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -55246,7 +55246,7 @@
       "display_score": 42.1,
       "close": 65.7,
       "dy_pct": 50.2,
-      "std_pct": 76.9,
+      "std_pct": 76.8,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -55330,7 +55330,7 @@
       "display_score": 42.0,
       "close": 36.95,
       "dy_pct": 6.6,
-      "std_pct": 55.6,
+      "std_pct": 55.5,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -55372,7 +55372,7 @@
       "display_score": 42.0,
       "close": 26.5,
       "dy_pct": 41.5,
-      "std_pct": 72.8,
+      "std_pct": 72.7,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -55457,7 +55457,7 @@
       "display_score": 41.9,
       "close": 50.2,
       "dy_pct": 10.8,
-      "std_pct": 57.8,
+      "std_pct": 57.7,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -55671,7 +55671,7 @@
       "display_score": 41.8,
       "close": 41.6,
       "dy_pct": 95.0,
-      "std_pct": 99.4,
+      "std_pct": 99.3,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -56182,7 +56182,7 @@
       "display_score": 41.4,
       "close": 9.97,
       "dy_pct": 1.5,
-      "std_pct": 53.9,
+      "std_pct": 53.8,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -56226,7 +56226,7 @@
       "display_score": 41.4,
       "close": 23.35,
       "dy_pct": 41.2,
-      "std_pct": 73.5,
+      "std_pct": 73.4,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -56313,7 +56313,7 @@
       "display_score": 41.3,
       "close": 26.05,
       "dy_pct": 41.6,
-      "std_pct": 73.8,
+      "std_pct": 73.7,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -56355,7 +56355,7 @@
       "display_score": 41.3,
       "close": 33.7,
       "dy_pct": 31.4,
-      "std_pct": 68.8,
+      "std_pct": 68.7,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -56441,7 +56441,7 @@
       "display_score": 41.1,
       "close": 29.45,
       "dy_pct": 43.9,
-      "std_pct": 75.2,
+      "std_pct": 75.1,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -56485,7 +56485,7 @@
       "display_score": 41.0,
       "close": 26.65,
       "dy_pct": 14.4,
-      "std_pct": 60.8,
+      "std_pct": 60.7,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -56529,7 +56529,7 @@
       "display_score": 41.0,
       "close": 28.2,
       "dy_pct": 19.9,
-      "std_pct": 63.6,
+      "std_pct": 63.5,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -56573,7 +56573,7 @@
       "display_score": 41.0,
       "close": 24.6,
       "dy_pct": 48.0,
-      "std_pct": 77.5,
+      "std_pct": 77.4,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -56616,7 +56616,7 @@
       "display_score": 40.9,
       "close": 5.4,
       "dy_pct": 23.3,
-      "std_pct": 65.4,
+      "std_pct": 65.3,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -56660,7 +56660,7 @@
       "display_score": 40.8,
       "close": 20.15,
       "dy_pct": 12.1,
-      "std_pct": 60.0,
+      "std_pct": 59.9,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -56704,7 +56704,7 @@
       "display_score": 40.7,
       "close": 9.47,
       "dy_pct": 5.1,
-      "std_pct": 56.7,
+      "std_pct": 56.6,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -57005,7 +57005,7 @@
       "display_score": 40.5,
       "close": 185.0,
       "dy_pct": 42.8,
-      "std_pct": 75.6,
+      "std_pct": 75.5,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -57134,7 +57134,7 @@
       "display_score": 40.5,
       "close": 22.45,
       "dy_pct": 1.4,
-      "std_pct": 55.2,
+      "std_pct": 55.1,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -57178,7 +57178,7 @@
       "display_score": 40.4,
       "close": 30.35,
       "dy_pct": 34.7,
-      "std_pct": 71.7,
+      "std_pct": 71.6,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -57263,7 +57263,7 @@
       "display_score": 40.4,
       "close": 15.5,
       "dy_pct": 4.9,
-      "std_pct": 57.1,
+      "std_pct": 57.0,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -57392,7 +57392,7 @@
       "display_score": 40.3,
       "close": 111.0,
       "dy_pct": 54.7,
-      "std_pct": 81.8,
+      "std_pct": 81.7,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -57520,7 +57520,7 @@
       "display_score": 40.0,
       "close": 13.65,
       "dy_pct": 20.4,
-      "std_pct": 65.3,
+      "std_pct": 65.2,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -57564,7 +57564,7 @@
       "display_score": 40.0,
       "close": 42.7,
       "dy_pct": 11.8,
-      "std_pct": 61.1,
+      "std_pct": 61.0,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -57608,7 +57608,7 @@
       "display_score": 40.0,
       "close": 231.0,
       "dy_pct": 53.5,
-      "std_pct": 81.7,
+      "std_pct": 81.6,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -57737,7 +57737,7 @@
       "display_score": 39.9,
       "close": 145.5,
       "dy_pct": 56.5,
-      "std_pct": 83.3,
+      "std_pct": 83.2,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -58166,7 +58166,7 @@
       "display_score": 39.6,
       "close": 66.9,
       "dy_pct": 33.6,
-      "std_pct": 72.4,
+      "std_pct": 72.3,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -58251,7 +58251,7 @@
       "display_score": 39.6,
       "close": 47.1,
       "dy_pct": 85.7,
-      "std_pct": 98.1,
+      "std_pct": 98.0,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -58293,7 +58293,7 @@
       "display_score": 39.6,
       "close": 34.1,
       "dy_pct": 35.2,
-      "std_pct": 73.3,
+      "std_pct": 73.2,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -58551,7 +58551,7 @@
       "display_score": 39.3,
       "close": 13.9,
       "dy_pct": 8.3,
-      "std_pct": 60.4,
+      "std_pct": 60.3,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -58594,7 +58594,7 @@
       "display_score": 39.2,
       "close": 142.5,
       "dy_pct": 35.7,
-      "std_pct": 74.0,
+      "std_pct": 73.9,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -58681,7 +58681,7 @@
       "display_score": 39.2,
       "close": 10.75,
       "dy_pct": 0.2,
-      "std_pct": 56.6,
+      "std_pct": 56.5,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -58725,7 +58725,7 @@
       "display_score": 39.2,
       "close": 52.0,
       "dy_pct": 34.3,
-      "std_pct": 73.4,
+      "std_pct": 73.3,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -58811,7 +58811,7 @@
       "display_score": 39.0,
       "close": 44.4,
       "dy_pct": 19.1,
-      "std_pct": 66.1,
+      "std_pct": 66.0,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -58897,7 +58897,7 @@
       "display_score": 38.9,
       "close": 403.5,
       "dy_pct": 64.8,
-      "std_pct": 88.8,
+      "std_pct": 88.7,
       "selected": false,
       "passed_filter": true,
       "failed_conditions": [],
@@ -58937,7 +58937,7 @@
       "display_score": 38.9,
       "close": 205.5,
       "dy_pct": 57.1,
-      "std_pct": 85.1,
+      "std_pct": 85.0,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -59022,7 +59022,7 @@
       "display_score": 38.8,
       "close": 91.8,
       "dy_pct": 47.3,
-      "std_pct": 80.3,
+      "std_pct": 80.2,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -59149,7 +59149,7 @@
       "display_score": 38.7,
       "close": 139.0,
       "dy_pct": 52.7,
-      "std_pct": 83.2,
+      "std_pct": 83.1,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -59191,7 +59191,7 @@
       "display_score": 38.7,
       "close": 28.5,
       "dy_pct": 23.7,
-      "std_pct": 69.0,
+      "std_pct": 68.9,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -59319,7 +59319,7 @@
       "display_score": 38.6,
       "close": 26.15,
       "dy_pct": 3.1,
-      "std_pct": 58.9,
+      "std_pct": 58.8,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -59616,7 +59616,7 @@
       "display_score": 38.4,
       "close": 57.7,
       "dy_pct": 44.4,
-      "std_pct": 79.5,
+      "std_pct": 79.4,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -59701,7 +59701,7 @@
       "display_score": 38.3,
       "close": 11.95,
       "dy_pct": 17.3,
-      "std_pct": 66.3,
+      "std_pct": 66.2,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -60046,7 +60046,7 @@
       "display_score": 38.2,
       "close": 34.65,
       "dy_pct": 1.2,
-      "std_pct": 58.6,
+      "std_pct": 58.5,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -60132,7 +60132,7 @@
       "display_score": 38.1,
       "close": 101.0,
       "dy_pct": 37.4,
-      "std_pct": 76.5,
+      "std_pct": 76.4,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -60174,7 +60174,7 @@
       "display_score": 38.1,
       "close": 38.35,
       "dy_pct": 53.8,
-      "std_pct": 84.6,
+      "std_pct": 84.5,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -60473,7 +60473,7 @@
       "display_score": 37.9,
       "close": 806.0,
       "dy_pct": 25.3,
-      "std_pct": 70.9,
+      "std_pct": 70.8,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -60644,7 +60644,7 @@
       "display_score": 37.8,
       "close": 207.5,
       "dy_pct": 51.7,
-      "std_pct": 84.0,
+      "std_pct": 83.9,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -60815,7 +60815,7 @@
       "display_score": 37.7,
       "close": 68.3,
       "dy_pct": 57.3,
-      "std_pct": 87.0,
+      "std_pct": 86.9,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -61204,7 +61204,7 @@
       "display_score": 37.3,
       "close": 77.9,
       "dy_pct": 53.2,
-      "std_pct": 85.6,
+      "std_pct": 85.5,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -61288,7 +61288,7 @@
       "display_score": 37.2,
       "close": 28.55,
       "dy_pct": 44.7,
-      "std_pct": 81.5,
+      "std_pct": 81.4,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -61375,7 +61375,7 @@
       "display_score": 37.1,
       "close": null,
       "dy_pct": 14.3,
-      "std_pct": 66.7,
+      "std_pct": 66.6,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -61588,7 +61588,7 @@
       "display_score": 37.0,
       "close": 17.55,
       "dy_pct": 5.7,
-      "std_pct": 62.6,
+      "std_pct": 62.5,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -61759,7 +61759,7 @@
       "display_score": 36.8,
       "close": 38.9,
       "dy_pct": 39.0,
-      "std_pct": 79.2,
+      "std_pct": 79.1,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -61801,7 +61801,7 @@
       "display_score": 36.8,
       "close": 219.0,
       "dy_pct": 51.2,
-      "std_pct": 85.3,
+      "std_pct": 85.2,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -61929,7 +61929,7 @@
       "display_score": 36.8,
       "close": 141.0,
       "dy_pct": 45.0,
-      "std_pct": 82.3,
+      "std_pct": 82.2,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -62013,7 +62013,7 @@
       "display_score": 36.7,
       "close": 11.8,
       "dy_pct": 13.0,
-      "std_pct": 66.6,
+      "std_pct": 66.5,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -62576,7 +62576,7 @@
       "display_score": 35.9,
       "close": 63.2,
       "dy_pct": 48.2,
-      "std_pct": 85.2,
+      "std_pct": 85.1,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -62662,7 +62662,7 @@
       "display_score": 35.8,
       "close": 285.0,
       "dy_pct": 47.6,
-      "std_pct": 85.0,
+      "std_pct": 84.9,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -62704,7 +62704,7 @@
       "display_score": 35.8,
       "close": 10.15,
       "dy_pct": 1.9,
-      "std_pct": 62.5,
+      "std_pct": 62.4,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -62748,7 +62748,7 @@
       "display_score": 35.8,
       "close": 39.0,
       "dy_pct": 19.5,
-      "std_pct": 71.2,
+      "std_pct": 71.1,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -62878,7 +62878,7 @@
       "display_score": 35.7,
       "close": 193.0,
       "dy_pct": 34.0,
-      "std_pct": 78.4,
+      "std_pct": 78.3,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -62920,7 +62920,7 @@
       "display_score": 35.6,
       "close": 250.0,
       "dy_pct": 45.3,
-      "std_pct": 84.1,
+      "std_pct": 84.0,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -63006,7 +63006,7 @@
       "display_score": 35.6,
       "close": 19.5,
       "dy_pct": 14.8,
-      "std_pct": 69.2,
+      "std_pct": 69.1,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -63050,7 +63050,7 @@
       "display_score": 35.5,
       "close": 40.45,
       "dy_pct": 30.5,
-      "std_pct": 77.0,
+      "std_pct": 76.9,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -63220,7 +63220,7 @@
       "display_score": 35.4,
       "close": 28.45,
       "dy_pct": 48.9,
-      "std_pct": 86.2,
+      "std_pct": 86.1,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -63262,7 +63262,7 @@
       "display_score": 35.3,
       "close": 106.0,
       "dy_pct": 33.4,
-      "std_pct": 78.7,
+      "std_pct": 78.6,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -63346,7 +63346,7 @@
       "display_score": 35.3,
       "close": 17.7,
       "dy_pct": 7.3,
-      "std_pct": 65.9,
+      "std_pct": 65.8,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -63390,7 +63390,7 @@
       "display_score": 35.3,
       "close": 46.35,
       "dy_pct": 24.5,
-      "std_pct": 74.4,
+      "std_pct": 74.3,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -63564,7 +63564,7 @@
       "display_score": 35.1,
       "close": 61.4,
       "dy_pct": 34.5,
-      "std_pct": 79.6,
+      "std_pct": 79.5,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -63606,7 +63606,7 @@
       "display_score": 35.1,
       "close": 27.05,
       "dy_pct": 36.7,
-      "std_pct": 80.7,
+      "std_pct": 80.6,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -63985,7 +63985,7 @@
       "display_score": 34.7,
       "close": 1005.0,
       "dy_pct": 32.4,
-      "std_pct": 79.1,
+      "std_pct": 79.0,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -64069,7 +64069,7 @@
       "display_score": 34.7,
       "close": 235.0,
       "dy_pct": 41.1,
-      "std_pct": 83.4,
+      "std_pct": 83.3,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -64111,7 +64111,7 @@
       "display_score": 34.7,
       "close": 299.0,
       "dy_pct": 34.9,
-      "std_pct": 80.4,
+      "std_pct": 80.3,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -64239,7 +64239,7 @@
       "display_score": 34.6,
       "close": 61.5,
       "dy_pct": 32.5,
-      "std_pct": 79.4,
+      "std_pct": 79.3,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -64365,7 +64365,7 @@
       "display_score": 34.5,
       "close": 21.75,
       "dy_pct": 2.5,
-      "std_pct": 64.8,
+      "std_pct": 64.7,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -64408,7 +64408,7 @@
       "display_score": 34.5,
       "close": 41.0,
       "dy_pct": 6.9,
-      "std_pct": 67.0,
+      "std_pct": 66.9,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -64494,7 +64494,7 @@
       "display_score": 34.4,
       "close": 544.0,
       "dy_pct": 38.6,
-      "std_pct": 82.6,
+      "std_pct": 82.5,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -64621,7 +64621,7 @@
       "display_score": 34.2,
       "close": 51.0,
       "dy_pct": 50.0,
-      "std_pct": 88.6,
+      "std_pct": 88.5,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -64663,7 +64663,7 @@
       "display_score": 34.2,
       "close": 15.05,
       "dy_pct": 13.6,
-      "std_pct": 70.7,
+      "std_pct": 70.6,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -64748,7 +64748,7 @@
       "display_score": 34.1,
       "close": 134.5,
       "dy_pct": 57.7,
-      "std_pct": 92.5,
+      "std_pct": 92.4,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -64874,7 +64874,7 @@
       "display_score": 34.0,
       "close": 67.9,
       "dy_pct": 39.6,
-      "std_pct": 83.8,
+      "std_pct": 83.7,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -64916,7 +64916,7 @@
       "display_score": 34.0,
       "close": 25.3,
       "dy_pct": 53.2,
-      "std_pct": 90.5,
+      "std_pct": 90.4,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -65129,7 +65129,7 @@
       "display_score": 33.9,
       "close": 14.5,
       "dy_pct": 11.9,
-      "std_pct": 70.3,
+      "std_pct": 70.2,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -65173,7 +65173,7 @@
       "display_score": 33.8,
       "close": 168.5,
       "dy_pct": 57.8,
-      "std_pct": 93.0,
+      "std_pct": 92.9,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -65472,7 +65472,7 @@
       "display_score": 33.6,
       "close": 20.85,
       "dy_pct": 18.1,
-      "std_pct": 73.7,
+      "std_pct": 73.6,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -65600,7 +65600,7 @@
       "display_score": 33.4,
       "close": 387.0,
       "dy_pct": 45.3,
-      "std_pct": 87.5,
+      "std_pct": 87.4,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -65685,7 +65685,7 @@
       "display_score": 33.3,
       "close": 41.4,
       "dy_pct": 6.9,
-      "std_pct": 68.7,
+      "std_pct": 68.6,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -65772,7 +65772,7 @@
       "display_score": 33.2,
       "close": 27.4,
       "dy_pct": 14.0,
-      "std_pct": 72.3,
+      "std_pct": 72.2,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -65860,7 +65860,7 @@
       "display_score": 33.1,
       "close": 22.2,
       "dy_pct": 4.0,
-      "std_pct": 67.5,
+      "std_pct": 67.4,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -65947,7 +65947,7 @@
       "display_score": 33.1,
       "close": 102.0,
       "dy_pct": 55.3,
-      "std_pct": 92.9,
+      "std_pct": 92.8,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -66119,7 +66119,7 @@
       "display_score": 32.8,
       "close": 6.96,
       "dy_pct": 1.1,
-      "std_pct": 66.5,
+      "std_pct": 66.4,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -66163,7 +66163,7 @@
       "display_score": 32.7,
       "close": 75.8,
       "dy_pct": 30.3,
-      "std_pct": 81.1,
+      "std_pct": 81.0,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -66205,7 +66205,7 @@
       "display_score": 32.7,
       "close": 76.2,
       "dy_pct": 47.2,
-      "std_pct": 89.5,
+      "std_pct": 89.4,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -66247,7 +66247,7 @@
       "display_score": 32.6,
       "close": 2325.0,
       "dy_pct": 41.4,
-      "std_pct": 86.7,
+      "std_pct": 86.6,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -66588,7 +66588,7 @@
       "display_score": 32.5,
       "close": 39.75,
       "dy_pct": 58.5,
-      "std_pct": 95.3,
+      "std_pct": 95.2,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -66757,7 +66757,7 @@
       "display_score": 32.4,
       "close": 93.7,
       "dy_pct": 35.9,
-      "std_pct": 84.3,
+      "std_pct": 84.2,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -66929,7 +66929,7 @@
       "display_score": 32.2,
       "close": 359.5,
       "dy_pct": 42.7,
-      "std_pct": 88.0,
+      "std_pct": 87.9,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -66971,7 +66971,7 @@
       "display_score": 32.2,
       "close": 50.8,
       "dy_pct": 42.2,
-      "std_pct": 87.8,
+      "std_pct": 87.7,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -67055,7 +67055,7 @@
       "display_score": 32.1,
       "close": 45.25,
       "dy_pct": 39.5,
-      "std_pct": 86.5,
+      "std_pct": 86.4,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -67097,7 +67097,7 @@
       "display_score": 32.1,
       "close": 2020.0,
       "dy_pct": 28.7,
-      "std_pct": 81.2,
+      "std_pct": 81.1,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -67267,7 +67267,7 @@
       "display_score": 32.0,
       "close": 52.1,
       "dy_pct": 46.6,
-      "std_pct": 90.2,
+      "std_pct": 90.1,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -67824,7 +67824,7 @@
       "display_score": 31.6,
       "close": 985.0,
       "dy_pct": 48.0,
-      "std_pct": 91.4,
+      "std_pct": 91.3,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -67993,7 +67993,7 @@
       "display_score": 31.5,
       "close": 20.55,
       "dy_pct": 21.6,
-      "std_pct": 78.6,
+      "std_pct": 78.5,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -68208,7 +68208,7 @@
       "display_score": 31.3,
       "close": 14.6,
       "dy_pct": 8.1,
-      "std_pct": 72.2,
+      "std_pct": 72.1,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -68295,7 +68295,7 @@
       "display_score": 31.3,
       "close": 4765.0,
       "dy_pct": 35.8,
-      "std_pct": 86.0,
+      "std_pct": 85.9,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -68381,7 +68381,7 @@
       "display_score": 31.2,
       "close": 223.5,
       "dy_pct": 18.6,
-      "std_pct": 77.6,
+      "std_pct": 77.5,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -68810,7 +68810,7 @@
       "display_score": 30.9,
       "close": 147.5,
       "dy_pct": 36.9,
-      "std_pct": 87.1,
+      "std_pct": 87.0,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -68852,7 +68852,7 @@
       "display_score": 30.8,
       "close": 72.5,
       "dy_pct": 40.1,
-      "std_pct": 88.7,
+      "std_pct": 88.6,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -68895,7 +68895,7 @@
       "display_score": 30.8,
       "close": 106.0,
       "dy_pct": 46.1,
-      "std_pct": 91.7,
+      "std_pct": 91.6,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -68937,7 +68937,7 @@
       "display_score": 30.7,
       "close": 156.0,
       "dy_pct": 25.4,
-      "std_pct": 81.6,
+      "std_pct": 81.5,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -68979,7 +68979,7 @@
       "display_score": 30.7,
       "close": 23.55,
       "dy_pct": 5.8,
-      "std_pct": 72.0,
+      "std_pct": 71.9,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -69066,7 +69066,7 @@
       "display_score": 30.6,
       "close": 34.7,
       "dy_pct": 40.6,
-      "std_pct": 89.3,
+      "std_pct": 89.2,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -69237,7 +69237,7 @@
       "display_score": 30.5,
       "close": 62.7,
       "dy_pct": 34.4,
-      "std_pct": 86.4,
+      "std_pct": 86.3,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -69279,7 +69279,7 @@
       "display_score": 30.4,
       "close": 10.25,
       "dy_pct": 40.8,
-      "std_pct": 89.7,
+      "std_pct": 89.6,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -69493,7 +69493,7 @@
       "display_score": 30.3,
       "close": 152.0,
       "dy_pct": 46.3,
-      "std_pct": 92.6,
+      "std_pct": 92.5,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -69537,7 +69537,7 @@
       "display_score": 30.2,
       "close": 180.5,
       "dy_pct": 29.5,
-      "std_pct": 84.4,
+      "std_pct": 84.3,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -69579,7 +69579,7 @@
       "display_score": 30.2,
       "close": 12.2,
       "dy_pct": 22.4,
-      "std_pct": 81.0,
+      "std_pct": 80.9,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -69667,7 +69667,7 @@
       "display_score": 30.1,
       "close": 58.6,
       "dy_pct": 28.1,
-      "std_pct": 83.9,
+      "std_pct": 83.8,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -69753,7 +69753,7 @@
       "display_score": 30.1,
       "close": 39.3,
       "dy_pct": 11.4,
-      "std_pct": 75.7,
+      "std_pct": 75.6,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -69839,7 +69839,7 @@
       "display_score": 30.1,
       "close": 258.0,
       "dy_pct": 41.8,
-      "std_pct": 90.7,
+      "std_pct": 90.6,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -69881,7 +69881,7 @@
       "display_score": 30.0,
       "close": 93.9,
       "dy_pct": 44.1,
-      "std_pct": 91.9,
+      "std_pct": 91.8,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -69965,7 +69965,7 @@
       "display_score": 30.0,
       "close": 63.3,
       "dy_pct": 42.5,
-      "std_pct": 91.2,
+      "std_pct": 91.1,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -70095,7 +70095,7 @@
       "display_score": 29.9,
       "close": 29.45,
       "dy_pct": 35.1,
-      "std_pct": 87.7,
+      "std_pct": 87.6,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -70222,7 +70222,7 @@
       "display_score": 29.8,
       "close": 8.03,
       "dy_pct": 0.1,
-      "std_pct": 70.5,
+      "std_pct": 70.4,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -70309,7 +70309,7 @@
       "display_score": 29.7,
       "close": 271.0,
       "dy_pct": 41.9,
-      "std_pct": 91.3,
+      "std_pct": 91.2,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -70693,7 +70693,7 @@
       "display_score": 29.5,
       "close": 73.8,
       "dy_pct": 39.8,
-      "std_pct": 90.6,
+      "std_pct": 90.5,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -70777,7 +70777,7 @@
       "display_score": 29.5,
       "close": 115.0,
       "dy_pct": 8.1,
-      "std_pct": 75.0,
+      "std_pct": 74.9,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -71077,7 +71077,7 @@
       "display_score": 29.3,
       "close": 28.9,
       "dy_pct": 9.4,
-      "std_pct": 75.8,
+      "std_pct": 75.7,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -71121,7 +71121,7 @@
       "display_score": 29.3,
       "close": 19.45,
       "dy_pct": 16.4,
-      "std_pct": 79.3,
+      "std_pct": 79.2,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -71208,7 +71208,7 @@
       "display_score": 29.3,
       "close": 41.05,
       "dy_pct": 37.9,
-      "std_pct": 89.9,
+      "std_pct": 89.8,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -71550,7 +71550,7 @@
       "display_score": 29.1,
       "close": 900.0,
       "dy_pct": 30.5,
-      "std_pct": 86.6,
+      "std_pct": 86.5,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -71933,7 +71933,7 @@
       "display_score": 28.9,
       "close": 5.95,
       "dy_pct": 5.4,
-      "std_pct": 74.5,
+      "std_pct": 74.4,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -72148,7 +72148,7 @@
       "display_score": 28.8,
       "close": 10.35,
       "dy_pct": 16.1,
-      "std_pct": 80.0,
+      "std_pct": 79.9,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -72528,7 +72528,7 @@
       "display_score": 28.2,
       "close": 129.0,
       "dy_pct": 24.2,
-      "std_pct": 84.8,
+      "std_pct": 84.7,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -72571,7 +72571,7 @@
       "display_score": 28.2,
       "close": 304.0,
       "dy_pct": 41.9,
-      "std_pct": 93.5,
+      "std_pct": 93.4,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -72613,7 +72613,7 @@
       "display_score": 28.2,
       "close": 160.5,
       "dy_pct": 42.0,
-      "std_pct": 93.6,
+      "std_pct": 93.5,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -72699,7 +72699,7 @@
       "display_score": 28.1,
       "close": 45.6,
       "dy_pct": 18.4,
-      "std_pct": 82.1,
+      "std_pct": 82.0,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -72741,7 +72741,7 @@
       "display_score": 28.1,
       "close": 83.8,
       "dy_pct": 39.2,
-      "std_pct": 92.4,
+      "std_pct": 92.3,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -72783,7 +72783,7 @@
       "display_score": 28.0,
       "close": 11.0,
       "dy_pct": 9.9,
-      "std_pct": 78.0,
+      "std_pct": 77.9,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -72915,7 +72915,7 @@
       "display_score": 28.0,
       "close": 12.4,
       "dy_pct": 5.6,
-      "std_pct": 76.0,
+      "std_pct": 75.9,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -73001,7 +73001,7 @@
       "display_score": 27.9,
       "close": 9.18,
       "dy_pct": 13.2,
-      "std_pct": 79.8,
+      "std_pct": 79.7,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -73045,7 +73045,7 @@
       "display_score": 27.9,
       "close": 13.0,
       "dy_pct": 4.1,
-      "std_pct": 75.4,
+      "std_pct": 75.3,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -73173,7 +73173,7 @@
       "display_score": 27.6,
       "close": 100.5,
       "dy_pct": 17.1,
-      "std_pct": 82.2,
+      "std_pct": 82.1,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -73216,7 +73216,7 @@
       "display_score": 27.6,
       "close": 52.7,
       "dy_pct": 27.2,
-      "std_pct": 87.2,
+      "std_pct": 87.1,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -73258,7 +73258,7 @@
       "display_score": 27.6,
       "close": 37.45,
       "dy_pct": 18.9,
-      "std_pct": 83.1,
+      "std_pct": 83.0,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -73302,7 +73302,7 @@
       "display_score": 27.5,
       "close": 67.2,
       "dy_pct": 37.2,
-      "std_pct": 92.2,
+      "std_pct": 92.1,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -73388,7 +73388,7 @@
       "display_score": 27.5,
       "close": 49.85,
       "dy_pct": 26.2,
-      "std_pct": 86.9,
+      "std_pct": 86.8,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -73430,7 +73430,7 @@
       "display_score": 27.4,
       "close": 20.8,
       "dy_pct": 28.8,
-      "std_pct": 88.3,
+      "std_pct": 88.2,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -73644,7 +73644,7 @@
       "display_score": 27.3,
       "close": 49.85,
       "dy_pct": 11.8,
-      "std_pct": 80.1,
+      "std_pct": 80.0,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -73686,7 +73686,7 @@
       "display_score": 27.2,
       "close": 113.0,
       "dy_pct": 24.3,
-      "std_pct": 86.3,
+      "std_pct": 86.2,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -73728,7 +73728,7 @@
       "display_score": 27.2,
       "close": 16.15,
       "dy_pct": 18.8,
-      "std_pct": 83.6,
+      "std_pct": 83.5,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -73771,7 +73771,7 @@
       "display_score": 27.2,
       "close": 39.65,
       "dy_pct": 31.8,
-      "std_pct": 90.0,
+      "std_pct": 89.9,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -73813,7 +73813,7 @@
       "display_score": 27.1,
       "close": 28.6,
       "dy_pct": 16.2,
-      "std_pct": 82.5,
+      "std_pct": 82.4,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -73898,7 +73898,7 @@
       "display_score": 27.1,
       "close": 14.85,
       "dy_pct": 8.7,
-      "std_pct": 78.8,
+      "std_pct": 78.7,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -73942,7 +73942,7 @@
       "display_score": 27.0,
       "close": 286.0,
       "dy_pct": 27.6,
-      "std_pct": 88.2,
+      "std_pct": 88.1,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -73984,7 +73984,7 @@
       "display_score": 27.0,
       "close": 22.45,
       "dy_pct": 16.4,
-      "std_pct": 82.8,
+      "std_pct": 82.7,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -74028,7 +74028,7 @@
       "display_score": 27.0,
       "close": 217.5,
       "dy_pct": 36.5,
-      "std_pct": 92.7,
+      "std_pct": 92.6,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -74243,7 +74243,7 @@
       "display_score": 26.8,
       "close": 44.2,
       "dy_pct": 4.4,
-      "std_pct": 77.2,
+      "std_pct": 77.1,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -74286,7 +74286,7 @@
       "display_score": 26.7,
       "close": 25.7,
       "dy_pct": 11.0,
-      "std_pct": 80.5,
+      "std_pct": 80.4,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -74328,7 +74328,7 @@
       "display_score": 26.7,
       "close": 52.0,
       "dy_pct": 41.7,
-      "std_pct": 95.7,
+      "std_pct": 95.6,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -74370,7 +74370,7 @@
       "display_score": 26.7,
       "close": 17.85,
       "dy_pct": 11.0,
-      "std_pct": 80.6,
+      "std_pct": 80.5,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -74414,7 +74414,7 @@
       "display_score": 26.7,
       "close": 295.0,
       "dy_pct": 28.0,
-      "std_pct": 89.0,
+      "std_pct": 88.9,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -74456,7 +74456,7 @@
       "display_score": 26.6,
       "close": 16150.0,
       "dy_pct": 27.7,
-      "std_pct": 88.9,
+      "std_pct": 88.8,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -74584,7 +74584,7 @@
       "display_score": 26.6,
       "close": 28.45,
       "dy_pct": 18.0,
-      "std_pct": 84.2,
+      "std_pct": 84.1,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -74670,7 +74670,7 @@
       "display_score": 26.5,
       "close": 27.85,
       "dy_pct": 27.7,
-      "std_pct": 89.1,
+      "std_pct": 89.0,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -74712,7 +74712,7 @@
       "display_score": 26.5,
       "close": 68.0,
       "dy_pct": 31.5,
-      "std_pct": 91.0,
+      "std_pct": 90.9,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -74754,7 +74754,7 @@
       "display_score": 26.4,
       "close": 29.9,
       "dy_pct": 38.7,
-      "std_pct": 94.6,
+      "std_pct": 94.5,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -74968,7 +74968,7 @@
       "display_score": 26.2,
       "close": 203.0,
       "dy_pct": 29.2,
-      "std_pct": 90.3,
+      "std_pct": 90.2,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -75223,7 +75223,7 @@
       "display_score": 25.9,
       "close": 47.1,
       "dy_pct": 1.4,
-      "std_pct": 77.1,
+      "std_pct": 77.0,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -75266,7 +75266,7 @@
       "display_score": 25.9,
       "close": 49.1,
       "dy_pct": 12.2,
-      "std_pct": 82.4,
+      "std_pct": 82.3,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -75440,7 +75440,7 @@
       "display_score": 25.8,
       "close": 259.0,
       "dy_pct": 36.0,
-      "std_pct": 94.2,
+      "std_pct": 94.1,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -75525,7 +75525,7 @@
       "display_score": 25.7,
       "close": 36.55,
       "dy_pct": 13.0,
-      "std_pct": 83.0,
+      "std_pct": 82.9,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -75610,7 +75610,7 @@
       "display_score": 25.7,
       "close": 245.0,
       "dy_pct": 38.0,
-      "std_pct": 95.4,
+      "std_pct": 95.3,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -75652,7 +75652,7 @@
       "display_score": 25.7,
       "close": 37.6,
       "dy_pct": 30.2,
-      "std_pct": 91.6,
+      "std_pct": 91.5,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -75823,7 +75823,7 @@
       "display_score": 25.5,
       "close": 56.1,
       "dy_pct": 25.0,
-      "std_pct": 89.2,
+      "std_pct": 89.1,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -75865,7 +75865,7 @@
       "display_score": 25.5,
       "close": 53.5,
       "dy_pct": 36.2,
-      "std_pct": 94.7,
+      "std_pct": 94.6,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -76033,7 +76033,7 @@
       "display_score": 25.4,
       "close": 6.01,
       "dy_pct": 11.9,
-      "std_pct": 82.9,
+      "std_pct": 82.8,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -76119,7 +76119,7 @@
       "display_score": 25.3,
       "close": 40.9,
       "dy_pct": 17.3,
-      "std_pct": 85.7,
+      "std_pct": 85.6,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -76373,7 +76373,7 @@
       "display_score": 25.2,
       "close": 15.0,
       "dy_pct": 16.3,
-      "std_pct": 85.4,
+      "std_pct": 85.3,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -76500,7 +76500,7 @@
       "display_score": 25.1,
       "close": 19.1,
       "dy_pct": 8.0,
-      "std_pct": 81.4,
+      "std_pct": 81.3,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -76586,7 +76586,7 @@
       "display_score": 25.1,
       "close": 1135.0,
       "dy_pct": 35.3,
-      "std_pct": 95.0,
+      "std_pct": 94.9,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -76628,7 +76628,7 @@
       "display_score": 25.0,
       "close": 6.34,
       "dy_pct": 14.7,
-      "std_pct": 84.9,
+      "std_pct": 84.8,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -76714,7 +76714,7 @@
       "display_score": 25.0,
       "close": 1135.0,
       "dy_pct": 29.7,
-      "std_pct": 92.3,
+      "std_pct": 92.2,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -76756,7 +76756,7 @@
       "display_score": 25.0,
       "close": 1305.0,
       "dy_pct": 36.9,
-      "std_pct": 95.9,
+      "std_pct": 95.8,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -76840,7 +76840,7 @@
       "display_score": 24.7,
       "close": 209.0,
       "dy_pct": 36.0,
-      "std_pct": 95.8,
+      "std_pct": 95.7,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -76883,7 +76883,7 @@
       "display_score": 24.7,
       "close": 4545.0,
       "dy_pct": 28.4,
-      "std_pct": 92.1,
+      "std_pct": 92.0,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -76967,7 +76967,7 @@
       "display_score": 24.7,
       "close": 13.75,
       "dy_pct": 10.8,
-      "std_pct": 83.5,
+      "std_pct": 83.4,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -77011,7 +77011,7 @@
       "display_score": 24.7,
       "close": 132.0,
       "dy_pct": 32.9,
-      "std_pct": 94.4,
+      "std_pct": 94.3,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -77096,7 +77096,7 @@
       "display_score": 24.5,
       "close": 17.5,
       "dy_pct": 15.0,
-      "std_pct": 85.8,
+      "std_pct": 85.7,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -77184,7 +77184,7 @@
       "display_score": 24.4,
       "close": 47.5,
       "dy_pct": 35.6,
-      "std_pct": 96.1,
+      "std_pct": 96.0,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -77356,7 +77356,7 @@
       "display_score": 24.3,
       "close": 215.0,
       "dy_pct": 26.6,
-      "std_pct": 91.8,
+      "std_pct": 91.7,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -77569,7 +77569,7 @@
       "display_score": 24.1,
       "close": 64.3,
       "dy_pct": 25.2,
-      "std_pct": 91.5,
+      "std_pct": 91.4,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -77739,7 +77739,7 @@
       "display_score": 23.8,
       "close": 48.9,
       "dy_pct": 29.4,
-      "std_pct": 94.0,
+      "std_pct": 93.9,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -77823,7 +77823,7 @@
       "display_score": 23.7,
       "close": 1260.0,
       "dy_pct": 29.3,
-      "std_pct": 94.1,
+      "std_pct": 94.0,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -77908,7 +77908,7 @@
       "display_score": 23.6,
       "close": 41.4,
       "dy_pct": 15.2,
-      "std_pct": 87.3,
+      "std_pct": 87.2,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -77950,7 +77950,7 @@
       "display_score": 23.6,
       "close": 494.0,
       "dy_pct": 37.7,
-      "std_pct": 98.4,
+      "std_pct": 98.3,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -77992,7 +77992,7 @@
       "display_score": 23.6,
       "close": 44.6,
       "dy_pct": 29.8,
-      "std_pct": 94.5,
+      "std_pct": 94.4,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -78418,7 +78418,7 @@
       "display_score": 23.3,
       "close": 4740.0,
       "dy_pct": 26.5,
-      "std_pct": 93.3,
+      "std_pct": 93.2,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -78460,7 +78460,7 @@
       "display_score": 23.2,
       "close": 387.0,
       "dy_pct": 30.7,
-      "std_pct": 95.5,
+      "std_pct": 95.4,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -78502,7 +78502,7 @@
       "display_score": 23.2,
       "close": 67.2,
       "dy_pct": 18.3,
-      "std_pct": 89.4,
+      "std_pct": 89.3,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -78544,7 +78544,7 @@
       "display_score": 23.2,
       "close": 150.5,
       "dy_pct": 20.2,
-      "std_pct": 90.4,
+      "std_pct": 90.3,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -78586,7 +78586,7 @@
       "display_score": 23.2,
       "close": 103.5,
       "dy_pct": 34.4,
-      "std_pct": 97.4,
+      "std_pct": 97.3,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -78715,7 +78715,7 @@
       "display_score": 23.1,
       "close": 18.6,
       "dy_pct": 21.5,
-      "std_pct": 91.1,
+      "std_pct": 91.0,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -78843,7 +78843,7 @@
       "display_score": 23.0,
       "close": 11.75,
       "dy_pct": 2.4,
-      "std_pct": 81.9,
+      "std_pct": 81.8,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -79015,7 +79015,7 @@
       "display_score": 22.9,
       "close": 34.5,
       "dy_pct": 7.8,
-      "std_pct": 84.7,
+      "std_pct": 84.6,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -79186,7 +79186,7 @@
       "display_score": 22.7,
       "close": 148.5,
       "dy_pct": 25.0,
-      "std_pct": 93.4,
+      "std_pct": 93.3,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -79526,7 +79526,7 @@
       "display_score": 22.6,
       "close": 2735.0,
       "dy_pct": 33.1,
-      "std_pct": 97.6,
+      "std_pct": 97.5,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -79825,7 +79825,7 @@
       "display_score": 22.2,
       "close": 519.0,
       "dy_pct": 33.2,
-      "std_pct": 98.2,
+      "std_pct": 98.1,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -80040,7 +80040,7 @@
       "display_score": 21.9,
       "close": 40.7,
       "dy_pct": 21.2,
-      "std_pct": 92.8,
+      "std_pct": 92.7,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -80084,7 +80084,7 @@
       "display_score": 21.8,
       "close": 170.5,
       "dy_pct": 29.8,
-      "std_pct": 97.1,
+      "std_pct": 97.0,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -80340,7 +80340,7 @@
       "display_score": 21.6,
       "close": 102.0,
       "dy_pct": 29.1,
-      "std_pct": 97.0,
+      "std_pct": 96.9,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -80721,7 +80721,7 @@
       "display_score": 21.5,
       "close": 16.6,
       "dy_pct": 3.1,
-      "std_pct": 84.5,
+      "std_pct": 84.4,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -80763,7 +80763,7 @@
       "display_score": 21.4,
       "close": 410.0,
       "dy_pct": 24.6,
-      "std_pct": 95.1,
+      "std_pct": 95.0,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -81103,7 +81103,7 @@
       "display_score": 21.2,
       "close": 3720.0,
       "dy_pct": 26.3,
-      "std_pct": 96.3,
+      "std_pct": 96.2,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -81145,7 +81145,7 @@
       "display_score": 21.2,
       "close": 255.5,
       "dy_pct": 27.2,
-      "std_pct": 96.8,
+      "std_pct": 96.7,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -81187,7 +81187,7 @@
       "display_score": 21.1,
       "close": 1815.0,
       "dy_pct": 30.2,
-      "std_pct": 98.3,
+      "std_pct": 98.2,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -81271,7 +81271,7 @@
       "display_score": 21.1,
       "close": 41.95,
       "dy_pct": 13.3,
-      "std_pct": 90.1,
+      "std_pct": 90.0,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -81357,7 +81357,7 @@
       "display_score": 21.1,
       "close": 19.2,
       "dy_pct": 8.2,
-      "std_pct": 87.6,
+      "std_pct": 87.5,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -81569,7 +81569,7 @@
       "display_score": 20.9,
       "close": 737.0,
       "dy_pct": 24.0,
-      "std_pct": 95.6,
+      "std_pct": 95.5,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -81653,7 +81653,7 @@
       "display_score": 20.8,
       "close": 137.5,
       "dy_pct": 21.2,
-      "std_pct": 94.3,
+      "std_pct": 94.2,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -81738,7 +81738,7 @@
       "display_score": 20.8,
       "close": 88.6,
       "dy_pct": 18.5,
-      "std_pct": 93.1,
+      "std_pct": 93.0,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -81823,7 +81823,7 @@
       "display_score": 20.6,
       "close": 816.0,
       "dy_pct": 24.8,
-      "std_pct": 96.4,
+      "std_pct": 96.3,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -82075,7 +82075,7 @@
       "display_score": 20.3,
       "close": 46.75,
       "dy_pct": 26.7,
-      "std_pct": 97.8,
+      "std_pct": 97.7,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -82118,7 +82118,7 @@
       "display_score": 20.3,
       "close": 32.2,
       "dy_pct": 4.2,
-      "std_pct": 86.8,
+      "std_pct": 86.7,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -82161,7 +82161,7 @@
       "display_score": 20.2,
       "close": 21.05,
       "dy_pct": 6.2,
-      "std_pct": 87.9,
+      "std_pct": 87.8,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -82205,7 +82205,7 @@
       "display_score": 20.2,
       "close": 27.3,
       "dy_pct": 9.9,
-      "std_pct": 89.8,
+      "std_pct": 89.7,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -82249,7 +82249,7 @@
       "display_score": 20.1,
       "close": 428.0,
       "dy_pct": 27.3,
-      "std_pct": 98.5,
+      "std_pct": 98.4,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -82459,7 +82459,7 @@
       "display_score": 19.9,
       "close": 130.5,
       "dy_pct": 25.9,
-      "std_pct": 98.0,
+      "std_pct": 97.9,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -82586,7 +82586,7 @@
       "display_score": 19.8,
       "close": 268.5,
       "dy_pct": 24.4,
-      "std_pct": 97.5,
+      "std_pct": 97.4,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -82628,7 +82628,7 @@
       "display_score": 19.8,
       "close": 15.6,
       "dy_pct": 16.6,
-      "std_pct": 93.7,
+      "std_pct": 93.6,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -82712,7 +82712,7 @@
       "display_score": 19.5,
       "close": 154.0,
       "dy_pct": 10.0,
-      "std_pct": 90.9,
+      "std_pct": 90.8,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -82796,7 +82796,7 @@
       "display_score": 19.4,
       "close": 300.0,
       "dy_pct": 25.4,
-      "std_pct": 98.6,
+      "std_pct": 98.5,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -83007,7 +83007,7 @@
       "display_score": 19.1,
       "close": 34.9,
       "dy_pct": 3.4,
-      "std_pct": 88.1,
+      "std_pct": 88.0,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -83305,7 +83305,7 @@
       "display_score": 18.9,
       "close": 12.4,
       "dy_pct": 3.4,
-      "std_pct": 88.4,
+      "std_pct": 88.3,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -83347,7 +83347,7 @@
       "display_score": 18.9,
       "close": 16.8,
       "dy_pct": 13.1,
-      "std_pct": 93.2,
+      "std_pct": 93.1,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -83474,7 +83474,7 @@
       "display_score": 18.9,
       "close": 73.3,
       "dy_pct": 14.2,
-      "std_pct": 93.8,
+      "std_pct": 93.7,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -83604,7 +83604,7 @@
       "display_score": 18.8,
       "close": 716.0,
       "dy_pct": 24.0,
-      "std_pct": 98.8,
+      "std_pct": 98.7,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -83689,7 +83689,7 @@
       "display_score": 18.6,
       "close": 32.7,
       "dy_pct": 7.1,
-      "std_pct": 90.8,
+      "std_pct": 90.7,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -83732,7 +83732,7 @@
       "display_score": 18.4,
       "close": 47.95,
       "dy_pct": 13.1,
-      "std_pct": 93.9,
+      "std_pct": 93.8,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -83860,7 +83860,7 @@
       "display_score": 18.3,
       "close": 31.15,
       "dy_pct": 23.4,
-      "std_pct": 99.2,
+      "std_pct": 99.1,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -83904,7 +83904,7 @@
       "display_score": 18.2,
       "close": 134.0,
       "dy_pct": 19.0,
-      "std_pct": 97.2,
+      "std_pct": 97.1,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -83990,7 +83990,7 @@
       "display_score": 18.1,
       "close": 175.5,
       "dy_pct": 18.1,
-      "std_pct": 96.9,
+      "std_pct": 96.8,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -84032,7 +84032,7 @@
       "display_score": 18.0,
       "close": 21.7,
       "dy_pct": 3.0,
-      "std_pct": 89.6,
+      "std_pct": 89.5,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -84158,7 +84158,7 @@
       "display_score": 17.9,
       "close": 44.4,
       "dy_pct": 13.9,
-      "std_pct": 95.2,
+      "std_pct": 95.1,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -84287,7 +84287,7 @@
       "display_score": 17.5,
       "close": 62.4,
       "dy_pct": 22.5,
-      "std_pct": 99.9,
+      "std_pct": 99.8,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -84373,7 +84373,7 @@
       "display_score": 17.4,
       "close": 45.75,
       "dy_pct": 17.8,
-      "std_pct": 97.9,
+      "std_pct": 97.8,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -84415,7 +84415,7 @@
       "display_score": 17.2,
       "close": 85.3,
       "dy_pct": 14.6,
-      "std_pct": 96.5,
+      "std_pct": 96.4,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -84457,7 +84457,7 @@
       "display_score": 17.1,
       "close": 94.9,
       "dy_pct": 20.6,
-      "std_pct": 99.6,
+      "std_pct": 99.5,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -84500,7 +84500,7 @@
       "display_score": 16.8,
       "close": 8.31,
       "dy_pct": 9.8,
-      "std_pct": 94.8,
+      "std_pct": 94.7,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -84630,7 +84630,7 @@
       "display_score": 16.5,
       "close": 49.65,
       "dy_pct": 3.3,
-      "std_pct": 92.0,
+      "std_pct": 91.9,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -84842,7 +84842,7 @@
       "display_score": 15.5,
       "close": 298.5,
       "dy_pct": 15.1,
-      "std_pct": 99.3,
+      "std_pct": 99.2,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -84884,7 +84884,7 @@
       "display_score": 15.3,
       "close": 17.5,
       "dy_pct": 9.3,
-      "std_pct": 96.7,
+      "std_pct": 96.6,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -84926,7 +84926,7 @@
       "display_score": 15.2,
       "close": 698.0,
       "dy_pct": 13.6,
-      "std_pct": 98.9,
+      "std_pct": 98.8,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -85010,7 +85010,7 @@
       "display_score": 15.1,
       "close": 90.5,
       "dy_pct": 13.5,
-      "std_pct": 99.1,
+      "std_pct": 99.0,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -85052,7 +85052,7 @@
       "display_score": 15.0,
       "close": 7.37,
       "dy_pct": 14.2,
-      "std_pct": 99.7,
+      "std_pct": 99.6,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -85096,7 +85096,7 @@
       "display_score": 14.7,
       "close": 21.25,
       "dy_pct": 8.8,
-      "std_pct": 97.3,
+      "std_pct": 97.2,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -85140,7 +85140,7 @@
       "display_score": 14.7,
       "close": null,
       "dy_pct": 9.5,
-      "std_pct": 97.7,
+      "std_pct": 97.6,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -85226,7 +85226,7 @@
       "display_score": 14.5,
       "close": 12.05,
       "dy_pct": 5.9,
-      "std_pct": 96.2,
+      "std_pct": 96.1,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -85571,7 +85571,7 @@
       "display_score": 13.9,
       "close": 31.75,
       "dy_pct": 3.7,
-      "std_pct": 96.0,
+      "std_pct": 95.9,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -85698,7 +85698,7 @@
       "display_score": 13.6,
       "close": 22.15,
       "dy_pct": 3.8,
-      "std_pct": 96.6,
+      "std_pct": 96.5,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -85784,7 +85784,7 @@
       "display_score": 12.9,
       "close": 18.9,
       "dy_pct": 5.9,
-      "std_pct": 98.7,
+      "std_pct": 98.6,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -85915,7 +85915,7 @@
       "display_score": 12.5,
       "close": 36.65,
       "dy_pct": 6.3,
-      "std_pct": 99.5,
+      "std_pct": 99.4,
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
@@ -86075,5 +86075,5 @@
       ]
     }
   ],
-  "strategy_name": "高股息低波策略"
+  "strategy_name": "高息低波"
 }
