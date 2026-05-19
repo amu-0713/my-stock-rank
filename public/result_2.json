@@ -1,6 +1,6 @@
 {
   "latest_date": "2026-05-18",
-  "updated_at": "2026-05-19 02:16",
+  "updated_at": "2026-05-19 13:20",
   "compare_date": "2026-05-11",
   "rebalance_base_date": "2026-04-30",
   "overview": {
@@ -8,7 +8,9 @@
     "total_return_all": 4149.11,
     "annual_return_all": 26.32,
     "total_return_ytd": 7.81,
-    "total_return_1y": 11.76,
+    "total_return_1y": 11.74,
+    "total_return_3y": 108.52,
+    "total_return_5y": 327.37,
     "max_drawdown": -19.51,
     "sharpe_ratio": 2.03,
     "current_holdings": 12
@@ -16,7 +18,49 @@
   "current_holdings_rank": [
     {
       "base_rank": 1,
-      "prev_rank": 2,
+      "prev_rank": 1,
+      "rank_change": 0,
+      "change_type": "flat",
+      "stock_id": "6024",
+      "name": "群益期",
+      "full_name": "群益期貨股份有限公司",
+      "industry": "金融保險業",
+      "score": 0.814711,
+      "display_score": 91.5,
+      "close": 56.0,
+      "dy_pct": 88.9,
+      "std_pct": 77.8,
+      "selected": true,
+      "passed_filter": false,
+      "failed_conditions": [
+        "流通性不足"
+      ],
+      "history": [
+        {
+          "date": "2026-05-12",
+          "score": 91.2
+        },
+        {
+          "date": "2026-05-13",
+          "score": 91.3
+        },
+        {
+          "date": "2026-05-14",
+          "score": 91.4
+        },
+        {
+          "date": "2026-05-15",
+          "score": 91.3
+        },
+        {
+          "date": "2026-05-18",
+          "score": 91.5
+        }
+      ]
+    },
+    {
+      "base_rank": 2,
+      "prev_rank": 3,
       "rank_change": 1,
       "change_type": "up",
       "stock_id": "2897",
@@ -55,8 +99,8 @@
       ]
     },
     {
-      "base_rank": 2,
-      "prev_rank": 1,
+      "base_rank": 3,
+      "prev_rank": 2,
       "rank_change": -1,
       "change_type": "down",
       "stock_id": "2834",
@@ -95,48 +139,50 @@
       ]
     },
     {
-      "base_rank": 3,
-      "prev_rank": 3,
+      "base_rank": 4,
+      "prev_rank": 4,
       "rank_change": 0,
       "change_type": "flat",
-      "stock_id": "6023",
-      "name": "元大期貨",
-      "full_name": "元大期貨股份有限公司",
-      "industry": "金融業",
-      "score": 0.801525,
-      "display_score": 90.2,
-      "close": 97.9,
-      "dy_pct": 84.5,
-      "std_pct": 78.0,
+      "stock_id": "8083",
+      "name": "瑞穎",
+      "full_name": "瑞穎股份有限公司",
+      "industry": "電機機械",
+      "score": 0.797023,
+      "display_score": 89.7,
+      "close": 170.0,
+      "dy_pct": 86.6,
+      "std_pct": 76.3,
       "selected": true,
-      "passed_filter": true,
-      "failed_conditions": [],
+      "passed_filter": false,
+      "failed_conditions": [
+        "流通性不足"
+      ],
       "history": [
         {
           "date": "2026-05-12",
-          "score": 89.9
+          "score": 89.6
         },
         {
           "date": "2026-05-13",
-          "score": 89.9
+          "score": 89.6
         },
         {
           "date": "2026-05-14",
-          "score": 90.1
+          "score": 89.6
         },
         {
           "date": "2026-05-15",
-          "score": 90.0
+          "score": 89.6
         },
         {
           "date": "2026-05-18",
-          "score": 90.2
+          "score": 89.7
         }
       ]
     },
     {
-      "base_rank": 4,
-      "prev_rank": 4,
+      "base_rank": 5,
+      "prev_rank": 5,
       "rank_change": 0,
       "change_type": "flat",
       "stock_id": "2820",
@@ -175,48 +221,50 @@
       ]
     },
     {
-      "base_rank": 5,
-      "prev_rank": 5,
+      "base_rank": 6,
+      "prev_rank": 6,
       "rank_change": 0,
       "change_type": "flat",
-      "stock_id": "8415",
-      "name": "大國鋼",
-      "full_name": "大成國際鋼鐵股份有限公司",
-      "industry": "鋼鐵工業",
-      "score": 0.757945,
-      "display_score": 85.8,
-      "close": 35.45,
-      "dy_pct": 69.8,
-      "std_pct": 78.7,
+      "stock_id": "9917",
+      "name": "中保科",
+      "full_name": "中興保全科技股份有限公司",
+      "industry": "其他",
+      "score": 0.790834,
+      "display_score": 89.1,
+      "close": 111.0,
+      "dy_pct": 84.1,
+      "std_pct": 76.6,
       "selected": true,
-      "passed_filter": true,
-      "failed_conditions": [],
+      "passed_filter": false,
+      "failed_conditions": [
+        "股價未站上年線"
+      ],
       "history": [
         {
           "date": "2026-05-12",
-          "score": 86.3
+          "score": 89.0
         },
         {
           "date": "2026-05-13",
-          "score": 86.5
+          "score": 88.9
         },
         {
           "date": "2026-05-14",
-          "score": 86.2
+          "score": 88.9
         },
         {
           "date": "2026-05-15",
-          "score": 85.8
+          "score": 88.9
         },
         {
           "date": "2026-05-18",
-          "score": 85.8
+          "score": 89.1
         }
       ]
     },
     {
-      "base_rank": 6,
-      "prev_rank": 6,
+      "base_rank": 7,
+      "prev_rank": 7,
       "rank_change": 0,
       "change_type": "flat",
       "stock_id": "2412",
@@ -255,90 +303,95 @@
       ]
     },
     {
-      "base_rank": 7,
-      "prev_rank": 8,
-      "rank_change": 1,
-      "change_type": "up",
-      "stock_id": "1709",
-      "name": "和益",
-      "full_name": "和益化學工業股份有限公司",
-      "industry": "化學工業",
-      "score": 0.746898,
-      "display_score": 84.7,
-      "close": 18.0,
-      "dy_pct": 83.7,
-      "std_pct": 70.3,
-      "selected": true,
-      "passed_filter": true,
-      "failed_conditions": [],
-      "history": [
-        {
-          "date": "2026-05-12",
-          "score": 84.6
-        },
-        {
-          "date": "2026-05-13",
-          "score": 84.4
-        },
-        {
-          "date": "2026-05-14",
-          "score": 84.5
-        },
-        {
-          "date": "2026-05-15",
-          "score": 84.6
-        },
-        {
-          "date": "2026-05-18",
-          "score": 84.7
-        }
-      ]
-    },
-    {
       "base_rank": 8,
-      "prev_rank": 7,
-      "rank_change": -1,
-      "change_type": "down",
-      "stock_id": "1720",
-      "name": "生達",
-      "full_name": "生達化學製藥股份有限公司",
-      "industry": "生技醫療業",
-      "score": 0.743383,
-      "display_score": 84.3,
-      "close": 61.3,
-      "dy_pct": 76.7,
-      "std_pct": 73.2,
+      "prev_rank": 8,
+      "rank_change": 0,
+      "change_type": "flat",
+      "stock_id": "2488",
+      "name": "漢平",
+      "full_name": "漢平電子工業股份有限公司",
+      "industry": "其他電子業",
+      "score": 0.748539,
+      "display_score": 84.9,
+      "close": 51.4,
+      "dy_pct": 86.3,
+      "std_pct": 69.2,
       "selected": true,
-      "passed_filter": true,
-      "failed_conditions": [],
+      "passed_filter": false,
+      "failed_conditions": [
+        "流通性不足"
+      ],
       "history": [
         {
           "date": "2026-05-12",
-          "score": 84.7
+          "score": 84.9
         },
         {
           "date": "2026-05-13",
-          "score": 84.3
+          "score": 84.8
         },
         {
           "date": "2026-05-14",
-          "score": 84.2
+          "score": 84.8
         },
         {
           "date": "2026-05-15",
-          "score": 84.2
+          "score": 84.9
         },
         {
           "date": "2026-05-18",
-          "score": 84.3
+          "score": 84.9
         }
       ]
     },
     {
       "base_rank": 9,
+      "prev_rank": 10,
+      "rank_change": 1,
+      "change_type": "up",
+      "stock_id": "6914",
+      "name": "阜爾運通",
+      "full_name": "阜爾運通股份有限公司",
+      "industry": "其他",
+      "score": 0.740087,
+      "display_score": 84.0,
+      "close": 142.5,
+      "dy_pct": 84.3,
+      "std_pct": 68.9,
+      "selected": true,
+      "passed_filter": false,
+      "failed_conditions": [
+        "流通性不足",
+        "股價未站上年線"
+      ],
+      "history": [
+        {
+          "date": "2026-05-12",
+          "score": 84.0
+        },
+        {
+          "date": "2026-05-13",
+          "score": 83.9
+        },
+        {
+          "date": "2026-05-14",
+          "score": 83.9
+        },
+        {
+          "date": "2026-05-15",
+          "score": 84.0
+        },
+        {
+          "date": "2026-05-18",
+          "score": 84.0
+        }
+      ]
+    },
+    {
+      "base_rank": 10,
       "prev_rank": 9,
-      "rank_change": 0,
-      "change_type": "flat",
+      "rank_change": -1,
+      "change_type": "down",
       "stock_id": "3045",
       "name": "台灣大",
       "full_name": "台灣大哥大股份有限公司",
@@ -375,82 +428,44 @@
       ]
     },
     {
-      "base_rank": 10,
-      "prev_rank": 10,
-      "rank_change": 0,
-      "change_type": "flat",
-      "stock_id": "2535",
-      "name": "達欣工",
-      "full_name": "達欣工程股份有限公司",
-      "industry": "建材營造",
-      "score": 0.720665,
-      "display_score": 82.1,
-      "close": 73.1,
-      "dy_pct": 89.4,
-      "std_pct": 63.5,
-      "selected": true,
-      "passed_filter": true,
-      "failed_conditions": [],
-      "history": [
-        {
-          "date": "2026-05-12",
-          "score": 81.6
-        },
-        {
-          "date": "2026-05-13",
-          "score": 81.7
-        },
-        {
-          "date": "2026-05-14",
-          "score": 81.8
-        },
-        {
-          "date": "2026-05-15",
-          "score": 81.8
-        },
-        {
-          "date": "2026-05-18",
-          "score": 82.1
-        }
-      ]
-    },
-    {
       "base_rank": 11,
       "prev_rank": 11,
       "rank_change": 0,
       "change_type": "flat",
-      "stock_id": "3014",
-      "name": "聯陽",
-      "full_name": "聯陽半導體股份有限公司",
-      "industry": "半導體業",
-      "score": 0.688962,
-      "display_score": 78.9,
-      "close": 135.5,
-      "dy_pct": 89.3,
-      "std_pct": 58.8,
+      "stock_id": "6136",
+      "name": "富爾特",
+      "full_name": "富爾特科技股份有限公司",
+      "industry": "通信網路業",
+      "score": 0.710872,
+      "display_score": 81.1,
+      "close": 24.9,
+      "dy_pct": 74.4,
+      "std_pct": 69.5,
       "selected": true,
-      "passed_filter": true,
-      "failed_conditions": [],
+      "passed_filter": false,
+      "failed_conditions": [
+        "流通性不足"
+      ],
       "history": [
         {
           "date": "2026-05-12",
-          "score": 78.8
+          "score": 81.0
         },
         {
           "date": "2026-05-13",
-          "score": 78.8
+          "score": 81.4
         },
         {
           "date": "2026-05-14",
-          "score": 78.6
+          "score": 81.1
         },
         {
           "date": "2026-05-15",
-          "score": 78.7
+          "score": 81.1
         },
         {
           "date": "2026-05-18",
-          "score": 78.9
+          "score": 81.1
         }
       ]
     },
@@ -459,38 +474,38 @@
       "prev_rank": 12,
       "rank_change": 0,
       "change_type": "flat",
-      "stock_id": "6121",
-      "name": "新普",
-      "full_name": "新普科技股份有限公司",
-      "industry": "電腦及週邊設備業",
-      "score": 0.687125,
-      "display_score": 78.7,
-      "close": 365.0,
-      "dy_pct": 87.1,
-      "std_pct": 59.6,
+      "stock_id": "6263",
+      "name": "普萊德",
+      "full_name": "普萊德科技股份有限公司",
+      "industry": "通信網路業",
+      "score": 0.599029,
+      "display_score": 69.9,
+      "close": 172.0,
+      "dy_pct": 73.1,
+      "std_pct": 53.4,
       "selected": true,
       "passed_filter": true,
       "failed_conditions": [],
       "history": [
         {
           "date": "2026-05-12",
-          "score": 77.9
+          "score": 69.9
         },
         {
           "date": "2026-05-13",
-          "score": 78.0
+          "score": 69.7
         },
         {
           "date": "2026-05-14",
-          "score": 78.2
+          "score": 69.8
         },
         {
           "date": "2026-05-15",
-          "score": 78.6
+          "score": 69.8
         },
         {
           "date": "2026-05-18",
-          "score": 78.7
+          "score": 69.9
         }
       ]
     }
@@ -5356,15 +5371,15 @@
       "history": [
         {
           "date": "2026-05-12",
-          "score": 0.0
+          "score": 42.9
         },
         {
           "date": "2026-05-13",
-          "score": 0.0
+          "score": 42.9
         },
         {
           "date": "2026-05-14",
-          "score": 0.0
+          "score": 42.9
         },
         {
           "date": "2026-05-15",
@@ -36304,7 +36319,7 @@
       "base_rank": 718,
       "prev_rank": null,
       "rank_change": null,
-      "change_type": "flat",
+      "change_type": "new",
       "stock_id": "7743",
       "name": "金利食安",
       "full_name": "金利食安科技股份有限公司",
@@ -36324,15 +36339,15 @@
       "history": [
         {
           "date": "2026-05-12",
-          "score": 0.0
+          "score": 42.9
         },
         {
           "date": "2026-05-13",
-          "score": 0.0
+          "score": 42.9
         },
         {
           "date": "2026-05-14",
-          "score": 0.0
+          "score": 42.9
         },
         {
           "date": "2026-05-15",
@@ -53158,7 +53173,7 @@
       "base_rank": 1112,
       "prev_rank": null,
       "rank_change": null,
-      "change_type": "flat",
+      "change_type": "new",
       "stock_id": "6498",
       "name": "久禾光",
       "full_name": "久禾光電股份有限公司",
@@ -53174,15 +53189,15 @@
       "history": [
         {
           "date": "2026-05-12",
-          "score": 0.0
+          "score": 42.9
         },
         {
           "date": "2026-05-13",
-          "score": 0.0
+          "score": 42.9
         },
         {
           "date": "2026-05-14",
-          "score": 0.0
+          "score": 42.9
         },
         {
           "date": "2026-05-15",
@@ -67243,7 +67258,7 @@
       "base_rank": 1441,
       "prev_rank": null,
       "rank_change": null,
-      "change_type": "flat",
+      "change_type": "new",
       "stock_id": "6909",
       "name": "創控",
       "full_name": "創控科技股份有限公司",
@@ -67261,19 +67276,19 @@
       "history": [
         {
           "date": "2026-05-12",
-          "score": 0.0
+          "score": 42.9
         },
         {
           "date": "2026-05-13",
-          "score": 0.0
+          "score": 42.9
         },
         {
           "date": "2026-05-14",
-          "score": 0.0
+          "score": 42.9
         },
         {
           "date": "2026-05-15",
-          "score": 0.0
+          "score": 42.9
         },
         {
           "date": "2026-05-18",
