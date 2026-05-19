@@ -22,7 +22,7 @@ const TEXT = {
 
 const STRATEGY_TITLES = {
   '1': '動態多因子策略',
-  '2': '高股息低波動策略',
+  '2': '高息低波策略',
 }
 
 export default function StrategyPage() {
