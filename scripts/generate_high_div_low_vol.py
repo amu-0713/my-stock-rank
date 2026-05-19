@@ -11,7 +11,7 @@ from zoneinfo import ZoneInfo
 from finlab import data
 from finlab.backtest import sim
 
-print("🚀 執行：高息低波策略（完美真實分數無 NaN 版）自動化更新...")
+print("🚀 執行：高息低波策略（因子PR值修正完整版）自動化更新...")
 
 # FinLab 登入
 finlab_token = os.environ.get('FINLAB_TOKEN')
@@ -49,10 +49,10 @@ std240 = price.ffill().pct_change(fill_method=None).rolling(240).std()
 dy_rank = yield_ratio.rank(axis=1, pct=True)
 dy_filter = (dy_rank > 0.6) & (dy_rank < 0.9)
 
-# 綜合濾網 (維持布林矩陣，不用來覆蓋分數)
+# 綜合濾網 (維持布林矩陣，不覆蓋分數)
 final_cond = dy_filter & liq_filter & ma_filter
 
-# === 四、評分 (🎯 這裡維持全市場完整原始分數，絕不給它 NaN) ===
+# === 四、評分 (std_score 本身已轉為橫向降序 PR 值，1.0 代表全市場最低波) ===
 std_score = std240.rank(axis=1, pct=True, ascending=False)
 dy_score = dy_rank
 score_raw_today = dy_score * 0.33 + std_score * 0.67
@@ -153,7 +153,7 @@ if not hasattr(report_x, 'benchmark') or report_x.benchmark is None:
 print("✅ 回測執行完成！開始精準生成三頁排名資料...")
 
 # =============================================================================
-# 八、精準脫水前端 JSON 生成邏輯 (完全套用範例架構)
+# 八、精準脫水前端 JSON 生成邏輯
 # =============================================================================
 latest_dt = score_raw_today.index[-1]
 print(f"✅ 使用最新完整資料日期: {latest_dt.date()}")
@@ -177,7 +177,7 @@ company_full_name_map = company_info["公司名稱"]
 
 # ====================== 共用函數 ======================
 def score_to_display(val):
-    if pd.isna(val): return 42.9 # 依照範例給予一個預設基本分數，不因 NaN 導致前端報錯
+    if pd.isna(val): return 42.9
     mapped_score = 60 + (float(val) - 0.5) / 0.4 * 40
     return round(min(float(mapped_score), 100.0), 1)
 
@@ -272,7 +272,7 @@ def add_history_to_items(items):
         item["history"] = history_dict.get(sid, [])
     return items
 
-# ====================== 🎯 產生歷史固定持股名單 (完全對齊範例：去基準日拿前 12 名分數，含金融限制) ======================
+# ====================== 🎯 產生歷史固定持股名單 (去基準日拿前 12 名分數，含金融限制) ======================
 rb_score = loop_score.loc[real_rebalance_dt].dropna().sort_values(ascending=False).head(candidate_n)
 fin_selected_rb = []
 non_selected_rb = []
@@ -294,9 +294,11 @@ if len(fixed_hold_ids) < max_holdings:
         if f_flag: fin_selected_rb.append(stock)
         if len(fixed_hold_ids) >= max_holdings: break
 
-# 因子今日狀態百分位
-r_dy_today = dy_score.loc[latest_dt].rank(pct=True)
-r_std_today = std_score.loc[latest_dt].rank(pct=True)
+# 🎯 因子今日狀態百分位對齊：
+# dy_score 原本是原始殖利率 PR，所以要對今天的那一列再做一次 rank(pct=True) 才是當日全市場 PR 值
+r_dy_today = dy_score.loc[latest_dt].rank(pct=True) 
+# std_score 在第四步驟就已經被排好是 0~1 的降序 PR 值了，這裡直接拿當天切片，不要再做一次 rank 污染！
+r_std_today = std_score.loc[latest_dt] 
 
 # 歷史 7 天前對比 (完全拿原始無 NaN 的 score_raw_today 做對比基準)
 compare_dt = get_compare_dt(score_raw_today.index, latest_dt, days=7)
@@ -318,7 +320,7 @@ if compare_dt is not None:
 
 # ====================== 三頁排名資料對齊生成 ======================
 
-# --- 1. 目前持股排名 (🎯 拿原始 score_raw_today，絕無 NaN，忠實呈現分數與變動) ---
+# --- 1. 目前持股排名 (拿原始 score_raw_today，絕無 NaN) ---
 df_h = pd.DataFrame({
     "score": score_raw_today.loc[latest_dt].reindex(fixed_hold_ids),
     "close": price.loc[latest_dt].reindex(fixed_hold_ids),
@@ -362,7 +364,7 @@ filtered_rank = add_history_to_items(filtered_rank)
 market_rank = add_history_to_items(market_rank)
 
 # =============================================================================
-# 九、計算 Overview 績效指標 (與範例結構 100% 一致)
+# 九、計算 Overview 績效指標
 # =============================================================================
 print("🚀 開始計算首頁進階指標...")
 daily_return = report_x.creturn.pct_change().fillna(0)
@@ -468,4 +470,4 @@ with open(public_path / "result_2.json", 'w', encoding='utf-8') as f:
 with open(public_path / "chart_data_2.json", 'w', encoding='utf-8') as f:
     json.dump(chart_json, f, ensure_ascii=False, indent=2)
 
-print(f"✅ result_2.json & chart_data_2.json 部署完成！分數完全保留無 NaN。")
+print(f"============== ✅ 策略2安全部署完成 (std_pct 修正完畢) ==============")
