@@ -7,7 +7,6 @@ import numpy as np
 from pathlib import Path
 from datetime import datetime
 from zoneinfo import ZoneInfo
-
 from finlab import data
 from finlab.backtest import sim
 
@@ -44,7 +43,6 @@ ma240 = price.rolling(240).mean()
 # 三大濾網
 liq_filter = vol.rank(axis=1, pct=True) > 0.5
 ma_filter = price > ma240
-
 std240 = price.ffill().pct_change(fill_method=None).rolling(240).std()
 dy_rank = yield_ratio.rank(axis=1, pct=True)
 dy_filter = (dy_rank > 0.6) & (dy_rank < 0.9)
@@ -63,7 +61,6 @@ score_raw_today = dy_score * 0.33 + std_score * 0.67
 max_holdings = 12
 max_financial = 4
 candidate_n = 25
-
 loop_score = score_raw_today.where(final_cond)
 raw_position = pd.DataFrame(0, index=loop_score.index, columns=loop_score.columns, dtype=int)
 
@@ -71,11 +68,10 @@ for dt in loop_score.index:
     row_score = loop_score.loc[dt].dropna()
     if len(row_score) == 0:
         continue
-        
+       
     s = row_score.sort_values(ascending=False).head(candidate_n)
     fin_selected = []
     non_selected = []
-
     for stock in s.index:
         fin_flag = is_fin.get(stock, False)
         if fin_flag:
@@ -85,9 +81,7 @@ for dt in loop_score.index:
             non_selected.append(stock)
         if len(fin_selected) + len(non_selected) >= max_holdings:
             break
-
     selected = fin_selected + non_selected
-
     if len(selected) < max_holdings:
         remaining = [stk for stk in s.index if stk not in selected]
         for stock in remaining:
@@ -99,7 +93,6 @@ for dt in loop_score.index:
                 fin_selected.append(stock)
             if len(selected) >= max_holdings:
                 break
-
     raw_position.loc[dt, selected] = 1
 
 # =============================================================================
@@ -108,7 +101,6 @@ for dt in loop_score.index:
 limit_pct = pd.Series(0.095, index=price.index)
 limit_pct.loc[:'2015-05-31'] = 0.065
 limit_up_price_next = price.mul(1 + limit_pct, axis=0)
-
 cannot_buy_t1 = open_p.shift(-1) >= limit_up_price_next
 cannot_buy_t1 = cannot_buy_t1.reindex_like(raw_position).fillna(False)
 
@@ -118,7 +110,6 @@ prev_position = prev_target_pos_qe.reindex(raw_position.index).ffill().fillna(0)
 
 buy_order = raw_position > prev_position
 position_final_x = raw_position.copy()
-
 blocked_buy = (buy_order & cannot_buy_t1).astype(bool)
 position_final_x[blocked_buy] = prev_position[blocked_buy]
 
@@ -150,11 +141,11 @@ print(f"✅ 最新資料日期: {latest_dt.date()}")
 
 def get_rebalance_date_qe_jan(dt):
     y, m = dt.year, dt.month
-    if m <= 1:   return pd.Timestamp(f"{y-1}-10-31")
+    if m <= 1: return pd.Timestamp(f"{y-1}-10-31")
     elif m <= 4: return pd.Timestamp(f"{y}-01-31")
     elif m <= 7: return pd.Timestamp(f"{y}-04-30")
     elif m <= 10: return pd.Timestamp(f"{y}-07-31")
-    else:        return pd.Timestamp(f"{y}-10-31")
+    else: return pd.Timestamp(f"{y}-10-31")
 
 real_rebalance_dt = get_rebalance_date_qe_jan(latest_dt)
 
@@ -213,7 +204,6 @@ def get_failed_conditions_high_div(sid):
         fail.append("股價未站上年線")
     return fail
 
-# 🎯 徹底更正：這裡的 get 全部抽換成對應 DataFrame 的 "dy_pct" 和 "std_pct"！
 def build_stock_item_high_div(sid, row, base_rank, prev_rank_map, selected=None, passed_filter=None):
     prev_rank, rank_change, change_type = get_rank_change_info(sid, prev_rank_map, int(base_rank))
     item = {
@@ -224,12 +214,12 @@ def build_stock_item_high_div(sid, row, base_rank, prev_rank_map, selected=None,
         "stock_id": str(sid),
         "name": str(company_short_name_map.get(str(sid), "")),
         "full_name": str(company_full_name_map.get(str(sid), "")),
-        "industry": str(industry_map.get(str(sid), "")), 
+        "industry": str(industry_map.get(str(sid), "")),
         "score": round(float(row.get("score", 0)), 6),
         "display_score": score_to_display(row.get("score")),
         "close": float(row.get("close")) if pd.notna(row.get("close")) else None,
-        "dy_pct": pct_win(row.get("dy_pct")),   # 🎯 修正：從 df 拿 dy_pct
-        "std_pct": pct_win(row.get("std_pct")), # 🎯 修正：從 df 拿 std_pct
+        "dy_pct": pct_win(row.get("dy_pct")),
+        "std_pct": pct_win(row.get("std_pct")),
     }
     if selected is not None: item["selected"] = bool(selected)
     if passed_filter is not None:
@@ -237,17 +227,18 @@ def build_stock_item_high_div(sid, row, base_rank, prev_rank_map, selected=None,
         item["failed_conditions"] = [] if bool(passed_filter) else get_failed_conditions_high_div(sid)
     return item
 
+# === 修正重點 1：歷史走勢分數也使用正確 PR ===
 def add_history_to_items(items):
     if len(items) == 0: return items
     past_dates = score_raw_today.index[-5:]
     sub_df = pd.DataFrame(index=past_dates, columns=score_raw_today.columns)
-    for dt in past_dates:
-        raw_dy = dy_score.loc[dt].dropna().rank(pct=True)
-        raw_std = std_score.loc[dt].dropna().rank(pct=True)
-        r_dy = raw_dy / raw_dy.max() if not raw_dy.empty else raw_dy
-        r_std = raw_std / raw_std.max() if not raw_std.empty else raw_std
-        sub_df.loc[dt] = (r_dy * 0.33 + r_std * 0.67).map(score_to_display)
     
+    for dt in past_dates:
+        dy_pct_h = dy_rank.loc[dt]
+        std_pct_h = std_score.loc[dt]
+        clean_h = dy_pct_h * 0.33 + std_pct_h * 0.67
+        sub_df.loc[dt] = clean_h.map(score_to_display)
+   
     history_dict = {}
     for sid in sub_df.columns:
         history_dict[str(sid)] = [
@@ -269,8 +260,8 @@ for stock in rb_score.index:
     else:
         non_selected_rb.append(stock)
     if len(fin_selected_rb) + len(non_selected_rb) >= max_holdings: break
-fixed_hold_ids = fin_selected_rb + non_selected_rb
 
+fixed_hold_ids = fin_selected_rb + non_selected_rb
 if len(fixed_hold_ids) < max_holdings:
     remaining_rb = [stk for stk in rb_score.index if stk not in fixed_hold_ids]
     for stock in remaining_rb:
@@ -281,52 +272,43 @@ if len(fixed_hold_ids) < max_holdings:
         if len(fixed_hold_ids) >= max_holdings: break
 
 # =============================================================================
-# 🎯 當日因子歸一化 與 純淨總分重新合成 (精準排序核心)
+# 🎯 當日因子歸一化 與 純淨總分重新合成 (精準排序核心) ← 修正重點 2
 # =============================================================================
-# ====================== 當日因子百分位（正確版）======================
-# 直接取原本就已經是 PR 的欄位，不要再重 rank！
 dy_pct_today = dy_rank.loc[latest_dt]          # 已經是 0~1 的殖利率 PR
 std_pct_today = std_score.loc[latest_dt]       # 已經是 0~1 的低波 PR（越高越好）
 
 # 重新合成分數（現在 clean_score 最高會真正接近 1）
 clean_score_today = dy_pct_today * 0.33 + std_pct_today * 0.67
-# 脫水防污染校正
 
-# 用脫水後的純淨因子，重新合成本日綜合總分
-clean_score_today = r_dy_today * 0.33 + r_std_today * 0.67
-
-# 歷史 7 天前對比基準計算
+# 歷史 7 天前對比基準計算 ← 修正重點 3
 compare_dt = get_compare_dt(score_raw_today.index, latest_dt, days=7)
 prev_current_holdings_rank_map = {}
 prev_filtered_rank_map = {}
 prev_market_rank_map = {}
 
 if compare_dt is not None:
-    raw_dy_prev = dy_score.loc[compare_dt].dropna().rank(pct=True)
-    raw_std_prev = std_score.loc[compare_dt].dropna().rank(pct=True)
-    r_dy_prev = raw_dy_prev / raw_dy_prev.max() if not raw_dy_prev.empty else raw_dy_prev
-    r_std_prev = raw_std_prev / raw_std_prev.max() if not raw_std_prev.empty else raw_std_prev
-    clean_score_prev = r_dy_prev * 0.33 + r_std_prev * 0.67
-
+    dy_pct_prev = dy_rank.loc[compare_dt]
+    std_pct_prev = std_score.loc[compare_dt]
+    clean_score_prev = dy_pct_prev * 0.33 + std_pct_prev * 0.67
+    
     df_h_prev = pd.DataFrame({"score": clean_score_prev.reindex(fixed_hold_ids)})
     prev_current_holdings_rank_map = build_rank_map(df_h_prev)
-    
+   
     filtered_ids_prev = final_cond.loc[compare_dt][final_cond.loc[compare_dt]].index
     df_f_prev = pd.DataFrame({"score": clean_score_prev.reindex(filtered_ids_prev)})
     prev_filtered_rank_map = build_rank_map(df_f_prev)
-    
+   
     df_m_prev = pd.DataFrame({"score": clean_score_prev})
     df_m_prev = df_m_prev[df_m_prev["score"] > 0]
     prev_market_rank_map = build_rank_map(df_m_prev)
 
-# ====================== 三頁排名資料組裝與排序 (全面徹底換成 pct 欄位名) ======================
-
+# ====================== 三頁排名資料組裝與排序 ======================
 # --- 1. 目前持股排名 ---
 df_h = pd.DataFrame({
     "score": clean_score_today.reindex(fixed_hold_ids),
     "close": price.loc[latest_dt].reindex(fixed_hold_ids),
-    "dy_pct": dy_pct_today.reindex(fixed_hold_ids),      # ← 改這裡
-    "std_pct": std_pct_today.reindex(fixed_hold_ids),    # ← 改這裡
+    "dy_pct": dy_pct_today.reindex(fixed_hold_ids),
+    "std_pct": std_pct_today.reindex(fixed_hold_ids),
     "passed_filter": final_cond.loc[latest_dt].reindex(fixed_hold_ids).fillna(False)
 })
 df_h = df_h.sort_values("score", ascending=False).copy()
