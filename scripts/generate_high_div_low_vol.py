@@ -9,7 +9,6 @@ from datetime import datetime
 from zoneinfo import ZoneInfo
 from finlab import data
 from finlab.backtest import sim
-
 print("🚀 執行：高息低波策略（欄位與排序真正對齊版）自動化更新...")
 
 # FinLab 登入
@@ -63,12 +62,11 @@ max_financial = 4
 candidate_n = 25
 loop_score = score_raw_today.where(final_cond)
 raw_position = pd.DataFrame(0, index=loop_score.index, columns=loop_score.columns, dtype=int)
-
 for dt in loop_score.index:
     row_score = loop_score.loc[dt].dropna()
     if len(row_score) == 0:
         continue
-       
+      
     s = row_score.sort_values(ascending=False).head(candidate_n)
     fin_selected = []
     non_selected = []
@@ -83,13 +81,13 @@ for dt in loop_score.index:
             break
     selected = fin_selected + non_selected
     if len(selected) < max_holdings:
-        remaining = [stk for stk in s.index if stk not in selected]
-        for stock in remaining:
-            fin_flag = is_fin.get(stock, False)
-            if fin_flag and len(fin_selected) >= max_financial:
+        remaining_rb = [stk for stk in s.index if stk not in selected]
+        for stock in remaining_rb:
+            f_flag = is_fin.get(stock, False)
+            if f_flag and len(fin_selected) >= max_financial:
                 continue
             selected.append(stock)
-            if fin_flag:
+            if f_flag:
                 fin_selected.append(stock)
             if len(selected) >= max_holdings:
                 break
@@ -103,11 +101,9 @@ limit_pct.loc[:'2015-05-31'] = 0.065
 limit_up_price_next = price.mul(1 + limit_pct, axis=0)
 cannot_buy_t1 = open_p.shift(-1) >= limit_up_price_next
 cannot_buy_t1 = cannot_buy_t1.reindex_like(raw_position).fillna(False)
-
 target_pos_qe = raw_position.resample('QE-JAN').last()
 prev_target_pos_qe = target_pos_qe.shift(1).fillna(0)
 prev_position = prev_target_pos_qe.reindex(raw_position.index).ffill().fillna(0)
-
 buy_order = raw_position > prev_position
 position_final_x = raw_position.copy()
 blocked_buy = (buy_order & cannot_buy_t1).astype(bool)
@@ -126,7 +122,6 @@ report_x = sim(
     live_performance_start='2025-12-30',
     upload=True
 )
-
 if not hasattr(report_x, 'benchmark') or report_x.benchmark is None:
     benchmark = data.get('benchmark_return:發行量加權股價報酬指數').squeeze()
     report_x.benchmark = benchmark.reindex(report_x.creturn.index).ffill()
@@ -227,13 +222,23 @@ def build_stock_item_high_div(sid, row, base_rank, prev_rank_map, selected=None,
         item["failed_conditions"] = [] if bool(passed_filter) else get_failed_conditions_high_div(sid)
     return item
 
-# === 新增：強制最佳股票永遠顯示 100%（解決 ties / 下市股壓縮問題）===
-def normalize_pct(series):
-    """強制當日最佳股票的百分位為 1.0（顯示用）"""
-    s = series.dropna()
+# ====================== 修正重點：normalize_pct（排除下市股） ======================
+def normalize_pct(series, active_mask=None):
+    """強制當日最佳股票的百分位為 1.0（解決 ties / 下市股壓縮問題）"""
+    if active_mask is not None:
+        s = series[active_mask].dropna()
+    else:
+        s = series.dropna()
     if s.empty:
         return series
-    return series / s.max()
+    normalized = series / s.max()
+    # 再強制把活躍股中的最大值設為 1.0（防 floating point 誤差）
+    if active_mask is not None:
+        active_max_idx = normalized[active_mask].idxmax()
+        if pd.notna(active_max_idx):
+            normalized = normalized.copy()
+            normalized.loc[active_max_idx] = 1.0
+    return normalized
 
 # ====================== 產生歷史固定持股名單 ======================
 rb_score = loop_score.loc[real_rebalance_dt].dropna().sort_values(ascending=False).head(candidate_n)
@@ -245,7 +250,6 @@ for stock in rb_score.index:
     else:
         non_selected_rb.append(stock)
     if len(fin_selected_rb) + len(non_selected_rb) >= max_holdings: break
-
 fixed_hold_ids = fin_selected_rb + non_selected_rb
 if len(fixed_hold_ids) < max_holdings:
     remaining_rb = [stk for stk in rb_score.index if stk not in fixed_hold_ids]
@@ -259,29 +263,34 @@ if len(fixed_hold_ids) < max_holdings:
 # =============================================================================
 # 🎯 當日因子歸一化（已強制最佳為 100%）
 # =============================================================================
+# === 定義當日活躍股票（排除下市/無價格資料的股票）===
+active_today = price.loc[latest_dt].notna()
+
 dy_pct_today = normalize_pct(dy_rank.loc[latest_dt])
-std_pct_today = normalize_pct(std_score.loc[latest_dt])
+std_pct_today = normalize_pct(std_score.loc[latest_dt], active_mask=active_today)  # ← 關鍵修正
+
+print(f"🔍 DEBUG: std_pct_today max = {std_pct_today.max():.4f}（現在應該是 1.0）")
+print(f"    DY max = {dy_pct_today.max():.4f}")
 
 clean_score_today = dy_pct_today * 0.33 + std_pct_today * 0.67
 
-# 歷史 7 天前對比基準計算
+# 歷史 7 天前對比基準計算（保持原本邏輯）
 compare_dt = get_compare_dt(score_raw_today.index, latest_dt, days=7)
 prev_current_holdings_rank_map = {}
 prev_filtered_rank_map = {}
 prev_market_rank_map = {}
-
 if compare_dt is not None:
     dy_pct_prev = normalize_pct(dy_rank.loc[compare_dt])
     std_pct_prev = normalize_pct(std_score.loc[compare_dt])
     clean_score_prev = dy_pct_prev * 0.33 + std_pct_prev * 0.67
-    
+   
     df_h_prev = pd.DataFrame({"score": clean_score_prev.reindex(fixed_hold_ids)})
     prev_current_holdings_rank_map = build_rank_map(df_h_prev)
-   
+  
     filtered_ids_prev = final_cond.loc[compare_dt][final_cond.loc[compare_dt]].index
     df_f_prev = pd.DataFrame({"score": clean_score_prev.reindex(filtered_ids_prev)})
     prev_filtered_rank_map = build_rank_map(df_f_prev)
-   
+  
     df_m_prev = pd.DataFrame({"score": clean_score_prev})
     df_m_prev = df_m_prev[df_m_prev["score"] > 0]
     prev_market_rank_map = build_rank_map(df_m_prev)
@@ -324,18 +333,19 @@ df_m = df_m[df_m["score"] > 0].copy().sort_values("score", ascending=False)
 df_m["base_rank"] = range(1, len(df_m) + 1)
 market_rank = [build_stock_item_high_div(sid, row, row["base_rank"], prev_market_rank_map, False, bool(row["passed_filter"])) for sid, row in df_m.iterrows()]
 
-# === 歷史走勢也強制 normalize ===
+# === 歷史走勢也強制 normalize（同步修正）===
 def add_history_to_items(items):
     if len(items) == 0: return items
     past_dates = score_raw_today.index[-5:]
     sub_df = pd.DataFrame(index=past_dates, columns=score_raw_today.columns)
-    
+   
     for dt in past_dates:
+        active_dt = price.loc[dt].notna()                     # ← 每一天都排除下市股
         dy_pct_h = normalize_pct(dy_rank.loc[dt])
-        std_pct_h = normalize_pct(std_score.loc[dt])
+        std_pct_h = normalize_pct(std_score.loc[dt], active_mask=active_dt)
         clean_h = dy_pct_h * 0.33 + std_pct_h * 0.67
         sub_df.loc[dt] = clean_h.map(score_to_display)
-   
+  
     history_dict = {}
     for sid in sub_df.columns:
         history_dict[str(sid)] = [
@@ -352,10 +362,9 @@ filtered_rank = add_history_to_items(filtered_rank)
 market_rank = add_history_to_items(market_rank)
 
 # =============================================================================
-# 九、計算 Overview 績效指標與圖表
+# 九、計算 Overview 績效指標與圖表（保持原本邏輯）
 # =============================================================================
 daily_return = report_x.creturn.pct_change().fillna(0)
-
 def calc_performance(ret_series, start_date=None):
     if start_date: ret_series = ret_series.loc[start_date:]
     if len(ret_series) == 0: return {"total_return": 0.0, "annual_return": 0.0, "max_drawdown": 0.0, "sharpe_ratio": 0.0}
@@ -399,7 +408,6 @@ chart_json = {
     "5年": get_pts(report_x.creturn, report_x.benchmark, now - pd.Timedelta(days=5*365)),
     "全部": get_pts(report_x.creturn, report_x.benchmark, report_x.creturn.index.min())
 }
-
 if chart_json.get("今年") and len(chart_json["今年"]) > 0:
     overview["total_return_ytd"] = round(float(chart_json["今年"][-1]["returns"]), 2)
 
@@ -418,10 +426,8 @@ result_json = {
 
 public_path = Path("public")
 public_path.mkdir(parents=True, exist_ok=True)
-
 with open(public_path / "result_2.json", 'w', encoding='utf-8') as f:
     json.dump(result_json, f, ensure_ascii=False, indent=2)
-
 with open(public_path / "chart_data_2.json", 'w', encoding='utf-8') as f:
     json.dump(chart_json, f, ensure_ascii=False, indent=2)
 
