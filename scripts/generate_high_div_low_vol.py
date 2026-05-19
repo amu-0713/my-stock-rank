@@ -94,7 +94,7 @@ for dt in loop_score.index:
     raw_position.loc[dt, selected] = 1
 
 # =============================================================================
-# 六、漲停買不到濾網 (對齊原始回測機制)
+# 六、漲停買不到濾網
 # =============================================================================
 limit_pct = pd.Series(0.095, index=price.index)
 limit_pct.loc[:'2015-05-31'] = 0.065
@@ -184,15 +184,17 @@ liq_filter_series = liq_filter.loc[latest_dt]
 ma_filter_series = ma_filter.loc[latest_dt]
 dy_rank_series = dy_rank.loc[latest_dt]
 
+# ====================== 修正重點2：殖利率失敗條件拆成兩個獨立條件 ======================
 def get_failed_conditions_high_div(sid):
     fail = []
     sid_str = str(sid)
     if not dy_filter_series.get(sid_str, False):
         dy_val = dy_rank_series.get(sid_str, np.nan)
-        if pd.notna(dy_val) and (dy_val <= 0.6 or dy_val >= 0.9):
-            fail.append("殖利率未在60%-90%間")
-        else:
-            fail.append("殖利率異常")
+        if pd.notna(dy_val):
+            if dy_val <= 0.6:
+                fail.append("殖利率過低")
+            if dy_val >= 0.9:
+                fail.append("殖利率過高")
     if not liq_filter_series.get(sid_str, False):
         fail.append("流通性不足")
     if not ma_filter_series.get(sid_str, False):
@@ -222,7 +224,7 @@ def build_stock_item_high_div(sid, row, base_rank, prev_rank_map, selected=None,
         item["failed_conditions"] = [] if bool(passed_filter) else get_failed_conditions_high_div(sid)
     return item
 
-# ====================== 修正重點：normalize_pct（排除下市股） ======================
+# ====================== 修正重點1：normalize_pct 強制鎖死 100% ======================
 def normalize_pct(series, active_mask=None):
     """強制當日最佳股票的百分位為 1.0（解決 ties / 下市股壓縮問題）"""
     if active_mask is not None:
@@ -232,6 +234,7 @@ def normalize_pct(series, active_mask=None):
     if s.empty:
         return series
     normalized = series / s.max()
+    normalized = normalized.clip(upper=1.0)                    # ← 強制鎖死 100%
     # 再強制把活躍股中的最大值設為 1.0（防 floating point 誤差）
     if active_mask is not None:
         active_max_idx = normalized[active_mask].idxmax()
@@ -263,18 +266,17 @@ if len(fixed_hold_ids) < max_holdings:
 # =============================================================================
 # 🎯 當日因子歸一化（已強制最佳為 100%）
 # =============================================================================
-# === 定義當日活躍股票（排除下市/無價格資料的股票）===
 active_today = price.loc[latest_dt].notna()
 
 dy_pct_today = normalize_pct(dy_rank.loc[latest_dt])
-std_pct_today = normalize_pct(std_score.loc[latest_dt], active_mask=active_today)  # ← 關鍵修正
+std_pct_today = normalize_pct(std_score.loc[latest_dt], active_mask=active_today)
 
-print(f"🔍 DEBUG: std_pct_today max = {std_pct_today.max():.4f}（現在應該是 1.0）")
+print(f"🔍 DEBUG: std_pct_today max = {std_pct_today.max():.4f}（現在一定是 1.0）")
 print(f"    DY max = {dy_pct_today.max():.4f}")
 
 clean_score_today = dy_pct_today * 0.33 + std_pct_today * 0.67
 
-# 歷史 7 天前對比基準計算（保持原本邏輯）
+# 歷史 7 天前對比基準計算
 compare_dt = get_compare_dt(score_raw_today.index, latest_dt, days=7)
 prev_current_holdings_rank_map = {}
 prev_filtered_rank_map = {}
@@ -333,14 +335,14 @@ df_m = df_m[df_m["score"] > 0].copy().sort_values("score", ascending=False)
 df_m["base_rank"] = range(1, len(df_m) + 1)
 market_rank = [build_stock_item_high_div(sid, row, row["base_rank"], prev_market_rank_map, False, bool(row["passed_filter"])) for sid, row in df_m.iterrows()]
 
-# === 歷史走勢也強制 normalize（同步修正）===
+# === 歷史走勢也同步修正 ===
 def add_history_to_items(items):
     if len(items) == 0: return items
     past_dates = score_raw_today.index[-5:]
     sub_df = pd.DataFrame(index=past_dates, columns=score_raw_today.columns)
    
     for dt in past_dates:
-        active_dt = price.loc[dt].notna()                     # ← 每一天都排除下市股
+        active_dt = price.loc[dt].notna()
         dy_pct_h = normalize_pct(dy_rank.loc[dt])
         std_pct_h = normalize_pct(std_score.loc[dt], active_mask=active_dt)
         clean_h = dy_pct_h * 0.33 + std_pct_h * 0.67
@@ -362,7 +364,7 @@ filtered_rank = add_history_to_items(filtered_rank)
 market_rank = add_history_to_items(market_rank)
 
 # =============================================================================
-# 九、計算 Overview 績效指標與圖表（保持原本邏輯）
+# 九、計算 Overview 績效指標與圖表
 # =============================================================================
 daily_return = report_x.creturn.pct_change().fillna(0)
 def calc_performance(ret_series, start_date=None):
@@ -431,4 +433,4 @@ with open(public_path / "result_2.json", 'w', encoding='utf-8') as f:
 with open(public_path / "chart_data_2.json", 'w', encoding='utf-8') as f:
     json.dump(chart_json, f, ensure_ascii=False, indent=2)
 
-print(f"============== ✅ 高息低波 欄位名與規格完全校正完成（STD 已強制 100%） ==============")
+print(f"============== ✅ 高息低波 完全修正完成（STD 鎖 100% + 殖利率拆兩條件） ==============")
