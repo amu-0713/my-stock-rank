@@ -392,23 +392,40 @@ overview = {
     "current_holdings": int(max_holdings)
 }
 
-def get_pts(series, benchmark_series, start_dt):
+def get_pts(series, benchmark_series, start_dt, period=None):
+    """支援周切片：5年與全部改成每周資料，徹底解決 lag"""
     start_dt = pd.to_datetime(start_dt).tz_localize(None) if not isinstance(start_dt, str) else pd.to_datetime(start_dt)
     mask = series.index >= start_dt
     target = series[mask]
     target_bench = benchmark_series.reindex(target.index).ffill()
-    if len(target) == 0: return []
+    if len(target) == 0: 
+        return []
+
+    # === 關鍵修正：長週期改成周切片 ===
+    if period in ['5年', '全部']:
+        target = target.resample('W-FRI').last().dropna()           # 每周五
+        target_bench = target_bench.resample('W-FRI').last().dropna()
+    # 今年 / 1年 保持日頻（資料量小，保留細節）
+
     base, base_bench = target.iloc[0], target_bench.iloc[0]
     norm = ((target / base) - 1) * 100
     norm_bench = ((target_bench / base_bench) - 1) * 100
-    return [{"date": d.strftime('%Y-%m-%d'), "returns": round(float(norm.loc[d]), 2), "benchmark": round(float(norm_bench.loc[d]), 2)} for d in target.index]
+
+    return [
+        {
+            "date": d.strftime('%Y-%m-%d'),
+            "returns": round(float(norm.loc[d]), 2),
+            "benchmark": round(float(norm_bench.loc[d]), 2)
+        }
+        for d in target.index
+    ]
 
 now = datetime.now(ZoneInfo("Asia/Taipei"))
 chart_json = {
-    "今年": get_pts(report_x.creturn, report_x.benchmark, f"{now.year}-01-01"),
-    "1年": get_pts(report_x.creturn, report_x.benchmark, now - pd.Timedelta(days=365)),
-    "5年": get_pts(report_x.creturn, report_x.benchmark, now - pd.Timedelta(days=5*365)),
-    "全部": get_pts(report_x.creturn, report_x.benchmark, report_x.creturn.index.min())
+    "今年": get_pts(report_x.creturn, report_x.benchmark, f"{now.year}-01-01", period="今年"),
+    "1年": get_pts(report_x.creturn, report_x.benchmark, now - pd.Timedelta(days=365), period="1年"),
+    "5年": get_pts(report_x.creturn, report_x.benchmark, now - pd.Timedelta(days=5*365), period="5年"),
+    "全部": get_pts(report_x.creturn, report_x.benchmark, report_x.creturn.index.min(), period="全部")
 }
 if chart_json.get("今年") and len(chart_json["今年"]) > 0:
     overview["total_return_ytd"] = round(float(chart_json["今年"][-1]["returns"]), 2)
