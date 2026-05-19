@@ -272,35 +272,37 @@ def add_history_to_items(items):
         item["history"] = history_dict.get(sid, [])
     return items
 
-# ====================== 🎯 產生歷史固定持股名單 (完全對齊範例：去基準日拿前 12 名分數，含金融限制) ======================
+# ====================== 產生歷史固定持股名單 ======================
 rb_score = loop_score.loc[real_rebalance_dt].dropna().sort_values(ascending=False).head(candidate_n)
 fin_selected_rb = []
 non_selected_rb = []
 for stock in rb_score.index:
     if is_fin.get(stock, False):
-        if len(fin_selected_rb) < max_financial: fin_selected_rb.append(stock)
+        if len(fin_selected_rb) < max_financial: 
+            fin_selected_rb.append(stock)
     else:
         non_selected_rb.append(stock)
-    if len(fin_selected_rb) + len(non_selected_rb) >= max_holdings: break
+    if len(fin_selected_rb) + len(non_selected_rb) >= max_holdings: 
+        break
 fixed_hold_ids = fin_selected_rb + non_selected_rb
 
-# 補滿邏輯
 if len(fixed_hold_ids) < max_holdings:
     remaining_rb = [stk for stk in rb_score.index if stk not in fixed_hold_ids]
     for stock in remaining_rb:
         f_flag = is_fin.get(stock, False)
-        if f_flag and len(fin_selected_rb) >= max_financial: continue
+        if f_flag and len(fin_selected_rb) >= max_financial: 
+            continue
         fixed_hold_ids.append(stock)
-        if f_flag: fin_selected_rb.append(stock)
-        if len(fixed_hold_ids) >= max_holdings: break
+        if f_flag: 
+            fin_selected_rb.append(stock)
+        if len(fixed_hold_ids) >= max_holdings: 
+            break
 
 # =============================================================================
-# 🎯 因子今日狀態百分位 (回歸你的原始正確方向，僅加上今日 rank 排除 NaN 分母污染)
+# 🎯 因子今日狀態百分位 (精準脫水排除 NaN 分母版)
 # =============================================================================
-r_dy_today = dy_score.loc[latest_dt].rank(pct=True)
-# 💡 既然 std_score 原本就已經是「分數越高、低波越好」，我們直接對它做 rank(pct=True)
-# 💡 這樣會保持「高分在後面(1.0)」的方向，同時自動清除 NaN，讓最好的低波股票衝回 100%
-r_std_today = std_score.loc[latest_dt].rank(pct=True)
+r_dy_today = dy_score.loc[latest_dt].dropna().rank(pct=True)
+r_std_today = std_score.loc[latest_dt].dropna().rank(pct=True)
 
 # 歷史 7 天前對比 (完全拿原始無 NaN 的 score_raw_today 做對比基準)
 compare_dt = get_compare_dt(score_raw_today.index, latest_dt, days=7)
@@ -472,4 +474,4 @@ with open(public_path / "result_2.json", 'w', encoding='utf-8') as f:
 with open(public_path / "chart_data_2.json", 'w', encoding='utf-8') as f:
     json.dump(chart_json, f, ensure_ascii=False, indent=2)
 
-print(f"============== ✅ 高息低波 脫水修正版部署完成 ==============")
+print(f"============== ✅ 高息低波 脫水 100% 正確版部署完成 ==============")
