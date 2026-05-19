@@ -297,25 +297,32 @@ overview = {
 # =============================================================================
 print("🚀 開始產生 chart_data.json...")
 
-def get_pts(series, benchmark_series, start_dt):
+def get_pts(series, benchmark_series, start_dt, period=None):
+    """支援周切片：5年與全部改成每周資料，徹底解決首頁 lag"""
     if isinstance(start_dt, str):
         start_dt = pd.to_datetime(start_dt)
     else:
         start_dt = pd.to_datetime(start_dt).tz_localize(None)
-    
+   
     mask = series.index >= start_dt
     target = series[mask]
     target_bench = benchmark_series.reindex(target.index).ffill()
-    
+   
     if len(target) == 0:
         return []
-    
+   
+    # === 關鍵修正：長週期改成周切片 ===
+    if period in ['5年', '全部']:
+        target = target.resample('W-FRI').last().dropna()           # 每周五
+        target_bench = target_bench.resample('W-FRI').last().dropna()
+    # 今年 / 1年 保持日頻（資料量小，保留細節）
+
     base = target.iloc[0]
     base_bench = target_bench.iloc[0]
-    
+   
     norm = ((target / base) - 1) * 100
     norm_bench = ((target_bench / base_bench) - 1) * 100
-    
+   
     combined = []
     for d in target.index:
         combined.append({
@@ -326,12 +333,11 @@ def get_pts(series, benchmark_series, start_dt):
     return combined
 
 now = datetime.now(ZoneInfo("Asia/Taipei"))
-
 chart_json = {
-    "今年": get_pts(report.creturn, report.benchmark, f"{now.year}-01-01"),
-    "1年": get_pts(report.creturn, report.benchmark, now - pd.Timedelta(days=365)),
-    "5年": get_pts(report.creturn, report.benchmark, now - pd.Timedelta(days=5*365)),
-    "全部": get_pts(report.creturn, report.benchmark, report.creturn.index.min())
+    "今年": get_pts(report.creturn, report.benchmark, f"{now.year}-01-01", period="今年"),
+    "1年": get_pts(report.creturn, report.benchmark, now - pd.Timedelta(days=365), period="1年"),
+    "5年": get_pts(report.creturn, report.benchmark, now - pd.Timedelta(days=5*365), period="5年"),
+    "全部": get_pts(report.creturn, report.benchmark, report.creturn.index.min(), period="全部")
 }
 
 # === 關鍵同步：覆蓋 result_json 中的今年報酬 ===
