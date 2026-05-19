@@ -11,7 +11,7 @@ from zoneinfo import ZoneInfo
 from finlab import data
 from finlab.backtest import sim
 
-print("🚀 執行：高息低波策略（排除 NaN 分母污染修正版）自動化更新...")
+print("🚀 執行：高息低波策略（排序與分母脫水完全校正版）自動化更新...")
 
 # FinLab 登入
 finlab_token = os.environ.get('FINLAB_TOKEN')
@@ -52,7 +52,7 @@ dy_filter = (dy_rank > 0.6) & (dy_rank < 0.9)
 # 綜合濾網 (維持布林矩陣，不用來覆蓋分數)
 final_cond = dy_filter & liq_filter & ma_filter
 
-# === 四、評分 (維持全市場完整原始分數，方向與你原本的完全一致) ===
+# === 四、評分 (維持全市場完整原始分數，歷史回測專用) ===
 std_score = std240.rank(axis=1, pct=True, ascending=False)
 dy_score = dy_rank
 score_raw_today = dy_score * 0.33 + std_score * 0.67
@@ -153,7 +153,7 @@ if not hasattr(report_x, 'benchmark') or report_x.benchmark is None:
 print("✅ 回測執行完成！開始精準生成三頁排名資料...")
 
 # =============================================================================
-# 八、精準脫水前端 JSON 生成邏輯 (完全套用範例架構)
+# 八、精準脫水前端 JSON 生成邏輯 (完全解決排序與分母交互污染)
 # =============================================================================
 latest_dt = score_raw_today.index[-1]
 print(f"✅ 使用最新完整資料日期: {latest_dt.date()}")
@@ -177,7 +177,7 @@ company_full_name_map = company_info["公司名稱"]
 
 # ====================== 共用函數 ======================
 def score_to_display(val):
-    if pd.isna(val): return 42.9 # 依照範例給予一個預設基本分數，不因 NaN 導致前端報錯
+    if pd.isna(val): return 42.9 # 依照範例給予一個預設基本分數
     mapped_score = 60 + (float(val) - 0.5) / 0.4 * 40
     return round(min(float(mapped_score), 100.0), 1)
 
@@ -259,7 +259,15 @@ def build_stock_item_high_div(sid, row, base_rank, prev_rank_map, selected=None,
 def add_history_to_items(items):
     if len(items) == 0: return items
     past_dates = score_raw_today.index[-5:]
-    sub_df = score_raw_today.loc[past_dates].map(score_to_display)
+    
+    # 💡 歷史走勢圖改用重新合成的乾淨分數展示，避免走勢圖最高也死在 85
+    sub_df = pd.DataFrame(index=past_dates, columns=score_raw_today.columns)
+    for dt in past_dates:
+        raw_dy = dy_score.loc[dt].dropna().rank(pct=True)
+        raw_std = std_score.loc[dt].dropna().rank(pct=True)
+        r_dy = raw_dy / raw_dy.max() if not raw_dy.empty else raw_dy
+        r_std = raw_std / raw_std.max() if not raw_std.empty else raw_std
+        sub_df.loc[dt] = (r_dy * 0.33 + r_std * 0.67).map(score_to_display)
     
     history_dict = {}
     for sid in sub_df.columns:
@@ -291,6 +299,205 @@ if len(fixed_hold_ids) < max_holdings:
     for stock in remaining_rb:
         f_flag = is_fin.get(stock, False)
         if f_flag and len(fin_selected_rb) >= max_financial: 
+            continue
+        fixed_hold_ids.append(stock)
+        if f_flag: 
+            fin_selected_rb.append(stock)
+        if len(fixed_hold_ids) >= max_holdings: 
+            break
+
+# =============================================================================
+# 🎯 因子今日狀態百分位 與 綜合分數「全面脫水校正排序」
+# =============================================================================
+raw_dy_today = dy_score.loc[latest_dt].dropna().rank(pct=True)
+raw_std_today = std_score.loc[latest_dt].dropna().rank(pct=True)
+
+# 強制除以當日的最大值，確保最優秀的單一指標為 1.0 (100%)
+r_dy_today = raw_dy_today / raw_dy_today.max() if not raw_dy_today.empty else raw_dy_today
+r_std_today = raw_std_today / raw_std_today.max() if not raw_std_today.empty else raw_std_today
+
+# 🔥【核心修正】用當下完美脫水的因子百分位，重新合成本日最純淨的綜合得分
+# 這能確保全市場第一名進行 sort_values 時，可以精準把 100% 的神股排到網頁第一列！
+clean_score_today = r_dy_today * 0.33 + r_std_today * 0.67
+
+# 歷史 7 天前對比基準 (同樣使用當日脫水後的純淨綜合分數進行基準計算)
+compare_dt = get_compare_dt(score_raw_today.index, latest_dt, days=7)
+prev_current_holdings_rank_map = {}
+prev_filtered_rank_map = {}
+prev_market_rank_map = {}
+
+if compare_dt is not None:
+    raw_dy_prev = dy_score.loc[compare_dt].dropna().rank(pct=True)
+    raw_std_prev = std_score.loc[compare_dt].dropna().rank(pct=True)
+    r_dy_prev = raw_dy_prev / raw_dy_prev.max() if not raw_dy_prev.empty else raw_dy_prev
+    r_std_prev = raw_std_prev / raw_std_prev.max() if not raw_std_prev.empty else raw_std_prev
+    clean_score_prev = r_dy_prev * 0.33 + r_std_prev * 0.67
+
+    df_h_prev = pd.DataFrame({"score": clean_score_prev.reindex(fixed_hold_ids)})
+    prev_current_holdings_rank_map = build_rank_map(df_h_prev)
+    
+    filtered_ids_prev = final_cond.loc[compare_dt][final_cond.loc[compare_dt]].index
+    df_f_prev = pd.DataFrame({"score": clean_score_prev.reindex(filtered_ids_prev)})
+    prev_filtered_rank_map = build_rank_map(df_f_prev)
+    
+    df_m_prev = pd.DataFrame({"score": clean_score_prev})
+    df_m_prev = df_m_prev[df_m_prev["score"] > 0]
+    prev_market_rank_map = build_rank_map(df_m_prev)
+
+# ====================== 三頁排名資料對齊生成 (全抽換為 clean_score_today) ======================
+
+# --- 1. 目前持股排名 ---
+df_h = pd.DataFrame({
+    "score": clean_score_today.reindex(fixed_hold_ids),  # 🎯 校正為純淨總分
+    "close": price.loc[latest_dt].reindex(fixed_hold_ids),
+    "dy_rank": r_dy_today.reindex(fixed_hold_ids),
+    "std_rank": r_std_today.reindex(fixed_hold_ids),
+    "passed_filter": final_cond.loc[latest_dt].reindex(fixed_hold_ids).fillna(False)
+})
+df_h = df_h.sort_values("score", ascending=False).copy()
+df_h["base_rank"] = range(1, len(df_h) + 1)
+current_holdings_rank = [build_stock_item_high_div(sid, row, row["base_rank"], prev_current_holdings_rank_map, True, row["passed_filter"]) for sid, row in df_h.iterrows()]
+
+# --- 2. 條件篩選排名 (僅限今日通過 final_cond 的股票) ---
+filtered_ids = final_cond.loc[latest_dt][final_cond.loc[latest_dt]].index
+df_f = pd.DataFrame({
+    "score": clean_score_today.reindex(filtered_ids),    # 🎯 校正為純淨總分
+    "close": price.loc[latest_dt].reindex(filtered_ids),
+    "dy_rank": r_dy_today.reindex(filtered_ids),
+    "std_rank": r_std_today.reindex(filtered_ids),
+    "passed_filter": True
+})
+df_f = df_f.dropna(subset=["score"])
+df_f = df_f.sort_values("score", ascending=False).copy()
+df_f["base_rank"] = range(1, len(df_f) + 1)
+filtered_rank = [build_stock_item_high_div(sid, row, row["base_rank"], prev_filtered_rank_map, False, True) for sid, row in df_f.iterrows()]
+
+# --- 3. 全市場排名 (全量，不限制) ---
+df_m = pd.DataFrame({
+    "score": clean_score_today,                           # 🎯 校正為純淨總分
+    "close": price.loc[latest_dt],
+    "dy_rank": r_dy_today,
+    "std_rank": r_std_today,
+    "passed_filter": final_cond.loc[latest_dt]
+})
+df_m = df_m[df_m["score"] > 0].copy()
+df_m = df_m.sort_values("score", ascending=False)
+df_m["base_rank"] = range(1, len(df_m) + 1)
+market_rank = [build_stock_item_high_div(sid, row, row["base_rank"], prev_market_rank_map, False, bool(row["passed_filter"])) for sid, row in df_m.iterrows()]
+
+current_holdings_rank = add_history_to_items(current_holdings_rank)
+filtered_rank = add_history_to_items(filtered_rank)
+market_rank = add_history_to_items(market_rank)
+
+# =============================================================================
+# 九、計算 Overview 績效指標
+# =============================================================================
+print("🚀 開始計算首頁進階指標...")
+daily_return = report_x.creturn.pct_change().fillna(0)
+
+def calc_performance(ret_series, start_date=None):
+    if start_date:
+        ret_series = ret_series.loc[start_date:]
+    if len(ret_series) == 0:
+        return {"total_return": 0.0, "annual_return": 0.0, "max_drawdown": 0.0, "sharpe_ratio": 0.0}
+    cum = (1 + ret_series).cumprod()
+    total_ret = (cum.iloc[-1] - 1) * 100 if len(cum) > 0 else 0
+    days = (ret_series.index[-1] - ret_series.index[0]).days if len(ret_series) > 1 else 1
+    years = days / 365.25
+    annual_ret = ((1 + total_ret/100) ** (1/years) - 1) * 100 if years > 0 else 0
+    max_dd = ((cum / cum.cummax()) - 1).min() * 100
+    sharpe = (ret_series.mean() * 252 - 0.02) / (ret_series.std() * np.sqrt(252)) if ret_series.std() != 0 else 0
+    return {
+        "total_return": round(total_ret, 2),
+        "annual_return": round(annual_ret, 2),
+        "max_drawdown": round(max_dd, 2),
+        "sharpe_ratio": round(sharpe, 2)
+    }
+
+overview = {
+    "start_date": "2010-03-31",
+    "total_return_all": calc_performance(daily_return)["total_return"],
+    "annual_return_all": calc_performance(daily_return)["annual_return"],
+    "total_return_ytd": calc_performance(daily_return, f"{datetime.now().year}-01-01")["total_return"],
+    "total_return_1y": calc_performance(daily_return, datetime.now().replace(year=datetime.now().year-1))["total_return"],
+    "total_return_3y": calc_performance(daily_return, datetime.now().replace(year=datetime.now().year-3))["total_return"],
+    "total_return_5y": calc_performance(daily_return, datetime.now().replace(year=datetime.now().year-5))["total_return"],
+    "max_drawdown": calc_performance(daily_return)["max_drawdown"],
+    "sharpe_ratio": calc_performance(daily_return)["sharpe_ratio"],
+    "current_holdings": int(max_holdings)
+}
+
+# =============================================================================
+# 十、產生 chart_data_2.json + 同步今年報酬
+# =============================================================================
+print("🚀 開始產生 chart_data_2.json...")
+
+def get_pts(series, benchmark_series, start_dt):
+    if isinstance(start_dt, str):
+        start_dt = pd.to_datetime(start_dt)
+    else:
+        start_dt = pd.to_datetime(start_dt).tz_localize(None)
+    
+    mask = series.index >= start_dt
+    target = series[mask]
+    target_bench = benchmark_series.reindex(target.index).ffill()
+    
+    if len(target) == 0:
+        return []
+    
+    base = target.iloc[0]
+    base_bench = target_bench.iloc[0]
+    
+    norm = ((target / base) - 1) * 100
+    norm_bench = ((target_bench / base_bench) - 1) * 100
+    
+    combined = []
+    for d in target.index:
+        combined.append({
+            "date": d.strftime('%Y-%m-%d'),
+            "returns": round(float(norm.loc[d]), 2),
+            "benchmark": round(float(norm_bench.loc[d]), 2)
+        })
+    return combined
+
+now = datetime.now(ZoneInfo("Asia/Taipei"))
+
+chart_json = {
+    "今年": get_pts(report_x.creturn, report_x.benchmark, f"{now.year}-01-01"),
+    "1年": get_pts(report_x.creturn, report_x.benchmark, now - pd.Timedelta(days=365)),
+    "5年": get_pts(report_x.creturn, report_x.benchmark, now - pd.Timedelta(days=5*365)),
+    "全部": get_pts(report_x.creturn, report_x.benchmark, report_x.creturn.index.min())
+}
+
+if chart_json.get("今年") and len(chart_json["今年"]) > 0:
+    latest_ytd = chart_json["今年"][-1]["returns"]
+    overview["total_return_ytd"] = round(float(latest_ytd), 2)
+    print(f"✅ 已同步今年報酬率: +{latest_ytd}%")
+
+# ====================== 最終 JSON 輸出 ======================
+result_json = {
+    "latest_date": str(latest_dt.date()),
+    "updated_at": datetime.now(ZoneInfo("Asia/Taipei")).strftime('%Y-%m-%d %H:%M'),
+    "compare_date": str(compare_dt.date()) if compare_dt else None,
+    "rebalance_base_date": str(real_rebalance_dt.date()),
+    "overview": overview,
+    "current_holdings_rank": current_holdings_rank,
+    "filtered_rank": filtered_rank,
+    "market_rank": market_rank,
+    "strategy_name": "高息低波"
+}
+
+public_path = Path("public")
+public_path.mkdir(parents=True, exist_ok=True)
+
+with open(public_path / "result_2.json", 'w', encoding='utf-8') as f:
+    json.dump(result_json, f, ensure_ascii=False, indent=2)
+
+with open(public_path / "chart_data_2.json", 'w', encoding='utf-8') as f:
+    json.dump(chart_json, f, ensure_ascii=False, indent=2)
+
+print(f"============== ✅ 高息低波 脫水校正歸位版部署完成 ==============")
+nd len(fin_selected_rb) >= max_financial: 
             continue
         fixed_hold_ids.append(stock)
         if f_flag: 
