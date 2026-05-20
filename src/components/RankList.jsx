@@ -283,7 +283,7 @@ function compareRows(a, b, sortKey, sortDirection) {
 }
 
 function headerClassName(isClickable, isActive) {
-  const base = 'flex min-h-[48px] h-full flex-col items-center justify-center bg-transparent px-1 py-1 text-center leading-tight transition-colors'
+  const base = 'flex min-h-[40px] h-full flex-col items-center justify-center bg-transparent px-1 py-1 text-center leading-tight transition-colors'
   if (!isClickable) return base
   return `${base} cursor-pointer select-none ${isActive ? 'text-zinc-900' : 'hover:text-zinc-900'}`
 }
