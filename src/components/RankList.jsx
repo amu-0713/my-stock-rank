@@ -115,7 +115,7 @@ function ScoreModal({ stock, onClose }) {
 
   return createPortal(
     <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/80 backdrop-blur-sm" onClick={onClose}>
-      <div className="bg-white rounded-3xl w-full max-w-lg landscape:max-md:max-w-[620px] landscape:max-md:mx-6 shadow-2xl overflow-hidden pointer-events-auto mx-4 relative" onClick={e => e.stopPropagation()}>
+      <div className="bg-white rounded-3xl w-full max-w-lg landscape:max-md:max-w-[620px] landscape:max-md:mx-8 landscape:max-md:max-h-[85vh] landscape:max-md:flex landscape:max-md:gap-6 shadow-2xl overflow-hidden pointer-events-auto mx-4" onClick={e => e.stopPropagation()}>
         
         {/* 叉叉 - 右上角（只在橫式顯示在右上） */}
         <button onClick={onClose} className="hidden landscape:max-md:block absolute top-5 right-5 text-gray-400 hover:text-zinc-900 transition-colors z-10">
