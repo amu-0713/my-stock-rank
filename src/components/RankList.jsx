@@ -115,43 +115,57 @@ function ScoreModal({ stock, onClose }) {
 
   return createPortal(
     <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/80 backdrop-blur-sm" onClick={onClose}>
-      <div className="bg-white rounded-3xl w-full max-w-lg landscape:max-md:max-w-[720px] landscape:max-md:flex landscape:max-md:gap-6 shadow-2xl overflow-hidden pointer-events-auto mx-4" onClick={e => e.stopPropagation()}>
+      {/* 
+        外層容器優化：
+        將橫式最大寬度由 max-w-[720px] 縮減至 max-w-[540px]，讓整體在手機橫盤時不那麼佔空間。
+      */}
+      <div className="bg-white rounded-3xl w-full max-w-lg landscape:max-md:max-w-[540px] landscape:max-md:flex shadow-2xl overflow-hidden pointer-events-auto mx-4" onClick={e => e.stopPropagation()}>
         
-        {/* 左邊 - 只在橫式顯示 */}
-        {/* 調整點 1：加上 flex flex-col 讓內部可以使用 mt-auto */}
-        <div className="hidden landscape:max-md:flex landscape:max-md:flex-col landscape:max-md:w-[42%] p-6 border-r">
+        {/* ==================== 左邊區塊（只在手機橫式顯示） ==================== */}
+        {/* 
+          優化點 1：改為 flex-col，使內部濾網能利用 mt-auto 彈性推至最底部。
+          優化點 2：內襯調整為 p-4，寬度微調為 38%，使佈局在縮小後依然緊湊精緻。
+        */}
+        <div className="hidden landscape:max-md:flex landscape:max-md:flex-col landscape:max-md:w-[38%] p-6 landscape:max-md:p-4 border-r">
           <div className="flex justify-between items-start">
             <div>
-              <div className="font-bold text-2xl text-zinc-900">
+              <div className="font-bold text-2xl landscape:max-md:text-lg text-zinc-900 leading-tight">
                 {stock.name} ({stock.stock_id})
               </div>
-              <div className="text-4xl landscape:max-md:text-3xl font-bold text-blue-600 mt-2">
+              <div className="text-4xl landscape:max-md:text-2xl font-bold text-blue-600 mt-2 landscape:max-md:mt-1">
                 {formatScore(stock.display_score)}
               </div>
             </div>
-            <button onClick={onClose} className="p-2 text-gray-400 hover:text-zinc-900 transition-colors">
+            <button onClick={onClose} className="p-2 landscape:max-md:p-1 text-gray-400 hover:text-zinc-900 transition-colors">
               ✕
             </button>
           </div>
-        
-          {/* 未通過原因（橫式專用） */}
-          {/* 調整點 2：將 mt-6 改為 mt-auto pt-6，這樣就會自動黏在左下角 */}
+
+          {/* 
+            條件選股濾網區塊：
+            藉由 mt-auto 與 pt-4，確保在橫式視窗中完美黏在左下角，且字體調整為 text-xs 防止折行卡到。
+          */}
           {stock.passed_filter ? (
-            <div className="mt-auto pt-6 rounded-2xl border border-emerald-100 bg-emerald-50 px-4 py-3 text-sm text-emerald-600">
+            <div className="mt-auto pt-4 rounded-xl border border-emerald-100 bg-emerald-50 px-3 py-2 text-xs text-emerald-600">
               已通過選股條件
             </div>
           ) : (
             stock.failed_conditions && stock.failed_conditions.length > 0 && (
-              <div className="mt-auto pt-6 rounded-2xl border border-red-100 bg-red-50 px-4 py-3 text-sm text-red-600">
-                <div className="font-bold mb-1">未通過原因</div>
-                <div>{stock.failed_conditions.join('、')}</div>
+              <div className="mt-auto pt-4 rounded-xl border border-red-100 bg-red-50 px-3 py-2 text-xs text-red-600">
+                <div className="font-bold mb-0.5">未通過原因</div>
+                <div className="truncate" title={stock.failed_conditions.join('、')}>
+                  {stock.failed_conditions.join('、')}
+                </div>
               </div>
             )
           )}
         </div>
-        {/* 原本的直式內容（直式完全不變） */}
-        <div className="landscape:max-md:w-[58%]">
-          {/* 標題區 - 直式使用原本的位置 */}
+
+        {/* ==================== 右邊區塊（走勢圖與直式通用內容） ==================== */}
+        {/* 寬度配合左側調整為 62% */}
+        <div className="w-full landscape:max-md:w-[62%]">
+          
+          {/* 標題區 - 直式使用原本的位置，橫式時隱藏（因為左側已有標題） */}
           <div className="p-6 border-b landscape:max-md:hidden">
             <div className="flex justify-between items-start">
               <div>
@@ -168,12 +182,17 @@ function ScoreModal({ stock, onClose }) {
             </div>
           </div>
 
-          <div className="p-6">
-            <div className="text-sm font-bold text-zinc-500 mb-6 uppercase tracking-wider">
+          {/* 主要內容區：圖表走勢 */}
+          <div className="p-6 landscape:max-md:p-4">
+            <div className="text-sm font-bold text-zinc-500 mb-6 landscape:max-md:mb-2 uppercase tracking-wider landscape:max-md:text-xs">
               最近 5 個交易日分數走勢
             </div>
 
-            <div className="relative h-[280px] landscape:max-md:h-[235px] w-full border border-zinc-100 rounded-2xl bg-zinc-50/50 p-4">
+            {/* 
+              優化點 3：橫式高度從原本的 235px 降低至 180px，防止在小螢幕手機上撐開畫面。
+              SVG 本身具備自適應縮放特性，因此內容與文字絕對不會移位變形。
+            */}
+            <div className="relative h-[280px] landscape:max-md:h-[180px] w-full border border-zinc-100 rounded-2xl bg-zinc-50/50 p-4 landscape:max-md:p-2">
               <svg viewBox={`0 0 ${vWidth} ${vHeight}`} className="w-full h-full overflow-visible">
                 {[0, 0.25, 0.5, 0.75, 1].map((p, i) => {
                   const y = vHeight * p
@@ -223,13 +242,14 @@ function ScoreModal({ stock, onClose }) {
               </svg>
             </div>
 
-            <div className="flex justify-between mt-4 text-sm text-zinc-500 font-bold px-2">
+            {/* 日期區塊間距微調 */}
+            <div className="flex justify-between mt-4 landscape:max-md:mt-2 text-sm landscape:max-md:text-xs text-zinc-500 font-bold px-2">
               {stock.history.map((item, i) => (
                 <div key={i}>{item.date.slice(5)}</div>
               ))}
             </div>
 
-            {/* 未通過原因 - 直式使用原本位置 */}
+            {/* 未通過原因 - 直式使用原本底部的位置，橫式時在此隱藏 */}
             <div className="landscape:max-md:hidden">
               {stock.passed_filter ? (
                 <div className="mt-6 rounded-2xl border border-emerald-100 bg-emerald-50 px-4 py-3 text-sm text-emerald-600">
@@ -246,6 +266,7 @@ function ScoreModal({ stock, onClose }) {
             </div>
           </div>
         </div>
+
       </div>
     </div>,
     document.body
