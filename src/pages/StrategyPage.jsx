@@ -97,8 +97,9 @@ export default function StrategyPage() {
 
   return (
     <AppSidebarLayout contentClassName="max-w-[960px] mx-auto" flushTopOnLandscape>
-      <div className="flex h-[calc(100vh-3rem)] min-h-0 flex-col sm:h-[calc(100vh-5rem)] max-w-[960px] mx-auto landscape:max-md:h-screen landscape:max-md:max-w-none landscape:max-md:mx-0 landscape:max-md:w-[calc(100%+2rem)] landscape:max-md:-mx-4 landscape:max-md:overflow-x-hidden landscape:max-md:pl-10">
-        
+      {/* 最外層容器：固定高度 + 完全禁止外部捲動 */}
+      <div className="flex h-[calc(100vh-3rem)] min-h-0 flex-col sm:h-[calc(100vh-5rem)] max-w-[960px] mx-auto overflow-hidden landscape:max-md:h-screen landscape:max-md:max-w-none landscape:max-md:mx-0 landscape:max-md:w-[calc(100%+2rem)] landscape:max-md:-mx-4 landscape:max-md:overflow-x-hidden landscape:max-md:pl-10">
+
         {/* Header */}
         <div className="sticky top-0 z-50 space-y-4 border-b border-zinc-200 bg-zinc-50 pb-4 shadow-sm sm:space-y-6 sm:pb-6 landscape:max-md:space-y-0 landscape:max-md:pb-0 landscape:max-md:pt-0">
           <div className="flex items-start justify-between gap-3 landscape:max-md:hidden">
@@ -129,8 +130,8 @@ export default function StrategyPage() {
           </div>
         </div>
 
-        {/* 內容區塊 - 已移除外部 overflow-y-auto */}
-        <div className="min-h-0 flex-1 bg-zinc-50 landscape:max-md:overflow-hidden">
+        {/* 內容區塊：完全禁止外部捲動，只讓 RankList 內部捲動 */}
+        <div className="min-h-0 flex-1 bg-zinc-50 overflow-hidden landscape:max-md:overflow-hidden">
           {loading ? (
             <div className="rounded-xl border border-zinc-200 bg-white p-5 text-sm text-zinc-600">
               資料載入中...
