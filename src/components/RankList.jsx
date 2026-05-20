@@ -105,6 +105,7 @@ function ScoreModal({ stock, onClose }) {
   const range = maxScore - minScore
   const vWidth = 500
   const vHeight = 260
+
   const pointsData = stock.history.map((item, i) => {
     const x = (i / (stock.history.length - 1)) * vWidth
     const clampedScore = Math.max(minScore, Math.min(maxScore, item.score))
@@ -114,129 +115,148 @@ function ScoreModal({ stock, onClose }) {
   const polylinePoints = pointsData.map(p => `${p.x},${p.y}`).join(' ')
 
   return createPortal(
-    <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/80 backdrop-blur-sm" onClick={onClose}>
-      <div className="bg-white rounded-3xl w-full max-w-lg landscape:max-md:max-w-[720px] landscape:max-md:flex landscape:max-md:gap-6 shadow-2xl overflow-hidden pointer-events-auto mx-4" onClick={e => e.stopPropagation()}>
-        
-        {/* 左邊 - 只在橫式顯示 */}
-        <div className="hidden landscape:max-md:block landscape:max-md:w-[42%] p-6 border-r">
-          <div className="flex justify-between items-start">
-            <div>
-              <div className="font-bold text-2xl text-zinc-900">
-                {stock.name} ({stock.stock_id})
-              </div>
-              <div className="text-4xl landscape:max-md:text-3xl font-bold text-blue-600 mt-2">
-                {formatScore(stock.display_score)}
-              </div>
-            </div>
-            <button onClick={onClose} className="p-2 text-gray-400 hover:text-zinc-900 transition-colors">
-              ✕
-            </button>
-          </div>
-
-          {/* 未通過原因（橫式專用） */}
-          {stock.passed_filter ? (
-            <div className="mt-6 rounded-2xl border border-emerald-100 bg-emerald-50 px-4 py-3 text-sm text-emerald-600">
-              已通過選股條件
-            </div>
-          ) : (
-            stock.failed_conditions && stock.failed_conditions.length > 0 && (
-              <div className="mt-6 rounded-2xl border border-red-100 bg-red-50 px-4 py-3 text-sm text-red-600">
-                <div className="font-bold mb-1">未通過原因</div>
-                <div>{stock.failed_conditions.join('、')}</div>
-              </div>
-            )
-          )}
-        </div>
-
-        {/* 原本的直式內容（直式完全不變） */}
-        <div className="landscape:max-md:w-[58%]">
-          {/* 標題區 - 直式使用原本的位置 */}
-          <div className="p-6 border-b landscape:max-md:hidden">
-            <div className="flex justify-between items-start">
+    <div 
+      className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/70 backdrop-blur-sm p-4" 
+      onClick={onClose}
+    >
+      <div 
+        className="bg-white rounded-3xl w-full max-w-[560px] landscape:max-md:max-w-[760px] shadow-2xl overflow-hidden pointer-events-auto"
+        onClick={e => e.stopPropagation()}
+      >
+        {/* ==================== 橫式左右分割 ==================== */}
+        <div className="landscape:max-md:flex landscape:max-md:gap-6">
+          
+          {/* 左側：橫式專用（名稱、分數、濾網） */}
+          <div className="hidden landscape:max-md:block landscape:max-md:w-[42%] p-8 border-r border-zinc-100 flex flex-col">
+            <div className="flex justify-between items-start mb-8">
               <div>
                 <div className="font-bold text-2xl text-zinc-900">
                   {stock.name} ({stock.stock_id})
                 </div>
-                <div className="text-4xl font-bold text-blue-600 mt-2">
+                <div className="text-[42px] font-bold text-blue-600 mt-2">
                   {formatScore(stock.display_score)}
                 </div>
               </div>
-              <button onClick={onClose} className="p-2 text-gray-400 hover:text-zinc-900 transition-colors">
+              
+              {/* 整個 Modal 右上角叉叉（橫式） */}
+              <button 
+                onClick={onClose} 
+                className="text-4xl text-gray-400 hover:text-zinc-900 transition-colors -mr-2 -mt-2"
+              >
                 ✕
               </button>
             </div>
-          </div>
 
-          <div className="p-6">
-            <div className="text-sm font-bold text-zinc-500 mb-6 uppercase tracking-wider">
-              最近 5 個交易日分數走勢
-            </div>
-
-            <div className="relative h-[280px] landscape:max-md:h-[235px] w-full border border-zinc-100 rounded-2xl bg-zinc-50/50 p-4">
-              <svg viewBox={`0 0 ${vWidth} ${vHeight}`} className="w-full h-full overflow-visible">
-                {[0, 0.25, 0.5, 0.75, 1].map((p, i) => {
-                  const y = vHeight * p
-                  return (
-                    <line
-                      key={i}
-                      x1="0"
-                      y1={y}
-                      x2={vWidth}
-                      y2={y}
-                      stroke="#e2e8f0"
-                      strokeWidth="1"
-                      strokeDasharray="4 4"
-                    />
-                  )
-                })}
-
-                <polyline
-                  points={polylinePoints}
-                  fill="none"
-                  stroke="#8b5cf6"
-                  strokeWidth="4"
-                  strokeLinejoin="round"
-                  strokeLinecap="round"
-                />
-
-                {pointsData.map((p, i) => (
-                  <g key={i}>
-                    <circle cx={p.x} cy={p.y} r="7" fill="#8b5cf6" stroke="#ffffff" strokeWidth="3" />
-                    <text
-                      x={p.x}
-                      y={p.y - 18}
-                      textAnchor="middle"
-                      className="text-[18px] font-black tabular-nums"
-                      style={{
-                        fill: '#4b5563',
-                        paintOrder: 'stroke',
-                        stroke: '#ffffff',
-                        strokeWidth: '4px',
-                        strokeLinejoin: 'round',
-                      }}
-                    >
-                      {p.score.toFixed(1)}
-                    </text>
-                  </g>
-                ))}
-              </svg>
-            </div>
-
-            <div className="flex justify-between mt-4 text-sm text-zinc-500 font-bold px-2">
-              {stock.history.map((item, i) => (
-                <div key={i}>{item.date.slice(5)}</div>
-              ))}
-            </div>
-
-            {/* 未通過原因 - 直式使用原本位置 */}
-            <div className="landscape:max-md:hidden">
+            {/* 濾網放在左下角 */}
+            <div className="mt-auto">
               {stock.passed_filter ? (
-                <div className="mt-6 rounded-2xl border border-emerald-100 bg-emerald-50 px-4 py-3 text-sm text-emerald-600">
+                <div className="rounded-2xl border border-emerald-100 bg-emerald-50 px-5 py-4 text-sm text-emerald-700 inline-flex items-center gap-2.5">
+                  <span className="text-2xl">✔</span>
                   已通過選股條件
                 </div>
               ) : (
                 stock.failed_conditions && stock.failed_conditions.length > 0 && (
-                  <div className="mt-6 rounded-2xl border border-red-100 bg-red-50 px-4 py-3 text-sm text-red-600">
+                  <div className="rounded-2xl border border-red-100 bg-red-50 px-5 py-4 text-sm text-red-700">
+                    <div className="font-bold mb-2">未通過原因</div>
+                    <div>{stock.failed_conditions.join('、')}</div>
+                  </div>
+                )
+              )}
+            </div>
+          </div>
+
+          {/* 右側：圖表區（直式與橫式共用主內容） */}
+          <div className="landscape:max-md:w-[58%] flex-1">
+            
+            {/* 直式標題區（橫式隱藏） */}
+            <div className="p-7 border-b landscape:max-md:hidden">
+              <div className="flex justify-between items-start">
+                <div>
+                  <div className="font-bold text-2xl text-zinc-900">
+                    {stock.name} ({stock.stock_id})
+                  </div>
+                  <div className="text-4xl font-bold text-blue-600 mt-2">
+                    {formatScore(stock.display_score)}
+                  </div>
+                </div>
+                <button onClick={onClose} className="p-2 text-gray-400 hover:text-zinc-900 transition-colors text-3xl">
+                  ✕
+                </button>
+              </div>
+            </div>
+
+            {/* 走勢圖區 - 加大空間確保日期顯示完整 */}
+            <div className="p-7 landscape:max-md:p-8">
+              <div className="text-sm font-bold text-zinc-500 mb-6 uppercase tracking-wider">
+                最近 5 個交易日分數走勢
+              </div>
+
+              <div className="relative h-[300px] landscape:max-md:h-[265px] w-full border border-zinc-100 rounded-2xl bg-zinc-50/70 p-5">
+                <svg viewBox={`0 0 ${vWidth} ${vHeight}`} className="w-full h-full overflow-visible">
+                  {[0, 0.25, 0.5, 0.75, 1].map((p, i) => {
+                    const y = vHeight * p
+                    return (
+                      <line
+                        key={i}
+                        x1="0"
+                        y1={y}
+                        x2={vWidth}
+                        y2={y}
+                        stroke="#e2e8f0"
+                        strokeWidth="1"
+                        strokeDasharray="4 4"
+                      />
+                    )
+                  })}
+
+                  <polyline
+                    points={polylinePoints}
+                    fill="none"
+                    stroke="#8b5cf6"
+                    strokeWidth="4.5"
+                    strokeLinejoin="round"
+                    strokeLinecap="round"
+                  />
+
+                  {pointsData.map((p, i) => (
+                    <g key={i}>
+                      <circle cx={p.x} cy={p.y} r="7" fill="#8b5cf6" stroke="#ffffff" strokeWidth="3.5" />
+                      <text
+                        x={p.x}
+                        y={p.y - 20}
+                        textAnchor="middle"
+                        className="text-[18px] font-black tabular-nums"
+                        style={{
+                          fill: '#374151',
+                          paintOrder: 'stroke',
+                          stroke: '#ffffff',
+                          strokeWidth: '4px',
+                        }}
+                      >
+                        {p.score.toFixed(1)}
+                      </text>
+                    </g>
+                  ))}
+                </svg>
+              </div>
+
+              {/* 日期 - 加大間距確保不被切 */}
+              <div className="flex justify-between mt-6 text-sm text-zinc-500 font-bold px-2">
+                {stock.history.map((item, i) => (
+                  <div key={i}>{item.date.slice(5)}</div>
+                ))}
+              </div>
+            </div>
+
+            {/* 直式濾網（橫式隱藏） */}
+            <div className="landscape:max-md:hidden px-7 pb-8">
+              {stock.passed_filter ? (
+                <div className="rounded-2xl border border-emerald-100 bg-emerald-50 px-5 py-4 text-sm text-emerald-600">
+                  已通過選股條件
+                </div>
+              ) : (
+                stock.failed_conditions && stock.failed_conditions.length > 0 && (
+                  <div className="rounded-2xl border border-red-100 bg-red-50 px-5 py-4 text-sm text-red-600">
                     <div className="font-bold mb-1">未通過原因</div>
                     <div>{stock.failed_conditions.join('、')}</div>
                   </div>
