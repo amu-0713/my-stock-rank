@@ -1,6 +1,10 @@
 import { useState, useEffect } from 'react'
 
-export default function AppSidebarLayout({ children, contentClassName = 'max-w-6xl' }) {
+export default function AppSidebarLayout({
+  children,
+  contentClassName = 'max-w-6xl',
+  flushTopOnLandscape = false,
+}) {
   // 從 localStorage 讀取狀態
   // 預設：手機版關閉、電腦版開啟
   const [sidebarOpen, setSidebarOpen] = useState(() => {
@@ -89,7 +93,10 @@ export default function AppSidebarLayout({ children, contentClassName = 'max-w-6
         `}
       >
         <div
-          className={`mx-auto w-full ${contentClassName} px-4 pt-14 pb-6 sm:px-6 sm:pt-10 sm:py-10 lg:px-8`}
+          className={[
+            `mx-auto w-full ${contentClassName} px-4 pt-14 pb-6 sm:px-6 sm:pt-10 sm:py-10 lg:px-8`,
+            flushTopOnLandscape ? 'landscape:max-md:pt-0' : '',
+          ].join(' ')}
         >
           {children}
         </div>
