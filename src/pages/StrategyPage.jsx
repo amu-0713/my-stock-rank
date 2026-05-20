@@ -132,12 +132,12 @@ export default function StrategyPage() {
           </div>
         </div>
 
-        {/* === Tabs 固定 === */}
+        {/* === Tabs 固定在最頂 === */}
         <div className="sticky top-0 z-40 bg-white border-b border-zinc-200">
           <Tabs items={tabItems} activeId={activeTab} onChange={setActiveTab} />
         </div>
 
-        {/* === RankList 區域：手機橫向時真正橫向占滿（不壓縮欄位） === */}
+        {/* === RankList 區域：手機橫向時真正橫向占滿 + 標頭固定 === */}
         <div className="min-h-0 flex-1 overflow-y-auto bg-zinc-50 landscape:pt-0">
           {loading ? (
             <div className="rounded-xl border border-zinc-200 bg-white p-5 text-sm text-zinc-600">
@@ -148,7 +148,7 @@ export default function StrategyPage() {
               {error}
             </div>
           ) : (
-            <div className="landscape:min-w-full landscape:w-screen landscape:-mx-4 overflow-x-hidden">
+            <div className="landscape:min-w-screen landscape:w-screen landscape:-mx-4 overflow-x-hidden">
               <RankList
                 title={tabItems.find((tab) => tab.id === activeTab)?.label}
                 rows={data?.[activeTab] ?? []}
