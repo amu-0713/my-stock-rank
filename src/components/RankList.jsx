@@ -97,7 +97,6 @@ function getDisplayedRank(row, sortKey, isSearching, currentIndex) {
 function ScoreModal({ stock, onClose }) {
   if (!stock?.history || stock.history.length === 0) return null
 
-  // ==================== 圖表資料計算（保持不變） ====================
   const scoreValues = stock.history.map(item => item.score || 50)
   const minData = Math.min(...scoreValues)
   const maxData = Math.max(...scoreValues)
@@ -106,7 +105,6 @@ function ScoreModal({ stock, onClose }) {
   const range = maxScore - minScore
   const vWidth = 500
   const vHeight = 260
-
   const pointsData = stock.history.map((item, i) => {
     const x = (i / (stock.history.length - 1)) * vWidth
     const clampedScore = Math.max(minScore, Math.min(maxScore, item.score))
@@ -117,127 +115,101 @@ function ScoreModal({ stock, onClose }) {
 
   return createPortal(
     <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/80 backdrop-blur-sm" onClick={onClose}>
-      <div 
-        className="bg-white rounded-3xl w-full max-w-lg landscape:max-md:max-w-[720px] shadow-2xl overflow-hidden pointer-events-auto mx-4 flex flex-col landscape:max-md:flex-row max-h-[90vh]"
-        onClick={e => e.stopPropagation()}
-      >
-        {/* ==================== 左邊：名字 + 分數 + 濾網 ==================== */}
-        <div className="p-6 landscape:max-md:w-2/5 border-b landscape:max-md:border-b-0 landscape:max-md:border-r flex flex-col landscape:max-md:justify-between">
+      <div className="bg-white rounded-3xl w-full max-w-lg shadow-2xl overflow-hidden pointer-events-auto mx-4" onClick={e => e.stopPropagation()}>
+        {/* ScoreModal 內容保持不變 */}
+        <div className="p-6 border-b flex justify-between items-start">
           <div>
             <div className="font-bold text-2xl text-zinc-900">
               {stock.name} ({stock.stock_id})
             </div>
-            <div className="text-6xl font-bold text-blue-600 mt-6">
+            <div className="text-4xl font-bold text-blue-600 mt-2">
               {formatScore(stock.display_score)}
             </div>
           </div>
+          <button onClick={onClose} className="p-2 text-gray-400 hover:text-zinc-900 transition-colors">
+            ✕
+          </button>
+        </div>
 
-          {/* 濾網狀態 */}
+        <div className="p-6">
+          <div className="text-sm font-bold text-zinc-500 mb-6 uppercase tracking-wider">
+            最近 5 個交易日分數走勢
+          </div>
+
+          <div className="relative h-[280px] w-full border border-zinc-100 rounded-2xl bg-zinc-50/50 p-4">
+            <svg viewBox={`0 0 ${vWidth} ${vHeight}`} className="w-full h-full overflow-visible">
+              {[0, 0.25, 0.5, 0.75, 1].map((p, i) => {
+                const y = vHeight * p
+                return (
+                  <line
+                    key={i}
+                    x1="0"
+                    y1={y}
+                    x2={vWidth}
+                    y2={y}
+                    stroke="#e2e8f0"
+                    strokeWidth="1"
+                    strokeDasharray="4 4"
+                  />
+                )
+              })}
+
+              <polyline
+                points={polylinePoints}
+                fill="none"
+                stroke="#8b5cf6"
+                strokeWidth="4"
+                strokeLinejoin="round"
+                strokeLinecap="round"
+              />
+
+              {pointsData.map((p, i) => (
+                <g key={i}>
+                  <circle cx={p.x} cy={p.y} r="7" fill="#8b5cf6" stroke="#ffffff" strokeWidth="3" />
+                  <text
+                    x={p.x}
+                    y={p.y - 18}
+                    textAnchor="middle"
+                    className="text-[18px] font-black tabular-nums"
+                    style={{
+                      fill: '#4b5563',
+                      paintOrder: 'stroke',
+                      stroke: '#ffffff',
+                      strokeWidth: '4px',
+                      strokeLinejoin: 'round',
+                    }}
+                  >
+                    {p.score.toFixed(1)}
+                  </text>
+                </g>
+              ))}
+            </svg>
+          </div>
+
+          <div className="flex justify-between mt-4 text-sm text-zinc-500 font-bold px-2">
+            {stock.history.map((item, i) => (
+              <div key={i}>{item.date.slice(5)}</div>
+            ))}
+          </div>
+
           {stock.passed_filter ? (
-            <div className="mt-8 rounded-2xl border border-emerald-100 bg-emerald-50 px-5 py-4 text-sm text-emerald-600">
+            <div className="mt-6 rounded-2xl border border-emerald-100 bg-emerald-50 px-4 py-3 text-sm text-emerald-600">
               已通過選股條件
             </div>
           ) : (
             stock.failed_conditions && stock.failed_conditions.length > 0 && (
-              <div className="mt-8 rounded-2xl border border-red-100 bg-red-50 px-5 py-4 text-sm text-red-600">
+              <div className="mt-6 rounded-2xl border border-red-100 bg-red-50 px-4 py-3 text-sm text-red-600">
                 <div className="font-bold mb-1">未通過原因</div>
                 <div>{stock.failed_conditions.join('、')}</div>
               </div>
             )
           )}
-
-          {/* 直式時的關閉按鈕 */}
-          <button 
-            onClick={onClose} 
-            className="landscape:max-md:hidden mt-auto self-end text-gray-400 hover:text-zinc-900 text-2xl"
-          >
-            ✕
-          </button>
-        </div>
-
-        {/* ==================== 中間：折線圖 ==================== */}
-        <div className="flex-1 flex flex-col landscape:max-md:w-3/5">
-          <div className="p-5 border-b flex items-center justify-between landscape:max-md:p-4">
-            <div className="text-sm font-bold text-zinc-500 uppercase tracking-wider">
-              最近 5 個交易日分數走勢
-            </div>
-            {/* 橫式時的關閉按鈕 */}
-            <button 
-              onClick={onClose} 
-              className="hidden landscape:max-md:block text-gray-400 hover:text-zinc-900 text-2xl"
-            >
-              ✕
-            </button>
-          </div>
-
-          <div className="flex-1 p-4 landscape:max-md:p-6 flex items-center">
-            <div className="relative w-full max-h-[260px] landscape:max-md:max-h-[240px]">
-              <svg viewBox={`0 0 ${vWidth} ${vHeight}`} className="w-full h-full overflow-visible">
-                {/* 網格線 */}
-                {[0, 0.25, 0.5, 0.75, 1].map((p, i) => {
-                  const y = vHeight * p
-                  return (
-                    <line
-                      key={i}
-                      x1="0"
-                      y1={y}
-                      x2={vWidth}
-                      y2={y}
-                      stroke="#e2e8f0"
-                      strokeWidth="1"
-                      strokeDasharray="4 4"
-                    />
-                  )
-                })}
-
-                {/* 折線 */}
-                <polyline
-                  points={polylinePoints}
-                  fill="none"
-                  stroke="#8b5cf6"
-                  strokeWidth="4"
-                  strokeLinejoin="round"
-                  strokeLinecap="round"
-                />
-
-                {/* 資料點 + 分數文字 */}
-                {pointsData.map((p, i) => (
-                  <g key={i}>
-                    <circle cx={p.x} cy={p.y} r="7" fill="#8b5cf6" stroke="#ffffff" strokeWidth="3" />
-                    <text
-                      x={p.x}
-                      y={p.y - 18}
-                      textAnchor="middle"
-                      className="text-[18px] font-black tabular-nums"
-                      style={{
-                        fill: '#4b5563',
-                        paintOrder: 'stroke',
-                        stroke: '#ffffff',
-                        strokeWidth: '4px',
-                        strokeLinejoin: 'round',
-                      }}
-                    >
-                      {p.score.toFixed(1)}
-                    </text>
-                  </g>
-                ))}
-              </svg>
-            </div>
-          </div>
-
-          {/* 日期標籤 */}
-          <div className="flex justify-between text-sm text-zinc-500 font-bold px-6 pb-6 landscape:max-md:pb-4">
-            {stock.history.map((item, i) => (
-              <div key={i}>{item.date.slice(5)}</div>
-            ))}
-          </div>
         </div>
       </div>
     </div>,
     document.body
   )
 }
-
 // 下面所有函數保持不變（normalizeSortKey ~ sortIndicator）
 
 const DEFAULT_SORT_KEY = 'score'
