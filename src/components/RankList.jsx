@@ -115,45 +115,51 @@ function ScoreModal({ stock, onClose }) {
 
   return createPortal(
     <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/80 backdrop-blur-sm" onClick={onClose}>
+      
       {/* 
         外層容器優化：
-        將橫式最大寬度由 max-w-[720px] 縮減至 max-w-[540px]，讓整體在手機橫盤時不那麼佔空間。
+        1. 加上 relative，好讓橫式的關閉按鈕可以絕對定位到整個大 Modal 的右上角。
       */}
-      <div className="bg-white rounded-3xl w-full max-w-lg landscape:max-md:max-w-[540px] landscape:max-md:flex shadow-2xl overflow-hidden pointer-events-auto mx-4" onClick={e => e.stopPropagation()}>
+      <div className="relative bg-white rounded-3xl w-full max-w-lg landscape:max-md:max-w-[540px] landscape:max-md:flex shadow-2xl overflow-hidden pointer-events-auto mx-4" onClick={e => e.stopPropagation()}>
         
+        {/* ==================== 橫式專用右上角關閉按鈕 ==================== */}
+        {/* 在直式與電腦版隱藏，手機橫式時直接定死在整個 Modal 的右上角 */}
+        <button 
+          onClick={onClose} 
+          className="hidden landscape:max-md:block absolute top-3 right-3 z-50 p-2 text-gray-400 hover:text-zinc-900 bg-white/80 backdrop-blur-sm rounded-full transition-colors"
+        >
+          ✕
+        </button>
+
         {/* ==================== 左邊區塊（只在手機橫式顯示） ==================== */}
-        {/* 
-          優化點 1：改為 flex-col，使內部濾網能利用 mt-auto 彈性推至最底部。
-          優化點 2：內襯調整為 p-4，寬度微調為 38%，使佈局在縮小後依然緊湊精緻。
-        */}
+        {/* 內襯加上 padding-top 留白，避免股票名稱撞到右上角的關閉按鈕 */}
         <div className="hidden landscape:max-md:flex landscape:max-md:flex-col landscape:max-md:w-[38%] p-6 landscape:max-md:p-4 border-r">
           <div className="flex justify-between items-start">
             <div>
-              <div className="font-bold text-2xl landscape:max-md:text-lg text-zinc-900 leading-tight">
+              <div className="font-bold text-2xl landscape:max-md:text-lg text-zinc-900 leading-tight landscape:max-md:pr-4">
                 {stock.name} ({stock.stock_id})
               </div>
               <div className="text-4xl landscape:max-md:text-2xl font-bold text-blue-600 mt-2 landscape:max-md:mt-1">
                 {formatScore(stock.display_score)}
               </div>
             </div>
-            <button onClick={onClose} className="p-2 landscape:max-md:p-1 text-gray-400 hover:text-zinc-900 transition-colors">
-              ✕
-            </button>
+            {/* 原本左側內部的叉叉已移除，改由上方全局右上角的按鈕取代 */}
           </div>
 
           {/* 
-            條件選股濾網區塊：
-            藉由 mt-auto 與 pt-4，確保在橫式視窗中完美黏在左下角，且字體調整為 text-xs 防止折行卡到。
+            條件選股濾網區塊（橫式）：
+            使用 mt-auto。字數少時，它會被 margin-top 推到最底部。
+            字數多時（移除限制），區塊會自動往上伸展撐大，絕不破版。
           */}
           {stock.passed_filter ? (
-            <div className="mt-auto pt-4 rounded-xl border border-emerald-100 bg-emerald-50 px-3 py-2 text-xs text-emerald-600">
+            <div className="mt-auto rounded-xl border border-emerald-100 bg-emerald-50 px-3 py-2 text-xs text-emerald-600">
               已通過選股條件
             </div>
           ) : (
             stock.failed_conditions && stock.failed_conditions.length > 0 && (
-              <div className="mt-auto pt-4 rounded-xl border border-red-100 bg-red-50 px-3 py-2 text-xs text-red-600">
+              <div className="mt-auto rounded-xl border border-red-100 bg-red-50 px-3 py-2 text-xs text-red-600">
                 <div className="font-bold mb-0.5">未通過原因</div>
-                <div className="truncate" title={stock.failed_conditions.join('、')}>
+                <div className="leading-relaxed">
                   {stock.failed_conditions.join('、')}
                 </div>
               </div>
@@ -162,10 +168,9 @@ function ScoreModal({ stock, onClose }) {
         </div>
 
         {/* ==================== 右邊區塊（走勢圖與直式通用內容） ==================== */}
-        {/* 寬度配合左側調整為 62% */}
         <div className="w-full landscape:max-md:w-[62%]">
           
-          {/* 標題區 - 直式使用原本的位置，橫式時隱藏（因為左側已有標題） */}
+          {/* 標題區 - 直式使用原本的位置，橫式時隱藏 */}
           <div className="p-6 border-b landscape:max-md:hidden">
             <div className="flex justify-between items-start">
               <div>
@@ -188,10 +193,6 @@ function ScoreModal({ stock, onClose }) {
               最近 5 個交易日分數走勢
             </div>
 
-            {/* 
-              優化點 3：橫式高度從原本的 235px 降低至 180px，防止在小螢幕手機上撐開畫面。
-              SVG 本身具備自適應縮放特性，因此內容與文字絕對不會移位變形。
-            */}
             <div className="relative h-[280px] landscape:max-md:h-[180px] w-full border border-zinc-100 rounded-2xl bg-zinc-50/50 p-4 landscape:max-md:p-2">
               <svg viewBox={`0 0 ${vWidth} ${vHeight}`} className="w-full h-full overflow-visible">
                 {[0, 0.25, 0.5, 0.75, 1].map((p, i) => {
@@ -242,7 +243,6 @@ function ScoreModal({ stock, onClose }) {
               </svg>
             </div>
 
-            {/* 日期區塊間距微調 */}
             <div className="flex justify-between mt-4 landscape:max-md:mt-2 text-sm landscape:max-md:text-xs text-zinc-500 font-bold px-2">
               {stock.history.map((item, i) => (
                 <div key={i}>{item.date.slice(5)}</div>
