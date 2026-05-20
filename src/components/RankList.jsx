@@ -115,52 +115,64 @@ function ScoreModal({ stock, onClose }) {
 
   return createPortal(
     <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/80 backdrop-blur-sm" onClick={onClose}>
-      <div className="bg-white rounded-3xl w-full max-w-lg landscape:max-md:max-w-[620px] landscape:max-md:mx-8 landscape:max-md:max-h-[85vh] landscape:max-md:flex landscape:max-md:gap-6 shadow-2xl overflow-hidden pointer-events-auto mx-4" onClick={e => e.stopPropagation()}>
+      <div className="bg-white rounded-3xl w-full max-w-lg landscape:max-md:max-w-[720px] landscape:max-md:flex landscape:max-md:gap-6 shadow-2xl overflow-hidden pointer-events-auto mx-4" onClick={e => e.stopPropagation()}>
         
-        {/* 叉叉 - 右上角（只在橫式顯示在右上） */}
-        <button onClick={onClose} className="hidden landscape:max-md:block absolute top-5 right-5 text-gray-400 hover:text-zinc-900 transition-colors z-10">
-          ✕
-        </button>
+        {/* 左邊 - 只在橫式顯示 */}
+        <div className="hidden landscape:max-md:block landscape:max-md:w-[42%] p-6 border-r">
+          <div className="flex justify-between items-start">
+            <div>
+              <div className="font-bold text-2xl text-zinc-900">
+                {stock.name} ({stock.stock_id})
+              </div>
+              <div className="text-4xl landscape:max-md:text-3xl font-bold text-blue-600 mt-2">
+                {formatScore(stock.display_score)}
+              </div>
+            </div>
+            <button onClick={onClose} className="p-2 text-gray-400 hover:text-zinc-900 transition-colors">
+              ✕
+            </button>
+          </div>
 
-        <div className="landscape:max-md:flex landscape:max-md:gap-6">
-          
-          {/* 左邊：名字 + 分數 + 濾網靠左下 */}
-          <div className="landscape:max-md:w-[42%] p-6 flex flex-col border-b landscape:max-md:border-b-0 landscape:max-md:border-r">
+          {/* 未通過原因（橫式專用） */}
+          {stock.passed_filter ? (
+            <div className="mt-6 rounded-2xl border border-emerald-100 bg-emerald-50 px-4 py-3 text-sm text-emerald-600">
+              已通過選股條件
+            </div>
+          ) : (
+            stock.failed_conditions && stock.failed_conditions.length > 0 && (
+              <div className="mt-6 rounded-2xl border border-red-100 bg-red-50 px-4 py-3 text-sm text-red-600">
+                <div className="font-bold mb-1">未通過原因</div>
+                <div>{stock.failed_conditions.join('、')}</div>
+              </div>
+            )
+          )}
+        </div>
+
+        {/* 原本的直式內容（直式完全不變） */}
+        <div className="landscape:max-md:w-[58%]">
+          {/* 標題區 - 直式使用原本的位置 */}
+          <div className="p-6 border-b landscape:max-md:hidden">
             <div className="flex justify-between items-start">
               <div>
                 <div className="font-bold text-2xl text-zinc-900">
                   {stock.name} ({stock.stock_id})
                 </div>
-                <div className="text-4xl landscape:max-md:text-3xl font-bold text-blue-600 mt-2">
+                <div className="text-4xl font-bold text-blue-600 mt-2">
                   {formatScore(stock.display_score)}
                 </div>
               </div>
-            </div>
-
-            {/* 濾網靠左下 */}
-            <div className="mt-auto">
-              {stock.passed_filter ? (
-                <div className="mt-6 rounded-2xl border border-emerald-100 bg-emerald-50 px-4 py-3 text-sm text-emerald-600">
-                  已通過選股條件
-                </div>
-              ) : (
-                stock.failed_conditions && stock.failed_conditions.length > 0 && (
-                  <div className="mt-6 rounded-2xl border border-red-100 bg-red-50 px-4 py-3 text-sm text-red-600">
-                    <div className="font-bold mb-1">未通過原因</div>
-                    <div>{stock.failed_conditions.join('、')}</div>
-                  </div>
-                )
-              )}
+              <button onClick={onClose} className="p-2 text-gray-400 hover:text-zinc-900 transition-colors">
+                ✕
+              </button>
             </div>
           </div>
 
-          {/* 右邊：走勢圖 + 日期 */}
-          <div className="landscape:max-md:w-[58%] p-6">
+          <div className="p-6">
             <div className="text-sm font-bold text-zinc-500 mb-6 uppercase tracking-wider">
               最近 5 個交易日分數走勢
             </div>
 
-            <div className="relative h-[280px] landscape:max-md:h-[195px] w-full border border-zinc-100 rounded-2xl bg-zinc-50/50 p-4">
+            <div className="relative h-[280px] landscape:max-md:h-[235px] w-full border border-zinc-100 rounded-2xl bg-zinc-50/50 p-4">
               <svg viewBox={`0 0 ${vWidth} ${vHeight}`} className="w-full h-full overflow-visible">
                 {[0, 0.25, 0.5, 0.75, 1].map((p, i) => {
                   const y = vHeight * p
@@ -210,10 +222,26 @@ function ScoreModal({ stock, onClose }) {
               </svg>
             </div>
 
-           <div className="flex justify-between mt-4 landscape:max-md:mt-1 text-sm text-zinc-500 font-bold px-2">
+            <div className="flex justify-between mt-4 text-sm text-zinc-500 font-bold px-2">
               {stock.history.map((item, i) => (
                 <div key={i}>{item.date.slice(5)}</div>
               ))}
+            </div>
+
+            {/* 未通過原因 - 直式使用原本位置 */}
+            <div className="landscape:max-md:hidden">
+              {stock.passed_filter ? (
+                <div className="mt-6 rounded-2xl border border-emerald-100 bg-emerald-50 px-4 py-3 text-sm text-emerald-600">
+                  已通過選股條件
+                </div>
+              ) : (
+                stock.failed_conditions && stock.failed_conditions.length > 0 && (
+                  <div className="mt-6 rounded-2xl border border-red-100 bg-red-50 px-4 py-3 text-sm text-red-600">
+                    <div className="font-bold mb-1">未通過原因</div>
+                    <div>{stock.failed_conditions.join('、')}</div>
+                  </div>
+                )
+              )}
             </div>
           </div>
         </div>
