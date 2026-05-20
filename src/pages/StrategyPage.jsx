@@ -97,14 +97,16 @@ export default function StrategyPage() {
 
   return (
     <AppSidebarLayout contentClassName="max-w-[960px] mx-auto" flushTopOnLandscape>
-      {/* 最外層容器：
-        我們調整了基礎類別 (w-full min-h-0)，確保在直式狀態下能 100% 依循原本的 Flex 軸向垂直延伸，
-        完全釋放被裁切的底部區塊（那消失的三檔股票會順利回到直式畫面中）。
+      {/* 1. 最外層容器：
+        全面鎖定高度為 `h-[calc(100dvh-4rem)]`，無論直式橫式或電腦，
+        都強制讓整頁的高度死死卡在可視螢幕內，並用 overflow-hidden 徹底阻斷整頁 scroll。
       */}
-      <div className="flex w-full min-h-0 flex-col max-w-[960px] mx-auto overflow-hidden h-[calc(100vh-5rem)] sm:h-[calc(100vh-5rem)] landscape:max-md:fixed landscape:max-md:inset-0 landscape:max-md:h-dvh landscape:max-md:max-w-none landscape:max-md:mx-0 landscape:max-md:w-[calc(100%+2rem)] landscape:max-md:-mx-4 landscape:max-md:overflow-hidden landscape:max-md:pl-10">
+      <div className="flex w-full h-[calc(100dvh-4rem)] sm:h-[calc(100vh-5rem)] min-h-0 flex-col max-w-[960px] mx-auto overflow-hidden landscape:max-md:fixed landscape:max-md:inset-0 landscape:max-md:h-dvh landscape:max-md:max-w-none landscape:max-md:mx-0 landscape:max-md:w-[calc(100%+2rem)] landscape:max-md:-mx-4 landscape:max-md:pl-10">
 
-        {/* Header */}
-        <div className="sticky top-0 z-50 space-y-4 border-b border-zinc-200 bg-zinc-50 pb-4 shadow-sm sm:space-y-6 sm:pb-6 landscape:max-md:space-y-0 landscape:max-md:pb-0 landscape:max-md:pt-0">
+        {/* 2. Header 區塊：
+          加上 flex-shrink-0，確保上方的標題與頁籤在直式小螢幕下絕對不會被壓縮變形。
+        */}
+        <div className="flex-shrink-0 sticky top-0 z-50 space-y-4 border-b border-zinc-200 bg-zinc-50 pb-4 shadow-sm sm:space-y-6 sm:pb-6 landscape:max-md:space-y-0 landscape:max-md:pb-0 landscape:max-md:pt-0">
           <div className="flex items-start justify-between gap-3 landscape:max-md:hidden">
             <div>
               <div className="pl-4 text-lg font-semibold sm:text-xl">{title}</div>
@@ -133,8 +135,12 @@ export default function StrategyPage() {
           </div>
         </div>
 
-        {/* 內容區塊：完全禁止外部捲動，只讓 RankList 內部捲動 */}
-        <div className="min-h-0 flex-1 bg-zinc-50 overflow-hidden landscape:max-md:overflow-hidden">
+        {/* 3. 下方內容與表格區塊：
+          使用 `flex-1 min-h-0`。這步是讓直式不破版的終極核心！
+          它會強迫這個區塊自動吃滿扣除 Header 後的「剩餘精確高度」。
+          當高度被固定住後，RankList 內部的滾動機制就會被完美激活，少掉的三檔股票就能流暢滑到了！
+        */}
+        <div className="flex-1 min-h-0 bg-zinc-50 overflow-hidden">
           {loading ? (
             <div className="rounded-xl border border-zinc-200 bg-white p-5 text-sm text-zinc-600">
               資料載入中...
@@ -144,7 +150,7 @@ export default function StrategyPage() {
               {error}
             </div>
           ) : (
-            <div className="h-full min-h-0 landscape:max-md:h-full">
+            <div className="h-full min-h-0">
               <div className="h-full min-h-0 landscape:max-md:pr-6 landscape:max-md:scale-[0.9] landscape:max-md:origin-top-left landscape:max-md:w-[111.111%]">
                 <RankList
                   title={tabItems.find((tab) => tab.id === activeTab)?.label}
@@ -158,6 +164,7 @@ export default function StrategyPage() {
             </div>
           )}
         </div>
+
       </div>
     </AppSidebarLayout>
   )
