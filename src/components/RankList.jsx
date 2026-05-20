@@ -475,7 +475,7 @@ export default function RankList({
   }
 
   return (
-    <div className={`isolate flex h-[100dvh] min-h-[100dvh] flex-col overflow-hidden rounded-2xl border border-zinc-200 bg-white shadow-sm max-w-[960px] mx-auto ${isModalOpen ? 'pointer-events-none' : ''}`}>
+    <div className={`isolate flex h-full min-h-0 flex-col overflow-hidden rounded-2xl border border-zinc-200 bg-white shadow-sm max-w-[960px] mx-auto ${isModalOpen ? 'pointer-events-none' : ''}`}>
       <div className="z-40 border-b border-zinc-200 bg-white">
         <div className="flex w-full items-center justify-between gap-3 px-4 py-3 shadow-sm landscape:max-md:pl-5 landscape:max-md:pr-3 landscape:max-md:py-2">
           <div className="text-sm font-semibold text-zinc-900">{title}</div>
