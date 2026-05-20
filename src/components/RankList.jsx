@@ -115,9 +115,9 @@ function ScoreModal({ stock, onClose }) {
 
   return createPortal(
     <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/80 backdrop-blur-sm" onClick={onClose}>
-     <div className="bg-white rounded-3xl w-full max-w-lg landscape:max-md:max-w-[300px] landscape:max-md:mx-3 shadow-2xl overflow-hidden pointer-events-auto mx-4" onClick={e => e.stopPropagation()}>
+     <div className="bg-white rounded-3xl w-full max-w-lg landscape:max-md:max-w-[240px] landscape:max-md:mx-3 shadow-2xl overflow-hidden pointer-events-auto mx-4" onClick={e => e.stopPropagation()}>
         {/* ScoreModal 內容保持不變 */}
-        <div className="p-6 border-b flex justify-between items-start landscape:max-md:p-3">
+        <div className="p-6 border-b flex justify-between items-start landscape:max-md:p-2">
           <div>
             <div className="font-bold text-2xl text-zinc-900">
               {stock.name} ({stock.stock_id})
@@ -131,12 +131,12 @@ function ScoreModal({ stock, onClose }) {
           </button>
         </div>
 
-       <div className="p-6 landscape:max-md:p-3">
+       <div className="p-6 landscape:max-md:p-2">
           <div className="text-sm font-bold text-zinc-500 mb-6 uppercase tracking-wider">
             最近 5 個交易日分數走勢
           </div>
 
-           <div className="relative h-[280px] landscape:max-md:h-[165px] w-full border border-zinc-100 rounded-2xl bg-zinc-50/50 p-4 landscape:max-md:p-3">
+           <div className="relative h-[280px] landscape:max-md:h-[120px] w-full border border-zinc-100 rounded-2xl bg-zinc-50/50 p-4 landscape:max-md:p-3">
             <svg viewBox={`0 0 ${vWidth} ${vHeight}`} className="w-full h-full overflow-visible">
               {[0, 0.25, 0.5, 0.75, 1].map((p, i) => {
                 const y = vHeight * p
