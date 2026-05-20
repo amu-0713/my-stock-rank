@@ -115,28 +115,46 @@ function ScoreModal({ stock, onClose }) {
 
   return createPortal(
     <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/80 backdrop-blur-sm" onClick={onClose}>
-      <div className="bg-white rounded-3xl w-full max-w-lg shadow-2xl overflow-hidden pointer-events-auto mx-4" onClick={e => e.stopPropagation()}>
-        {/* ScoreModal 內容保持不變 */}
-        <div className="p-6 border-b flex justify-between items-start">
-          <div>
-            <div className="font-bold text-2xl text-zinc-900">
-              {stock.name} ({stock.stock_id})
+      <div className="bg-white rounded-3xl w-full max-w-lg landscape:max-md:max-w-[680px] landscape:max-md:flex landscape:max-md:gap-6 shadow-2xl overflow-hidden pointer-events-auto mx-4" onClick={e => e.stopPropagation()}>
+        
+        {/* 左邊：股票名稱 + 分數 + 濾網資訊 */}
+        <div className="p-6 border-b landscape:max-md:border-b-0 landscape:max-md:border-r landscape:max-md:w-2/5">
+          <div className="flex justify-between items-start">
+            <div>
+              <div className="font-bold text-2xl text-zinc-900">
+                {stock.name} ({stock.stock_id})
+              </div>
+              <div className="text-4xl landscape:max-md:text-3xl font-bold text-blue-600 mt-2 landscape:max-md:mt-1">
+                {formatScore(stock.display_score)}
+              </div>
             </div>
-            <div className="text-4xl font-bold text-blue-600 mt-2">
-              {formatScore(stock.display_score)}
-            </div>
+            <button onClick={onClose} className="p-2 text-gray-400 hover:text-zinc-900 transition-colors">
+              ✕
+            </button>
           </div>
-          <button onClick={onClose} className="p-2 text-gray-400 hover:text-zinc-900 transition-colors">
-            ✕
-          </button>
+
+          {/* 濾網資訊 */}
+          {stock.passed_filter ? (
+            <div className="mt-6 rounded-2xl border border-emerald-100 bg-emerald-50 px-4 py-3 text-sm text-emerald-600">
+              已通過選股條件
+            </div>
+          ) : (
+            stock.failed_conditions && stock.failed_conditions.length > 0 && (
+              <div className="mt-6 rounded-2xl border border-red-100 bg-red-50 px-4 py-3 text-sm text-red-600">
+                <div className="font-bold mb-1">未通過原因</div>
+                <div>{stock.failed_conditions.join('、')}</div>
+              </div>
+            )
+          )}
         </div>
 
-        <div className="p-6">
+        {/* 右邊：折線圖 + 日期 */}
+        <div className="p-6 landscape:max-md:w-3/5">
           <div className="text-sm font-bold text-zinc-500 mb-6 uppercase tracking-wider">
             最近 5 個交易日分數走勢
           </div>
 
-          <div className="relative h-[280px] w-full border border-zinc-100 rounded-2xl bg-zinc-50/50 p-4">
+          <div className="relative h-[280px] landscape:max-md:h-[220px] w-full border border-zinc-100 rounded-2xl bg-zinc-50/50 p-4 landscape:max-md:p-3">
             <svg viewBox={`0 0 ${vWidth} ${vHeight}`} className="w-full h-full overflow-visible">
               {[0, 0.25, 0.5, 0.75, 1].map((p, i) => {
                 const y = vHeight * p
@@ -186,24 +204,11 @@ function ScoreModal({ stock, onClose }) {
             </svg>
           </div>
 
-          <div className="flex justify-between mt-4 text-sm text-zinc-500 font-bold px-2">
+          <div className="flex justify-between mt-4 landscape:max-md:mt-3 text-sm text-zinc-500 font-bold px-2">
             {stock.history.map((item, i) => (
               <div key={i}>{item.date.slice(5)}</div>
             ))}
           </div>
-
-          {stock.passed_filter ? (
-            <div className="mt-6 rounded-2xl border border-emerald-100 bg-emerald-50 px-4 py-3 text-sm text-emerald-600">
-              已通過選股條件
-            </div>
-          ) : (
-            stock.failed_conditions && stock.failed_conditions.length > 0 && (
-              <div className="mt-6 rounded-2xl border border-red-100 bg-red-50 px-4 py-3 text-sm text-red-600">
-                <div className="font-bold mb-1">未通過原因</div>
-                <div>{stock.failed_conditions.join('、')}</div>
-              </div>
-            )
-          )}
         </div>
       </div>
     </div>,
