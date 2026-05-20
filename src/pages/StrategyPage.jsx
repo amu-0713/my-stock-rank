@@ -103,8 +103,8 @@ export default function StrategyPage() {
 
   return (
     <AppSidebarLayout contentClassName="max-w-[960px] mx-auto">
-      <div className="flex h-[calc(100vh-3rem)] min-h-0 flex-col sm:h-[calc(100vh-5rem)] max-w-[960px] mx-auto landscape:max-md:max-w-none landscape:max-md:mx-0 landscape:max-md:w-[calc(100%+2rem)] landscape:max-md:-mx-4 landscape:max-md:overflow-x-hidden">
-        <div className="sticky top-0 z-50 space-y-4 border-b border-zinc-200 bg-zinc-50 pb-4 shadow-sm sm:space-y-6 sm:pb-6">
+      <div className="flex h-[calc(100vh-3rem)] min-h-0 flex-col sm:h-[calc(100vh-5rem)] max-w-[960px] mx-auto landscape:max-md:max-w-none landscape:max-md:mx-0 landscape:max-md:w-[calc(100%+2rem)] landscape:max-md:-mx-4 landscape:max-md:overflow-x-hidden landscape:max-md:pl-10">
+        <div className="sticky top-0 z-50 space-y-4 border-b border-zinc-200 bg-zinc-50 pb-4 shadow-sm sm:space-y-6 sm:pb-6 landscape:max-md:space-y-0 landscape:max-md:pb-0">
           <div className="flex items-start justify-between gap-3 landscape:max-md:hidden">
             <div>
               <div className="pl-4 text-lg font-semibold sm:text-xl">{title}</div>
@@ -148,7 +148,7 @@ export default function StrategyPage() {
             </div>
           ) : (
             <div className="h-full min-h-0 landscape:max-md:h-[calc(100vh-3rem-1px)]">
-              {/* 手機橫向：縮小固定區塊高度、並留右側安全邊距避免被系統 UI 擋住 */}
+              {/* 手機橫向：留右側安全邊距避免被系統 UI 擋住 */}
               <div className="h-full min-h-0 landscape:max-md:pr-6 landscape:max-md:scale-[0.9] landscape:max-md:origin-top-left landscape:max-md:w-[111.111%]">
                 <RankList
                   title={tabItems.find((tab) => tab.id === activeTab)?.label}
