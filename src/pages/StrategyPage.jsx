@@ -97,12 +97,11 @@ export default function StrategyPage() {
 
   return (
     <AppSidebarLayout contentClassName="max-w-[960px] mx-auto" flushTopOnLandscape>
-      {/* 
-        最外層容器優化：
-        針對橫式（landscape:max-md:）加入 fixed, inset-0, h-dvh, overflow-hidden
-        完美將手機橫盤畫面的高度鎖定在可視範圍內，阻斷整頁不正常的捲動。
+      {/* 最外層容器：
+        我們調整了基礎類別 (w-full min-h-0)，確保在直式狀態下能 100% 依循原本的 Flex 軸向垂直延伸，
+        完全釋放被裁切的底部區塊（那消失的三檔股票會順利回到直式畫面中）。
       */}
-      <div className="flex h-[calc(100vh-5rem)] min-h-0 flex-col sm:h-[calc(100vh-5rem)] max-w-[960px] mx-auto overflow-hidden landscape:max-md:fixed landscape:max-md:inset-0 landscape:max-md:h-dvh landscape:max-md:max-w-none landscape:max-md:mx-0 landscape:max-md:w-[calc(100%+2rem)] landscape:max-md:-mx-4 landscape:max-md:overflow-hidden landscape:max-md:pl-10">
+      <div className="flex w-full min-h-0 flex-col max-w-[960px] mx-auto overflow-hidden h-[calc(100vh-5rem)] sm:h-[calc(100vh-5rem)] landscape:max-md:fixed landscape:max-md:inset-0 landscape:max-md:h-dvh landscape:max-md:max-w-none landscape:max-md:mx-0 landscape:max-md:w-[calc(100%+2rem)] landscape:max-md:-mx-4 landscape:max-md:overflow-hidden landscape:max-md:pl-10">
 
         {/* Header */}
         <div className="sticky top-0 z-50 space-y-4 border-b border-zinc-200 bg-zinc-50 pb-4 shadow-sm sm:space-y-6 sm:pb-6 landscape:max-md:space-y-0 landscape:max-md:pb-0 landscape:max-md:pt-0">
