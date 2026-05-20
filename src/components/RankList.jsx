@@ -1,3 +1,4 @@
+// src/components/RankList.jsx
 import { useEffect, useMemo, useState } from 'react'
 import { createPortal } from 'react-dom'
 
@@ -84,15 +85,12 @@ function formatRankChange(changeType, rankChange, prevRank, nextRank) {
   }
 }
 
-// ==================== 關鍵修改 ====================
 function getDisplayedRank(row, sortKey, isSearching, currentIndex) {
   if (isSearching) {
-    return row.base_rank;                    // 搜尋時顯示原始綜合排名
+    return row.base_rank
   }
-  // 排序時顯示「目前排序後的順序」（1,2,3...）
-  return currentIndex + 1;
+  return currentIndex + 1
 }
-// ===============================================
 
 function ScoreModal({ stock, onClose }) {
   if (!stock?.history || stock.history.length === 0) return null
@@ -115,15 +113,9 @@ function ScoreModal({ stock, onClose }) {
 
   return createPortal(
     <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/80 backdrop-blur-sm" onClick={onClose}>
-      
-      {/* 
-        外層容器優化：
-        1. 加上 relative，好讓橫式的關閉按鈕可以絕對定位到整個大 Modal 的右上角。
-      */}
       <div className="relative bg-white rounded-3xl w-full max-w-lg landscape:max-md:max-w-[540px] landscape:max-md:flex shadow-2xl overflow-hidden pointer-events-auto mx-4" onClick={e => e.stopPropagation()}>
         
-        {/* ==================== 橫式專用右上角關閉按鈕 ==================== */}
-        {/* 在直式與電腦版隱藏，手機橫式時直接定死在整個 Modal 的右上角 */}
+        {/* 橫式右上角關閉按鈕 */}
         <button 
           onClick={onClose} 
           className="hidden landscape:max-md:block absolute top-3 right-3 z-50 p-2 text-gray-400 hover:text-zinc-900 bg-white/80 backdrop-blur-sm rounded-full transition-colors"
@@ -131,8 +123,7 @@ function ScoreModal({ stock, onClose }) {
           ✕
         </button>
 
-        {/* ==================== 左邊區塊（只在手機橫式顯示） ==================== */}
-        {/* 內襯加上 padding-top 留白，避免股票名稱撞到右上角的關閉按鈕 */}
+        {/* 左邊區塊（手機橫式） */}
         <div className="hidden landscape:max-md:flex landscape:max-md:flex-col landscape:max-md:w-[38%] p-6 landscape:max-md:p-4 border-r">
           <div className="flex justify-between items-start">
             <div>
@@ -143,14 +134,8 @@ function ScoreModal({ stock, onClose }) {
                 {formatScore(stock.display_score)}
               </div>
             </div>
-            {/* 原本左側內部的叉叉已移除，改由上方全局右上角的按鈕取代 */}
           </div>
 
-          {/* 
-            條件選股濾網區塊（橫式）：
-            使用 mt-auto。字數少時，它會被 margin-top 推到最底部。
-            字數多時（移除限制），區塊會自動往上伸展撐大，絕不破版。
-          */}
           {stock.passed_filter ? (
             <div className="mt-auto rounded-xl border border-emerald-100 bg-emerald-50 px-3 py-2 text-xs text-emerald-600">
               已通過選股條件
@@ -167,10 +152,10 @@ function ScoreModal({ stock, onClose }) {
           )}
         </div>
 
-        {/* ==================== 右邊區塊（走勢圖與直式通用內容） ==================== */}
+        {/* 右邊區塊（走勢圖與直式通用內容） */}
         <div className="w-full landscape:max-md:w-[62%]">
           
-          {/* 標題區 - 直式使用原本的位置，橫式時隱藏 */}
+          {/* 標題區（直式顯示，橫式隱藏） */}
           <div className="p-6 border-b landscape:max-md:hidden">
             <div className="flex justify-between items-start">
               <div>
@@ -249,7 +234,7 @@ function ScoreModal({ stock, onClose }) {
               ))}
             </div>
 
-            {/* 未通過原因 - 直式使用原本底部的位置，橫式時在此隱藏 */}
+            {/* 未通過原因（直式顯示，橫式隱藏） */}
             <div className="landscape:max-md:hidden">
               {stock.passed_filter ? (
                 <div className="mt-6 rounded-2xl border border-emerald-100 bg-emerald-50 px-4 py-3 text-sm text-emerald-600">
@@ -272,7 +257,6 @@ function ScoreModal({ stock, onClose }) {
     document.body
   )
 }
-// 下面所有函數保持不變（normalizeSortKey ~ sortIndicator）
 
 const DEFAULT_SORT_KEY = 'score'
 const DEFAULT_SORT_DIRECTION = 'desc'
@@ -365,6 +349,7 @@ export default function RankList({
 }) {
   const isFilteredRankList = title === '條件篩選排名'
   const showFilterColumn = !isFilteredRankList
+
   const sortableFieldSet = useMemo(() => getSortableFieldSet(strategyId), [strategyId])
   const metricColumns = useMemo(() => getMetricColumns(strategyId), [strategyId])
 
@@ -475,7 +460,11 @@ export default function RankList({
   }
 
   return (
-    <div className={`isolate flex h-full min-h-0 flex-col overflow-hidden rounded-2xl border border-zinc-200 bg-white shadow-sm max-w-[960px] mx-auto ${isModalOpen ? 'pointer-events-none' : ''}`}>
+    /* 【邏輯自洽的高度配置核心】
+      - 預設（直式/電腦）：h-full min-h-0，完美承接父層 flex-1 所規範的剩餘螢幕高度，不蠻幹超出。
+      - 手機橫式（landscape:max-md:）：h-screen min-h-screen，配合 fixed 全螢幕展開，提供滿版滾動計算基準。
+    */
+    <div className={`isolate flex h-full min-h-0 landscape:max-md:h-screen landscape:max-md:min-h-screen flex-col overflow-hidden rounded-2xl border border-zinc-200 bg-white shadow-sm max-w-[960px] mx-auto ${isModalOpen ? 'pointer-events-none' : ''}`}>
       <div className="z-40 border-b border-zinc-200 bg-white">
         <div className="flex w-full items-center justify-between gap-3 px-4 py-3 shadow-sm landscape:max-md:pl-5 landscape:max-md:pr-3 landscape:max-md:py-2">
           <div className="text-sm font-semibold text-zinc-900">{title}</div>
@@ -558,7 +547,7 @@ export default function RankList({
             {sortedRows.map((row, index) => {
               const rankChange = formatRankChange(row.change_type, row.rank_change, row.prev_rank, row.base_rank)
               const isSearching = !!search.trim()
-              const displayedRank = getDisplayedRank(row, sortKey, isSearching, index)   // ← 關鍵
+              const displayedRank = getDisplayedRank(row, sortKey, isSearching, index)
 
               return (
                 <div
