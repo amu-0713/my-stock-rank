@@ -132,25 +132,23 @@ export default function StrategyPage() {
           </div>
         </div>
 
-        {/* === 手機橫向時整體縮小區域（包含 Tabs + RankList 全部） === */}
-        <div className="min-h-0 flex-1 overflow-hidden bg-zinc-50 landscape:pt-0">
-          <div className="h-full landscape:scale-[0.85] landscape:origin-top landscape:min-w-full landscape:w-screen landscape:-mx-4 overflow-x-hidden">
-            
-            {/* Tabs 固定在最頂 */}
-            <div className="sticky top-0 z-40 bg-white border-b border-zinc-200">
-              <Tabs items={tabItems} activeId={activeTab} onChange={setActiveTab} />
-            </div>
+        {/* === Tabs 固定 === */}
+        <div className="sticky top-0 z-40 bg-white border-b border-zinc-200">
+          <Tabs items={tabItems} activeId={activeTab} onChange={setActiveTab} />
+        </div>
 
-            {/* RankList（包含頂部 + 標頭 + 內容） */}
-            {loading ? (
-              <div className="rounded-xl border border-zinc-200 bg-white p-5 text-sm text-zinc-600">
-                資料載入中...
-              </div>
-            ) : error ? (
-              <div className="rounded-xl border border-red-200 bg-white p-5 text-sm text-red-700">
-                {error}
-              </div>
-            ) : (
+        {/* === RankList 區域：手機橫向時真正橫向占滿（不壓縮欄位） === */}
+        <div className="min-h-0 flex-1 overflow-y-auto bg-zinc-50 landscape:pt-0">
+          {loading ? (
+            <div className="rounded-xl border border-zinc-200 bg-white p-5 text-sm text-zinc-600">
+              資料載入中...
+            </div>
+          ) : error ? (
+            <div className="rounded-xl border border-red-200 bg-white p-5 text-sm text-red-700">
+              {error}
+            </div>
+          ) : (
+            <div className="landscape:min-w-full landscape:w-screen landscape:-mx-4 overflow-x-hidden">
               <RankList
                 title={tabItems.find((tab) => tab.id === activeTab)?.label}
                 rows={data?.[activeTab] ?? []}
@@ -159,8 +157,8 @@ export default function StrategyPage() {
                 compareDate={data?.compare_date}
                 strategyId={id}
               />
-            )}
-          </div>
+            </div>
+          )}
         </div>
 
       </div>
