@@ -22,7 +22,7 @@ export default function AppSidebarLayout({ children, contentClassName = 'max-w-6
         <button
           type="button"
           onClick={() => setSidebarOpen(true)}
-          className="fixed left-3 top-4 z-50 flex h-9 w-9 items-center justify-center rounded-r-lg rounded-l-md border border-zinc-700 bg-black text-xl font-semibold text-white shadow-sm transition hover:bg-zinc-900 md:left-4 md:top-4 landscape:top-2 landscape:h-7 landscape:w-7 landscape:text-base"
+          className="fixed left-3 top-4 z-50 flex h-9 w-9 items-center justify-center rounded-r-lg rounded-l-md border border-zinc-700 bg-black text-xl font-semibold text-white shadow-sm transition hover:bg-zinc-900 md:left-4 md:top-4 landscape:top-0 landscape:left-2 landscape:h-7 landscape:w-7 landscape:text-base"
           title="開啟側邊欄"
         >
           &gt;
