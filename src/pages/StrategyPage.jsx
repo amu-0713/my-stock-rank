@@ -100,6 +100,7 @@ export default function StrategyPage() {
   ], [])
 
   const title = STRATEGY_TITLES[id] ?? `策略${id}`
+  
   return (
     <AppSidebarLayout contentClassName="max-w-[960px] mx-auto">
       <div className="flex h-[calc(100vh-3rem)] min-h-0 flex-col sm:h-[calc(100vh-5rem)] max-w-[960px] mx-auto">
