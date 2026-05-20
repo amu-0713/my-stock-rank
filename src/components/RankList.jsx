@@ -416,7 +416,7 @@ export default function RankList({
   return (
     <div className={`isolate flex h-full min-h-0 flex-col overflow-hidden rounded-2xl border border-zinc-200 bg-white shadow-sm max-w-[960px] mx-auto ${isModalOpen ? 'pointer-events-none' : ''}`}>
       <div className="z-40 border-b border-zinc-200 bg-white">
-        <div className="flex w-full items-center justify-between gap-3 px-4 py-3 shadow-sm landscape:pl-5 landscape:pr-3 landscape:py-2">
+        <div className="flex w-full items-center justify-between gap-3 px-4 py-3 shadow-sm landscape:max-md:pl-5 landscape:max-md:pr-3 landscape:max-md:py-2">
           <div className="text-sm font-semibold text-zinc-900">{title}</div>
 
           <div className="flex items-center gap-3">
@@ -424,7 +424,7 @@ export default function RankList({
               value={search}
               onChange={e => setSearch(e.target.value)}
               placeholder="搜尋 2330 / 台積電"
-              className="h-8 w-48 rounded-lg border border-zinc-200 px-3 text-sm text-zinc-700 placeholder:text-zinc-400 focus:outline-none focus:ring-2 focus:ring-blue-500 landscape:h-7 landscape:w-40 landscape:px-2 landscape:text-xs"
+              className="h-8 w-48 rounded-lg border border-zinc-200 px-3 text-sm text-zinc-700 placeholder:text-zinc-400 focus:outline-none focus:ring-2 focus:ring-blue-500 landscape:max-md:h-7 landscape:max-md:w-40 landscape:max-md:px-2 landscape:max-md:text-xs"
             />
 
             <div className="text-xs text-zinc-500">
@@ -436,10 +436,10 @@ export default function RankList({
 
       <div className="min-h-0 flex-1 overflow-auto -webkit-overflow-scrolling-touch">
         <div className={`${minWidth}`}>
-          <div className={`sticky top-0 z-10 grid ${gridCols} items-center gap-1 border-b border-zinc-200 bg-white px-4 py-4 text-sm font-semibold text-zinc-600 shadow-sm landscape:px-3 landscape:py-2 landscape:text-xs`}>
-            <div className="flex min-h-[52px] items-center justify-center text-center landscape:min-h-[40px]">{TEXT.rank}</div>
+          <div className={`sticky top-0 z-10 grid ${gridCols} items-center gap-1 border-b border-zinc-200 bg-white px-4 py-4 text-sm font-semibold text-zinc-600 shadow-sm landscape:max-md:px-3 landscape:max-md:py-2 landscape:max-md:text-xs`}>
+            <div className="flex min-h-[52px] items-center justify-center text-center landscape:max-md:min-h-[40px]">{TEXT.rank}</div>
 
-            <div className={`${STOCK_CELL_LAYOUT_CLASS} min-h-[52px] text-left landscape:min-h-[40px]`}>
+            <div className={`${STOCK_CELL_LAYOUT_CLASS} min-h-[52px] text-left landscape:max-md:min-h-[40px]`}>
               <div className="col-span-2 self-center justify-self-start text-left">{TEXT.stock}</div>
             </div>
 
@@ -457,7 +457,7 @@ export default function RankList({
                 return (
                   <div
                     key={column.key}
-                    className="flex min-h-[52px] items-center justify-center text-center landscape:min-h-[40px]"
+                    className="flex min-h-[52px] items-center justify-center text-center landscape:max-md:min-h-[40px]"
                   >
                     {column.label}
                   </div>
@@ -502,7 +502,7 @@ export default function RankList({
               return (
                 <div
                   key={`${row.base_rank ?? index}-${row.stock_id}`}
-                  className={`grid ${gridCols} items-center gap-1 px-4 py-4 hover:bg-zinc-50 landscape:px-3 landscape:py-2`}
+                  className={`grid ${gridCols} items-center gap-1 px-4 py-4 hover:bg-zinc-50 landscape:max-md:px-3 landscape:max-md:py-2`}
                 >
                   <div className="text-center text-sm font-semibold tabular-nums">
                     {formatMaybeNumber(displayedRank)}
@@ -538,7 +538,7 @@ export default function RankList({
                     </div>
                   ))}
 
-                  <div className={`flex flex-col items-center justify-center text-sm font-semibold tabular-nums ${rankChange.className} min-h-[52px] landscape:min-h-[40px]`}>
+                  <div className={`flex flex-col items-center justify-center text-sm font-semibold tabular-nums ${rankChange.className} min-h-[52px] landscape:max-md:min-h-[40px]`}>
                     <div>{rankChange.mainLabel}</div>
                     {rankChange.detailLabel && (
                       <div className="text-xs text-zinc-500 mt-0.5">
@@ -550,7 +550,7 @@ export default function RankList({
                   {showFilterColumn && (
                     <button
                       type="button"
-                      className="flex min-h-[52px] items-center justify-center rounded-xl hover:bg-zinc-100 landscape:min-h-[40px]"
+                      className="flex min-h-[52px] items-center justify-center rounded-xl hover:bg-zinc-100 landscape:max-md:min-h-[40px]"
                       onClick={() => setSelectedStock(row)}
                       title={row.passed_filter ? '通過濾網' : '未通過濾網，點擊查看原因'}
                     >
