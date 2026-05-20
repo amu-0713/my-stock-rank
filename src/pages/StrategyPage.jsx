@@ -134,11 +134,7 @@ export default function StrategyPage() {
             </Link>
           </div>
 
-          <div className="landscape:max-md:-mx-4 landscape:max-md:w-[calc(100%+2rem)] landscape:max-md:pt-0">
-            <div className="landscape:max-md:px-4 landscape:max-md:py-0">
-              <Tabs items={tabItems} activeId={activeTab} onChange={setActiveTab} />
-            </div>
-          </div>
+          <Tabs items={tabItems} activeId={activeTab} onChange={setActiveTab} />
         </div>
 
         <div className="min-h-0 flex-1 overflow-y-auto bg-zinc-50 landscape:max-md:overflow-hidden landscape:max-md:-mx-4 landscape:max-md:w-[calc(100%+2rem)]">
