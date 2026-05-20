@@ -97,7 +97,7 @@ export default function StrategyPage() {
 
   return (
     <AppSidebarLayout contentClassName="max-w-[960px] mx-auto" flushTopOnLandscape>
-      {/* 最外層容器：固定高度 + 完全禁止外部捲動 */}
+      {/* 最外層容器：保留手機必要留白，精準扣除 AppSidebarLayout 的 pt-14 + pb-6 */}
       <div className="flex h-[calc(100vh-5rem)] min-h-0 flex-col sm:h-[calc(100vh-5rem)] max-w-[960px] mx-auto overflow-hidden landscape:max-md:h-screen landscape:max-md:max-w-none landscape:max-md:mx-0 landscape:max-md:w-[calc(100%+2rem)] landscape:max-md:-mx-4 landscape:max-md:overflow-x-hidden landscape:max-md:pl-10">
 
         {/* Header */}
