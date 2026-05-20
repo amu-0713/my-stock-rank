@@ -139,7 +139,7 @@ export default function StrategyPage() {
           </div>
         </div>
 
-        <div className="min-h-0 flex-1 overflow-y-auto bg-zinc-50 landscape:max-md:overflow-hidden">
+        <div className="min-h-0 flex-1 overflow-y-auto bg-zinc-50 landscape:max-md:overflow-hidden landscape:max-md:overflow-y-auto">
           {loading ? (
             <div className="rounded-xl border border-zinc-200 bg-white p-5 text-sm text-zinc-600">
               資料載入中...
@@ -150,15 +150,15 @@ export default function StrategyPage() {
             </div>
           ) : (
             <div className="h-full min-h-0 landscape:max-md:h-full">
-              {/* 手機橫向：留右側安全邊距避免被系統 UI 擋住 */}
-              <div className="h-full min-h-0 landscape:max-md:pr-6 landscape:max-md:scale-[0.9] landscape:max-md:origin-top-left landscape:max-md:w-[111.111%]">
+              {/* 手機橫向：留右側安全邊距避免被系統 UI 擋住 + 取消左右 scroll */}
+              <div className="h-full min-h-0 landscape:max-md:pr-6 landscape:max-md:scale-[0.9] landscape:max-md:origin-top-left landscape:max-md:w-[111.111%] overflow-x-hidden">
                 <RankList
                   title={tabItems.find((tab) => tab.id === activeTab)?.label}
                   rows={data?.[activeTab] ?? []}
                   defaultSortKey={data?.default_sort_key}
                   sortableFields={data?.sortable_fields}
                   compareDate={data?.compare_date}
-                  strategyId={id}                    // ← 關鍵：傳給 RankList 判斷要顯示哪些欄位
+                  strategyId={id}
                 />
               </div>
             </div>
