@@ -118,7 +118,8 @@ function ScoreModal({ stock, onClose }) {
       <div className="bg-white rounded-3xl w-full max-w-lg landscape:max-md:max-w-[720px] landscape:max-md:flex landscape:max-md:gap-6 shadow-2xl overflow-hidden pointer-events-auto mx-4" onClick={e => e.stopPropagation()}>
         
         {/* 左邊 - 只在橫式顯示 */}
-        <div className="hidden landscape:max-md:block landscape:max-md:w-[42%] p-6 border-r">
+        {/* 調整點 1：加上 flex flex-col 讓內部可以使用 mt-auto */}
+        <div className="hidden landscape:max-md:flex landscape:max-md:flex-col landscape:max-md:w-[42%] p-6 border-r">
           <div className="flex justify-between items-start">
             <div>
               <div className="font-bold text-2xl text-zinc-900">
@@ -132,22 +133,22 @@ function ScoreModal({ stock, onClose }) {
               ✕
             </button>
           </div>
-
+        
           {/* 未通過原因（橫式專用） */}
+          {/* 調整點 2：將 mt-6 改為 mt-auto pt-6，這樣就會自動黏在左下角 */}
           {stock.passed_filter ? (
-            <div className="mt-6 rounded-2xl border border-emerald-100 bg-emerald-50 px-4 py-3 text-sm text-emerald-600">
+            <div className="mt-auto pt-6 rounded-2xl border border-emerald-100 bg-emerald-50 px-4 py-3 text-sm text-emerald-600">
               已通過選股條件
             </div>
           ) : (
             stock.failed_conditions && stock.failed_conditions.length > 0 && (
-              <div className="mt-6 rounded-2xl border border-red-100 bg-red-50 px-4 py-3 text-sm text-red-600">
+              <div className="mt-auto pt-6 rounded-2xl border border-red-100 bg-red-50 px-4 py-3 text-sm text-red-600">
                 <div className="font-bold mb-1">未通過原因</div>
                 <div>{stock.failed_conditions.join('、')}</div>
               </div>
             )
           )}
         </div>
-
         {/* 原本的直式內容（直式完全不變） */}
         <div className="landscape:max-md:w-[58%]">
           {/* 標題區 - 直式使用原本的位置 */}
