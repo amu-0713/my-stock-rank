@@ -136,7 +136,7 @@ function ScoreModal({ stock, onClose }) {
             最近 5 個交易日分數走勢
           </div>
 
-          <div className="relative h-[280px] landscape:max-md:h-[200px] w-full border border-zinc-100 rounded-2xl bg-zinc-50/50 p-4 landscape:max-md:p-3">
+          <div className="relative h-[280px] landscape:max-md:h-[120px] w-full border border-zinc-100 rounded-2xl bg-zinc-50/50 p-4 landscape:max-md:p-3">
             <svg viewBox={`0 0 ${vWidth} ${vHeight}`} className="w-full h-full overflow-visible">
               {[0, 0.25, 0.5, 0.75, 1].map((p, i) => {
                 const y = vHeight * p
@@ -186,7 +186,7 @@ function ScoreModal({ stock, onClose }) {
             </svg>
           </div>
 
-          <div className="flex justify-between mt-4 landscape:max-md:mt-3 text-sm text-zinc-500 font-bold px-2">
+          <div className="flex justify-between mt-4 landscape:max-md:mt-2 text-sm text-zinc-500 font-bold px-2">
             {stock.history.map((item, i) => (
               <div key={i}>{item.date.slice(5)}</div>
             ))}
