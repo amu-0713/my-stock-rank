@@ -231,7 +231,7 @@ const METRIC_COLUMNS_BY_STRATEGY = {
     { key: 'industry', label: '產業', sortable: false, type: 'text' },
   ],
 }
-const STOCK_CELL_LAYOUT_CLASS = 'grid grid-cols-[72px_minmax(0,1fr)] items-center gap-3'
+const STOCK_CELL_LAYOUT_CLASS = 'grid grid-cols-[72px_minmax(0,1fr)] items-center gap-3 landscape:max-md:grid-cols-[64px_minmax(0,1fr)] landscape:max-md:gap-2'
 
 function getSortableFieldSet(strategyId) {
   return SORTABLE_FIELD_SET_BY_STRATEGY[strategyId] ?? SORTABLE_FIELD_SET_BY_STRATEGY['1']
@@ -424,7 +424,7 @@ export default function RankList({
               value={search}
               onChange={e => setSearch(e.target.value)}
               placeholder="搜尋 2330 / 台積電"
-              className="h-8 w-48 rounded-lg border border-zinc-200 px-3 text-sm text-zinc-700 placeholder:text-zinc-400 focus:outline-none focus:ring-2 focus:ring-blue-500 landscape:max-md:h-7 landscape:max-md:w-40 landscape:max-md:px-2 landscape:max-md:text-xs"
+              className="h-8 w-48 rounded-lg border border-zinc-200 px-3 text-sm text-zinc-700 placeholder:text-zinc-400 focus:outline-none focus:ring-2 focus:ring-blue-500 landscape:max-md:h-7 landscape:max-md:w-40 landscape:max-md:px-2"
             />
 
             <div className="text-xs text-zinc-500">
@@ -436,7 +436,7 @@ export default function RankList({
 
       <div className="min-h-0 flex-1 overflow-auto -webkit-overflow-scrolling-touch">
         <div className={`${minWidth}`}>
-          <div className={`sticky top-0 z-10 grid ${gridCols} items-center gap-1 border-b border-zinc-200 bg-white px-4 py-4 text-sm font-semibold text-zinc-600 shadow-sm landscape:max-md:px-3 landscape:max-md:py-2 landscape:max-md:text-xs`}>
+          <div className={`sticky top-0 z-10 grid ${gridCols} items-center gap-1 border-b border-zinc-200 bg-white px-4 py-4 text-sm font-semibold text-zinc-600 shadow-sm landscape:max-md:px-3 landscape:max-md:py-2`}>
             <div className="flex min-h-[52px] items-center justify-center text-center landscape:max-md:min-h-[40px]">{TEXT.rank}</div>
 
             <div className={`${STOCK_CELL_LAYOUT_CLASS} min-h-[52px] text-left landscape:max-md:min-h-[40px]`}>
