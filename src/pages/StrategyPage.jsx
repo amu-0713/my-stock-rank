@@ -105,7 +105,7 @@ export default function StrategyPage() {
     <AppSidebarLayout contentClassName="max-w-[960px] mx-auto">
       <div className="flex h-[calc(100vh-3rem)] min-h-0 flex-col sm:h-[calc(100vh-5rem)] max-w-[960px] mx-auto landscape:max-w-none landscape:mx-0 landscape:w-[calc(100%+2rem)] landscape:-mx-4 landscape:overflow-x-hidden">
         <div className="sticky top-0 z-50 space-y-4 border-b border-zinc-200 bg-zinc-50 pb-4 shadow-sm sm:space-y-6 sm:pb-6">
-          <div className="flex items-start justify-between gap-3 landscape:hidden sm:flex">
+          <div className="flex items-start justify-between gap-3 landscape:hidden landscape:sm:flex">
             <div>
               <div className="pl-4 text-lg font-semibold sm:text-xl">{title}</div>
               {/* 日期資訊 - 手機版自動換行 */}
@@ -148,14 +148,17 @@ export default function StrategyPage() {
             </div>
           ) : (
             <div className="h-full min-h-0 landscape:h-[calc(100vh-3rem-1px)]">
-              <RankList
-                title={tabItems.find((tab) => tab.id === activeTab)?.label}
-                rows={data?.[activeTab] ?? []}
-                defaultSortKey={data?.default_sort_key}
-                sortableFields={data?.sortable_fields}
-                compareDate={data?.compare_date}
-                strategyId={id}                    // ← 關鍵：傳給 RankList 判斷要顯示哪些欄位
-              />
+              {/* 手機橫向：縮小固定區塊高度、並留右側安全邊距避免被系統 UI 擋住 */}
+              <div className="h-full min-h-0 landscape:pr-6 landscape:scale-[0.9] landscape:origin-top-left landscape:w-[111.111%]">
+                <RankList
+                  title={tabItems.find((tab) => tab.id === activeTab)?.label}
+                  rows={data?.[activeTab] ?? []}
+                  defaultSortKey={data?.default_sort_key}
+                  sortableFields={data?.sortable_fields}
+                  compareDate={data?.compare_date}
+                  strategyId={id}                    // ← 關鍵：傳給 RankList 判斷要顯示哪些欄位
+                />
+              </div>
             </div>
           )}
         </div>
