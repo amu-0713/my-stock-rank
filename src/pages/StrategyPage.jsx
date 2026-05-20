@@ -97,13 +97,13 @@ export default function StrategyPage() {
 
   return (
     <AppSidebarLayout contentClassName="max-w-[960px] mx-auto" flushTopOnLandscape>
-      {/* 完全恢復你原版的 className，確保 Tailwind 佈局不被干擾。
-        唯一改變：加上 style 注入 svh，解決手機工具列吃掉底部 3 檔的問題，同時避開 dvh 造成的跳動破版。
+      {/* 
+        最外層容器優化：
+        針對橫式（landscape:max-md:）加入 fixed, inset-0, h-dvh, overflow-hidden
+        完美將手機橫盤畫面的高度鎖定在可視範圍內，阻斷整頁不正常的捲動。
       */}
-      <div 
-        className="flex h-[calc(100vh-5rem)] min-h-0 flex-col sm:h-[calc(100vh-5rem)] max-w-[960px] mx-auto overflow-hidden landscape:max-md:fixed landscape:max-md:inset-0 landscape:max-md:h-dvh landscape:max-md:max-w-none landscape:max-md:mx-0 landscape:max-md:w-[calc(100%+2rem)] landscape:max-md:-mx-4 landscape:max-md:overflow-hidden landscape:max-md:pl-10"
-        style={{ height: 'calc(100svh - 5rem)' }}
-      >
+      <div className="flex h-[calc(100vh-5rem)] min-h-0 flex-col sm:h-[calc(100vh-5rem)] max-w-[960px] mx-auto overflow-hidden landscape:max-md:fixed landscape:max-md:inset-0 landscape:max-md:h-dvh landscape:max-md:max-w-none landscape:max-md:mx-0 landscape:max-md:w-[calc(100%+2rem)] landscape:max-md:-mx-4 landscape:max-md:overflow-hidden landscape:max-md:pl-10">
+
         {/* Header */}
         <div className="sticky top-0 z-50 space-y-4 border-b border-zinc-200 bg-zinc-50 pb-4 shadow-sm sm:space-y-6 sm:pb-6 landscape:max-md:space-y-0 landscape:max-md:pb-0 landscape:max-md:pt-0">
           <div className="flex items-start justify-between gap-3 landscape:max-md:hidden">
