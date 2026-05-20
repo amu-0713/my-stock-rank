@@ -104,7 +104,9 @@ export default function StrategyPage() {
   return (
     <AppSidebarLayout contentClassName="max-w-[960px] mx-auto">
       <div className="flex h-[calc(100vh-3rem)] min-h-0 flex-col sm:h-[calc(100vh-5rem)] max-w-[960px] mx-auto">
-        <div className="sticky top-0 z-50 space-y-4 border-b border-zinc-200 bg-zinc-50 pb-4 shadow-sm sm:space-y-6 sm:pb-6">
+
+        {/* === 手機橫向模式：隱藏原本的大 header === */}
+        <div className="sticky top-0 z-50 space-y-4 border-b border-zinc-200 bg-zinc-50 pb-4 shadow-sm sm:space-y-6 sm:pb-6 landscape:hidden">
           <div className="flex items-start justify-between gap-3">
             <div>
               <div className="pl-4 text-lg font-semibold sm:text-xl">{title}</div>
@@ -114,17 +116,13 @@ export default function StrategyPage() {
                   <span className="font-medium">最新日期：</span>
                   <span className="ml-1">{data?.latest_date ?? '—'}</span>
                 </div>
-
-                {/* 桌面版分隔線，手機版隱藏 */}
                 <div className="hidden sm:block text-zinc-300">｜</div>
-
                 <div className="flex items-baseline">
                   <span className="font-medium">調倉基準日：</span>
                   <span className="ml-1">{data?.rebalance_base_date ?? '—'}</span>
                 </div>
               </div>
             </div>
-
             <Link
               to={`/strategy/${id}/info`}
               className="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-zinc-200 bg-white text-sm text-zinc-700 shadow-sm hover:bg-zinc-50"
@@ -133,11 +131,10 @@ export default function StrategyPage() {
               ?
             </Link>
           </div>
-
-          <Tabs items={tabItems} activeId={activeTab} onChange={setActiveTab} />
         </div>
 
-        <div className="min-h-0 flex-1 overflow-y-auto bg-zinc-50">
+        {/* === RankList 區域：手機橫向時讓它直接頂到最上方並橫向占滿 === */}
+        <div className="min-h-0 flex-1 overflow-y-auto bg-zinc-50 landscape:pt-0">
           {loading ? (
             <div className="rounded-xl border border-zinc-200 bg-white p-5 text-sm text-zinc-600">
               資料載入中...
@@ -147,16 +144,19 @@ export default function StrategyPage() {
               {error}
             </div>
           ) : (
-            <RankList
-              title={tabItems.find((tab) => tab.id === activeTab)?.label}
-              rows={data?.[activeTab] ?? []}
-              defaultSortKey={data?.default_sort_key}
-              sortableFields={data?.sortable_fields}
-              compareDate={data?.compare_date}
-              strategyId={id}                    // ← 關鍵：傳給 RankList 判斷要顯示哪些欄位
-            />
+            <div className="landscape:min-w-full landscape:w-screen landscape:-mx-4">
+              <RankList
+                title={tabItems.find((tab) => tab.id === activeTab)?.label}
+                rows={data?.[activeTab] ?? []}
+                defaultSortKey={data?.default_sort_key}
+                sortableFields={data?.sortable_fields}
+                compareDate={data?.compare_date}
+                strategyId={id}
+              />
+            </div>
           )}
         </div>
+
       </div>
     </AppSidebarLayout>
   )
