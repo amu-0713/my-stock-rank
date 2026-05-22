@@ -53,8 +53,8 @@ def run_full_backtest():
         c_hist & c_valid & c_ma_filter & c_liq
     ).fillna(False)
 
-   # =============================================================================
-    # 四、多因子評分系統 (核心修正：用 Pandas 的 index/columns 自動對齊化解維度衝突)
+    # =============================================================================
+    # 四、多因子評分系統 (動態平攤 PEG 缺值權重，化解維度衝突版)
     # =============================================================================
     rs_fixed = price.ffill().pct_change(80, fill_method=None)
     rets = price.pct_change(fill_method=None)
@@ -81,35 +81,32 @@ def run_full_backtest():
         'dd':   {'bull': 0.4, 'bear': 0.4},
     })
 
-    # 轉換為帶有日期 Index 的 Series
     w_rs_dyn = regime.map(weights['rs'])
     w_peg_dyn = regime.map(weights['peg'])
     w_corr_dyn = regime.map(weights['corr'])
     w_dd_dyn = regime.map(weights['dd'])
 
-    # 🛠️ 關鍵修正 1：判定 PEG 缺值狀況，並利用 reindex 確保時間軸與個股代號完全對齊
+    # 判定 PEG 缺值狀況，並精準對齊指標時間軸與個股代號
     is_peg_nan = (peg.isnull() | (peg < 0)).reindex(index=r_rs.index, columns=r_rs.columns).fillna(True)
 
-    # 計算剩餘三個活躍因子的權重總和 Series (維度：時間軸)
+    # 計算剩餘三個活躍因子的權重總和
     total_active_w = w_rs_dyn + w_corr_dyn + w_dd_dyn
 
-    # 當 peg 缺值時，計算其餘因子分配的乘數 Series (維度：時間軸)
+    # 當 peg 缺值時，計算其餘因子分配的乘數 (1 + peg權重 / 剩餘權重總和)
     scale_factor = 1 + w_peg_dyn / total_active_w.replace(0, np.nan)
     scale_factor = scale_factor.fillna(1.0)
 
-    # 🛠️ 關鍵修正 2：利用 Pandas 廣播機制（軸向對齊）建立最終權重 Dataframe
-    # 先讓全矩陣填滿原始權重，再將 is_peg_nan 為 True 的格子乘以 scale_factor
-    w_rs_final = pd.DataFrame(w_rs_dyn.values[:, None], index=r_rs.index, columns=r_rs.columns)
-    w_corr_final = pd.DataFrame(w_corr_dyn.values[:, None], index=r_rs.index, columns=r_rs.columns)
-    w_dd_final = pd.DataFrame(w_dd_dyn.values[:, None], index=r_rs.index, columns=r_rs.columns)
+    # 利用 np.tile 將 (天數, 1) 的權重橫向複製平鋪成 (天數, 股票數) 矩陣，消除維度初始化衝突
+    num_stocks = len(r_rs.columns)
+    w_rs_final = pd.DataFrame(np.tile(w_rs_dyn.values[:, None], (1, num_stocks)), index=r_rs.index, columns=r_rs.columns)
+    w_corr_final = pd.DataFrame(np.tile(w_corr_dyn.values[:, None], (1, num_stocks)), index=r_rs.index, columns=r_rs.columns)
+    w_dd_final = pd.DataFrame(np.tile(w_dd_dyn.values[:, None], (1, num_stocks)), index=r_rs.index, columns=r_rs.columns)
+    w_peg_final = pd.DataFrame(np.tile(w_peg_dyn.values[:, None], (1, num_stocks)), index=r_rs.index, columns=r_rs.columns)
     
-    # 針對缺值個股動態放大權重
+    # 針對缺值個股動態放大活躍因子權重，並將 PEG 權重歸零
     w_rs_final[is_peg_nan] = w_rs_final[is_peg_nan].mul(scale_factor, axis=0)
     w_corr_final[is_peg_nan] = w_corr_final[is_peg_nan].mul(scale_factor, axis=0)
     w_dd_final[is_peg_nan] = w_dd_final[is_peg_nan].mul(scale_factor, axis=0)
-
-    # PEG 權重在缺值時直接歸零
-    w_peg_final = pd.DataFrame(w_peg_dyn.values[:, None], index=r_rs.index, columns=r_rs.columns)
     w_peg_final[is_peg_nan] = 0.0
 
     # 最終加權算分 (策略選股與回測用)
@@ -120,7 +117,7 @@ def run_full_backtest():
         r_dd.mul(w_dd_final).fillna(0)
     )
 
-    # 計算 full_score_matrix（用於歷史大排名，基底相同，完美對齊）
+    # 計算 full_score_matrix（用於歷史全市場大排名，基底架構相同，完美同步名次）
     r_rs_all = rs_fixed.rank(axis=1, pct=True)
     r_peg_all = (1 / peg).rank(axis=1, pct=True)
     r_dd_all = (-dd).rank(axis=1, pct=True)
@@ -174,7 +171,6 @@ def run_full_backtest():
         name='動態多因子策略'
     )
 
-    # ✅ 明確設定 benchmark（確保 chart_data.json 能用到）
     if not hasattr(report, 'benchmark') or report.benchmark is None:
         print("⚠️ 手動補充 benchmark（加權指數）")
         benchmark = data.get('benchmark_return:發行量加權股價報酬指數').squeeze()
@@ -182,23 +178,7 @@ def run_full_backtest():
 
     print("✅ 完整回測執行完成！")
     
-    # ====================== 回傳所有需要的值 ======================
     return (
-        report, 
-        position_final, 
-        price, 
-        score, 
-        final_cond, 
-        rs_fixed, 
-        peg, 
-        dd, 
-        corr_mkt, 
-        regime, 
-        weights, 
-        full_score_matrix,
-        c_rev_positive, 
-        c_rev_high, 
-        c_hist, 
-        c_ma_filter, 
-        c_liq
+        report, position_final, price, score, final_cond, rs_fixed, peg, dd, corr_mkt, regime, weights, full_score_matrix,
+        c_rev_positive, c_rev_high, c_hist, c_ma_filter, c_liq
     )
