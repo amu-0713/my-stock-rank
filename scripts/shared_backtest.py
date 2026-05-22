@@ -54,7 +54,7 @@ def run_full_backtest():
     ).fillna(False)
 
     # =============================================================================
-    # 四、多因子評分系統
+    # 四、多因子評分系統 (核心修正：動態平攤 PEG 缺值權重)
     # =============================================================================
     rs_fixed = price.ffill().pct_change(80, fill_method=None)
     rets = price.pct_change(fill_method=None)
@@ -63,6 +63,7 @@ def run_full_backtest():
     dd = rets.where(rets < 0, 0).rolling(20).std().replace(0, np.nan)
     corr_mkt = rets.rolling(60).corr(mkt_rets)
 
+    # 基礎百分比大排名（不影響內部排名順序）
     r_rs = rs_fixed.where(final_cond).rank(axis=1, pct=True)
     r_peg = (1 / peg).where(final_cond).rank(axis=1, pct=True)
     r_dd = (-dd).where(final_cond).rank(axis=1, pct=True)
@@ -72,6 +73,7 @@ def run_full_backtest():
     is_bear_mask = is_bear.reindex(r_rs.index).ffill().fillna(True)
     regime = pd.Series(np.where(is_bear_mask, 'bear', 'bull'), index=r_rs.index)
 
+    # 基礎多頭與空頭市場因子權重
     weights = pd.DataFrame({
         'rs':   {'bull': 0.3, 'bear': 0.3},
         'peg':  {'bull': 0.3, 'bear': 0.0},
@@ -84,24 +86,42 @@ def run_full_backtest():
     w_corr_dyn = regime.map(weights['corr'])
     w_dd_dyn = regime.map(weights['dd'])
 
+    # 🛠️ 關鍵手術：動態判斷每檔股票在當天的 PEG 是否缺值或為負 (is_peg_nan)
+    is_peg_nan = peg.isnull() | (peg < 0)
+
+    # 計算剩餘三個活耀因子的權重總和
+    total_active_w = w_rs_dyn.to_frame('.').join([w_corr_dyn, w_dd_dyn]).sum(axis=1)
+
+    # 當 peg 缺值時，計算其餘因子分配的乘數 (1 + peg權重 / 剩餘權重總和)
+    # 若 total_active_w 為 0 (安全防護)，則不放大
+    scale_factor = 1 + w_peg_dyn / total_active_w.replace(0, np.nan)
+    scale_factor = scale_factor.fillna(1.0)
+
+    # 構建每檔個股、每天的動態加權矩陣
+    w_rs_final = pd.DataFrame(np.where(is_peg_nan, w_rs_dyn.values[:, None] * scale_factor.values[:, None], w_rs_dyn.values[:, None]), index=r_rs.index, columns=r_rs.columns)
+    w_peg_final = pd.DataFrame(np.where(is_peg_nan, 0.0, w_peg_dyn.values[:, None]), index=r_rs.index, columns=r_rs.columns)
+    w_corr_final = pd.DataFrame(np.where(is_peg_nan, w_corr_dyn.values[:, None] * scale_factor.values[:, None], w_corr_dyn.values[:, None]), index=r_rs.index, columns=r_rs.columns)
+    w_dd_final = pd.DataFrame(np.where(is_peg_nan, w_dd_dyn.values[:, None] * scale_factor.values[:, None], w_dd_dyn.values[:, None]), index=r_rs.index, columns=r_rs.columns)
+
+    # 最終加權算分 (策略選股與回測用)
     score = (
-        r_rs.mul(w_rs_dyn, axis=0).fillna(0) +
-        r_peg.mul(w_peg_dyn, axis=0).fillna(0) +
-        r_corr.mul(w_corr_dyn, axis=0).fillna(0) +
-        r_dd.mul(w_dd_dyn, axis=0).fillna(0)
+        r_rs.mul(w_rs_final).fillna(0) +
+        r_peg.mul(w_peg_final).fillna(0) +
+        r_corr.mul(w_corr_final).fillna(0) +
+        r_dd.mul(w_dd_final).fillna(0)
     )
 
-    # 計算 full_score_matrix（用於歷史分數）
+    # 計算 full_score_matrix（用於歷史分數大矩陣，同樣套用此權重轉移邏輯，確保一致性）
     r_rs_all = rs_fixed.rank(axis=1, pct=True)
     r_peg_all = (1 / peg).rank(axis=1, pct=True)
     r_dd_all = (-dd).rank(axis=1, pct=True)
     r_corr_all = (-corr_mkt).rank(axis=1, pct=True)
 
     full_score_matrix = (
-        r_rs_all.mul(w_rs_dyn, axis=0).fillna(0) +
-        r_peg_all.mul(w_peg_dyn, axis=0).fillna(0) +
-        r_corr_all.mul(w_corr_dyn, axis=0).fillna(0) +
-        r_dd_all.mul(w_dd_dyn, axis=0).fillna(0)
+        r_rs_all.mul(w_rs_final).fillna(0) +
+        r_peg_all.mul(w_peg_final).fillna(0) +
+        r_corr_all.mul(w_corr_final).fillna(0) +
+        r_dd_all.mul(w_dd_final).fillna(0)
     )
 
     # =============================================================================
@@ -145,7 +165,7 @@ def run_full_backtest():
         name='動態多因子策略'
     )
 
-    # ✅ 新增：明確設定 benchmark（確保 chart_data.json 能用到）
+    # ✅ 明確設定 benchmark（確保 chart_data.json 能用到）
     if not hasattr(report, 'benchmark') or report.benchmark is None:
         print("⚠️ 手動補充 benchmark（加權指數）")
         benchmark = data.get('benchmark_return:發行量加權股價報酬指數').squeeze()
