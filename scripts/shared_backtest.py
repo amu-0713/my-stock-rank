@@ -84,6 +84,7 @@ def run_full_backtest():
     w_corr_dyn = regime.map(weights['corr'])
     w_dd_dyn = regime.map(weights['dd'])
 
+    # 1. 策略回測評分（保持原樣，受 final_cond 保護）
     score = (
         r_rs.mul(w_rs_dyn, axis=0).fillna(0) +
         r_peg.mul(w_peg_dyn, axis=0).fillna(0) +
@@ -91,18 +92,35 @@ def run_full_backtest():
         r_dd.mul(w_dd_dyn, axis=0).fillna(0)
     )
 
-    # 計算 full_score_matrix（用於歷史分數）
+    # 2. 全市場歷史評分矩陣 (針對 peg=nan 的動態調整修正版)
     r_rs_all = rs_fixed.rank(axis=1, pct=True)
-    r_peg_all = (1 / peg).rank(axis=1, pct=True)
+    # peg 為 NaN 的股票不刪除，其百分比排名預設為 0
+    r_peg_all = (1 / peg).rank(axis=1, pct=True).fillna(0)
     r_dd_all = (-dd).rank(axis=1, pct=True)
     r_corr_all = (-corr_mkt).rank(axis=1, pct=True)
 
+    # 將時間序列的一維權重序列，廣播擴展為 (日期 x 股票) 的 DataFrame 矩陣
+    w_rs_matrix = pd.DataFrame(w_rs_dyn.values[:, None], index=r_rs_all.index, columns=r_rs_all.columns)
+    w_peg_matrix = pd.DataFrame(w_peg_dyn.values[:, None], index=r_rs_all.index, columns=r_rs_all.columns)
+    w_corr_matrix = pd.DataFrame(w_corr_dyn.values[:, None], index=r_rs_all.index, columns=r_rs_all.columns)
+    w_dd_matrix = pd.DataFrame(w_dd_dyn.values[:, None], index=r_rs_all.index, columns=r_rs_all.columns)
+
+    # 判定全市場中哪些位置的原始 peg 是缺失值
+    peg_is_nan = peg.isnull()
+
+    # 權重動態修正邏輯：
+    # 當 peg 缺失時，rs 和 dd 各自加上 0.15 權重，peg 權重歸 0。否則維持原先的動態因子權重。
+    w_rs_final = w_rs_matrix.where(~peg_is_nan, w_rs_matrix + 0.15)
+    w_dd_final = w_dd_matrix.where(~peg_is_nan, w_dd_matrix + 0.15)
+    w_peg_final = w_peg_matrix.where(~peg_is_nan, 0.0)
+    w_corr_final = w_corr_matrix  # corr 權重不受影響
+
     full_score_matrix = (
-        r_rs_all.mul(w_rs_dyn, axis=0).fillna(0) +
-        r_peg_all.mul(w_peg_dyn, axis=0).fillna(0) +
-        r_corr_all.mul(w_corr_dyn, axis=0).fillna(0) +
-        r_dd_all.mul(w_dd_dyn, axis=0).fillna(0)
-    )
+        r_rs_all * w_rs_final +
+        r_peg_all * w_peg_final +
+        r_corr_all * w_corr_final +
+        r_dd_all * w_dd_final
+    ).fillna(0)
 
     # =============================================================================
     # 五、持股權重 + T+1 處理
@@ -145,7 +163,7 @@ def run_full_backtest():
         name='動態多因子策略'
     )
 
-    # ✅ 新增：明確設定 benchmark（確保 chart_data.json 能用到）
+    # ✅ 明確設定 benchmark
     if not hasattr(report, 'benchmark') or report.benchmark is None:
         print("⚠️ 手動補充 benchmark（加權指數）")
         benchmark = data.get('benchmark_return:發行量加權股價報酬指數').squeeze()
@@ -173,4 +191,3 @@ def run_full_backtest():
         c_ma_filter, 
         c_liq
     )
-
