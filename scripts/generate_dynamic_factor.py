@@ -24,13 +24,13 @@ else:
 # =============================================================================
 # 1. 執行完整回測（共用）
 # =============================================================================
+# 此處拿到的 score 與 full_score_matrix 已經包含了 shared_backtest 內部的動態權重轉移
 report, position_final, price, score, final_cond, rs_fixed, peg, dd, corr_mkt, regime, weights, full_score_matrix, \
 c_rev_positive, c_rev_high, c_hist, c_ma_filter, c_liq = run_full_backtest()
 
 # =============================================================================
 # 2. 產生排名資料
 # =============================================================================
-# 找到最後一個所有必要資料都存在的日期
 valid_dates = score.index.intersection(rs_fixed.index)\
                         .intersection(peg.index)\
                         .intersection(dd.index)\
@@ -111,7 +111,6 @@ def get_failed_conditions(sid, dt):
     
     # 2. PEG 檢查 (包含缺值與範圍檢查)
     if sid in peg.columns:
-        # 這裡一樣用跟全市場排名相同的日線補值判定方式，確保客觀事實一致
         peg_value = peg.reindex(price.index).ffill().loc[dt].get(sid)
         if pd.isna(peg_value) or peg_value < 0:
             fail.append("PEG無有效數值")
@@ -153,7 +152,7 @@ def build_stock_item(sid, row, base_rank, prev_rank_map, selected=None, passed_f
         "peg_pct": pct_win(row.get("peg_pct")),
         "dd_pct": pct_win(row.get("dd_pct")),
         "corr_pct": pct_win(row.get("corr_pct")),
-        "is_peg_nan": bool(is_peg_nan)  # 客觀標籤：True 代表 PEG 缺值或為負，False 代表正常有值
+        "is_peg_nan": bool(is_peg_nan)
     }
     if selected is not None: item["selected"] = bool(selected)
     if passed_filter is not None:
@@ -178,7 +177,7 @@ def add_history_to_items(items):
         item["history"] = history_list[::-1]
     return items
 
-# ====================== 產生三種排名 ======================
+# ====================== 基礎大百分比排名計算 ======================
 fixed_hold_ids = score.loc[real_rebalance_dt].sort_values(ascending=False).head(16).index
 
 r_rs_today = rs_fixed.loc[latest_dt].rank(pct=True)
@@ -189,60 +188,34 @@ r_corr_today = (-corr_mkt).loc[latest_dt].rank(pct=True)
 curr_regime = regime.loc[latest_dt]
 w = weights.apply(lambda x: x[curr_regime])
 
-score_raw_today = r_rs_today * w["rs"] + r_peg_today * w["peg"] + r_corr_today * w["corr"] + r_dd_today * w["dd"]
+# 🛠️ 完全對應：全市場今日分數直接由 shared_backtest 計算出的邏輯矩陣中提取，確保與回測 100% 同步
+# 因為回測中已經對 score 矩陣做過完美的向量化平攤，這裡我們直接拿對應日期，不需手動重新計算
+score_market_today_series = full_score_matrix.loc[latest_dt]
 
 compare_dt = get_compare_dt(valid_dates, latest_dt, days=7)
 prev_current_holdings_rank_map = {}
 prev_filtered_rank_map = {}
 prev_market_rank_map = {}
+
 if compare_dt is not None:
-    r_rs_prev = rs_fixed.loc[compare_dt].rank(pct=True)
-    r_peg_prev = (1 / peg).loc[compare_dt].rank(pct=True)
-    r_dd_prev = (-dd).loc[compare_dt].rank(pct=True)
-    r_corr_prev = (-corr_mkt).loc[compare_dt].rank(pct=True)
-    
-    prev_regime = regime.loc[compare_dt]
-    w_prev = weights.apply(lambda x: x[prev_regime])
-    score_raw_prev = r_rs_prev * w_prev["rs"] + r_peg_prev * w_prev["peg"] + r_corr_prev * w_prev["corr"] + r_dd_prev * w_prev["dd"]
-    
-    df_h_prev = pd.DataFrame({"score": score_raw_prev.reindex(fixed_hold_ids)})
+    df_h_prev = pd.DataFrame({"score": full_score_matrix.loc[compare_dt].reindex(fixed_hold_ids)})
     prev_current_holdings_rank_map = build_rank_map(df_h_prev)
     
     filtered_ids_prev = final_cond.loc[compare_dt][final_cond.loc[compare_dt]].index
-    df_f_prev = pd.DataFrame({"score": score_raw_prev.reindex(filtered_ids_prev)})
+    df_f_prev = pd.DataFrame({"score": full_score_matrix.loc[compare_dt].reindex(filtered_ids_prev)})
     prev_filtered_rank_map = build_rank_map(df_f_prev)
     
-    # 建立上周全市場排名對照表（使用客觀缺值轉移邏輯進行權重計算）
+    # 🛠️ 完全對應：上周全市場排名對照表，也直接讀取當天經回測引擎轉換完的 full_score_matrix 行
     rev_m_prev_series = data.get('monthly_revenue:當月營收').reindex(price.index).ffill().loc[compare_dt]
     rev_m_prev_series.index = rev_m_prev_series.index.astype(str)
-    peg_prev_series = peg.reindex(price.index).ffill().loc[compare_dt]
-    peg_prev_series.index = peg_prev_series.index.astype(str)
-    
     valid_market_ids_prev = rev_m_prev_series[rev_m_prev_series.notnull()].index
     
-    score_market_prev_dict = {}
-    for sid in valid_market_ids_prev:
-        p_val = peg_prev_series.get(sid)
-        
-        if pd.isna(p_val) or p_val < 0:
-            available_w = w_prev["rs"] + w_prev["corr"] + w_prev["dd"]
-            if available_w > 0:
-                s_w_rs = w_prev["rs"] / available_w
-                s_w_corr = w_prev["corr"] / available_w
-                s_w_dd = w_prev["dd"] / available_w
-            else:
-                s_w_rs, s_w_corr, s_w_dd = 0.33, 0.33, 0.33
-            fs = r_rs_prev.get(sid, 0)*s_w_rs + r_corr_prev.get(sid, 0)*s_w_corr + r_dd_prev.get(sid, 0)*s_w_dd
-        else:
-            fs = r_rs_prev.get(sid, 0)*w_prev["rs"] + r_peg_prev.get(sid, 0)*w_prev["peg"] + r_corr_prev.get(sid, 0)*w_prev["corr"] + r_dd_prev.get(sid, 0)*w_prev["dd"]
-        score_market_prev_dict[sid] = fs
-        
-    df_m_prev_new = pd.DataFrame.from_dict(score_market_prev_dict, orient='index', columns=['score'])
+    df_m_prev_new = pd.DataFrame({"score": full_score_matrix.loc[compare_dt].reindex(valid_market_ids_prev)})
     prev_market_rank_map = build_rank_map(df_m_prev_new)
 
 # ====================== 目前持股排名 ======================
 df_h = pd.DataFrame({
-    "score": score_raw_today.reindex(fixed_hold_ids),
+    "score": score_market_today_series.reindex(fixed_hold_ids),
     "close": price.loc[latest_dt].reindex(fixed_hold_ids),
     "rs_pct": r_rs_today.reindex(fixed_hold_ids),
     "peg_pct": r_peg_today.reindex(fixed_hold_ids),
@@ -254,10 +227,10 @@ df_h = df_h.sort_values("score", ascending=False).copy()
 df_h["base_rank"] = range(1, len(df_h) + 1)
 current_holdings_rank = [build_stock_item(sid, row, row["base_rank"], prev_current_holdings_rank_map, True, row["passed_filter"], False) for sid, row in df_h.iterrows()]
 
-# ====================== 條件篩選排名（全量，不限制） ======================
+# ====================== 條件篩選排名 ======================
 filtered_ids = final_cond.loc[latest_dt][final_cond.loc[latest_dt]].index
 df_f = pd.DataFrame({
-    "score": score_raw_today.reindex(filtered_ids),
+    "score": score_market_today_series.reindex(filtered_ids),
     "close": price.loc[latest_dt].reindex(filtered_ids),
     "rs_pct": r_rs_today.reindex(filtered_ids),
     "peg_pct": r_peg_today.reindex(filtered_ids),
@@ -269,42 +242,22 @@ df_f = df_f.sort_values("score", ascending=False).copy()
 df_f["base_rank"] = range(1, len(df_f) + 1)
 filtered_rank = [build_stock_item(sid, row, row["base_rank"], prev_filtered_rank_map, False, True, False) for sid, row in df_f.iterrows()]
 
-# ====================== 全市場排名（引入客觀缺值轉移） ======================
-# 1. 取得當天營收並以此為底池（去除無營收的 ETF）
+# ====================== 全市場排名（導入客觀缺值標記） ======================
 rev_m_today_series = data.get('monthly_revenue:當月營收').reindex(price.index).ffill().loc[latest_dt]
 rev_m_today_series.index = rev_m_today_series.index.astype(str)
 valid_market_ids = rev_m_today_series[rev_m_today_series.notnull()].index
 
-# 2. 依客觀 PEG 狀態進行分數計算與標記
+peg_today_series = peg.reindex(price.index).ffill().loc[latest_dt]
+peg_today_series.index = peg_today_series.index.astype(str)
+
 market_items_raw = []
 for sid in valid_market_ids:
-    p_val = peg.reindex(price.index).ffill().loc[latest_dt].get(sid)
+    p_val = peg_today_series.get(sid)
+    is_nan_tag = pd.isna(p_val) or p_val < 0
     
-    if pd.isna(p_val) or p_val < 0:
-        is_nan_tag = True
-        
-        # PEG 缺值，將剩餘因子權重等比例放大
-        total_active_w = w["rs"] + w["corr"] + w["dd"]
-        if total_active_w > 0:
-            scale_w_rs = w["rs"] / total_active_w
-            scale_w_corr = w["corr"] / total_active_w
-            scale_w_dd = w["dd"] / total_active_w
-        else:
-            scale_w_rs, scale_w_corr, scale_w_dd = 0.33, 0.33, 0.33
-            
-        final_calculated_score = (r_rs_today.get(sid, 0) * scale_w_rs) + \
-                                 (r_corr_today.get(sid, 0) * scale_w_corr) + \
-                                 (r_dd_today.get(sid, 0) * scale_w_dd)
-    else:
-        is_nan_tag = False
-        final_calculated_score = (r_rs_today.get(sid, 0) * w["rs"]) + \
-                                 (r_peg_today.get(sid, 0) * w["peg"]) + \
-                                 (r_corr_today.get(sid, 0) * w["corr"]) + \
-                                 (r_dd_today.get(sid, 0) * w["dd"])
-                                 
     market_items_raw.append({
         "stock_id": sid,
-        "score": final_calculated_score,
+        "score": score_market_today_series.get(sid, 0), # 直接取用核心轉移後的分數
         "close": price.loc[latest_dt].get(sid),
         "rs_pct": r_rs_today.get(sid),
         "peg_pct": r_peg_today.get(sid),
@@ -314,7 +267,6 @@ for sid in valid_market_ids:
         "is_peg_nan": is_nan_tag
     })
 
-# 轉成 DataFrame 進行全市場排名
 df_m_new = pd.DataFrame(market_items_raw).set_index("stock_id")
 df_m_new = df_m_new.sort_values("score", ascending=False)
 df_m_new["base_rank"] = range(1, len(df_m_new) + 1)
@@ -402,7 +354,7 @@ def get_pts(series, benchmark_series, start_dt, period=None):
 
 now = datetime.now(ZoneInfo("Asia/Taipei"))
 chart_json = {
-    "今年": get_pts(report.creturn, report.benchmark, f"{now.year}-01-01", period="夢想"), # 保持原有日頻
+    "今年": get_pts(report.creturn, report.benchmark, f"{now.year}-01-01", period="今年"),
     "1年": get_pts(report.creturn, report.benchmark, now - pd.Timedelta(days=365), period="1年"),
     "5年": get_pts(report.creturn, report.benchmark, now - pd.Timedelta(days=5*365), period="5年"),
     "全部": get_pts(report.creturn, report.benchmark, report.creturn.index.min(), period="全部")
