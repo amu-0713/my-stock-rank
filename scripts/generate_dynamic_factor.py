@@ -161,7 +161,7 @@ def add_history_to_items(items):
         item["history"] = history_list[::-1]
     return items
 
-# ====================== 【只在此處調整 PEG 缺失權重，不影響回測】 ======================
+# ====================== 【PEG缺失權重調整 - 只影響排名】 ======================
 print("🔧 計算即時排名 - PEG缺失權重調整...")
 
 r_rs_today = rs_fixed.loc[latest_dt].rank(pct=True)
@@ -178,16 +178,17 @@ w = weights.apply(lambda x: x[curr_regime])
 peg_valid_today = peg.notnull().loc[latest_dt]
 peg_missing_today = ~peg_valid_today
 
-# 只在牛市時調整權重（不影響原本的回測）
+# 計算調整後分數（只在牛市調整）
 if curr_regime == 'bull':
-    w_adjusted = w.copy()
-    w_adjusted["rs"] = w_adjusted["rs"].where(~peg_missing_today, 0.45)
-    w_adjusted["dd"] = w_adjusted["dd"].where(~peg_missing_today, 0.55)
-    w_adjusted["peg"] = w_adjusted["peg"].where(~peg_missing_today, 0.0)
-    score_raw_today = (r_rs_today * w_adjusted["rs"] + 
-                      r_peg_today * w_adjusted["peg"] + 
-                      r_corr_today * w_adjusted["corr"] + 
-                      r_dd_today * w_adjusted["dd"])
+    rs_weight = np.where(peg_missing_today, 0.45, w["rs"])
+    peg_weight = np.where(peg_missing_today, 0.0, w["peg"])
+    dd_weight = np.where(peg_missing_today, 0.55, w["dd"])
+    corr_weight = w["corr"]
+    
+    score_raw_today = (r_rs_today * rs_weight + 
+                      r_peg_today * peg_weight + 
+                      r_corr_today * corr_weight + 
+                      r_dd_today * dd_weight)
 else:
     score_raw_today = (r_rs_today * w["rs"] + 
                       r_peg_today * w["peg"] + 
@@ -305,7 +306,7 @@ overview = {
 }
 
 # =============================================================================
-# 3. 產生 chart_data.json + 同步今年報酬
+# 3. 產生 chart_data.json
 # =============================================================================
 print("🚀 開始產生 chart_data.json...")
 
