@@ -65,7 +65,7 @@ def score_to_display(val):
     return round(min(float(mapped_score), 100.0), 1)
 
 def pct_win(val):
-    if pd.isna(val): return 0.0  # 修正：若排名缺失(如peg為NaN且設為0)，百分比顯示0.0
+    if pd.isna(val): return 0.0
     return round(float(val * 100), 1)
 
 def get_compare_dt(index, latest_dt, days=7):
@@ -112,11 +112,15 @@ def get_failed_conditions(sid, dt):
     # 2. PEG 檢查
     if sid in peg.columns:
         peg_value = peg.loc[dt, sid]
-        if pd.notna(peg_value):
+        if pd.isna(peg_value):
+            fail.append("PEG缺值")  # 👈 新增：當 PEG 為 NaN 時顯示的提示文字
+        else:
             if peg_value <= 0.2:
                 fail.append("PEG過低")
             elif peg_value >= 1.8:
                 fail.append("PEG過高")
+    else:
+        fail.append("PEG缺值")
     
     # 3. 其他重要濾網
     if not get_cond_value(c_ma_filter, dt, sid):
@@ -175,50 +179,55 @@ def add_history_to_items(items):
 # ====================== 產生三種排名 ======================
 fixed_hold_ids = score.loc[real_rebalance_dt].sort_values(ascending=False).head(16).index
 
-# 今日基礎因子排名 (全市場，不剔除)
+# 今日基礎因子排名 (全市場對齊)
 r_rs_today = rs_fixed.loc[latest_dt].rank(pct=True)
-r_peg_today = (1 / peg).loc[latest_dt].rank(pct=True).fillna(0) # 👈 修正：讓 peg 為 NaN 預設排名為 0
-r_dd_today = (-dd).loc[latest_dt].rank(pct=True)
-r_corr_today = (-corr_mkt).loc[latest_dt].rank(pct=True)
+r_peg_today = (1 / peg).loc[latest_dt].rank(pct=True).reindex(r_rs_today.index).fillna(0) # 👈 完美對齊全市場
+r_dd_today = (-dd).loc[latest_dt].rank(pct=True).reindex(r_rs_today.index).fillna(0)
+r_corr_today = (-corr_mkt).loc[latest_dt].rank(pct=True).reindex(r_rs_today.index).fillna(0)
 
-# 偵測今日哪些位置的原始 peg 是 NaN
-peg_is_nan_today = peg.loc[latest_dt].isnull()
-
+# 今日大盤狀態與基礎權重
 curr_regime = regime.loc[latest_dt]
 w = weights.apply(lambda x: x[curr_regime])
 
-# 今日動態權重：當 peg 為 NaN 時，rs 與 dd 各自額外獲得 0.15 權重，peg 權重歸 0
-w_rs_today = np.where(peg_is_nan_today, w["rs"] + 0.15, w["rs"])
-w_dd_today = np.where(peg_is_nan_today, w["dd"] + 0.15, w["dd"])
-w_peg_today = np.where(peg_is_nan_today, 0.0, w["peg"])
-w_corr_today = w["corr"]
+# 使用與全市場對齊的 True/False Series 來判定哪些股票沒有 peg 數據
+peg_is_nan_today = peg.loc[latest_dt].reindex(r_rs_today.index).isnull()
 
-score_raw_today = r_rs_today * w_rs_today + r_peg_today * w_peg_today + r_corr_today * w_corr_today + r_dd_today * w_dd_today
+# 今日動態調整權重
+w_rs_today = pd.Series(w["rs"], index=r_rs_today.index)
+w_dd_today = pd.Series(w["dd"], index=r_rs_today.index)
+w_peg_today = pd.Series(w["peg"], index=r_rs_today.index)
 
+w_rs_today[peg_is_nan_today] += 0.15
+w_dd_today[peg_is_nan_today] += 0.15
+w_peg_today[peg_is_nan_today] = 0.0
+
+score_raw_today = r_rs_today * w_rs_today + r_peg_today * w_peg_today + r_corr_today * w["corr"] + r_dd_today * w_dd_today
+
+# 上周排名比較資料處理
 compare_dt = get_compare_dt(valid_dates, latest_dt, days=7)
 prev_current_holdings_rank_map = {}
 prev_filtered_rank_map = {}
 prev_market_rank_map = {}
 if compare_dt is not None:
-    # 上周基礎因子排名 (全市場，不剔除)
     r_rs_prev = rs_fixed.loc[compare_dt].rank(pct=True)
-    r_peg_prev = (1 / peg).loc[compare_dt].rank(pct=True).fillna(0) # 👈 修正：讓 peg 為 NaN 預設排名為 0
-    r_dd_prev = (-dd).loc[compare_dt].rank(pct=True)
-    r_corr_prev = (-corr_mkt).loc[compare_dt].rank(pct=True)
+    r_peg_prev = (1 / peg).loc[compare_dt].rank(pct=True).reindex(r_rs_prev.index).fillna(0)
+    r_dd_prev = (-dd).loc[compare_dt].rank(pct=True).reindex(r_rs_prev.index).fillna(0)
+    r_corr_prev = (-corr_mkt).loc[compare_dt].rank(pct=True).reindex(r_rs_prev.index).fillna(0)
     
-    # 偵測上周哪些位置的原始 peg 是 NaN
-    peg_is_nan_prev = peg.loc[compare_dt].isnull()
+    peg_is_nan_prev = peg.loc[compare_dt].reindex(r_rs_prev.index).isnull()
     
     prev_regime = regime.loc[compare_dt]
     w_prev = weights.apply(lambda x: x[prev_regime])
     
-    # 上周動態權重補償邏輯
-    w_rs_prev = np.where(peg_is_nan_prev, w_prev["rs"] + 0.15, w_prev["rs"])
-    w_dd_prev = np.where(peg_is_nan_prev, w_prev["dd"] + 0.15, w_prev["dd"])
-    w_peg_prev = np.where(peg_is_nan_prev, 0.0, w_prev["peg"])
-    w_corr_prev = w_prev["corr"]
+    w_rs_prev = pd.Series(w_prev["rs"], index=r_rs_prev.index)
+    w_dd_prev = pd.Series(w_prev["dd"], index=r_rs_prev.index)
+    w_peg_prev = pd.Series(w_prev["peg"], index=r_rs_prev.index)
     
-    score_raw_prev = r_rs_prev * w_rs_prev + r_peg_prev * w_peg_prev + r_corr_prev * w_corr_prev + r_dd_prev * w_dd_prev
+    w_rs_prev[peg_is_nan_prev] += 0.15
+    w_dd_prev[peg_is_nan_prev] += 0.15
+    w_peg_prev[peg_is_nan_prev] = 0.0
+    
+    score_raw_prev = r_rs_prev * w_rs_prev + r_peg_prev * w_peg_prev + r_corr_prev * w_prev["corr"] + r_dd_prev * w_dd_prev
     
     df_h_prev = pd.DataFrame({"score": score_raw_prev.reindex(fixed_hold_ids)})
     prev_current_holdings_rank_map = build_rank_map(df_h_prev)
@@ -228,7 +237,7 @@ if compare_dt is not None:
     prev_filtered_rank_map = build_rank_map(df_f_prev)
     
     df_m_prev = pd.DataFrame({"score": score_raw_prev})
-    df_m_prev = df_m_prev[df_m_prev["score"] >= 0] # 👈 修正：分數可能包含 0，故改為 >= 0
+    df_m_prev = df_m_prev[df_m_prev["score"] >= 0]
     prev_market_rank_map = build_rank_map(df_m_prev)
 
 # ====================== 目前持股排名 ======================
@@ -270,7 +279,7 @@ df_m = pd.DataFrame({
     "corr_pct": r_corr_today,
     "passed_filter": final_cond.loc[latest_dt]
 })
-df_m = df_m[df_m["score"] >= 0].copy() # 👈 修正：分數可能為 0（例如全因子分數都低），改為 >= 0，確保 peg=nan 不被砍掉
+df_m = df_m[df_m["score"] >= 0].copy() # 確保所有股票正常留存
 df_m = df_m.sort_values("score", ascending=False)
 df_m["base_rank"] = range(1, len(df_m) + 1)
 market_rank = [build_stock_item(sid, row, row["base_rank"], prev_market_rank_map, False, bool(row["passed_filter"])) for sid, row in df_m.iterrows()]
@@ -319,7 +328,6 @@ overview = {
 print("🚀 開始產生 chart_data.json...")
 
 def get_pts(series, benchmark_series, start_dt, period=None):
-    """支援周切片：5年與全部改成每周資料，徹底解決首頁 lag"""
     if isinstance(start_dt, str):
         start_dt = pd.to_datetime(start_dt)
     else:
@@ -332,11 +340,9 @@ def get_pts(series, benchmark_series, start_dt, period=None):
     if len(target) == 0:
         return []
    
-    # === 關鍵修正：長週期改成周切片 ===
     if period in ['5年', '全部']:
-        target = target.resample('W-FRI').last().dropna()           # 每周五
+        target = target.resample('W-FRI').last().dropna()
         target_bench = target_bench.resample('W-FRI').last().dropna()
-    # 今年 / 1年 保持日頻（資料量小，保留細節）
 
     base = target.iloc[0]
     base_bench = target_bench.iloc[0]
@@ -361,7 +367,6 @@ chart_json = {
     "全部": get_pts(report.creturn, report.benchmark, report.creturn.index.min(), period="全部")
 }
 
-# === 關鍵同步：覆蓋 result_json 中的今年報酬 ===
 if chart_json.get("今年") and len(chart_json["今年"]) > 0:
     latest_ytd = chart_json["今年"][-1]["returns"]
     overview["total_return_ytd"] = round(float(latest_ytd), 2)
@@ -381,7 +386,6 @@ result_json = {
     "market_rank": market_rank
 }
 
-# 寫入兩個 json
 output_path = Path("public/result.json")
 output_path.parent.mkdir(parents=True, exist_ok=True)
 with open(output_path, 'w', encoding='utf-8') as f:
