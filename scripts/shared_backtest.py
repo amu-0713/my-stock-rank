@@ -54,7 +54,7 @@ def run_full_backtest():
     ).fillna(False)
 
     # =============================================================================
-    # 四、多因子評分系統 (動態平攤 PEG 缺值權重，化解維度衝突版)
+    # 四、多因子評分系統 (動態平攤 PEG 缺值權重，安全防護升級版)
     # =============================================================================
     rs_fixed = price.ffill().pct_change(80, fill_method=None)
     rets = price.pct_change(fill_method=None)
@@ -98,16 +98,18 @@ def run_full_backtest():
 
     # 利用 np.tile 將 (天數, 1) 的權重橫向複製平鋪成 (天數, 股票數) 矩陣，消除維度初始化衝突
     num_stocks = len(r_rs.columns)
-    w_rs_final = pd.DataFrame(np.tile(w_rs_dyn.values[:, None], (1, num_stocks)), index=r_rs.index, columns=r_rs.columns)
-    w_corr_final = pd.DataFrame(np.tile(w_corr_dyn.values[:, None], (1, num_stocks)), index=r_rs.index, columns=r_rs.columns)
-    w_dd_final = pd.DataFrame(np.tile(w_dd_dyn.values[:, None], (1, num_stocks)), index=r_rs.index, columns=r_rs.columns)
-    w_peg_final = pd.DataFrame(np.tile(w_peg_dyn.values[:, None], (1, num_stocks)), index=r_rs.index, columns=r_rs.columns)
+    w_rs_base = pd.DataFrame(np.tile(w_rs_dyn.values[:, None], (1, num_stocks)), index=r_rs.index, columns=r_rs.columns)
+    w_corr_base = pd.DataFrame(np.tile(w_corr_dyn.values[:, None], (1, num_stocks)), index=r_rs.index, columns=r_rs.columns)
+    w_dd_base = pd.DataFrame(np.tile(w_dd_dyn.values[:, None], (1, num_stocks)), index=r_rs.index, columns=r_rs.columns)
+    w_peg_base = pd.DataFrame(np.tile(w_peg_dyn.values[:, None], (1, num_stocks)), index=r_rs.index, columns=r_rs.columns)
     
-    # 針對缺值個股動態放大活躍因子權重，並將 PEG 權重歸零
-    w_rs_final[is_peg_nan] = w_rs_final[is_peg_nan].mul(scale_factor, axis=0)
-    w_corr_final[is_peg_nan] = w_corr_final[is_peg_nan].mul(scale_factor, axis=0)
-    w_dd_final[is_peg_nan] = w_dd_final[is_peg_nan].mul(scale_factor, axis=0)
-    w_peg_final[is_peg_nan] = 0.0
+    # ✅ 改用 Pandas 函數式 .mask() 語法，當 is_peg_nan 為 True 時精準放大活躍因子權重，徹底根除 TypeError
+    w_rs_final = w_rs_base.mask(is_peg_nan, w_rs_base.mul(scale_factor, axis=0))
+    w_corr_final = w_corr_base.mask(is_peg_nan, w_corr_base.mul(scale_factor, axis=0))
+    w_dd_final = w_dd_base.mask(is_peg_nan, w_dd_base.mul(scale_factor, axis=0))
+    
+    # PEG 權重在缺值時直接安全歸零
+    w_peg_final = w_peg_base.mask(is_peg_nan, 0.0)
 
     # 最終加權算分 (策略選股與回測用)
     score = (
@@ -117,7 +119,7 @@ def run_full_backtest():
         r_dd.mul(w_dd_final).fillna(0)
     )
 
-    # 計算 full_score_matrix（用於歷史全市場大排名，基底架構相同，完美同步名次）
+    # 計算 full_score_matrix（用於歷史全市場大排名，與回測打分邏輯完美同步）
     r_rs_all = rs_fixed.rank(axis=1, pct=True)
     r_peg_all = (1 / peg).rank(axis=1, pct=True)
     r_dd_all = (-dd).rank(axis=1, pct=True)
