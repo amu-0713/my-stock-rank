@@ -53,8 +53,8 @@ def run_full_backtest():
         c_hist & c_valid & c_ma_filter & c_liq
     ).fillna(False)
 
-    # =============================================================================
-    # 四、多因子評分系統 (核心修正：動態平攤 PEG 缺值權重)
+   # =============================================================================
+    # 四、多因子評分系統 (核心修正：用 Pandas 的 index/columns 自動對齊化解維度衝突)
     # =============================================================================
     rs_fixed = price.ffill().pct_change(80, fill_method=None)
     rets = price.pct_change(fill_method=None)
@@ -63,7 +63,7 @@ def run_full_backtest():
     dd = rets.where(rets < 0, 0).rolling(20).std().replace(0, np.nan)
     corr_mkt = rets.rolling(60).corr(mkt_rets)
 
-    # 基礎百分比大排名（不影響內部排名順序）
+    # 基礎百分比大排名
     r_rs = rs_fixed.where(final_cond).rank(axis=1, pct=True)
     r_peg = (1 / peg).where(final_cond).rank(axis=1, pct=True)
     r_dd = (-dd).where(final_cond).rank(axis=1, pct=True)
@@ -81,27 +81,36 @@ def run_full_backtest():
         'dd':   {'bull': 0.4, 'bear': 0.4},
     })
 
+    # 轉換為帶有日期 Index 的 Series
     w_rs_dyn = regime.map(weights['rs'])
     w_peg_dyn = regime.map(weights['peg'])
     w_corr_dyn = regime.map(weights['corr'])
     w_dd_dyn = regime.map(weights['dd'])
 
-    # 🛠️ 關鍵手術：動態判斷每檔股票在當天的 PEG 是否缺值或為負 (is_peg_nan)
-    is_peg_nan = peg.isnull() | (peg < 0)
+    # 🛠️ 關鍵修正 1：判定 PEG 缺值狀況，並利用 reindex 確保時間軸與個股代號完全對齊
+    is_peg_nan = (peg.isnull() | (peg < 0)).reindex(index=r_rs.index, columns=r_rs.columns).fillna(True)
 
-    # 計算剩餘三個活耀因子的權重總和
-    total_active_w = w_rs_dyn.to_frame('.').join([w_corr_dyn, w_dd_dyn]).sum(axis=1)
+    # 計算剩餘三個活躍因子的權重總和 Series (維度：時間軸)
+    total_active_w = w_rs_dyn + w_corr_dyn + w_dd_dyn
 
-    # 當 peg 缺值時，計算其餘因子分配的乘數 (1 + peg權重 / 剩餘權重總和)
-    # 若 total_active_w 為 0 (安全防護)，則不放大
+    # 當 peg 缺值時，計算其餘因子分配的乘數 Series (維度：時間軸)
     scale_factor = 1 + w_peg_dyn / total_active_w.replace(0, np.nan)
     scale_factor = scale_factor.fillna(1.0)
 
-    # 構建每檔個股、每天的動態加權矩陣
-    w_rs_final = pd.DataFrame(np.where(is_peg_nan, w_rs_dyn.values[:, None] * scale_factor.values[:, None], w_rs_dyn.values[:, None]), index=r_rs.index, columns=r_rs.columns)
-    w_peg_final = pd.DataFrame(np.where(is_peg_nan, 0.0, w_peg_dyn.values[:, None]), index=r_rs.index, columns=r_rs.columns)
-    w_corr_final = pd.DataFrame(np.where(is_peg_nan, w_corr_dyn.values[:, None] * scale_factor.values[:, None], w_corr_dyn.values[:, None]), index=r_rs.index, columns=r_rs.columns)
-    w_dd_final = pd.DataFrame(np.where(is_peg_nan, w_dd_dyn.values[:, None] * scale_factor.values[:, None], w_dd_dyn.values[:, None]), index=r_rs.index, columns=r_rs.columns)
+    # 🛠️ 關鍵修正 2：利用 Pandas 廣播機制（軸向對齊）建立最終權重 Dataframe
+    # 先讓全矩陣填滿原始權重，再將 is_peg_nan 為 True 的格子乘以 scale_factor
+    w_rs_final = pd.DataFrame(w_rs_dyn.values[:, None], index=r_rs.index, columns=r_rs.columns)
+    w_corr_final = pd.DataFrame(w_corr_dyn.values[:, None], index=r_rs.index, columns=r_rs.columns)
+    w_dd_final = pd.DataFrame(w_dd_dyn.values[:, None], index=r_rs.index, columns=r_rs.columns)
+    
+    # 針對缺值個股動態放大權重
+    w_rs_final[is_peg_nan] = w_rs_final[is_peg_nan].mul(scale_factor, axis=0)
+    w_corr_final[is_peg_nan] = w_corr_final[is_peg_nan].mul(scale_factor, axis=0)
+    w_dd_final[is_peg_nan] = w_dd_final[is_peg_nan].mul(scale_factor, axis=0)
+
+    # PEG 權重在缺值時直接歸零
+    w_peg_final = pd.DataFrame(w_peg_dyn.values[:, None], index=r_rs.index, columns=r_rs.columns)
+    w_peg_final[is_peg_nan] = 0.0
 
     # 最終加權算分 (策略選股與回測用)
     score = (
@@ -111,7 +120,7 @@ def run_full_backtest():
         r_dd.mul(w_dd_final).fillna(0)
     )
 
-    # 計算 full_score_matrix（用於歷史分數大矩陣，同樣套用此權重轉移邏輯，確保一致性）
+    # 計算 full_score_matrix（用於歷史大排名，基底相同，完美對齊）
     r_rs_all = rs_fixed.rank(axis=1, pct=True)
     r_peg_all = (1 / peg).rank(axis=1, pct=True)
     r_dd_all = (-dd).rank(axis=1, pct=True)
