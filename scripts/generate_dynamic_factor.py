@@ -1,4 +1,4 @@
-# scripts/generate_and_push.py
+# scripts/generate_dynamic_factor.py
 import os
 import finlab
 import pandas as pd
@@ -24,7 +24,6 @@ else:
 # =============================================================================
 # 1. 執行完整回測（共用）
 # =============================================================================
-# 此處拿到的 score 與 full_score_matrix 已經包含了 shared_backtest 內部的動態權重轉移
 report, position_final, price, score, final_cond, rs_fixed, peg, dd, corr_mkt, regime, weights, full_score_matrix, \
 c_rev_positive, c_rev_high, c_hist, c_ma_filter, c_liq = run_full_backtest()
 
@@ -37,7 +36,6 @@ valid_dates = score.index.intersection(rs_fixed.index)\
                         .intersection(corr_mkt.index)
 
 latest_dt = valid_dates.max()
-
 print(f"✅ 使用最新完整資料日期: {latest_dt.date()}")
 
 # 季度基準日
@@ -102,14 +100,12 @@ def get_failed_conditions(sid, dt):
     # 1. 營收相關檢查
     if not get_cond_value(c_rev_positive, dt, sid):
         fail.append("當季營收為負或零")
-    
     if not get_cond_value(c_rev_high, dt, sid):
         fail.append("季均營收未創新高")
-    
     if not get_cond_value(c_hist, dt, sid):
         fail.append("營收資料不足（少於13個月）")
     
-    # 2. PEG 檢查 (包含缺值與範圍檢查)
+    # 2. PEG 檢查 (包含客觀缺值與範圍檢查)
     if sid in peg.columns:
         peg_value = peg.reindex(price.index).ffill().loc[dt].get(sid)
         if pd.isna(peg_value) or peg_value < 0:
@@ -125,11 +121,10 @@ def get_failed_conditions(sid, dt):
     # 3. 其他重要濾網
     if not get_cond_value(c_ma_filter, dt, sid):
         fail.append("均線未呈多頭排列")
-    
     if not get_cond_value(c_liq, dt, sid):
         fail.append("流動性不足（成交金額太低）")
     
-    # 4. 如果 final_cond 整體失敗，但上面沒抓到，給一個兜底原因
+    # 4. 兜底
     if not get_cond_value(final_cond, dt, sid) and not fail:
         fail.append("未通過綜合濾網")
     
@@ -185,11 +180,6 @@ r_peg_today = (1 / peg).loc[latest_dt].rank(pct=True)
 r_dd_today = (-dd).loc[latest_dt].rank(pct=True)
 r_corr_today = (-corr_mkt).loc[latest_dt].rank(pct=True)
 
-curr_regime = regime.loc[latest_dt]
-w = weights.apply(lambda x: x[curr_regime])
-
-# 🛠️ 完全對應：全市場今日分數直接由 shared_backtest 計算出的邏輯矩陣中提取，確保與回測 100% 同步
-# 因為回測中已經對 score 矩陣做過完美的向量化平攤，這裡我們直接拿對應日期，不需手動重新計算
 score_market_today_series = full_score_matrix.loc[latest_dt]
 
 compare_dt = get_compare_dt(valid_dates, latest_dt, days=7)
@@ -205,7 +195,6 @@ if compare_dt is not None:
     df_f_prev = pd.DataFrame({"score": full_score_matrix.loc[compare_dt].reindex(filtered_ids_prev)})
     prev_filtered_rank_map = build_rank_map(df_f_prev)
     
-    # 🛠️ 完全對應：上周全市場排名對照表，也直接讀取當天經回測引擎轉換完的 full_score_matrix 行
     rev_m_prev_series = data.get('monthly_revenue:當月營收').reindex(price.index).ffill().loc[compare_dt]
     rev_m_prev_series.index = rev_m_prev_series.index.astype(str)
     valid_market_ids_prev = rev_m_prev_series[rev_m_prev_series.notnull()].index
@@ -257,7 +246,7 @@ for sid in valid_market_ids:
     
     market_items_raw.append({
         "stock_id": sid,
-        "score": score_market_today_series.get(sid, 0), # 直接取用核心轉移後的分數
+        "score": score_market_today_series.get(sid, 0),
         "close": price.loc[latest_dt].get(sid),
         "rs_pct": r_rs_today.get(sid),
         "peg_pct": r_peg_today.get(sid),
