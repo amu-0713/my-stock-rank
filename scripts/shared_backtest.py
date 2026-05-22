@@ -54,7 +54,7 @@ def run_full_backtest():
     ).fillna(False)
 
     # =============================================================================
-    # 四、多因子評分系統 (完美精準 算術廣播動態權平攤版)
+    # 四、多因子評分系統
     # =============================================================================
     rs_fixed = price.ffill().pct_change(80, fill_method=None)
     rets = price.pct_change(fill_method=None)
@@ -63,23 +63,15 @@ def run_full_backtest():
     dd = rets.where(rets < 0, 0).rolling(20).std().replace(0, np.nan)
     corr_mkt = rets.rolling(60).corr(mkt_rets)
 
-    # 基礎百分比大排名 (選股策略用)
     r_rs = rs_fixed.where(final_cond).rank(axis=1, pct=True)
     r_peg = (1 / peg).where(final_cond).rank(axis=1, pct=True)
     r_dd = (-dd).where(final_cond).rank(axis=1, pct=True)
     c_corr = final_cond & (corr_mkt < 0.5)
     r_corr = (-corr_mkt).where(c_corr).rank(axis=1, pct=True)
 
-    # 全市場百分比大排名 (全量網頁顯示用，不加條件濾網，完美保留全市場~1800多筆打分)
-    r_rs_all = rs_fixed.rank(axis=1, pct=True)
-    r_peg_all = (1 / peg).rank(axis=1, pct=True)
-    r_dd_all = (-dd).rank(axis=1, pct=True)
-    r_corr_all = (-corr_mkt).rank(axis=1, pct=True)
-
     is_bear_mask = is_bear.reindex(r_rs.index).ffill().fillna(True)
     regime = pd.Series(np.where(is_bear_mask, 'bear', 'bull'), index=r_rs.index)
 
-    # 基礎多頭與空頭市場因子權重
     weights = pd.DataFrame({
         'rs':   {'bull': 0.3, 'bear': 0.3},
         'peg':  {'bull': 0.3, 'bear': 0.0},
@@ -92,41 +84,24 @@ def run_full_backtest():
     w_corr_dyn = regime.map(weights['corr'])
     w_dd_dyn = regime.map(weights['dd'])
 
-    # 💡 將布林轉成 0 與 1 的全市場矩陣 (對齊 price.columns)
-    is_peg_nan_mask = (peg.isnull() | (peg < 0)).reindex(index=r_rs.index, columns=price.columns).fillna(True).astype(float)
-
-    # 計算其餘活躍因子的權重總和與放大乘數 (純 Series 運算)
-    total_active_w = w_rs_dyn + w_corr_dyn + w_dd_dyn
-    scale_factor = 1 + w_peg_dyn / total_active_w.replace(0, np.nan)
-    scale_factor = scale_factor.fillna(1.0)
-
-    # 🛠️ 數學邏輯完美廣播：Multiplier = 1 + is_peg_nan * (scale_factor - 1)
-    # 當 is_peg_nan 為 1 時，結果為 scale_factor；當 is_peg_nan 為 0 時，結果為 1.0
-    dynamic_multiplier = 1.0 + is_peg_nan_mask.mul(scale_factor - 1.0, axis=0)
-    
-    # PEG 權重乘數：缺值時為 0，有值時為 1
-    peg_multiplier = 1.0 - is_peg_nan_mask
-
-    # 直接計算全市場上每檔股票每天的精準動態權重 (毫秒級完成)
-    w_rs_final = dynamic_multiplier.mul(w_rs_dyn, axis=0)
-    w_corr_final = dynamic_multiplier.mul(w_corr_dyn, axis=0)
-    w_dd_final = dynamic_multiplier.mul(w_dd_dyn, axis=0)
-    w_peg_final = peg_multiplier.mul(w_peg_dyn, axis=0)
-
-    # 最終加權算分 (策略選股與回測用)
     score = (
-        r_rs.mul(w_rs_final).fillna(0) +
-        r_peg.mul(w_peg_final).fillna(0) +
-        r_corr.mul(w_corr_final).fillna(0) +
-        r_dd.mul(w_dd_final).fillna(0)
+        r_rs.mul(w_rs_dyn, axis=0).fillna(0) +
+        r_peg.mul(w_peg_dyn, axis=0).fillna(0) +
+        r_corr.mul(w_corr_dyn, axis=0).fillna(0) +
+        r_dd.mul(w_dd_dyn, axis=0).fillna(0)
     )
 
-    # 計算全市場大排名矩陣
+    # 計算 full_score_matrix（用於歷史分數）
+    r_rs_all = rs_fixed.rank(axis=1, pct=True)
+    r_peg_all = (1 / peg).rank(axis=1, pct=True)
+    r_dd_all = (-dd).rank(axis=1, pct=True)
+    r_corr_all = (-corr_mkt).rank(axis=1, pct=True)
+
     full_score_matrix = (
-        r_rs_all.mul(w_rs_final).fillna(0) +
-        r_peg_all.mul(w_peg_final).fillna(0) +
-        r_corr_all.mul(w_corr_final).fillna(0) +
-        r_dd_all.mul(w_dd_final).fillna(0)
+        r_rs_all.mul(w_rs_dyn, axis=0).fillna(0) +
+        r_peg_all.mul(w_peg_dyn, axis=0).fillna(0) +
+        r_corr_all.mul(w_corr_dyn, axis=0).fillna(0) +
+        r_dd_all.mul(w_dd_dyn, axis=0).fillna(0)
     )
 
     # =============================================================================
@@ -170,6 +145,7 @@ def run_full_backtest():
         name='動態多因子策略'
     )
 
+    # ✅ 新增：明確設定 benchmark（確保 chart_data.json 能用到）
     if not hasattr(report, 'benchmark') or report.benchmark is None:
         print("⚠️ 手動補充 benchmark（加權指數）")
         benchmark = data.get('benchmark_return:發行量加權股價報酬指數').squeeze()
@@ -177,7 +153,24 @@ def run_full_backtest():
 
     print("✅ 完整回測執行完成！")
     
+    # ====================== 回傳所有需要的值 ======================
     return (
-        report, position_final, price, score, final_cond, rs_fixed, peg, dd, corr_mkt, regime, weights, full_score_matrix,
-        c_rev_positive, c_rev_high, c_hist, c_ma_filter, c_liq
+        report, 
+        position_final, 
+        price, 
+        score, 
+        final_cond, 
+        rs_fixed, 
+        peg, 
+        dd, 
+        corr_mkt, 
+        regime, 
+        weights, 
+        full_score_matrix,
+        c_rev_positive, 
+        c_rev_high, 
+        c_hist, 
+        c_ma_filter, 
+        c_liq
     )
+
