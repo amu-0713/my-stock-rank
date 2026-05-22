@@ -84,7 +84,7 @@ def run_full_backtest():
     w_corr_dyn = regime.map(weights['corr'])
     w_dd_dyn = regime.map(weights['dd'])
 
-    # 1. 策略回測評分（保持原樣，受 final_cond 保護）
+    # 1. 策略回測評分（保持原樣，受 final_cond 保護，決定回測交易訊號）
     score = (
         r_rs.mul(w_rs_dyn, axis=0).fillna(0) +
         r_peg.mul(w_peg_dyn, axis=0).fillna(0) +
@@ -92,35 +92,35 @@ def run_full_backtest():
         r_dd.mul(w_dd_dyn, axis=0).fillna(0)
     )
 
-    # 2. 全市場歷史評分矩陣 (針對 peg=nan 的動態調整修正版)
+    # 2. 全市場歷史評分矩陣（針對 peg=nan 不剔除、rs與dd權重補0.15的修正版）
     r_rs_all = rs_fixed.rank(axis=1, pct=True)
     # peg 為 NaN 的股票不刪除，其百分比排名預設為 0
     r_peg_all = (1 / peg).rank(axis=1, pct=True).fillna(0)
     r_dd_all = (-dd).rank(axis=1, pct=True)
     r_corr_all = (-corr_mkt).rank(axis=1, pct=True)
 
-    # 將時間序列的一維權重序列，廣播擴展為 (日期 x 股票) 的 DataFrame 矩陣
-    w_rs_matrix = pd.DataFrame(w_rs_dyn.values[:, None], index=r_rs_all.index, columns=r_rs_all.columns)
-    w_peg_matrix = pd.DataFrame(w_peg_dyn.values[:, None], index=r_rs_all.index, columns=r_rs_all.columns)
-    w_corr_matrix = pd.DataFrame(w_corr_dyn.values[:, None], index=r_rs_all.index, columns=r_rs_all.columns)
-    w_dd_matrix = pd.DataFrame(w_dd_dyn.values[:, None], index=r_rs_all.index, columns=r_rs_all.columns)
-
     # 判定全市場中哪些位置的原始 peg 是缺失值
     peg_is_nan = peg.isnull()
 
-    # 權重動態修正邏輯：
-    # 當 peg 缺失時，rs 和 dd 各自加上 0.15 權重，peg 權重歸 0。否則維持原先的動態因子權重。
-    w_rs_final = w_rs_matrix.where(~peg_is_nan, w_rs_matrix + 0.15)
-    w_dd_final = w_dd_matrix.where(~peg_is_nan, w_dd_matrix + 0.15)
-    w_peg_final = w_peg_matrix.where(~peg_is_nan, 0.0)
-    w_corr_final = w_corr_matrix  # corr 權重不受影響
+    # 基礎乘上動態權重 (直接利用 axis=0 沿著日期軸心相乘，避免維度不一致錯誤)
+    base_rs_score   = r_rs_all.mul(w_rs_dyn, axis=0)
+    base_peg_score  = r_peg_all.mul(w_peg_dyn, axis=0)
+    base_corr_score = r_corr_all.mul(w_corr_dyn, axis=0)
+    base_dd_score   = r_dd_all.mul(w_dd_dyn, axis=0)
 
+    # 權重動態調整：當 peg 是 NaN 時，rs 與 dd 的分數各自加上「排名 * 0.15」，peg 權重歸 0
+    final_rs_score   = base_rs_score.where(~peg_is_nan, base_rs_score + (r_rs_all * 0.15))
+    final_dd_score   = base_dd_score.where(~peg_is_nan, base_dd_score + (r_dd_all * 0.15))
+    final_peg_score  = base_peg_score.where(~peg_is_nan, 0.0)
+    final_corr_score = base_corr_score  # corr 保持不變
+
+    # 加總得到最終全市場歷史評分
     full_score_matrix = (
-        r_rs_all * w_rs_final +
-        r_peg_all * w_peg_final +
-        r_corr_all * w_corr_final +
-        r_dd_all * w_dd_final
-    ).fillna(0)
+        final_rs_score.fillna(0) +
+        final_peg_score.fillna(0) +
+        final_corr_score.fillna(0) +
+        final_dd_score.fillna(0)
+    )
 
     # =============================================================================
     # 五、持股權重 + T+1 處理
