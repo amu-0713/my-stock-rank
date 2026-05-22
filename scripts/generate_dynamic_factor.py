@@ -175,13 +175,25 @@ def add_history_to_items(items):
 # ====================== 產生三種排名 ======================
 fixed_hold_ids = score.loc[real_rebalance_dt].sort_values(ascending=False).head(16).index
 
+# === 原始排名計算 ===
 r_rs_today = rs_fixed.loc[latest_dt].rank(pct=True)
 r_peg_today = (1 / peg).loc[latest_dt].rank(pct=True)
 r_dd_today = (-dd).loc[latest_dt].rank(pct=True)
 r_corr_today = (-corr_mkt).loc[latest_dt].rank(pct=True)
 
-# 🔥【PEG NaN 權重調整】移植自 Colab 成功版本
-peg_missing_today = peg.loc[latest_dt].isna()
+# 🔥【關鍵修正】對齊共同股票 index，解決 (2742,) vs (2150,) broadcasting 錯誤
+common_index = rs_fixed.columns.intersection(peg.columns)\
+                               .intersection(dd.columns)\
+                               .intersection(corr_mkt.columns)\
+                               .intersection(price.columns)
+
+r_rs_today = r_rs_today.reindex(common_index).fillna(0)
+r_peg_today = r_peg_today.reindex(common_index).fillna(0)
+r_dd_today = r_dd_today.reindex(common_index).fillna(0)
+r_corr_today = r_corr_today.reindex(common_index).fillna(0)
+
+# PEG NaN 權重調整
+peg_missing_today = peg.loc[latest_dt].reindex(common_index).isna()
 curr_regime = regime.loc[latest_dt]
 w = weights.apply(lambda x: x[curr_regime])
 
