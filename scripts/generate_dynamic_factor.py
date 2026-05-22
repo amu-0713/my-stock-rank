@@ -22,7 +22,7 @@ else:
     print("⚠️ 未設定 FINLAB_TOKEN")
 
 # =============================================================================
-# 1. 執行完整回測（共用，不改變任何回測邏輯）
+# 1. 執行完整回測（共用，不改變回測邏輯）
 # =============================================================================
 report, position_final, price, score, final_cond, rs_fixed, peg, dd, corr_mkt, regime, weights, full_score_matrix, \
 c_rev_positive, c_rev_high, c_hist, c_ma_filter, c_liq = run_full_backtest()
@@ -161,24 +161,27 @@ def add_history_to_items(items):
         item["history"] = history_list[::-1]
     return items
 
-# ====================== 【PEG缺失權重調整 - 只影響排名】 ======================
+# ====================== 【PEG缺失權重調整 - 修正對齊問題】 ======================
 print("🔧 計算即時排名 - PEG缺失權重調整...")
 
-r_rs_today = rs_fixed.loc[latest_dt].rank(pct=True)
-r_peg_today = (1 / peg).loc[latest_dt].rank(pct=True)
-r_dd_today = (-dd).loc[latest_dt].rank(pct=True)
-r_corr_today = (-corr_mkt).loc[latest_dt].rank(pct=True)
+# 使用共同的股票索引確保對齊
+common_index = rs_fixed.columns.intersection(peg.columns)
+
+r_rs_today = rs_fixed.loc[latest_dt, common_index].rank(pct=True)
+r_peg_today = (1 / peg.loc[latest_dt, common_index]).rank(pct=True)
+r_dd_today = (-dd.loc[latest_dt, common_index]).rank(pct=True)
+r_corr_today = (-corr_mkt.loc[latest_dt, common_index]).rank(pct=True)
 
 curr_regime = regime.loc[latest_dt]
 
-# 原始權重
+# 原始權重（對齊後）
 w = weights.apply(lambda x: x[curr_regime])
 
-# PEG 缺失判斷
-peg_valid_today = peg.notnull().loc[latest_dt]
+# PEG 缺失判斷（對齊）
+peg_valid_today = peg.notnull().loc[latest_dt, common_index]
 peg_missing_today = ~peg_valid_today
 
-# 計算調整後分數（只在牛市調整）
+# 計算調整後分數
 if curr_regime == 'bull':
     rs_weight = np.where(peg_missing_today, 0.45, w["rs"])
     peg_weight = np.where(peg_missing_today, 0.0, w["peg"])
