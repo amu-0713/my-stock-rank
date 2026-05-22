@@ -45,7 +45,8 @@ def run_full_backtest():
     c_peg_range = (peg > 0.2) & (peg < 1.8)
     c_rev_high = rev_ma3 == rev_ma3.rolling(12).max()
     c_hist = rev_m.notnull().rolling(13).min() == 1
-    c_valid = peg.notnull() & rev_g.notnull()
+    # 🔥【PEG NaN 保留】只要求 rev_g 有資料，PEG NaN 的股票也保留
+    c_valid = rev_g.notnull()
     c_liq = vol.rolling(20).min() > 1e6
 
     final_cond = (
@@ -173,4 +174,3 @@ def run_full_backtest():
         c_ma_filter, 
         c_liq
     )
-
