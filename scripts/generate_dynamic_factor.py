@@ -30,7 +30,6 @@ c_rev_positive, c_rev_high, c_hist, c_ma_filter, c_liq = run_full_backtest()
 # =============================================================================
 # 2. 產生排名資料
 # =============================================================================
-# 找到最後一個所有必要資料都存在的日期
 valid_dates = score.index.intersection(rs_fixed.index)\
                         .intersection(peg.index)\
                         .intersection(dd.index)\
@@ -172,28 +171,36 @@ def add_history_to_items(items):
         item["history"] = history_list[::-1]
     return items
 
-# ====================== 產生三種排名 ======================
+# =============================================================================
+# 🔥 活體股票清洗（完全照你原本 Colab 的方式）
+# =============================================================================
+company_info_for_alive = data.get("company_basic_info")
+all_stock_ids = company_info_for_alive["stock_id"].astype(str).tolist()
+
+raw_today_prices = price.loc[latest_dt]
+
+alive_stock_ids = [
+    sid for sid in all_stock_ids 
+    if sid in raw_today_prices.index 
+    and pd.notna(raw_today_prices[sid])
+    and sid in full_score_matrix.columns
+    and float(full_score_matrix.loc[latest_dt, sid]) > 0
+]
+
+print(f"📈 有分數活體股票總數：{len(alive_stock_ids)} 檔（market_rank 應為 ~1960 檔）")
+
+# =============================================================================
+# 產生三種排名
+# =============================================================================
 fixed_hold_ids = score.loc[real_rebalance_dt].sort_values(ascending=False).head(16).index
 
-# === 原始排名計算 ===
-r_rs_today = rs_fixed.loc[latest_dt].rank(pct=True)
-r_peg_today = (1 / peg).loc[latest_dt].rank(pct=True)
-r_dd_today = (-dd).loc[latest_dt].rank(pct=True)
-r_corr_today = (-corr_mkt).loc[latest_dt].rank(pct=True)
+r_rs_today = rs_fixed.reindex(columns=alive_stock_ids).loc[latest_dt].rank(pct=True)
+r_peg_today = (1 / peg).reindex(columns=alive_stock_ids).loc[latest_dt].rank(pct=True)
+r_dd_today = (-dd).reindex(columns=alive_stock_ids).loc[latest_dt].rank(pct=True)
+r_corr_today = (-corr_mkt).reindex(columns=alive_stock_ids).loc[latest_dt].rank(pct=True)
 
-# 🔥【關鍵修正】對齊共同股票 index，解決 (2742,) vs (2150,) broadcasting 錯誤
-common_index = rs_fixed.columns.intersection(peg.columns)\
-                               .intersection(dd.columns)\
-                               .intersection(corr_mkt.columns)\
-                               .intersection(price.columns)
-
-r_rs_today = r_rs_today.reindex(common_index).fillna(0)
-r_peg_today = r_peg_today.reindex(common_index).fillna(0)
-r_dd_today = r_dd_today.reindex(common_index).fillna(0)
-r_corr_today = r_corr_today.reindex(common_index).fillna(0)
-
-# PEG NaN 權重調整
-peg_missing_today = peg.loc[latest_dt].reindex(common_index).isna()
+# 🔥【PEG NaN 權重調整】（只在這裡處理，不影響回測）
+peg_missing_today = peg.reindex(columns=alive_stock_ids).loc[latest_dt].isna()
 curr_regime = regime.loc[latest_dt]
 w = weights.apply(lambda x: x[curr_regime])
 
@@ -269,7 +276,7 @@ df_f = df_f.sort_values("score", ascending=False).copy()
 df_f["base_rank"] = range(1, len(df_f) + 1)
 filtered_rank = [build_stock_item(sid, row, row["base_rank"], prev_filtered_rank_map, False, True) for sid, row in df_f.iterrows()]
 
-# ====================== 全市場排名 ======================
+# ====================== 全市場排名（維持 1960 檔左右） ======================
 df_m = pd.DataFrame({
     "score": score_raw_today,
     "close": price.loc[latest_dt],
@@ -278,7 +285,7 @@ df_m = pd.DataFrame({
     "dd_pct": r_dd_today,
     "corr_pct": r_corr_today,
     "passed_filter": final_cond.loc[latest_dt]
-})
+}, index=alive_stock_ids)
 df_m = df_m[df_m["score"] > 0].copy()
 df_m = df_m.sort_values("score", ascending=False)
 df_m["base_rank"] = range(1, len(df_m) + 1)
@@ -397,3 +404,4 @@ with open(chart_path, 'w', encoding='utf-8') as f:
 
 print(f"✅ result.json & chart_data.json 已更新")
 print(f"今年報酬最終值: +{overview['total_return_ytd']}%")
+print(f"market_rank 總檔數：{len(market_rank)} 檔（應接近 1960）")
