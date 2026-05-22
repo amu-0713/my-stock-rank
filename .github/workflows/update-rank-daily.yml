@@ -34,11 +34,11 @@ jobs:
         run: python scripts/generate_dynamic_factor.py
         continue-on-error: true
       
-      - name: 2.執行排名更新 (high_div_low)
-        env:
-          FINLAB_TOKEN: ${{ secrets.FINLAB_TOKEN }}
-        run: python scripts/generate_high_div_low_vol.py
-        continue-on-error: true 
+     # - name: 2.執行排名更新 (high_div_low)
+      #    env:
+       #     FINLAB_TOKEN: ${{ secrets.FINLAB_TOKEN }}
+      #    run: python scripts/generate_high_div_low_vol.py
+        #  continue-on-error: true 
         
       - name: Commit & Push 更新
         run: |
