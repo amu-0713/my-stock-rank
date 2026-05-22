@@ -86,8 +86,8 @@ def run_full_backtest():
     w_corr_dyn = regime.map(weights['corr'])
     w_dd_dyn = regime.map(weights['dd'])
 
-    # 判定 PEG 缺值狀況，並精準對齊指標時間軸與個股代號
-    is_peg_nan = (peg.isnull() | (peg < 0)).reindex(index=r_rs.index, columns=r_rs.columns).fillna(True)
+    # 判定 PEG 缺值狀況，並精準對齊指標時間軸與個股代號 (核心修正：強制轉換為 bool 型態)
+    is_peg_nan = (peg.isnull() | (peg < 0)).reindex(index=r_rs.index, columns=r_rs.columns).fillna(True).astype(bool)
 
     # 計算剩餘三個活躍因子的權重總和
     total_active_w = w_rs_dyn + w_corr_dyn + w_dd_dyn
