@@ -1,4 +1,4 @@
-# scripts/generate_dynamic_factor.py
+# scripts/generate_and_push.py
 import os
 import finlab
 import pandas as pd
@@ -23,13 +23,13 @@ else:
 
 # =============================================================================
 # 1. 執行完整回測（共用）
-# =============================================================================
+# ===========================================================================
 report, position_final, price, score, final_cond, rs_fixed, peg, dd, corr_mkt, regime, weights, full_score_matrix, \
 c_rev_positive, c_rev_high, c_hist, c_ma_filter, c_liq = run_full_backtest()
-
 # =============================================================================
 # 2. 產生排名資料
 # =============================================================================
+# 找到最後一個所有必要資料都存在的日期
 valid_dates = score.index.intersection(rs_fixed.index)\
                         .intersection(peg.index)\
                         .intersection(dd.index)\
@@ -61,6 +61,7 @@ company_full_name_map = company_info["公司名稱"]
 def score_to_display(val):
     if pd.isna(val): return 0.0
     mapped_score = 60 + (float(val) - 0.5) / 0.4 * 40
+    # 限制最高 100 分，不設下限以反映真實數據
     return round(min(float(mapped_score), 100.0), 1)
 
 def pct_win(val):
@@ -98,6 +99,7 @@ def get_cond_value(cond_df, dt, sid):
 def get_failed_conditions(sid, dt):
     fail = []
     
+    # 1. 營收相關檢查
     if not get_cond_value(c_rev_positive, dt, sid):
         fail.append("當季營收為負或零")
     
@@ -107,6 +109,7 @@ def get_failed_conditions(sid, dt):
     if not get_cond_value(c_hist, dt, sid):
         fail.append("營收資料不足（少於13個月）")
     
+    # 2. PEG 檢查
     if sid in peg.columns:
         peg_value = peg.loc[dt, sid]
         if pd.notna(peg_value):
@@ -114,17 +117,15 @@ def get_failed_conditions(sid, dt):
                 fail.append("PEG過低")
             elif peg_value >= 1.8:
                 fail.append("PEG過高")
-        else:
-            fail.append("缺乏PEG盈餘成長數據")
-    else:
-        fail.append("缺乏PEG盈餘成長數據")
     
+    # 3. 其他重要濾網
     if not get_cond_value(c_ma_filter, dt, sid):
         fail.append("均線未呈多頭排列")
     
     if not get_cond_value(c_liq, dt, sid):
         fail.append("流動性不足（成交金額太低）")
     
+    # 4. 如果 final_cond 整體失敗，但上面沒抓到，給一個兜底原因
     if not get_cond_value(final_cond, dt, sid) and not fail:
         fail.append("未通過綜合濾網")
     
@@ -171,62 +172,24 @@ def add_history_to_items(items):
         item["history"] = history_list[::-1]
     return items
 
-# =============================================================================
-# 🔥 活體股票清洗（完全照你原本 Colab 的方式）
-# =============================================================================
-company_info_for_alive = data.get("company_basic_info")
-all_stock_ids = company_info_for_alive["stock_id"].astype(str).tolist()
-
-raw_today_prices = price.loc[latest_dt]
-
-alive_stock_ids = [
-    sid for sid in all_stock_ids 
-    if sid in raw_today_prices.index 
-    and pd.notna(raw_today_prices[sid])
-    and sid in full_score_matrix.columns
-    and float(full_score_matrix.loc[latest_dt, sid]) > 0
-]
-
-print(f"📈 有分數活體股票總數：{len(alive_stock_ids)} 檔（market_rank 應為 ~1960 檔）")
-
-# =============================================================================
-# 產生三種排名
-# =============================================================================
+# ====================== 產生三種排名 ======================
 fixed_hold_ids = score.loc[real_rebalance_dt].sort_values(ascending=False).head(16).index
 
-r_rs_today = rs_fixed.reindex(columns=alive_stock_ids).loc[latest_dt].rank(pct=True)
-r_peg_today = (1 / peg).reindex(columns=alive_stock_ids).loc[latest_dt].rank(pct=True)
-r_dd_today = (-dd).reindex(columns=alive_stock_ids).loc[latest_dt].rank(pct=True)
-r_corr_today = (-corr_mkt).reindex(columns=alive_stock_ids).loc[latest_dt].rank(pct=True)
+r_rs_today = rs_fixed.loc[latest_dt].rank(pct=True)
+r_peg_today = (1 / peg).loc[latest_dt].rank(pct=True)
+r_dd_today = (-dd).loc[latest_dt].rank(pct=True)
+r_corr_today = (-corr_mkt).loc[latest_dt].rank(pct=True)
 
-# 🔥【PEG NaN 權重調整】（只在這裡處理，不影響回測）
-peg_missing_today = peg.reindex(columns=alive_stock_ids).loc[latest_dt].isna()
 curr_regime = regime.loc[latest_dt]
 w = weights.apply(lambda x: x[curr_regime])
-
-if curr_regime == 'bull':
-    rs_weight = np.where(peg_missing_today, 0.45, w["rs"])
-    peg_weight = np.where(peg_missing_today, 0.0, w["peg"])
-    dd_weight = np.where(peg_missing_today, 0.55, w["dd"])
-    corr_weight = w["corr"]
-else:
-    rs_weight = w["rs"]
-    peg_weight = w["peg"]
-    dd_weight = w["dd"]
-    corr_weight = w["corr"]
-
-score_raw_today = (
-    r_rs_today * rs_weight +
-    r_peg_today * peg_weight +
-    r_corr_today * corr_weight +
-    r_dd_today * dd_weight
-)
+score_raw_today = r_rs_today * w["rs"] + r_peg_today * w["peg"] + r_corr_today * w["corr"] + r_dd_today * w["dd"]
 
 compare_dt = get_compare_dt(valid_dates, latest_dt, days=7)
 prev_current_holdings_rank_map = {}
 prev_filtered_rank_map = {}
 prev_market_rank_map = {}
 if compare_dt is not None:
+    # 使用你原本的比較邏輯（只補這部分）
     r_rs_prev = rs_fixed.loc[compare_dt].rank(pct=True)
     r_peg_prev = (1 / peg).loc[compare_dt].rank(pct=True)
     r_dd_prev = (-dd).loc[compare_dt].rank(pct=True)
@@ -261,7 +224,7 @@ df_h = df_h.sort_values("score", ascending=False).copy()
 df_h["base_rank"] = range(1, len(df_h) + 1)
 current_holdings_rank = [build_stock_item(sid, row, row["base_rank"], prev_current_holdings_rank_map, True, row["passed_filter"]) for sid, row in df_h.iterrows()]
 
-# ====================== 條件篩選排名 ======================
+# ====================== 條件篩選排名（全量，不限制） ======================
 filtered_ids = final_cond.loc[latest_dt][final_cond.loc[latest_dt]].index
 df_f = pd.DataFrame({
     "score": score_raw_today.reindex(filtered_ids),
@@ -276,7 +239,7 @@ df_f = df_f.sort_values("score", ascending=False).copy()
 df_f["base_rank"] = range(1, len(df_f) + 1)
 filtered_rank = [build_stock_item(sid, row, row["base_rank"], prev_filtered_rank_map, False, True) for sid, row in df_f.iterrows()]
 
-# ====================== 全市場排名（維持 1960 檔左右） ======================
+# ====================== 全市場排名（全量，不限制） ======================
 df_m = pd.DataFrame({
     "score": score_raw_today,
     "close": price.loc[latest_dt],
@@ -285,7 +248,7 @@ df_m = pd.DataFrame({
     "dd_pct": r_dd_today,
     "corr_pct": r_corr_today,
     "passed_filter": final_cond.loc[latest_dt]
-}, index=alive_stock_ids)
+})
 df_m = df_m[df_m["score"] > 0].copy()
 df_m = df_m.sort_values("score", ascending=False)
 df_m["base_rank"] = range(1, len(df_m) + 1)
@@ -335,6 +298,7 @@ overview = {
 print("🚀 開始產生 chart_data.json...")
 
 def get_pts(series, benchmark_series, start_dt, period=None):
+    """支援周切片：5年與全部改成每周資料，徹底解決首頁 lag"""
     if isinstance(start_dt, str):
         start_dt = pd.to_datetime(start_dt)
     else:
@@ -347,9 +311,11 @@ def get_pts(series, benchmark_series, start_dt, period=None):
     if len(target) == 0:
         return []
    
+    # === 關鍵修正：長週期改成周切片 ===
     if period in ['5年', '全部']:
-        target = target.resample('W-FRI').last().dropna()
+        target = target.resample('W-FRI').last().dropna()           # 每周五
         target_bench = target_bench.resample('W-FRI').last().dropna()
+    # 今年 / 1年 保持日頻（資料量小，保留細節）
 
     base = target.iloc[0]
     base_bench = target_bench.iloc[0]
@@ -374,6 +340,7 @@ chart_json = {
     "全部": get_pts(report.creturn, report.benchmark, report.creturn.index.min(), period="全部")
 }
 
+# === 關鍵同步：覆蓋 result_json 中的今年報酬 ===
 if chart_json.get("今年") and len(chart_json["今年"]) > 0:
     latest_ytd = chart_json["今年"][-1]["returns"]
     overview["total_return_ytd"] = round(float(latest_ytd), 2)
@@ -393,6 +360,7 @@ result_json = {
     "market_rank": market_rank
 }
 
+# 寫入兩個 json
 output_path = Path("public/result.json")
 output_path.parent.mkdir(parents=True, exist_ok=True)
 with open(output_path, 'w', encoding='utf-8') as f:
@@ -404,4 +372,4 @@ with open(chart_path, 'w', encoding='utf-8') as f:
 
 print(f"✅ result.json & chart_data.json 已更新")
 print(f"今年報酬最終值: +{overview['total_return_ytd']}%")
-print(f"market_rank 總檔數：{len(market_rank)} 檔（應接近 1960）")
+
