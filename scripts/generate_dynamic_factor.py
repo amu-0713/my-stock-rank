@@ -60,7 +60,7 @@ company_full_name_map = company_info["公司名稱"]
 def score_to_display(val):
     if pd.isna(val) or val == 0: return 42.9
     mapped_score = 60 + (float(val) - 0.5) / 0.4 * 40
-    return round(min(float(mapped_score), 100.0), 1)
+    return round(min(max(float(mapped_score), 10.0), 100.0), 1)
 
 def pct_win(val):
     if pd.isna(val): return 0.0
@@ -146,7 +146,6 @@ def add_history_to_items(items):
         count = 0
         while count < 5:
             if current in full_score_matrix.index:
-                # 💡 安全防範：如果股票不在全市場欄位內，兜底給 NaN 避免 KeyError
                 val = full_score_matrix.loc[current, sid] if sid in full_score_matrix.columns else np.nan
                 display_score = score_to_display(val)
                 history_list.append({"date": str(current.date()), "score": round(display_score, 1)})
@@ -159,7 +158,6 @@ def add_history_to_items(items):
 # ====================== 生成當前大排名資料 ======================
 fixed_hold_ids = score.loc[real_rebalance_dt].sort_values(ascending=False).head(16).index
 
-# 採用對齊 price.columns 的 full_score_matrix 來取得最完整、不因 NaN 漏掉股票的今日大排名
 score_raw_today = full_score_matrix.loc[latest_dt]
 
 r_rs_today = rs_fixed.loc[latest_dt].rank(pct=True)
@@ -310,7 +308,7 @@ chart_json = {
     "全部": get_pts(report.creturn, report.benchmark, report.creturn.index.min(), period="全部")
 }
 
-if chart_json.get("今年") and len(chart_json["強年" if "強年" in chart_json else "今年"]) > 0:
+if chart_json.get("今年") and len(chart_json["今年"]) > 0:
     latest_ytd = chart_json["今年"][-1]["returns"]
     overview["total_return_ytd"] = round(float(latest_ytd), 2)
 
