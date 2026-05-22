@@ -54,7 +54,7 @@ def run_full_backtest():
     ).fillna(False)
 
     # =============================================================================
-    # 四、多因子評分系統 (動態平攤 PEG 缺值權重，安全防護升級版)
+    # 四、多因子評分系統 (超高速算術權重平攤版)
     # =============================================================================
     rs_fixed = price.ffill().pct_change(80, fill_method=None)
     rets = price.pct_change(fill_method=None)
@@ -63,12 +63,18 @@ def run_full_backtest():
     dd = rets.where(rets < 0, 0).rolling(20).std().replace(0, np.nan)
     corr_mkt = rets.rolling(60).corr(mkt_rets)
 
-    # 基礎百分比大排名
+    # 基礎百分比大排名 (選股策略用)
     r_rs = rs_fixed.where(final_cond).rank(axis=1, pct=True)
     r_peg = (1 / peg).where(final_cond).rank(axis=1, pct=True)
     r_dd = (-dd).where(final_cond).rank(axis=1, pct=True)
     c_corr = final_cond & (corr_mkt < 0.5)
     r_corr = (-corr_mkt).where(c_corr).rank(axis=1, pct=True)
+
+    # 全市場百分比大排名 (全量網頁顯示用，不加條件濾網)
+    r_rs_all = rs_fixed.rank(axis=1, pct=True)
+    r_peg_all = (1 / peg).rank(axis=1, pct=True)
+    r_dd_all = (-dd).rank(axis=1, pct=True)
+    r_corr_all = (-corr_mkt).rank(axis=1, pct=True)
 
     is_bear_mask = is_bear.reindex(r_rs.index).ffill().fillna(True)
     regime = pd.Series(np.where(is_bear_mask, 'bear', 'bull'), index=r_rs.index)
@@ -86,30 +92,19 @@ def run_full_backtest():
     w_corr_dyn = regime.map(weights['corr'])
     w_dd_dyn = regime.map(weights['dd'])
 
-    # 判定 PEG 缺值狀況，並精準對齊指標時間軸與個股代號 (核心修正：強制轉換為 bool 型態)
-    is_peg_nan = (peg.isnull() | (peg < 0)).reindex(index=r_rs.index, columns=r_rs.columns).fillna(True).astype(bool)
+    # 💡 判斷全市場哪些格子的 PEG 缺值或小於零 (對齊原始 price.columns)
+    is_peg_nan = (peg.isnull() | (peg < 0)).reindex(index=r_rs.index, columns=price.columns).fillna(True)
 
-    # 計算剩餘三個活躍因子的權重總和
+    # 計算其餘活躍因子的權重總和與放大乘數 (純 Series 運算，極快)
     total_active_w = w_rs_dyn + w_corr_dyn + w_dd_dyn
-
-    # 當 peg 缺值時，計算其餘因子分配的乘數 (1 + peg權重 / 剩餘權重總和)
     scale_factor = 1 + w_peg_dyn / total_active_w.replace(0, np.nan)
     scale_factor = scale_factor.fillna(1.0)
 
-    # 利用 np.tile 將 (天數, 1) 的權重橫向複製平鋪成 (天數, 股票數) 矩陣，消除維度初始化衝突
-    num_stocks = len(r_rs.columns)
-    w_rs_base = pd.DataFrame(np.tile(w_rs_dyn.values[:, None], (1, num_stocks)), index=r_rs.index, columns=r_rs.columns)
-    w_corr_base = pd.DataFrame(np.tile(w_corr_dyn.values[:, None], (1, num_stocks)), index=r_rs.index, columns=r_rs.columns)
-    w_dd_base = pd.DataFrame(np.tile(w_dd_dyn.values[:, None], (1, num_stocks)), index=r_rs.index, columns=r_rs.columns)
-    w_peg_base = pd.DataFrame(np.tile(w_peg_dyn.values[:, None], (1, num_stocks)), index=r_rs.index, columns=r_rs.columns)
-    
-    # ✅ 改用 Pandas 函數式 .mask() 語法，當 is_peg_nan 為 True 時精準放大活躍因子權重，徹底根除 TypeError
-    w_rs_final = w_rs_base.mask(is_peg_nan, w_rs_base.mul(scale_factor, axis=0))
-    w_corr_final = w_corr_base.mask(is_peg_nan, w_corr_base.mul(scale_factor, axis=0))
-    w_dd_final = w_dd_base.mask(is_peg_nan, w_dd_base.mul(scale_factor, axis=0))
-    
-    # PEG 權重在缺值時直接安全歸零
-    w_peg_final = w_peg_base.mask(is_peg_nan, 0.0)
+    # 🛠️ 運用純算術廣播，建立全市場的因子權重矩陣，完美替代低效的 .mask()
+    w_rs_final = is_peg_nan.mul(scale_factor * w_rs_dyn, axis=0).where(is_peg_nan, w_rs_dyn, axis=0)
+    w_corr_final = is_peg_nan.mul(scale_factor * w_corr_dyn, axis=0).where(is_peg_nan, w_corr_dyn, axis=0)
+    w_dd_final = is_peg_nan.mul(scale_factor * w_dd_dyn, axis=0).where(is_peg_nan, w_dd_dyn, axis=0)
+    w_peg_final = is_peg_nan.mul(0.0, axis=0).where(is_peg_nan, w_peg_dyn, axis=0)
 
     # 最終加權算分 (策略選股與回測用)
     score = (
@@ -119,12 +114,7 @@ def run_full_backtest():
         r_dd.mul(w_dd_final).fillna(0)
     )
 
-    # 計算 full_score_matrix（用於歷史全市場大排名，與回測打分邏輯完美同步）
-    r_rs_all = rs_fixed.rank(axis=1, pct=True)
-    r_peg_all = (1 / peg).rank(axis=1, pct=True)
-    r_dd_all = (-dd).rank(axis=1, pct=True)
-    r_corr_all = (-corr_mkt).rank(axis=1, pct=True)
-
+    # 計算全市場大排名矩陣 (對齊 price.columns 且填補 NaN，確保網頁無縫讀取與歷史分數回溯)
     full_score_matrix = (
         r_rs_all.mul(w_rs_final).fillna(0) +
         r_peg_all.mul(w_peg_final).fillna(0) +
