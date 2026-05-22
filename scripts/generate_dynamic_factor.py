@@ -65,7 +65,7 @@ def score_to_display(val):
     return round(min(float(mapped_score), 100.0), 1)
 
 def pct_win(val):
-    if pd.isna(val): return None
+    if pd.isna(val): return 0.0  # 修正：若排名缺失(如peg為NaN且設為0)，百分比顯示0.0
     return round(float(val * 100), 1)
 
 def get_compare_dt(index, latest_dt, days=7):
@@ -175,29 +175,50 @@ def add_history_to_items(items):
 # ====================== 產生三種排名 ======================
 fixed_hold_ids = score.loc[real_rebalance_dt].sort_values(ascending=False).head(16).index
 
+# 今日基礎因子排名 (全市場，不剔除)
 r_rs_today = rs_fixed.loc[latest_dt].rank(pct=True)
-r_peg_today = (1 / peg).loc[latest_dt].rank(pct=True)
+r_peg_today = (1 / peg).loc[latest_dt].rank(pct=True).fillna(0) # 👈 修正：讓 peg 為 NaN 預設排名為 0
 r_dd_today = (-dd).loc[latest_dt].rank(pct=True)
 r_corr_today = (-corr_mkt).loc[latest_dt].rank(pct=True)
 
+# 偵測今日哪些位置的原始 peg 是 NaN
+peg_is_nan_today = peg.loc[latest_dt].isnull()
+
 curr_regime = regime.loc[latest_dt]
 w = weights.apply(lambda x: x[curr_regime])
-score_raw_today = r_rs_today * w["rs"] + r_peg_today * w["peg"] + r_corr_today * w["corr"] + r_dd_today * w["dd"]
+
+# 今日動態權重：當 peg 為 NaN 時，rs 與 dd 各自額外獲得 0.15 權重，peg 權重歸 0
+w_rs_today = np.where(peg_is_nan_today, w["rs"] + 0.15, w["rs"])
+w_dd_today = np.where(peg_is_nan_today, w["dd"] + 0.15, w["dd"])
+w_peg_today = np.where(peg_is_nan_today, 0.0, w["peg"])
+w_corr_today = w["corr"]
+
+score_raw_today = r_rs_today * w_rs_today + r_peg_today * w_peg_today + r_corr_today * w_corr_today + r_dd_today * w_dd_today
 
 compare_dt = get_compare_dt(valid_dates, latest_dt, days=7)
 prev_current_holdings_rank_map = {}
 prev_filtered_rank_map = {}
 prev_market_rank_map = {}
 if compare_dt is not None:
-    # 使用你原本的比較邏輯（只補這部分）
+    # 上周基礎因子排名 (全市場，不剔除)
     r_rs_prev = rs_fixed.loc[compare_dt].rank(pct=True)
-    r_peg_prev = (1 / peg).loc[compare_dt].rank(pct=True)
+    r_peg_prev = (1 / peg).loc[compare_dt].rank(pct=True).fillna(0) # 👈 修正：讓 peg 為 NaN 預設排名為 0
     r_dd_prev = (-dd).loc[compare_dt].rank(pct=True)
     r_corr_prev = (-corr_mkt).loc[compare_dt].rank(pct=True)
     
+    # 偵測上周哪些位置的原始 peg 是 NaN
+    peg_is_nan_prev = peg.loc[compare_dt].isnull()
+    
     prev_regime = regime.loc[compare_dt]
     w_prev = weights.apply(lambda x: x[prev_regime])
-    score_raw_prev = r_rs_prev * w_prev["rs"] + r_peg_prev * w_prev["peg"] + r_corr_prev * w_prev["corr"] + r_dd_prev * w_prev["dd"]
+    
+    # 上周動態權重補償邏輯
+    w_rs_prev = np.where(peg_is_nan_prev, w_prev["rs"] + 0.15, w_prev["rs"])
+    w_dd_prev = np.where(peg_is_nan_prev, w_prev["dd"] + 0.15, w_prev["dd"])
+    w_peg_prev = np.where(peg_is_nan_prev, 0.0, w_prev["peg"])
+    w_corr_prev = w_prev["corr"]
+    
+    score_raw_prev = r_rs_prev * w_rs_prev + r_peg_prev * w_peg_prev + r_corr_prev * w_corr_prev + r_dd_prev * w_dd_prev
     
     df_h_prev = pd.DataFrame({"score": score_raw_prev.reindex(fixed_hold_ids)})
     prev_current_holdings_rank_map = build_rank_map(df_h_prev)
@@ -207,7 +228,7 @@ if compare_dt is not None:
     prev_filtered_rank_map = build_rank_map(df_f_prev)
     
     df_m_prev = pd.DataFrame({"score": score_raw_prev})
-    df_m_prev = df_m_prev[df_m_prev["score"] > 0]
+    df_m_prev = df_m_prev[df_m_prev["score"] >= 0] # 👈 修正：分數可能包含 0，故改為 >= 0
     prev_market_rank_map = build_rank_map(df_m_prev)
 
 # ====================== 目前持股排名 ======================
@@ -249,7 +270,7 @@ df_m = pd.DataFrame({
     "corr_pct": r_corr_today,
     "passed_filter": final_cond.loc[latest_dt]
 })
-df_m = df_m[df_m["score"] > 0].copy()
+df_m = df_m[df_m["score"] >= 0].copy() # 👈 修正：分數可能為 0（例如全因子分數都低），改為 >= 0，確保 peg=nan 不被砍掉
 df_m = df_m.sort_values("score", ascending=False)
 df_m["base_rank"] = range(1, len(df_m) + 1)
 market_rank = [build_stock_item(sid, row, row["base_rank"], prev_market_rank_map, False, bool(row["passed_filter"])) for sid, row in df_m.iterrows()]
@@ -372,4 +393,3 @@ with open(chart_path, 'w', encoding='utf-8') as f:
 
 print(f"✅ result.json & chart_data.json 已更新")
 print(f"今年報酬最終值: +{overview['total_return_ytd']}%")
-
