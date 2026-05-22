@@ -54,7 +54,7 @@ def run_full_backtest():
     ).fillna(False)
 
     # =============================================================================
-    # 四、多因子評分系統 (超高速算術權重平攤版)
+    # 四、多因子評分系統 (完美精準 算術廣播動態權平攤版)
     # =============================================================================
     rs_fixed = price.ffill().pct_change(80, fill_method=None)
     rets = price.pct_change(fill_method=None)
@@ -70,7 +70,7 @@ def run_full_backtest():
     c_corr = final_cond & (corr_mkt < 0.5)
     r_corr = (-corr_mkt).where(c_corr).rank(axis=1, pct=True)
 
-    # 全市場百分比大排名 (全量網頁顯示用，不加條件濾網)
+    # 全市場百分比大排名 (全量網頁顯示用，不加條件濾網，完美保留全市場~1800多筆打分)
     r_rs_all = rs_fixed.rank(axis=1, pct=True)
     r_peg_all = (1 / peg).rank(axis=1, pct=True)
     r_dd_all = (-dd).rank(axis=1, pct=True)
@@ -92,19 +92,26 @@ def run_full_backtest():
     w_corr_dyn = regime.map(weights['corr'])
     w_dd_dyn = regime.map(weights['dd'])
 
-    # 💡 判斷全市場哪些格子的 PEG 缺值或小於零 (對齊原始 price.columns)
-    is_peg_nan = (peg.isnull() | (peg < 0)).reindex(index=r_rs.index, columns=price.columns).fillna(True)
+    # 💡 將布林轉成 0 與 1 的全市場矩陣 (對齊 price.columns)
+    is_peg_nan_mask = (peg.isnull() | (peg < 0)).reindex(index=r_rs.index, columns=price.columns).fillna(True).astype(float)
 
-    # 計算其餘活躍因子的權重總和與放大乘數 (純 Series 運算，極快)
+    # 計算其餘活躍因子的權重總和與放大乘數 (純 Series 運算)
     total_active_w = w_rs_dyn + w_corr_dyn + w_dd_dyn
     scale_factor = 1 + w_peg_dyn / total_active_w.replace(0, np.nan)
     scale_factor = scale_factor.fillna(1.0)
 
-    # 🛠️ 運用純算術廣播，建立全市場的因子權重矩陣，完美替代低效的 .mask()
-    w_rs_final = is_peg_nan.mul(scale_factor * w_rs_dyn, axis=0).where(is_peg_nan, w_rs_dyn, axis=0)
-    w_corr_final = is_peg_nan.mul(scale_factor * w_corr_dyn, axis=0).where(is_peg_nan, w_corr_dyn, axis=0)
-    w_dd_final = is_peg_nan.mul(scale_factor * w_dd_dyn, axis=0).where(is_peg_nan, w_dd_dyn, axis=0)
-    w_peg_final = is_peg_nan.mul(0.0, axis=0).where(is_peg_nan, w_peg_dyn, axis=0)
+    # 🛠️ 數學邏輯完美廣播：Multiplier = 1 + is_peg_nan * (scale_factor - 1)
+    # 當 is_peg_nan 為 1 時，結果為 scale_factor；當 is_peg_nan 為 0 時，結果為 1.0
+    dynamic_multiplier = 1.0 + is_peg_nan_mask.mul(scale_factor - 1.0, axis=0)
+    
+    # PEG 權重乘數：缺值時為 0，有值時為 1
+    peg_multiplier = 1.0 - is_peg_nan_mask
+
+    # 直接計算全市場上每檔股票每天的精準動態權重 (毫秒級完成)
+    w_rs_final = dynamic_multiplier.mul(w_rs_dyn, axis=0)
+    w_corr_final = dynamic_multiplier.mul(w_corr_dyn, axis=0)
+    w_dd_final = dynamic_multiplier.mul(w_dd_dyn, axis=0)
+    w_peg_final = peg_multiplier.mul(w_peg_dyn, axis=0)
 
     # 最終加權算分 (策略選股與回測用)
     score = (
@@ -114,7 +121,7 @@ def run_full_backtest():
         r_dd.mul(w_dd_final).fillna(0)
     )
 
-    # 計算全市場大排名矩陣 (對齊 price.columns 且填補 NaN，確保網頁無縫讀取與歷史分數回溯)
+    # 計算全市場大排名矩陣
     full_score_matrix = (
         r_rs_all.mul(w_rs_final).fillna(0) +
         r_peg_all.mul(w_peg_final).fillna(0) +
