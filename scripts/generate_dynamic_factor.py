@@ -129,7 +129,7 @@ company_info = data.get("company_basic_info").set_index("stock_id")
 company_short_name_map = company_info["公司簡稱"]
 company_full_name_map = company_info["公司名稱"]
 
-# 共用函數
+# 共用函數（略）... 保持不變
 def score_to_display(val):
     if pd.isna(val): return 0.0
     return round(float(60 + (val - 0.3) / 0.7 * 40), 2)
@@ -223,7 +223,7 @@ def add_history_to_items(items):
     return items
 
 # ====================== 產生排名 ======================
-# 今日分數
+# （中間所有產生 current_holdings_rank、filtered_rank、market_rank 的程式碼保持不變）
 r_rs_today = rs_fixed.loc[latest_dt].rank(pct=True)
 r_peg_today = (1 / peg).loc[latest_dt].rank(pct=True)
 r_dd_today = (-dd).loc[latest_dt].rank(pct=True)
@@ -233,7 +233,6 @@ curr_regime = regime.loc[latest_dt]
 w = weights.apply(lambda x: x[curr_regime])
 score_raw_today = r_rs_today * w["rs"] + r_peg_today * w["peg"] + r_corr_today * w["corr"] + r_dd_today * w["dd"]
 
-# 上週比較
 compare_dt = get_compare_dt(score.index, latest_dt, days=7)
 prev_current_holdings_rank_map = prev_filtered_rank_map = prev_market_rank_map = {}
 
@@ -304,12 +303,11 @@ filtered_rank = add_history_to_items(filtered_rank)
 market_rank = add_history_to_items(market_rank)
 
 # ====================== 最終存檔 ======================
-# 完整更新時間（台北時間）
 taipei_now = datetime.now(ZoneInfo("Asia/Taipei"))
 
 result_json = {
-    "latest_date": taipei_now.strftime('%Y-%m-%d'),           # 策略頁面只顯示年月日
-    "updated_at": taipei_now.strftime('%Y-%m-%d %H:%M'),      # 新增：完整更新時間（給首頁使用）
+    "latest_date": str(latest_dt.date()),                    # ← 修正：永遠是最新交易日（避免假日）
+    "updated_at": taipei_now.strftime('%Y-%m-%d %H:%M'),    # 完整推送時間（給首頁用）
     "compare_date": str(compare_dt.date()) if compare_dt else None,
     "rebalance_base_date": str(real_rebalance_dt.date()),
     "current_holdings_rank": current_holdings_rank,
@@ -323,6 +321,6 @@ output_path.parent.mkdir(parents=True, exist_ok=True)
 with open(output_path, 'w', encoding='utf-8') as f:
     json.dump(result_json, f, ensure_ascii=False, indent=2)
 
-print(f"✅ result.json 已更新 ({output_path.stat().st_size / 1024:.1f} KB)")
-print(f"最新日期: {result_json['latest_date']}")
+print(f"✅ result.json 已更新")
+print(f"最新交易日期: {result_json['latest_date']}")
 print(f"完整更新時間: {result_json['updated_at']}")
