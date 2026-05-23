@@ -7,6 +7,7 @@ import json
 from pathlib import Path
 from datetime import datetime
 from zoneinfo import ZoneInfo
+from finlab.backtest import sim
 
 print("🚀 GitHub Actions 一鍵更新開始...")
 
@@ -102,7 +103,7 @@ full_score_matrix = (r_rs_all.mul(w_rs_dyn, axis=0).fillna(0) +
                      r_dd_all.mul(w_dd_dyn, axis=0).fillna(0))
 
 # =============================================================================
-# JSON 產生部分（完整版）
+# JSON 產生部分（完整版）← 這段完全不動
 # =============================================================================
 print("🔄 產生最新排名...")
 
@@ -129,7 +130,7 @@ company_info = data.get("company_basic_info").set_index("stock_id")
 company_short_name_map = company_info["公司簡稱"]
 company_full_name_map = company_info["公司名稱"]
 
-# 共用函數
+# 共用函數（完全不動）
 def score_to_display(val):
     if pd.isna(val): return 0.0
     return round(float(60 + (val - 0.3) / 0.7 * 40), 2)
@@ -222,7 +223,7 @@ def add_history_to_items(items):
         item["history"] = history_list[::-1]
     return items
 
-# ====================== 產生排名 ======================
+# ====================== 產生排名（這段完全不動） ======================
 # 今日分數
 r_rs_today = rs_fixed.loc[latest_dt].rank(pct=True)
 r_peg_today = (1 / peg).loc[latest_dt].rank(pct=True)
@@ -303,23 +304,104 @@ current_holdings_rank = add_history_to_items(current_holdings_rank)
 filtered_rank = add_history_to_items(filtered_rank)
 market_rank = add_history_to_items(market_rank)
 
+# =============================================================================
+# 回測部分（使用你提供的原回測程式，完全新增在這裡）
+# =============================================================================
+print("🔄 執行回測計算 overview KPI...")
+
+# 五、先產生理想目標持股
+N_BULL = 16
+N_BEAR = 5
+
+score_ranks = score.rank(axis=1, ascending=False)
+
+# 牛市：前 16 檔等權
+bull_mask = score_ranks <= N_BULL
+bull_count = bull_mask.sum(axis=1).replace(0, np.nan)
+weight_bull = bull_mask.div(bull_count, axis=0).fillna(0)
+
+# 熊市：前 5 檔等權
+bear_mask = score_ranks <= N_BEAR
+bear_count = bear_mask.sum(axis=1).replace(0, np.nan)
+weight_bear = bear_mask.div(bear_count, axis=0).fillna(0)
+
+# 依牛熊狀態切換理想持股
+raw_position = weight_bull.where(\~is_bear_mask, weight_bear).fillna(0)
+
+# 六、T+1 當天判斷漲停買不到
+limit_pct = pd.Series(0.095, index=price.index)
+limit_pct.loc[:'2015-05-31'] = 0.065
+limit_up_price_next = price.mul(1 + limit_pct, axis=0)
+cannot_buy_t1 = open_p.shift(-1) >= limit_up_price_next
+
+target_pos_qe = raw_position.resample('QE').last()
+prev_target_pos_qe = target_pos_qe.shift(1).fillna(0)
+prev_position = prev_target_pos_qe.reindex(raw_position.index).ffill().fillna(0)
+
+buy_order = raw_position > prev_position
+position_final = raw_position.copy()
+blocked_buy = buy_order & cannot_buy_t1
+position_final[blocked_buy] = prev_position[blocked_buy]
+
+position_final = position_final.reindex(index=price.index, columns=price.columns).fillna(0)
+
+# 七、執行回測
+report = sim(
+    position_final.loc['2010':'2026'],
+    resample='QE',
+    trade_at_price='open',
+    fee_ratio=0.001425,
+    tax_ratio=0.003,
+    position_limit=0.2,
+    market='TW_STOCK',
+    name='動態多因子策略',
+    upload=True
+)
+
+daily_return = report.creturn.pct_change().fillna(0)
+
+# 高息低波完全相同的 calc_performance 函數
+def calc_performance(ret_series, start_date=None):
+    if start_date:
+        ret_series = ret_series.loc[start_date:]
+    if len(ret_series) == 0:
+        return {"total_return": 0.0, "annual_return": 0.0, "max_drawdown": 0.0, "sharpe_ratio": 0.0}
+    cum = (1 + ret_series).cumprod()
+    total_ret = (cum.iloc[-1] - 1) * 100
+    days = (ret_series.index[-1] - ret_series.index[0]).days
+    years = days / 365.25
+    annual_ret = ((1 + total_ret/100) ** (1/years) - 1) * 100 if years > 0 else 0
+    max_dd = ((cum / cum.cummax()) - 1).min() * 100
+    sharpe = (ret_series.mean() * 252 - 0.02) / (ret_series.std() * np.sqrt(252)) if ret_series.std() != 0 else 0
+    return {
+        "total_return": round(total_ret, 2),
+        "annual_return": round(annual_ret, 2),
+        "max_drawdown": round(max_dd, 2),
+        "sharpe_ratio": round(sharpe, 2)
+    }
+
+overview = {
+    "start_date": "2010-03-31",
+    "total_return_all": calc_performance(daily_return)["total_return"],
+    "annual_return_all": calc_performance(daily_return)["annual_return"],
+    "total_return_ytd": calc_performance(daily_return, f"{datetime.now().year}-01-01")["total_return"],
+    "total_return_1y": calc_performance(daily_return, datetime.now().replace(year=datetime.now().year-1))["total_return"],
+    "total_return_3y": calc_performance(daily_return, datetime.now().replace(year=datetime.now().year-3))["total_return"],
+    "total_return_5y": calc_performance(daily_return, datetime.now().replace(year=datetime.now().year-5))["total_return"],
+    "max_drawdown": calc_performance(daily_return)["max_drawdown"],
+    "sharpe_ratio": calc_performance(daily_return)["sharpe_ratio"],
+    "current_holdings": 16
+}
+
 # ====================== 最終存檔 ======================
 taipei_now = datetime.now(ZoneInfo("Asia/Taipei"))
 
 result_json = {
-    "latest_date": str(latest_dt.date()),                    # 策略頁面只顯示最新交易日（避免假日）
-    "updated_at": taipei_now.strftime('%Y-%m-%d %H:%M'),    # 首頁顯示完整更新時間
+    "latest_date": str(latest_dt.date()),
+    "updated_at": taipei_now.strftime('%Y-%m-%d %H:%M'),
     "compare_date": str(compare_dt.date()) if compare_dt else None,
     "rebalance_base_date": str(real_rebalance_dt.date()),
-    
-    # === 首頁 KPI 資料（動態多因子策略）===
-    "overview": {
-        "annual_return_all": 14.8,   # 年化報酬率 (%)
-        "max_drawdown": -21.5,       # 最大回撤 (%)
-        "sharpe_ratio": 1.08,        # 夏普比率
-        "total_return_ytd": 6.9      # 今年至今報酬 (%)
-    },
-    
+    "overview": overview,
     "current_holdings_rank": current_holdings_rank,
     "filtered_rank": filtered_rank,
     "market_rank": market_rank
@@ -331,7 +413,7 @@ output_path.parent.mkdir(parents=True, exist_ok=True)
 with open(output_path, 'w', encoding='utf-8') as f:
     json.dump(result_json, f, ensure_ascii=False, indent=2)
 
-print(f"✅ result.json 已更新 ({output_path.stat().st_size / 1024:.1f} KB)")
+print(f"✅ result.json 已更新")
 print(f"最新交易日期: {result_json['latest_date']}")
 print(f"完整更新時間: {result_json['updated_at']}")
-print(f"overview KPI 已加入（首頁現在會正常顯示）")
+print(f"overview KPI 已自動計算完成（來自 daily_return）")
