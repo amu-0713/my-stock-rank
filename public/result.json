@@ -1,8 +1,14 @@
 {
   "latest_date": "2026-05-22",
-  "updated_at": "2026-05-23 19:50",
+  "updated_at": "2026-05-23 19:53",
   "compare_date": "2026-05-15",
   "rebalance_base_date": "2026-03-31",
+  "overview": {
+    "annual_return_all": 14.8,
+    "max_drawdown": -21.5,
+    "sharpe_ratio": 1.08,
+    "total_return_ytd": 6.9
+  },
   "current_holdings_rank": [
     {
       "base_rank": 1,
