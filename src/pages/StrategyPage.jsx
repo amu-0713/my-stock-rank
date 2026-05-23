@@ -97,11 +97,6 @@ export default function StrategyPage() {
 
   return (
     <AppSidebarLayout contentClassName="max-w-[960px] mx-auto" flushTopOnLandscape>
-      {/* 
-        最外層容器優化：
-        針對橫式（landscape:max-md:）加入 fixed, inset-0, h-dvh, overflow-hidden
-        完美將手機橫盤畫面的高度鎖定在可視範圍內，阻斷整頁不正常的捲動。
-      */}
       <div className="flex h-[calc(100vh-5rem)] min-h-0 flex-col sm:h-[calc(100vh-5rem)] max-w-[960px] mx-auto overflow-hidden landscape:max-md:fixed landscape:max-md:inset-0 landscape:max-md:h-dvh landscape:max-md:max-w-none landscape:max-md:mx-0 landscape:max-md:w-[calc(100%+2rem)] landscape:max-md:-mx-4 landscape:max-md:overflow-hidden landscape:max-md:pl-10">
 
         {/* Header */}
@@ -112,7 +107,8 @@ export default function StrategyPage() {
               <div className="mt-1 pl-4 flex flex-col sm:flex-row sm:items-center gap-y-1 sm:gap-x-4 text-xs text-zinc-600 sm:text-sm">
                 <div className="flex items-baseline">
                   <span className="font-medium">最新日期：</span>
-                  <span className="ml-1">{data?.latest_date ?? '—'}</span>
+                  {/* 此處已修正：只顯示空格前的日期部分 */}
+                  <span className="ml-1">{data?.latest_date ? data.latest_date.split(' ')[0] : '—'}</span>
                 </div>
                 <div className="hidden sm:block text-zinc-300">｜</div>
                 <div className="flex items-baseline">
@@ -134,7 +130,7 @@ export default function StrategyPage() {
           </div>
         </div>
 
-        {/* 內容區塊：完全禁止外部捲動，只讓 RankList 內部捲動 */}
+        {/* 內容區塊 */}
         <div className="min-h-0 flex-1 bg-zinc-50 overflow-hidden landscape:max-md:overflow-hidden">
           {loading ? (
             <div className="rounded-xl border border-zinc-200 bg-white p-5 text-sm text-zinc-600">
