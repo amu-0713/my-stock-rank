@@ -43,7 +43,7 @@ export default function StrategyPage() {
     setError(null)
     fetch('/result.json', { cache: 'no-store' })
       .then(async (res) => {
-        if (!res.ok) throw new Error(`${TEXT.loadErrorPrefix}${res.status}`)
+        if (!res.ok) throw new Error(`\( {TEXT.loadErrorPrefix} \){res.status}`)
         return await res.json()
       })
       .then((json) => {
@@ -69,7 +69,7 @@ export default function StrategyPage() {
     setError(null)
     fetch('/result_2.json', { cache: 'no-store' })
       .then(async (res) => {
-        if (!res.ok) throw new Error(`${TEXT.loadErrorPrefix}${res.status}`)
+        if (!res.ok) throw new Error(`\( {TEXT.loadErrorPrefix} \){res.status}`)
         return await res.json()
       })
       .then((json) => {
@@ -107,8 +107,7 @@ export default function StrategyPage() {
               <div className="mt-1 pl-4 flex flex-col sm:flex-row sm:items-center gap-y-1 sm:gap-x-4 text-xs text-zinc-600 sm:text-sm">
                 <div className="flex items-baseline">
                   <span className="font-medium">最新日期：</span>
-                  {/* 此處已修正：只顯示空格前的日期部分 */}
-                  <span className="ml-1">{data?.latest_date ? data.latest_date.split(' ')[0] : '—'}</span>
+                  <span className="ml-1">{data?.latest_date ?? '—'}</span>
                 </div>
                 <div className="hidden sm:block text-zinc-300">｜</div>
                 <div className="flex items-baseline">
@@ -158,4 +157,4 @@ export default function StrategyPage() {
       </div>
     </AppSidebarLayout>
   )
-}
+            }
