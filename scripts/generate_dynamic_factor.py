@@ -303,15 +303,20 @@ current_holdings_rank = add_history_to_items(current_holdings_rank)
 filtered_rank = add_history_to_items(filtered_rank)
 market_rank = add_history_to_items(market_rank)
 
-# 最終存檔
+# ====================== 最終存檔 ======================
+# 完整更新時間（台北時間）
+taipei_now = datetime.now(ZoneInfo("Asia/Taipei"))
+
 result_json = {
-    "latest_date": datetime.now(ZoneInfo("Asia/Taipei")).strftime('%Y-%m-%d %H:%M'),  # 台灣時間
+    "latest_date": taipei_now.strftime('%Y-%m-%d'),           # 策略頁面只顯示年月日
+    "updated_at": taipei_now.strftime('%Y-%m-%d %H:%M'),      # 新增：完整更新時間（給首頁使用）
     "compare_date": str(compare_dt.date()) if compare_dt else None,
     "rebalance_base_date": str(real_rebalance_dt.date()),
     "current_holdings_rank": current_holdings_rank,
     "filtered_rank": filtered_rank,
     "market_rank": market_rank
 }
+
 output_path = Path("public/result.json")
 output_path.parent.mkdir(parents=True, exist_ok=True)
 
@@ -320,3 +325,4 @@ with open(output_path, 'w', encoding='utf-8') as f:
 
 print(f"✅ result.json 已更新 ({output_path.stat().st_size / 1024:.1f} KB)")
 print(f"最新日期: {result_json['latest_date']}")
+print(f"完整更新時間: {result_json['updated_at']}")
