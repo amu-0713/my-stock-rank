@@ -85,6 +85,7 @@ def run_full_backtest():
         r_corr.mul(w_corr_dyn, axis=0).fillna(0) +
         r_dd.mul(w_dd_dyn, axis=0).fillna(0)
     )
+    # full_score_matrix（原本用來算歷史）
     r_rs_all = rs_fixed.rank(axis=1, pct=True)
     r_peg_all = (1 / peg).rank(axis=1, pct=True)
     r_dd_all = (-dd).rank(axis=1, pct=True)
@@ -94,6 +95,14 @@ def run_full_backtest():
         r_peg_all.mul(w_peg_dyn, axis=0).fillna(0) +
         r_corr_all.mul(w_corr_dyn, axis=0).fillna(0) +
         r_dd_all.mul(w_dd_dyn, axis=0).fillna(0)
+    )
+    # ====================== 新增：純熊市權重 full_score_matrix_bear ======================
+    w_bear = weights.apply(lambda x: x['bear'])
+    full_score_matrix_bear = (
+        r_rs_all.mul(w_bear['rs'], axis=0).fillna(0) +
+        r_peg_all.mul(w_bear['peg'], axis=0).fillna(0) +
+        r_corr_all.mul(w_bear['corr'], axis=0).fillna(0) +
+        r_dd_all.mul(w_bear['dd'], axis=0).fillna(0)
     )
     # =============================================================================
     # 五、持股權重 + T+1 處理
@@ -136,7 +145,7 @@ def run_full_backtest():
    
     return (
         report, position_final, price, score, final_cond, rs_fixed, peg, dd, corr_mkt, regime, weights,
-        full_score_matrix, c_rev_positive, c_rev_high, c_hist, c_ma_filter, c_liq
+        full_score_matrix, full_score_matrix_bear, c_rev_positive, c_rev_high, c_hist, c_ma_filter, c_liq
     )
 
 # FinLab 登入
@@ -150,7 +159,7 @@ else:
 # =============================================================================
 # 1. 執行完整回測
 # =============================================================================
-report, position_final, price, score, final_cond, rs_fixed, peg, dd, corr_mkt, regime, weights, full_score_matrix, \
+report, position_final, price, score, final_cond, rs_fixed, peg, dd, corr_mkt, regime, weights, full_score_matrix, full_score_matrix_bear, \
 c_rev_positive, c_rev_high, c_hist, c_ma_filter, c_liq = run_full_backtest()
 
 # =============================================================================
@@ -266,22 +275,24 @@ def build_stock_item(sid, row, base_rank, prev_rank_map, selected=None, passed_f
         item["failed_conditions"] = [] if bool(passed_filter) else get_failed_conditions(sid, latest_dt)
     return item
 
-def add_history_to_items(items):
-    valid_dates = full_score_matrix.index[full_score_matrix.index <= latest_dt].sort_values(ascending=False)
+# ====================== 修改 add_history_to_items 支援自訂 matrix ======================
+def add_history_to_items(items, score_matrix):
+    valid_dates = score_matrix.index[score_matrix.index <= latest_dt].sort_values(ascending=False)
     for item in items:
         sid = item["stock_id"]
         history_list = []
         count = 0
         for dt in valid_dates:
             if count >= 5: break
-            val = full_score_matrix.loc[dt, sid]
+            val = score_matrix.loc[dt, sid]
             display_score = score_to_display(val) if pd.notna(val) else 42.9
             history_list.append({"date": str(dt.date()), "score": round(display_score, 1)})
             count += 1
         item["history"] = history_list[::-1]
     return items
 
-# ====================== 產生牛市版本排名（result.json） ======================
+# ====================== 產生牛市版本排名 ======================
+# ...（牛市版本完全不變，程式碼與之前相同）...
 fixed_hold_ids = score.loc[real_rebalance_dt].sort_values(ascending=False).head(16).index
 r_rs_today = rs_fixed.loc[latest_dt].rank(pct=True)
 r_peg_today = (1 / peg).loc[latest_dt].rank(pct=True).fillna(0)
@@ -311,6 +322,7 @@ prev_current_holdings_rank_map = {}
 prev_filtered_rank_map = {}
 prev_market_rank_map = {}
 if compare_dt is not None:
+    # ...（prev 部分保持原本牛市邏輯）...
     r_rs_prev = rs_fixed.loc[compare_dt].rank(pct=True)
     r_peg_prev = (1 / peg).loc[compare_dt].rank(pct=True).fillna(0)
     r_dd_prev = (-dd).loc[compare_dt].rank(pct=True)
@@ -384,11 +396,11 @@ df_m = df_m.sort_values("score", ascending=False)
 df_m["base_rank"] = range(1, len(df_m) + 1)
 market_rank = [item for item in [build_stock_item(sid, row, row["base_rank"], prev_market_rank_map, False, bool(row["passed_filter"])) for sid, row in df_m.iterrows()] if item is not None]
 
-current_holdings_rank = add_history_to_items(current_holdings_rank)
-filtered_rank = add_history_to_items(filtered_rank)
-market_rank = add_history_to_items(market_rank)
+current_holdings_rank = add_history_to_items(current_holdings_rank, full_score_matrix)
+filtered_rank = add_history_to_items(filtered_rank, full_score_matrix)
+market_rank = add_history_to_items(market_rank, full_score_matrix)
 
-# ====================== 產生熊市版本排名（result_bear.json） ======================
+# ====================== 產生熊市版本排名 ======================
 curr_regime_bear = 'bear'
 w_bear = weights.apply(lambda x: x[curr_regime_bear])
 peg_series_bear = peg.loc[latest_dt]
@@ -437,7 +449,7 @@ else:
     prev_filtered_rank_map_bear = {}
     prev_market_rank_map_bear = {}
 
-# 熊市版排名（不包含 peg_pct）
+# 熊市版排名
 df_h_bear = pd.DataFrame({
     "score": score_raw_today_bear.reindex(fixed_hold_ids),
     "close": price.loc[latest_dt].reindex(fixed_hold_ids),
@@ -475,11 +487,12 @@ df_m_bear = df_m_bear.sort_values("score", ascending=False)
 df_m_bear["base_rank"] = range(1, len(df_m_bear) + 1)
 market_rank_bear = [item for item in [build_stock_item(sid, row, row["base_rank"], prev_market_rank_map_bear, False, bool(row["passed_filter"])) for sid, row in df_m_bear.iterrows()] if item is not None]
 
-current_holdings_rank_bear = add_history_to_items(current_holdings_rank_bear)
-filtered_rank_bear = add_history_to_items(filtered_rank_bear)
-market_rank_bear = add_history_to_items(market_rank_bear)
+# 熊市版 history 使用純熊市權重
+current_holdings_rank_bear = add_history_to_items(current_holdings_rank_bear, full_score_matrix_bear)
+filtered_rank_bear = add_history_to_items(filtered_rank_bear, full_score_matrix_bear)
+market_rank_bear = add_history_to_items(market_rank_bear, full_score_matrix_bear)
 
-# 熊市版本強制移除 peg_pct（完全不存在）
+# 熊市版徹底移除 peg_pct
 def remove_peg_pct(items):
     for item in items:
         if "peg_pct" in item:
@@ -563,7 +576,6 @@ if chart_json.get("今年") and len(chart_json["今年"]) > 0:
     print(f"✅ 已同步今年報酬率: +{latest_ytd}%")
 else:
     print("⚠️ 無法同步今年報酬率")
-
 # ====================== 最終輸出 ======================
 result_json = {
     "latest_date": str(latest_dt.date()),
@@ -596,5 +608,5 @@ with open(output_path, 'w', encoding='utf-8') as f:
 with open('public/result_bear.json', 'w', encoding='utf-8') as f:
     json.dump(result_bear_json, f, ensure_ascii=False, indent=2)
 
-print(f"✅ result.json（牛市版，已移除 corr_pct） & result_bear.json（熊市版，已移除 peg_pct） 已更新")
+print(f"✅ result.json（牛市版） & result_bear.json（熊市版，已強制使用純熊市權重計算 history） 已更新")
 print(f"今年報酬最終值: +{overview['total_return_ytd']}%")
