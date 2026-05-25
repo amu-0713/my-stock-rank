@@ -63,7 +63,6 @@ def run_full_backtest():
     mkt_rets = mkt_p.pct_change(fill_method=None)
     dd = rets.where(rets < 0, 0).rolling(20).std().replace(0, np.nan)
     corr_mkt = rets.rolling(60).corr(mkt_rets)
-    # === 只移除 corr < 0.5 濾網，其他完全不動 ===
     r_rs = rs_fixed.where(final_cond).rank(axis=1, pct=True)
     r_peg = (1 / peg).where(final_cond).rank(axis=1, pct=True)
     r_dd = (-dd).where(final_cond).rank(axis=1, pct=True)
@@ -86,7 +85,6 @@ def run_full_backtest():
         r_corr.mul(w_corr_dyn, axis=0).fillna(0) +
         r_dd.mul(w_dd_dyn, axis=0).fillna(0)
     )
-    # full_score_matrix（用於歷史分數）
     r_rs_all = rs_fixed.rank(axis=1, pct=True)
     r_peg_all = (1 / peg).rank(axis=1, pct=True)
     r_dd_all = (-dd).rank(axis=1, pct=True)
@@ -107,7 +105,6 @@ def run_full_backtest():
     weight_bull = bull_mask.div(bull_mask.sum(axis=1).replace(0, np.nan), axis=0).fillna(0)
     weight_bear = bear_mask.div(bear_mask.sum(axis=1).replace(0, np.nan), axis=0).fillna(0)
     raw_position = weight_bull.where(~is_bear_mask, weight_bear).fillna(0)
-    # T+1 處理
     limit_pct = pd.Series(0.095, index=price.index)
     limit_pct.loc[:'2015-05-31'] = 0.065
     limit_up_price_next = price.mul(1 + limit_pct, axis=0)
@@ -392,7 +389,6 @@ filtered_rank = add_history_to_items(filtered_rank)
 market_rank = add_history_to_items(market_rank)
 
 # ====================== 產生熊市版本排名（result_bear.json） ======================
-# 強制使用熊市權重重新計算
 curr_regime_bear = 'bear'
 w_bear = weights.apply(lambda x: x[curr_regime_bear])
 peg_series_bear = peg.loc[latest_dt]
@@ -401,7 +397,6 @@ w_rs_adj_bear = pd.Series(w_bear["rs"], index=peg_nan_mask_bear.index)
 w_peg_adj_bear = pd.Series(w_bear["peg"], index=peg_nan_mask_bear.index)
 w_dd_adj_bear = pd.Series(w_bear["dd"], index=peg_nan_mask_bear.index)
 w_corr_adj_bear = pd.Series(w_bear["corr"], index=peg_nan_mask_bear.index)
-# 熊市時 peg 權重強制為0，corr 使用0.3
 w_rs_adj_bear = w_rs_adj_bear.where(~peg_nan_mask_bear, 0.6)
 w_peg_adj_bear = w_peg_adj_bear.where(~peg_nan_mask_bear, 0.0)
 w_dd_adj_bear = w_dd_adj_bear.where(~peg_nan_mask_bear, 0.4)
@@ -412,7 +407,6 @@ score_raw_today_bear = (
     r_dd_today * w_dd_adj_bear
 )
 
-# prev 部分也強制熊市
 if compare_dt is not None:
     prev_regime_bear = 'bear'
     w_prev_bear = weights.apply(lambda x: x[prev_regime_bear])
@@ -443,7 +437,7 @@ else:
     prev_filtered_rank_map_bear = {}
     prev_market_rank_map_bear = {}
 
-# 熊市版排名（移除 peg_pct）
+# 熊市版排名（不包含 peg_pct）
 df_h_bear = pd.DataFrame({
     "score": score_raw_today_bear.reindex(fixed_hold_ids),
     "close": price.loc[latest_dt].reindex(fixed_hold_ids),
@@ -485,7 +479,18 @@ current_holdings_rank_bear = add_history_to_items(current_holdings_rank_bear)
 filtered_rank_bear = add_history_to_items(filtered_rank_bear)
 market_rank_bear = add_history_to_items(market_rank_bear)
 
-# ====================== 計算 overview 和 chart_data.json（與原本完全相同） ======================
+# 熊市版本強制移除 peg_pct（完全不存在）
+def remove_peg_pct(items):
+    for item in items:
+        if "peg_pct" in item:
+            del item["peg_pct"]
+    return items
+
+current_holdings_rank_bear = remove_peg_pct(current_holdings_rank_bear)
+filtered_rank_bear = remove_peg_pct(filtered_rank_bear)
+market_rank_bear = remove_peg_pct(market_rank_bear)
+
+# ====================== 計算 overview 和 chart_data.json ======================
 print("🚀 開始計算首頁進階指標...")
 daily_return = report.creturn.pct_change().fillna(0)
 def calc_performance(ret_series, start_date=None):
