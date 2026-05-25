@@ -326,7 +326,7 @@ score_raw_today = (
 )
 
 # === 預計算最近 10 天的 adjusted score（給 history 用，超快）===
-recent_dates = valid_dates[-10:]  # 最多取最近10天
+recent_dates = valid_dates[-5:]  # 最多取最近10天
 recent_adjusted = pd.DataFrame(index=recent_dates, columns=score_raw_today.index)
 
 for dt in recent_dates:
@@ -362,24 +362,30 @@ compare_dt = get_compare_dt(valid_dates, latest_dt, days=7)
 prev_current_holdings_rank_map = {}
 prev_filtered_rank_map = {}
 prev_market_rank_map = {}
+
 if compare_dt is not None:
     # === prev 也要使用完全相同的 PEG 缺值調整 ===
     r_rs_prev = rs_fixed.loc[compare_dt].rank(pct=True)
     r_peg_prev = (1 / peg).loc[compare_dt].rank(pct=True).fillna(0)
     r_dd_prev = (-dd).loc[compare_dt].rank(pct=True)
     r_corr_prev = (-corr_mkt).loc[compare_dt].rank(pct=True)
+    
     prev_regime = regime.loc[compare_dt]
     w_prev = weights.apply(lambda x: x[prev_regime])
+    
     peg_series_prev = peg.loc[compare_dt]
     peg_nan_mask_prev = peg_series_prev.isna() | (peg_series_prev <= 0)
+    
     w_rs_adj_prev = pd.Series(w_prev["rs"], index=peg_nan_mask_prev.index)
     w_peg_adj_prev = pd.Series(w_prev["peg"], index=peg_nan_mask_prev.index)
     w_dd_adj_prev = pd.Series(w_prev["dd"], index=peg_nan_mask_prev.index)
     w_corr_adj_prev = pd.Series(w_prev["corr"], index=peg_nan_mask_prev.index)
+    
     if prev_regime == 'bull':
         w_rs_adj_prev = w_rs_adj_prev.where(~peg_nan_mask_prev, 0.6)
         w_peg_adj_prev = w_peg_adj_prev.where(~peg_nan_mask_prev, 0.0)
         w_dd_adj_prev = w_dd_adj_prev.where(~peg_nan_mask_prev, 0.4)
+        
     score_raw_prev = (
         r_rs_prev * w_rs_adj_prev +
         r_peg_prev * w_peg_adj_prev +
