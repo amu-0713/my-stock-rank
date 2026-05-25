@@ -68,7 +68,7 @@ function pctBadgeClass(value) {
   if (n >= 90) return `${base} bg-green-600 text-white`     // 90以上：深綠（最強）
   if (n >= 80) return `${base} bg-green-500 text-white`     // 80～89：綠
   if (n >= 70) return `${base} bg-green-300 text-green-900` // 70～79：淺綠
-  if (n >= 60) return `${base} bg-yellow-300 text-yellow-800` // 60～69：淡黃 / 黃綠
+  if (n >= 60) return `${base} bg-green-200 text-green-800` // 60～69：淡黃 / 黃綠
 
   // 60以下（包含正常低分）→ 灰色
   return `${base} bg-gray-200 text-gray-700`
