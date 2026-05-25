@@ -340,20 +340,24 @@ def build_stock_item(sid, row, base_rank, prev_rank_map, selected=None, passed_f
     return item
 
 def add_history_to_items(items):
+    # 使用 full_score_matrix 的有效日期（避免非交易日或缺資料問題）
+    valid_dates = full_score_matrix.index[full_score_matrix.index <= latest_dt].sort_values(ascending=False)
+    
     for item in items:
         sid = item["stock_id"]
         history_list = []
-        current = latest_dt
         count = 0
-        while count < 5:
-            if current in full_score_matrix.index:
-                val = full_score_matrix.loc[current, sid]
-                display_score = score_to_display(val) if pd.notna(val) else 42.9
-                history_list.append({"date": str(current.date()), "score": round(display_score, 1)})
-                count += 1
-            current = current - pd.Timedelta(days=1)
-            if (latest_dt - current).days > 20: break
-        item["history"] = history_list[::-1]
+        for dt in valid_dates:
+            if count >= 5:
+                break
+            val = full_score_matrix.loc[dt, sid]
+            display_score = score_to_display(val) if pd.notna(val) else 42.9
+            history_list.append({
+                "date": str(dt.date()), 
+                "score": round(display_score, 1)
+            })
+            count += 1
+        item["history"] = history_list[::-1]   # 由舊到新
     return items
 
 # ====================== 產生三種排名 ======================
@@ -485,6 +489,10 @@ market_rank = [item for item in
     [build_stock_item(sid, row, row["base_rank"], prev_market_rank_map, False, bool(row["passed_filter"]))
      for sid, row in df_m.iterrows()]
     if item is not None]
+
+current_holdings_rank = add_history_to_items(current_holdings_rank)
+filtered_rank = add_history_to_items(filtered_rank)
+market_rank = add_history_to_items(market_rank)
 # ====================== 計算 overview ======================
 print("🚀 開始計算首頁進階指標...")
 daily_return = report.creturn.pct_change().fillna(0)
