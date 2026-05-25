@@ -21,7 +21,14 @@ function formatMaybeNumber(value) {
 
 function formatPct(value) {
   if (value === null || value === undefined) return '--'
+  
   const n = typeof value === 'number' ? value : Number(value)
+  
+  // === 新增：PEG=0 顯示「缺失」 ===
+  if (n === 0) {
+    return '缺失'
+  }
+  
   if (!Number.isFinite(n)) return '--'
   return `${n.toFixed(1)}%`
 }
