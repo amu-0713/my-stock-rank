@@ -1,5 +1,5 @@
 // src/components/RankList.jsx
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useState, useCallback } from 'react'
 import { createPortal } from 'react-dom'
 
 const TEXT = {
@@ -24,7 +24,6 @@ function formatPct(value) {
   
   const n = typeof value === 'number' ? value : Number(value)
   
-  // === 新增：PEG=0 顯示「缺失」 ===
   if (n === 0) {
     return 'N/A'
   }
@@ -62,7 +61,6 @@ function pctBadgeClass(value) {
   const n = typeof value === 'number' ? value : Number(value)
   const base = 'inline-flex min-w-[64px] items-center justify-center rounded-full px-2 py-1 text-sm font-medium tabular-nums'
 
-  // PEG = 0 特別處理（之後會改成「缺值」文字）
   if (n === 0) {
     return `${base} bg-sky-200 text-sky-800`
   }
@@ -71,15 +69,14 @@ function pctBadgeClass(value) {
     return `${base} bg-gray-200 text-gray-700`
   }
 
-  // 10分區間漸層（簡潔版）
-  if (n >= 90) return `${base} bg-green-600 text-white`     // 90以上：深綠（最強）
-  if (n >= 80) return `${base} bg-green-500 text-white`     // 80～89：綠
-  if (n >= 70) return `${base} bg-green-300 text-green-900` // 70～79：淺綠
-  if (n >= 60) return `${base} bg-green-200 text-green-800` // 60～69：淡黃 / 黃綠
+  if (n >= 90) return `${base} bg-green-600 text-white`
+  if (n >= 80) return `${base} bg-green-500 text-white`
+  if (n >= 70) return `${base} bg-green-300 text-green-900`
+  if (n >= 60) return `${base} bg-green-200 text-green-800`
 
-  // 60以下（包含正常低分）→ 灰色
   return `${base} bg-gray-200 text-gray-700`
 }
+
 function formatRankChange(changeType, rankChange, prevRank, nextRank) {
   const parsedChange = typeof rankChange === 'number' ? rankChange : Number(rankChange)
   const safeChange = Number.isFinite(parsedChange) ? Math.abs(parsedChange) : null
@@ -134,7 +131,6 @@ function ScoreModal({ stock, onClose }) {
     <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/80 backdrop-blur-sm" onClick={onClose}>
       <div className="relative bg-white rounded-3xl w-full max-w-lg landscape:max-md:max-w-[540px] landscape:max-md:flex shadow-2xl overflow-hidden pointer-events-auto mx-4" onClick={e => e.stopPropagation()}>
         
-        {/* 橫式右上角關閉按鈕 */}
         <button 
           onClick={onClose} 
           className="hidden landscape:max-md:block absolute top-3 right-3 z-50 p-2 text-gray-400 hover:text-zinc-900 bg-white/80 backdrop-blur-sm rounded-full transition-colors"
@@ -142,7 +138,6 @@ function ScoreModal({ stock, onClose }) {
           ✕
         </button>
 
-        {/* 左邊區塊（手機橫式） */}
         <div className="hidden landscape:max-md:flex landscape:max-md:flex-col landscape:max-md:w-[38%] p-6 landscape:max-md:p-4 border-r">
           <div className="flex justify-between items-start">
             <div>
@@ -171,10 +166,7 @@ function ScoreModal({ stock, onClose }) {
           )}
         </div>
 
-        {/* 右邊區塊（走勢圖與直式通用內容） */}
         <div className="w-full landscape:max-md:w-[62%]">
-          
-          {/* 標題區（直式顯示，橫式隱藏） */}
           <div className="p-6 border-b landscape:max-md:hidden">
             <div className="flex justify-between items-start">
               <div>
@@ -191,7 +183,6 @@ function ScoreModal({ stock, onClose }) {
             </div>
           </div>
 
-          {/* 主要內容區：圖表走勢 */}
           <div className="p-6 landscape:max-md:p-4">
             <div className="text-sm font-bold text-zinc-500 mb-6 landscape:max-md:mb-2 uppercase tracking-wider landscape:max-md:text-xs">
               最近 5 個交易日分數走勢
@@ -253,7 +244,6 @@ function ScoreModal({ stock, onClose }) {
               ))}
             </div>
 
-            {/* 未通過原因（直式顯示，橫式隱藏） */}
             <div className="landscape:max-md:hidden">
               {stock.passed_filter ? (
                 <div className="mt-6 rounded-2xl border border-emerald-100 bg-emerald-50 px-4 py-3 text-sm text-emerald-600">
@@ -270,7 +260,6 @@ function ScoreModal({ stock, onClose }) {
             </div>
           </div>
         </div>
-
       </div>
     </div>,
     document.body
@@ -406,6 +395,34 @@ export default function RankList({
     return new Set(sortableFields.filter(f => sortableFieldSet.has(f)))
   }, [sortableFields, sortableFieldSet])
 
+  // ==================== 新增：handleSortChange 改用 useCallback ====================
+  const handleSortChange = useCallback((nextSortKey) => {
+    if (!allowedSortableFields.has(nextSortKey)) return
+
+    if (sortKey === nextSortKey) {
+      if (isFilteredRankList && nextSortKey === 'rank_change') {
+        if (sortDirection === 'desc') setSortDirection('asc')
+        else if (sortDirection === 'asc') setSortDirection('new')
+        else {
+          setSortKey(normalizedDefaultSortKey)
+          setSortDirection(DEFAULT_SORT_DIRECTION)
+        }
+        return
+      }
+
+      if (sortDirection === 'desc') {
+        setSortDirection('asc')
+      } else {
+        setSortKey(normalizedDefaultSortKey)
+        setSortDirection(DEFAULT_SORT_DIRECTION)
+      }
+      return
+    }
+
+    setSortKey(nextSortKey)
+    setSortDirection(DEFAULT_SORT_DIRECTION)
+  }, [allowedSortableFields, sortKey, sortDirection, normalizedDefaultSortKey, isFilteredRankList])
+
   const filteredRows = useMemo(() => {
     const safeRows = Array.isArray(rows) ? rows : []
     const keyword = search.trim().toLowerCase()
@@ -451,39 +468,28 @@ export default function RankList({
     return [...safeRows].sort((a, b) => compareRows(a, b, activeSortKey, sortDirection))
   }, [allowedSortableFields, isFilteredRankList, filteredRows, sortDirection, sortKey, sortableFieldSet])
 
-  const handleSortChange = nextSortKey => {
-    if (!allowedSortableFields.has(nextSortKey)) return
+  // ==================== 新增：processedRows（最重要優化） ====================
+  const processedRows = useMemo(() => {
+    const isSearching = !!search.trim()
+    return sortedRows.map((row, index) => {
+      const displayedRank = getDisplayedRank(row, sortKey, isSearching, index)
+      const rankChange = formatRankChange(row.change_type, row.rank_change, row.prev_rank, row.base_rank)
 
-    if (sortKey === nextSortKey) {
-      if (isFilteredRankList && nextSortKey === 'rank_change') {
-        if (sortDirection === 'desc') setSortDirection('asc')
-        else if (sortDirection === 'asc') setSortDirection('new')
-        else {
-          setSortKey(normalizedDefaultSortKey)
-          setSortDirection(DEFAULT_SORT_DIRECTION)
-        }
-        return
+      return {
+        ...row,
+        displayedRank,
+        rankChange,
+        scoreBadge: scoreBadgeClass(row.display_score),
+        rsBadge: pctBadgeClass(row.rs_pct),
+        pegBadge: pctBadgeClass(row.peg_pct),
+        ddBadge: pctBadgeClass(row.dd_pct),
       }
-
-      if (sortDirection === 'desc') {
-        setSortDirection('asc')
-      } else {
-        setSortKey(normalizedDefaultSortKey)
-        setSortDirection(DEFAULT_SORT_DIRECTION)
-      }
-      return
-    }
-
-    setSortKey(nextSortKey)
-    setSortDirection(DEFAULT_SORT_DIRECTION)
-  }
+    })
+  }, [sortedRows, search, sortKey])
 
   return (
-    /* 【邏輯自洽的高度配置核心】
-      - 預設（直式/電腦）：h-full min-h-0，完美承接父層 flex-1 所規範的剩餘螢幕高度，不蠻幹超出。
-      - 手機橫式（landscape:max-md:）：h-screen min-h-screen，配合 fixed 全螢幕展開，提供滿版滾動計算基準。
-    */
     <div className={`isolate flex h-full min-h-0 landscape:max-md:h-screen landscape:max-md:min-h-screen flex-col overflow-hidden rounded-2xl border border-zinc-200 bg-white shadow-sm max-w-[960px] mx-auto ${isModalOpen ? 'pointer-events-none' : ''}`}>
+      {/* ... 標題區塊保持不變 ... */}
       <div className="z-40 border-b border-zinc-200 bg-white">
         <div className="flex w-full items-center justify-between gap-3 px-4 py-3 shadow-sm landscape:max-md:pl-5 landscape:max-md:pr-3 landscape:max-md:py-2">
           <div className="text-sm font-semibold text-zinc-900">{title}</div>
@@ -505,7 +511,9 @@ export default function RankList({
 
       <div className="min-h-0 flex-1 overflow-auto -webkit-overflow-scrolling-touch">
         <div className={`${minWidth}`}>
+          {/* header 保持不變 */}
           <div className={`sticky top-0 z-10 grid ${gridCols} items-center gap-1 border-b border-zinc-200 bg-white px-4 py-4 text-sm font-semibold text-zinc-600 shadow-sm landscape:max-md:px-3 landscape:max-md:py-1`}>
+            {/* ... 原有 header 內容完全不變 ... */}
             <div className="flex min-h-[52px] items-center justify-center text-center landscape:max-md:min-h-[40px]">{TEXT.rank}</div>
 
             <div className={`${STOCK_CELL_LAYOUT_CLASS} min-h-[52px] text-left landscape:max-md:min-h-[40px]`}>
@@ -524,15 +532,11 @@ export default function RankList({
             {metricColumns.map(column => {
               if (!column.sortable) {
                 return (
-                  <div
-                    key={column.key}
-                    className="flex min-h-[52px] items-center justify-center text-center landscape:max-md:min-h-[40px]"
-                  >
+                  <div key={column.key} className="flex min-h-[52px] items-center justify-center text-center landscape:max-md:min-h-[40px]">
                     {column.label}
                   </div>
                 )
               }
-
               return (
                 <button
                   key={column.key}
@@ -563,18 +567,14 @@ export default function RankList({
           </div>
 
           <div className="divide-y divide-zinc-100">
-            {sortedRows.map((row, index) => {
-              const rankChange = formatRankChange(row.change_type, row.rank_change, row.prev_rank, row.base_rank)
-              const isSearching = !!search.trim()
-              const displayedRank = getDisplayedRank(row, sortKey, isSearching, index)
-
+            {processedRows.map((row) => {   // ← 改用 processedRows
               return (
                 <div
-                  key={`${row.base_rank ?? index}-${row.stock_id}`}
+                  key={`${row.base_rank ?? row.stock_id}`}
                   className={`grid ${gridCols} items-center gap-1 px-4 py-4 hover:bg-zinc-50 landscape:max-md:px-3 landscape:max-md:py-2`}
                 >
                   <div className="text-center text-sm font-semibold tabular-nums">
-                    {formatMaybeNumber(displayedRank)}
+                    {formatMaybeNumber(row.displayedRank)}
                   </div>
 
                   <div className={`${STOCK_CELL_LAYOUT_CLASS} text-left text-sm tabular-nums`}>
@@ -585,7 +585,7 @@ export default function RankList({
                   </div>
 
                   <div className="text-center text-sm tabular-nums" onClick={() => setSelectedStock(row)}>
-                    <span className={scoreBadgeClass(row.display_score)}>
+                    <span className={row.scoreBadge}>
                       {formatScore(row.display_score)}
                     </span>
                   </div>
@@ -593,25 +593,22 @@ export default function RankList({
                   {metricColumns.map(column => (
                     <div key={column.key} className="text-center text-sm tabular-nums">
                       {column.type === 'pct' ? (
-                        <span className={`${pctBadgeClass(row[column.key])} opacity-80`}>
+                        <span className={`${row[`${column.key}Badge`] || pctBadgeClass(row[column.key])} opacity-80`}>
                           {formatPct(row[column.key])}
                         </span>
                       ) : (
-                        <span
-                          className="inline-block max-w-full truncate text-zinc-700"
-                          title={row[column.key] ?? ''}
-                        >
+                        <span className="inline-block max-w-full truncate text-zinc-700" title={row[column.key] ?? ''}>
                           {row[column.key] ?? '--'}
                         </span>
                       )}
                     </div>
                   ))}
 
-                  <div className={`flex flex-col items-center justify-center text-sm font-semibold tabular-nums ${rankChange.className} min-h-[52px] landscape:max-md:min-h-[40px]`}>
-                    <div>{rankChange.mainLabel}</div>
-                    {rankChange.detailLabel && (
+                  <div className={`flex flex-col items-center justify-center text-sm font-semibold tabular-nums ${row.rankChange.className} min-h-[52px] landscape:max-md:min-h-[40px]`}>
+                    <div>{row.rankChange.mainLabel}</div>
+                    {row.rankChange.detailLabel && (
                       <div className="text-xs text-zinc-500 mt-0.5">
-                        {rankChange.detailLabel}
+                        {row.rankChange.detailLabel}
                       </div>
                     )}
                   </div>
