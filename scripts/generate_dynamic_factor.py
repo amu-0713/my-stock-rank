@@ -290,6 +290,8 @@ def get_failed_conditions(sid, dt):
                 fail.append("PEG過低")
             elif peg_value >= 1.8:
                 fail.append("PEG過高")
+        else:
+            fail.append("PEG資料缺失")   # 新增：明確標示 PEG NaN
     
     # 3. 其他重要濾網
     if not get_cond_value(c_ma_filter, dt, sid):
@@ -348,14 +350,37 @@ def add_history_to_items(items):
 # ====================== 產生三種排名 ======================
 fixed_hold_ids = score.loc[real_rebalance_dt].sort_values(ascending=False).head(16).index
 
+# 其他三個 rank 維持原本行為（不 fillna）
 r_rs_today = rs_fixed.loc[latest_dt].rank(pct=True)
-r_peg_today = (1 / peg).loc[latest_dt].rank(pct=True)
+r_peg_today = (1 / peg).loc[latest_dt].rank(pct=True).fillna(0)   # ← PEG NaN 時給 0（最低分）
 r_dd_today = (-dd).loc[latest_dt].rank(pct=True)
 r_corr_today = (-corr_mkt).loc[latest_dt].rank(pct=True)
 
 curr_regime = regime.loc[latest_dt]
-w = weights.apply(lambda x: x[curr_regime])
-score_raw_today = r_rs_today * w["rs"] + r_peg_today * w["peg"] + r_corr_today * w["corr"] + r_dd_today * w["dd"]
+
+# === PEG NaN 時的權重動態調整（只影響牛市）===
+peg_series = peg.loc[latest_dt]
+peg_nan_mask = peg_series.isna() | (peg_series <= 0)   # NaN 或無效值都視為需要調整
+
+w_rs_adj = w["rs"].copy() if isinstance(w, pd.Series) else pd.Series(w["rs"], index=peg_nan_mask.index)
+w_peg_adj = w["peg"].copy() if isinstance(w, pd.Series) else pd.Series(w["peg"], index=peg_nan_mask.index)
+w_dd_adj = w["dd"].copy() if isinstance(w, pd.Series) else pd.Series(w["dd"], index=peg_nan_mask.index)
+w_corr_adj = w["corr"].copy() if isinstance(w, pd.Series) else pd.Series(w["corr"], index=peg_nan_mask.index)
+
+# 只在牛市且 PEG 為 NaN 時才把原本 peg 的 0.3 權重平均拆給 rs 和 dd
+if curr_regime == 'bull':
+    w_rs_adj = w["rs"] + 0.15 * peg_nan_mask
+    w_peg_adj = pd.Series(0.0, index=peg_nan_mask.index)   # peg 權重強制為 0
+    w_dd_adj = w["dd"] + 0.15 * peg_nan_mask
+    # w_corr_adj 不變
+
+# 使用調整後的權重計算 score
+score_raw_today = (
+    r_rs_today * w_rs_adj +
+    r_peg_today * w_peg_adj +
+    r_corr_today * w_corr_adj +
+    r_dd_today * w_dd_adj
+)
 
 compare_dt = get_compare_dt(valid_dates, latest_dt, days=7)
 prev_current_holdings_rank_map = {}
