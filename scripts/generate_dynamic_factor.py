@@ -359,15 +359,39 @@ def add_history_to_items(items):
 # ====================== 產生三種排名 ======================
 fixed_hold_ids = score.loc[real_rebalance_dt].sort_values(ascending=False).head(16).index
 
-# 計算各因子百分位（用於顯示 rs_pct、peg_pct、dd_pct、corr_pct）
+# 計算各因子百分位（PEG NaN 時 peg_pct 顯示為 0）
 r_rs_today = rs_fixed.loc[latest_dt].rank(pct=True)
-r_peg_today = (1 / peg).loc[latest_dt].rank(pct=True).fillna(0)   # PEG NaN 時顯示為 0.0
+r_peg_today = (1 / peg).loc[latest_dt].rank(pct=True).fillna(0)
 r_dd_today = (-dd).loc[latest_dt].rank(pct=True)
 r_corr_today = (-corr_mkt).loc[latest_dt].rank(pct=True)
 
-# 關鍵修正：直接使用 full_score_matrix 的原始分數
-# → 保證 display_score 與 history 的 05-22 完全一致
-score_raw_today = full_score_matrix.loc[latest_dt]
+curr_regime = regime.loc[latest_dt]
+
+# === 定義原始權重 ===
+w = weights.apply(lambda x: x[curr_regime])
+
+# === PEG NaN 時的權重調整（你指定的新比例）===
+peg_series = peg.loc[latest_dt]
+peg_nan_mask = peg_series.isna() | (peg_series <= 0)
+
+w_rs_adj = pd.Series(w["rs"], index=peg_nan_mask.index)
+w_peg_adj = pd.Series(w["peg"], index=peg_nan_mask.index)
+w_dd_adj = pd.Series(w["dd"], index=peg_nan_mask.index)
+w_corr_adj = pd.Series(w["corr"], index=peg_nan_mask.index)
+
+# PEG 缺值時直接使用 rs=0.6、peg=0、dd=0.4（只在牛市生效）
+if curr_regime == 'bull':
+    w_rs_adj = pd.Series(0.6, index=peg_nan_mask.index)
+    w_peg_adj = pd.Series(0.0, index=peg_nan_mask.index)
+    w_dd_adj = pd.Series(0.4, index=peg_nan_mask.index)
+
+# 使用調整後的權重計算 score（三種排名共同使用）
+score_raw_today = (
+    r_rs_today * w_rs_adj +
+    r_peg_today * w_peg_adj +
+    r_corr_today * w_corr_adj +
+    r_dd_today * w_dd_adj
+)
 
 compare_dt = get_compare_dt(valid_dates, latest_dt, days=7)
 prev_current_holdings_rank_map = {}
@@ -375,7 +399,7 @@ prev_filtered_rank_map = {}
 prev_market_rank_map = {}
 
 if compare_dt is not None:
-    # === 關鍵修正：prev 也要使用和今天完全相同的 PEG NaN 權重調整 ===
+    # prev 也要使用完全相同的權重調整規則（避免大量 NEW）
     r_rs_prev = rs_fixed.loc[compare_dt].rank(pct=True)
     r_peg_prev = (1 / peg).loc[compare_dt].rank(pct=True).fillna(0)
     r_dd_prev = (-dd).loc[compare_dt].rank(pct=True)
@@ -384,7 +408,6 @@ if compare_dt is not None:
     prev_regime = regime.loc[compare_dt]
     w_prev = weights.apply(lambda x: x[prev_regime])
 
-    # PEG NaN 調整（與 today 完全一致）
     peg_series_prev = peg.loc[compare_dt]
     peg_nan_mask_prev = peg_series_prev.isna() | (peg_series_prev <= 0)
 
@@ -394,9 +417,9 @@ if compare_dt is not None:
     w_corr_adj_prev = pd.Series(w_prev["corr"], index=peg_nan_mask_prev.index)
 
     if prev_regime == 'bull':
-        w_rs_adj_prev = w_rs_adj_prev + 0.15 * peg_nan_mask_prev
+        w_rs_adj_prev = pd.Series(0.6, index=peg_nan_mask_prev.index)
         w_peg_adj_prev = pd.Series(0.0, index=peg_nan_mask_prev.index)
-        w_dd_adj_prev = w_dd_adj_prev + 0.15 * peg_nan_mask_prev
+        w_dd_adj_prev = pd.Series(0.4, index=peg_nan_mask_prev.index)
 
     score_raw_prev = (
         r_rs_prev * w_rs_adj_prev +
@@ -405,7 +428,6 @@ if compare_dt is not None:
         r_dd_prev * w_dd_adj_prev
     )
 
-    # 後續 rank map 建置（不變）
     df_h_prev = pd.DataFrame({"score": score_raw_prev.reindex(fixed_hold_ids)})
     prev_current_holdings_rank_map = build_rank_map(df_h_prev)
 
@@ -459,14 +481,10 @@ df_m = pd.DataFrame({
 df_m = df_m[df_m["score"] > 0].copy()
 df_m = df_m.sort_values("score", ascending=False)
 df_m["base_rank"] = range(1, len(df_m) + 1)
-market_rank = [item for item in 
-    [build_stock_item(sid, row, row["base_rank"], prev_market_rank_map, False, bool(row["passed_filter"])) 
-     for sid, row in df_m.iterrows()] 
+market_rank = [item for item in
+    [build_stock_item(sid, row, row["base_rank"], prev_market_rank_map, False, bool(row["passed_filter"]))
+     for sid, row in df_m.iterrows()]
     if item is not None]
-
-current_holdings_rank = add_history_to_items(current_holdings_rank)
-filtered_rank = add_history_to_items(filtered_rank)
-market_rank = add_history_to_items(market_rank)
 # ====================== 計算 overview ======================
 print("🚀 開始計算首頁進階指標...")
 daily_return = report.creturn.pct_change().fillna(0)
