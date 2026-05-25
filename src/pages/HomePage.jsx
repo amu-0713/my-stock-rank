@@ -1,3 +1,4 @@
+// src/pages/HomePage.jsx
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import {
@@ -70,10 +71,96 @@ function StrategyHomeCard({
   onPeriodChange,
   onOpenInfo,
   gradientId,
+  isLoading,           // 初始資料載入
 }) {
   const currentData = chartData ? chartData[selectedPeriod] : []
   const endYear = latestDate ? new Date(latestDate).getFullYear() : '2026'
   const displayTagline = tagline ?? entry.tagline
+
+  // ==================== 新增：切換「今年 / 1年 / 5年 / 全部」時的 loading 效果 ====================
+  const [isChangingPeriod, setIsChangingPeriod] = useState(false)
+
+  const handlePeriodChange = (period) => {
+    if (period === selectedPeriod) return
+    setIsChangingPeriod(true)
+    onPeriodChange(period)
+    // 短暫顯示 loading（讓使用者感覺到切換動作，與 RankList 一致）
+    setTimeout(() => {
+      setIsChangingPeriod(false)
+    }, 180)
+  }
+
+  // 初始 loading 或 期間切換 loading 時都顯示 spinner
+  const showLoading = isLoading || isChangingPeriod
+
+  if (showLoading) {
+    return (
+      <div className="group flex h-full flex-col rounded-2xl border border-zinc-200/90 bg-white p-6 shadow-sm">
+        <div className="flex items-start justify-between gap-3">
+          <div className="min-w-0 flex-1">
+            <div className="text-base font-semibold text-zinc-900">{entry.name}</div>
+            <p className="mt-1.5 text-sm leading-snug text-zinc-600">{displayTagline}</p>
+          </div>
+
+          <div className="flex items-center gap-2">
+            <button
+              type="button"
+              className="p-2 rounded-full bg-zinc-100 text-zinc-500 hover:bg-zinc-200 transition-colors"
+            >
+              <Info size={18} />
+            </button>
+
+            <Link
+              to={entry.to}
+              className="inline-flex items-center justify-center rounded-lg bg-zinc-900 px-5 py-2.5 text-sm font-medium text-white transition hover:bg-zinc-800 whitespace-nowrap"
+            >
+              進入策略
+            </Link>
+          </div>
+        </div>
+
+        <p className="mt-3 text-sm text-zinc-500">
+          回測期間：2010 - {endYear}
+        </p>
+
+        <div className="flex-1 flex flex-col items-center justify-center mt-8 mb-8">
+          <div className="animate-spin h-8 w-8 border-4 border-zinc-300 border-t-zinc-600 rounded-full mb-4"></div>
+          <div className="text-sm font-medium text-zinc-500">切換期間...</div>
+        </div>
+
+        <div className="grid grid-cols-2 gap-1.5 opacity-30 pointer-events-none">
+          <div className="rounded-2xl bg-white border p-2.5">
+            <div className="flex items-center gap-2 text-emerald-600">
+              <span className="text-lg">📈</span>
+              <span className="text-[16px] font-medium">年化報酬</span>
+            </div>
+            <div className="mt-2 text-[24px] font-bold text-emerald-600">—</div>
+          </div>
+          <div className="rounded-2xl bg-white border p-2.5">
+            <div className="flex items-center gap-2 text-red-600">
+              <span className="text-lg">📉</span>
+              <span className="text-[16px] font-medium">最大回撤</span>
+            </div>
+            <div className="mt-2 text-[24px] font-bold text-red-600">—</div>
+          </div>
+          <div className="rounded-2xl bg-white border p-2.5">
+            <div className="flex items-center gap-2 text-blue-600">
+              <span className="text-lg">📊</span>
+              <span className="text-[16px] font-medium">夏普比率</span>
+            </div>
+            <div className="mt-2 text-[24px] font-bold text-blue-600">—</div>
+          </div>
+          <div className="rounded-2xl bg-white border p-2.5">
+            <div className="flex items-center gap-2 text-emerald-600">
+              <span className="text-lg">📅</span>
+              <span className="text-[16px] font-medium">今年報酬</span>
+            </div>
+            <div className="mt-2 text-[24px] font-bold text-emerald-600">—</div>
+          </div>
+        </div>
+      </div>
+    )
+  }
 
   return (
     <div className="group flex h-full flex-col rounded-2xl border border-zinc-200/90 bg-white p-6 shadow-sm transition hover:border-zinc-300 hover:shadow-md">
@@ -117,7 +204,7 @@ function StrategyHomeCard({
             <button
               key={period}
               type="button"
-              onClick={() => onPeriodChange(period)}
+              onClick={() => handlePeriodChange(period)}
               className={`px-4 py-1.5 text-sm font-medium rounded-xl transition flex-1 ${
                 selectedPeriod === period
                   ? 'bg-zinc-900 text-white shadow'
@@ -165,7 +252,7 @@ function StrategyHomeCard({
                   const prevData = currentData[index - 1]
                   const prevDate = prevData ? new Date(prevData.date) : null
                   const isNewYear = prevDate ? currYear !== prevDate.getFullYear() : true
-                  const isNewMonth = prevDate ? currMonth !== (prevDate.getMonth() + 1) : true
+                  const isNewMonth = prevData ? currMonth !== (prevDate.getMonth() + 1) : true
                   if (selectedPeriod === '今年') {
                     if (isNewMonth && currMonth % 2 !== 0) return `${currMonth}月`
                   } else if (selectedPeriod === '1年') {
@@ -317,17 +404,40 @@ export default function HomePage() {
   })
   const [infoModalId, setInfoModalId] = useState(null)
 
+  // ==================== 與 RankList 一致的初始 loading 效果 ====================
+  const [loadingByStrategy, setLoadingByStrategy] = useState({
+    '1': true,
+    '2': true,
+  })
+
   useEffect(() => {
     Object.entries(HOME_STRATEGY_CONFIG).forEach(([id, config]) => {
-      fetch(config.resultUrl, { cache: 'no-store' })
-        .then(res => res.ok ? res.json() : Promise.reject())
-        .then(json => setStrategyData(prev => ({ ...prev, [id]: json })))
-        .catch(e => console.error(`Loading ${config.resultUrl} failed:`, e))
+      const loadStrategy = async () => {
+        setLoadingByStrategy(prev => ({ ...prev, [id]: true }))
 
-      fetch(config.chartUrl, { cache: 'no-store' })
-        .then(res => res.ok ? res.json() : Promise.reject())
-        .then(json => setChartByStrategy(prev => ({ ...prev, [id]: json })))
-        .catch(e => console.error(`Loading ${config.chartUrl} failed:`, e))
+        try {
+          const [resultRes, chartRes] = await Promise.all([
+            fetch(config.resultUrl, { cache: 'no-store' }),
+            fetch(config.chartUrl, { cache: 'no-store' }),
+          ])
+
+          const resultJson = resultRes.ok ? await resultRes.json() : null
+          const chartJson = chartRes.ok ? await chartRes.json() : null
+
+          if (resultJson) {
+            setStrategyData(prev => ({ ...prev, [id]: resultJson }))
+          }
+          if (chartJson) {
+            setChartByStrategy(prev => ({ ...prev, [id]: chartJson }))
+          }
+        } catch (e) {
+          console.error(`Loading strategy ${id} failed:`, e)
+        } finally {
+          setLoadingByStrategy(prev => ({ ...prev, [id]: false }))
+        }
+      }
+
+      loadStrategy()
     })
   }, [])
 
@@ -372,6 +482,7 @@ export default function HomePage() {
         }
         onOpenInfo={() => setInfoModalId(entry.id)}
         gradientId={config.gradientId}
+        isLoading={loadingByStrategy[entry.id]}
       />
     )
   }
