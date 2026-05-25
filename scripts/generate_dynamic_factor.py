@@ -340,7 +340,6 @@ def build_stock_item(sid, row, base_rank, prev_rank_map, selected=None, passed_f
     return item
 
 def add_history_to_items(items):
-    # 使用 full_score_matrix 的有效日期（避免非交易日或缺資料問題）
     valid_dates = full_score_matrix.index[full_score_matrix.index <= latest_dt].sort_values(ascending=False)
     
     for item in items:
@@ -350,14 +349,48 @@ def add_history_to_items(items):
         for dt in valid_dates:
             if count >= 5:
                 break
-            val = full_score_matrix.loc[dt, sid]
-            display_score = score_to_display(val) if pd.notna(val) else 42.9
+                
+            # === 針對每個歷史日期，重新套用 PEG NaN 權重調整（與 score_raw_today 完全一致）===
+            regime_dt = regime.loc[dt]
+            w_dt = weights.apply(lambda x: x[regime_dt])
+            
+            # PEG 缺失判斷
+            peg_val = peg.loc[dt, sid] if sid in peg.columns else np.nan
+            is_peg_nan = pd.isna(peg_val) | (peg_val <= 0)
+            
+            # 該日期各因子排名
+            r_rs_h = rs_fixed.loc[dt].rank(pct=True)
+            r_peg_h = (1 / peg).loc[dt].rank(pct=True).fillna(0)
+            r_dd_h = (-dd).loc[dt].rank(pct=True)
+            r_corr_h = (-corr_mkt).loc[dt].rank(pct=True)
+            
+            # 權重（PEG 缺失時套用 0.6 / 0 / 0.4）
+            w_rs = w_dt["rs"]
+            w_peg = w_dt["peg"]
+            w_dd = w_dt["dd"]
+            w_corr = w_dt["corr"]
+            
+            if regime_dt == 'bull' and is_peg_nan:
+                w_rs = 0.6
+                w_peg = 0.0
+                w_dd = 0.4
+            
+            # 計算調整後 raw score
+            raw_score = (
+                r_rs_h.get(sid, 0) * w_rs +
+                r_peg_h.get(sid, 0) * w_peg +
+                r_corr_h.get(sid, 0) * w_corr +
+                r_dd_h.get(sid, 0) * w_dd
+            )
+            
+            display_score = score_to_display(raw_score)
             history_list.append({
                 "date": str(dt.date()), 
                 "score": round(display_score, 1)
             })
             count += 1
-        item["history"] = history_list[::-1]   # 由舊到新
+            
+        item["history"] = history_list[::-1]   # 由舊到新排序
     return items
 
 # ====================== 產生三種排名 ======================
