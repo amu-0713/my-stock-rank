@@ -131,8 +131,9 @@ print("✅ 回測執行完成！開始精準生成三頁排名資料...")
 # =============================================================================
 # 八、精準脫水前端 JSON 生成邏輯
 # =============================================================================
-latest_dt = score_raw_today.index[-1]
-print(f"✅ 最新資料日期: {latest_dt.date()}")
+# 🎯 【作法 A 修正】：改用 dy_filter 實體資料的最後一天，確保 loc 絕對有解，避免 KeyError
+latest_dt = dy_filter.index[-1] 
+print(f"✅ 最新資料日期 (依據資料庫實際現況): {latest_dt.date()}")
 
 def get_rebalance_date_qe_jan(dt):
     y, m = dt.year, dt.month
@@ -178,7 +179,7 @@ def get_rank_change_info(stock_id, prev_rank_map, current_rank):
     change_type = "up" if rank_change > 0 else "down" if rank_change < 0 else "flat"
     return int(prev_rank), rank_change, change_type
 
-# 濾網切片 (回推未通過原因)
+# 濾網切片 (回推未通過原因) -> 這邊 latest_dt 帶入 index[-1] 後，保證安全
 dy_filter_series = dy_filter.loc[latest_dt]
 liq_filter_series = liq_filter.loc[latest_dt]
 ma_filter_series = ma_filter.loc[latest_dt]
