@@ -460,7 +460,7 @@ def add_history_to_items(items):
                 "score": round(display_score, 1)
             })
             count += 1
-        item["history"] = history_list[::-1]   # 由舊到新
+        item["history"] = history_list
     return items
 
 current_holdings_rank = add_history_to_items(current_holdings_rank)
