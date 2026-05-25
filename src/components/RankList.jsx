@@ -26,7 +26,7 @@ function formatPct(value) {
   
   // === 新增：PEG=0 顯示「缺失」 ===
   if (n === 0) {
-    return '缺失'
+    return 'N/A'
   }
   
   if (!Number.isFinite(n)) return '--'
