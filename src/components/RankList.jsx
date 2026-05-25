@@ -57,7 +57,7 @@ function pctBadgeClass(value) {
 
   // PEG = 0 特別處理（之後會改成「缺值」文字）
   if (n === 0) {
-    return `${base} bg-sky-100 text-sky-700`
+    return `${base} bg-sky-100 text-sky-800`
   }
 
   if (!Number.isFinite(n)) {
