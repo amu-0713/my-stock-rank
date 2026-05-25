@@ -21,13 +21,8 @@ function formatMaybeNumber(value) {
 
 function formatPct(value) {
   if (value === null || value === undefined) return '--'
-  
   const n = typeof value === 'number' ? value : Number(value)
-  
-  if (n === 0) {
-    return 'N/A'
-  }
-  
+  if (n === 0) return 'N/A'
   if (!Number.isFinite(n)) return '--'
   return `${n.toFixed(1)}%`
 }
@@ -61,14 +56,8 @@ function pctBadgeClass(value) {
   const n = typeof value === 'number' ? value : Number(value)
   const base = 'inline-flex min-w-[64px] items-center justify-center rounded-full px-2 py-1 text-sm font-medium tabular-nums'
 
-  if (n === 0) {
-    return `${base} bg-sky-200 text-sky-800`
-  }
-
-  if (!Number.isFinite(n)) {
-    return `${base} bg-gray-200 text-gray-700`
-  }
-
+  if (n === 0) return `${base} bg-sky-200 text-sky-800`
+  if (!Number.isFinite(n)) return `${base} bg-gray-200 text-gray-700`
   if (n >= 90) return `${base} bg-green-600 text-white`
   if (n >= 80) return `${base} bg-green-500 text-white`
   if (n >= 70) return `${base} bg-green-300 text-green-900`
@@ -82,10 +71,7 @@ function formatRankChange(changeType, rankChange, prevRank, nextRank) {
   const safeChange = Number.isFinite(parsedChange) ? Math.abs(parsedChange) : null
   const parsedPrevRank = typeof prevRank === 'number' ? prevRank : Number(prevRank)
   const parsedNextRank = typeof nextRank === 'number' ? nextRank : Number(nextRank)
-  const rankRange =
-    Number.isFinite(parsedPrevRank) && Number.isFinite(parsedNextRank)
-      ? `（${parsedPrevRank}→${parsedNextRank}）`
-      : null
+  const rankRange = Number.isFinite(parsedPrevRank) && Number.isFinite(parsedNextRank) ? `（${parsedPrevRank}→${parsedNextRank}）` : null
 
   switch (changeType) {
     case 'up':
@@ -102,9 +88,7 @@ function formatRankChange(changeType, rankChange, prevRank, nextRank) {
 }
 
 function getDisplayedRank(row, sortKey, isSearching, currentIndex) {
-  if (isSearching) {
-    return row.base_rank
-  }
+  if (isSearching) return row.base_rank
   return currentIndex + 1
 }
 
@@ -130,13 +114,7 @@ function ScoreModal({ stock, onClose }) {
   return createPortal(
     <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/80 backdrop-blur-sm" onClick={onClose}>
       <div className="relative bg-white rounded-3xl w-full max-w-lg landscape:max-md:max-w-[540px] landscape:max-md:flex shadow-2xl overflow-hidden pointer-events-auto mx-4" onClick={e => e.stopPropagation()}>
-        
-        <button 
-          onClick={onClose} 
-          className="hidden landscape:max-md:block absolute top-3 right-3 z-50 p-2 text-gray-400 hover:text-zinc-900 bg-white/80 backdrop-blur-sm rounded-full transition-colors"
-        >
-          ✕
-        </button>
+        <button onClick={onClose} className="hidden landscape:max-md:block absolute top-3 right-3 z-50 p-2 text-gray-400 hover:text-zinc-900 bg-white/80 backdrop-blur-sm rounded-full transition-colors">✕</button>
 
         <div className="hidden landscape:max-md:flex landscape:max-md:flex-col landscape:max-md:w-[38%] p-6 landscape:max-md:p-4 border-r">
           <div className="flex justify-between items-start">
@@ -151,16 +129,12 @@ function ScoreModal({ stock, onClose }) {
           </div>
 
           {stock.passed_filter ? (
-            <div className="mt-auto rounded-xl border border-emerald-100 bg-emerald-50 px-3 py-2 text-xs text-emerald-600">
-              已通過選股條件
-            </div>
+            <div className="mt-auto rounded-xl border border-emerald-100 bg-emerald-50 px-3 py-2 text-xs text-emerald-600">已通過選股條件</div>
           ) : (
             stock.failed_conditions && stock.failed_conditions.length > 0 && (
               <div className="mt-auto rounded-xl border border-red-100 bg-red-50 px-3 py-2 text-xs text-red-600">
                 <div className="font-bold mb-0.5">未通過原因</div>
-                <div className="leading-relaxed">
-                  {stock.failed_conditions.join('、')}
-                </div>
+                <div className="leading-relaxed">{stock.failed_conditions.join('、')}</div>
               </div>
             )
           )}
@@ -170,85 +144,41 @@ function ScoreModal({ stock, onClose }) {
           <div className="p-6 border-b landscape:max-md:hidden">
             <div className="flex justify-between items-start">
               <div>
-                <div className="font-bold text-2xl text-zinc-900">
-                  {stock.name} ({stock.stock_id})
-                </div>
-                <div className="text-4xl font-bold text-blue-600 mt-2">
-                  {formatScore(stock.display_score)}
-                </div>
+                <div className="font-bold text-2xl text-zinc-900">{stock.name} ({stock.stock_id})</div>
+                <div className="text-4xl font-bold text-blue-600 mt-2">{formatScore(stock.display_score)}</div>
               </div>
-              <button onClick={onClose} className="p-2 text-gray-400 hover:text-zinc-900 transition-colors">
-                ✕
-              </button>
+              <button onClick={onClose} className="p-2 text-gray-400 hover:text-zinc-900 transition-colors">✕</button>
             </div>
           </div>
 
           <div className="p-6 landscape:max-md:p-4">
-            <div className="text-sm font-bold text-zinc-500 mb-6 landscape:max-md:mb-2 uppercase tracking-wider landscape:max-md:text-xs">
-              最近 5 個交易日分數走勢
-            </div>
+            <div className="text-sm font-bold text-zinc-500 mb-6 landscape:max-md:mb-2 uppercase tracking-wider landscape:max-md:text-xs">最近 5 個交易日分數走勢</div>
 
             <div className="relative h-[280px] landscape:max-md:h-[180px] w-full border border-zinc-100 rounded-2xl bg-zinc-50/50 p-4 landscape:max-md:p-2">
               <svg viewBox={`0 0 ${vWidth} ${vHeight}`} className="w-full h-full overflow-visible">
                 {[0, 0.25, 0.5, 0.75, 1].map((p, i) => {
                   const y = vHeight * p
-                  return (
-                    <line
-                      key={i}
-                      x1="0"
-                      y1={y}
-                      x2={vWidth}
-                      y2={y}
-                      stroke="#e2e8f0"
-                      strokeWidth="1"
-                      strokeDasharray="4 4"
-                    />
-                  )
+                  return <line key={i} x1="0" y1={y} x2={vWidth} y2={y} stroke="#e2e8f0" strokeWidth="1" strokeDasharray="4 4" />
                 })}
 
-                <polyline
-                  points={polylinePoints}
-                  fill="none"
-                  stroke="#8b5cf6"
-                  strokeWidth="4"
-                  strokeLinejoin="round"
-                  strokeLinecap="round"
-                />
+                <polyline points={polylinePoints} fill="none" stroke="#8b5cf6" strokeWidth="4" strokeLinejoin="round" strokeLinecap="round" />
 
                 {pointsData.map((p, i) => (
                   <g key={i}>
                     <circle cx={p.x} cy={p.y} r="7" fill="#8b5cf6" stroke="#ffffff" strokeWidth="3" />
-                    <text
-                      x={p.x}
-                      y={p.y - 18}
-                      textAnchor="middle"
-                      className="text-[18px] font-black tabular-nums"
-                      style={{
-                        fill: '#4b5563',
-                        paintOrder: 'stroke',
-                        stroke: '#ffffff',
-                        strokeWidth: '4px',
-                        strokeLinejoin: 'round',
-                      }}
-                    >
-                      {p.score.toFixed(1)}
-                    </text>
+                    <text x={p.x} y={p.y - 18} textAnchor="middle" className="text-[18px] font-black tabular-nums" style={{ fill: '#4b5563', paintOrder: 'stroke', stroke: '#ffffff', strokeWidth: '4px', strokeLinejoin: 'round' }}>{p.score.toFixed(1)}</text>
                   </g>
                 ))}
               </svg>
             </div>
 
             <div className="flex justify-between mt-4 landscape:max-md:mt-2 text-sm landscape:max-md:text-xs text-zinc-500 font-bold px-2">
-              {stock.history.map((item, i) => (
-                <div key={i}>{item.date.slice(5)}</div>
-              ))}
+              {stock.history.map((item, i) => <div key={i}>{item.date.slice(5)}</div>)}
             </div>
 
             <div className="landscape:max-md:hidden">
               {stock.passed_filter ? (
-                <div className="mt-6 rounded-2xl border border-emerald-100 bg-emerald-50 px-4 py-3 text-sm text-emerald-600">
-                  已通過選股條件
-                </div>
+                <div className="mt-6 rounded-2xl border border-emerald-100 bg-emerald-50 px-4 py-3 text-sm text-emerald-600">已通過選股條件</div>
               ) : (
                 stock.failed_conditions && stock.failed_conditions.length > 0 && (
                   <div className="mt-6 rounded-2xl border border-red-100 bg-red-50 px-4 py-3 text-sm text-red-600">
@@ -272,34 +202,14 @@ const SORTABLE_FIELD_SET_BY_STRATEGY = {
   '1': new Set(['score', 'rs_pct', 'peg_pct', 'dd_pct', 'rank_change']),
   '2': new Set(['score', 'std_pct', 'dy_pct', 'rank_change']),
 }
-const METRIC_COLUMNS_BY_STRATEGY = {
-  '1': [
-    { key: 'rs_pct', label: 'RS', sortable: true, type: 'pct' },
-    { key: 'peg_pct', label: 'PEG', sortable: true, type: 'pct' },
-    { key: 'dd_pct', label: 'DD', sortable: true, type: 'pct' },
-  ],
-  '2': [
-    { key: 'std_pct', label: 'STD', sortable: true, type: 'pct' },
-    { key: 'dy_pct', label: 'DY', sortable: true, type: 'pct' },
-    { key: 'industry', label: '產業', sortable: false, type: 'text' },
-  ],
-}
 const STOCK_CELL_LAYOUT_CLASS = 'grid grid-cols-[72px_minmax(0,1fr)] items-center gap-3 landscape:max-md:grid-cols-[64px_minmax(0,1fr)] landscape:max-md:gap-2'
 
 function getSortableFieldSet(strategyId) {
   return SORTABLE_FIELD_SET_BY_STRATEGY[strategyId] ?? SORTABLE_FIELD_SET_BY_STRATEGY['1']
 }
 
-function getMetricColumns(strategyId) {
-  return METRIC_COLUMNS_BY_STRATEGY[strategyId] ?? METRIC_COLUMNS_BY_STRATEGY['1']
-}
-
 function normalizeSortKey(sortKey, sortableFields, sortableFieldSet) {
-  if (
-    typeof sortKey === 'string' &&
-    sortableFieldSet.has(sortKey) &&
-    (!Array.isArray(sortableFields) || sortableFields.includes(sortKey))
-  ) {
+  if (typeof sortKey === 'string' && sortableFieldSet.has(sortKey) && (!Array.isArray(sortableFields) || sortableFields.includes(sortKey))) {
     return sortKey
   }
   return DEFAULT_SORT_KEY
@@ -316,23 +226,12 @@ function compareRows(a, b, sortKey, sortDirection) {
   const right = parseSortValue(b?.[sortKey])
 
   if (left === null && right === null) {
-    return (
-      (parseSortValue(a?.base_rank) ?? Number.MAX_SAFE_INTEGER) -
-      (parseSortValue(b?.base_rank) ?? Number.MAX_SAFE_INTEGER)
-    )
+    return (parseSortValue(a?.base_rank) ?? Number.MAX_SAFE_INTEGER) - (parseSortValue(b?.base_rank) ?? Number.MAX_SAFE_INTEGER)
   }
-
   if (left === null) return 1
   if (right === null) return -1
-
-  if (left !== right) {
-    return sortDirection === 'asc' ? left - right : right - left
-  }
-
-  return (
-    (parseSortValue(a?.base_rank) ?? Number.MAX_SAFE_INTEGER) -
-    (parseSortValue(b?.base_rank) ?? Number.MAX_SAFE_INTEGER)
-  )
+  if (left !== right) return sortDirection === 'asc' ? left - right : right - left
+  return (parseSortValue(a?.base_rank) ?? Number.MAX_SAFE_INTEGER) - (parseSortValue(b?.base_rank) ?? Number.MAX_SAFE_INTEGER)
 }
 
 function headerClassName(isClickable, isActive) {
@@ -349,7 +248,7 @@ function sortIndicator(sortDirection, isActive) {
 
 export default function RankList({
   title,
-  rows,
+  rows: initialRows,
   defaultSortKey,
   sortableFields,
   compareDate,
@@ -358,33 +257,95 @@ export default function RankList({
   const isFilteredRankList = title === '條件篩選排名'
   const showFilterColumn = !isFilteredRankList
   const isMarketRank = title === '市場總排名'
+  const isMultiFactor = strategyId === '1'
+  const isHighDividend = strategyId === '2'
 
   const sortableFieldSet = useMemo(() => getSortableFieldSet(strategyId), [strategyId])
-  const metricColumns = useMemo(() => getMetricColumns(strategyId), [strategyId])
 
-  const gridCols = showFilterColumn
-    ? 'grid-cols-[64px_minmax(150px,220px)_80px_75px_75px_75px_110px_60px]'
-    : 'grid-cols-[64px_minmax(150px,220px)_80px_75px_75px_75px_160px]'
-
+  const gridCols = showFilterColumn ? 'grid-cols-[64px_minmax(150px,220px)_80px_75px_75px_75px_110px_60px]' : 'grid-cols-[64px_minmax(150px,220px)_80px_75px_75px_75px_160px]'
   const minWidth = showFilterColumn ? 'min-w-[740px]' : 'min-w-[680px]'
 
   const formattedCompareDate = formatCompareDate(compareDate)
-  const changeHeaderText =
-    formattedCompareDate === null
-      ? `${TEXT.change}（vs 上週）`
-      : `${TEXT.change}（vs ${formattedCompareDate}）`
+  const changeHeaderText = formattedCompareDate === null ? `${TEXT.change}（vs 上週）` : `${TEXT.change}（vs ${formattedCompareDate}）`
 
-  const normalizedDefaultSortKey = useMemo(
-    () => normalizeSortKey(defaultSortKey, sortableFields, sortableFieldSet),
-    [defaultSortKey, sortableFields, sortableFieldSet]
-  )
+  const normalizedDefaultSortKey = useMemo(() => normalizeSortKey(defaultSortKey, sortableFields, sortableFieldSet), [defaultSortKey, sortableFields, sortableFieldSet])
 
   const [sortKey, setSortKey] = useState(normalizedDefaultSortKey)
   const [sortDirection, setSortDirection] = useState(DEFAULT_SORT_DIRECTION)
   const [selectedStock, setSelectedStock] = useState(null)
   const [search, setSearch] = useState('')
 
-  // ==================== 載入更多狀態 ====================
+  // ==================== 牛熊切換 + 載入效果 ====================
+  const [regime, setRegime] = useState('bull')
+  const [currentData, setCurrentData] = useState(null)
+  const [loading, setLoading] = useState(false)
+
+  useEffect(() => {
+    const loadData = async () => {
+      setLoading(true)
+      try {
+        let file = '/result.json'
+        if (isHighDividend) {
+          file = '/result_2.json'
+        } else if (isMultiFactor && regime === 'bear') {
+          file = '/result_bear.json'
+        }
+        const response = await fetch(file)
+        if (!response.ok) throw new Error('無法載入資料')
+        const jsonData = await response.json()
+        setCurrentData(jsonData)
+      } catch (error) {
+        console.error('載入排名資料失敗', error)
+        setCurrentData(null)
+      } finally {
+        setLoading(false)
+      }
+    }
+    loadData()
+  }, [regime, isMultiFactor, isHighDividend])
+
+  const getRankList = (data) => {
+    if (!data) return []
+    if (title === '市場總排名') return data.market_rank || []
+    if (title === '條件篩選排名') return data.filtered_rank || []
+    if (title === '目前持股排名') return data.current_holdings_rank || []
+    return []
+  }
+
+  const rows = useMemo(() => getRankList(currentData) || initialRows || [], [currentData, initialRows, title])
+
+  // ==================== 動態欄位 ====================
+  const metricColumns = useMemo(() => {
+    if (isMultiFactor) {
+      return [
+        { key: 'rs_pct', label: 'RS', sortable: true, type: 'pct' },
+        {
+          key: regime === 'bull' ? 'peg_pct' : 'corr_pct',
+          label: regime === 'bull' ? 'PEG' : 'CORR',
+          sortable: true,
+          type: 'pct'
+        },
+        { key: 'dd_pct', label: 'DD', sortable: true, type: 'pct' },
+      ]
+    } else if (isHighDividend) {
+      return [
+        { key: 'std_pct', label: 'STD', sortable: true, type: 'pct' },
+        { key: 'dy_pct', label: 'DY', sortable: true, type: 'pct' },
+        { key: 'industry', label: '產業', sortable: false, type: 'text' },
+      ]
+    }
+    return []
+  }, [isMultiFactor, isHighDividend, regime])
+
+  const allowedSortableFields = useMemo(() => {
+    const base = Array.isArray(sortableFields) && sortableFields.length > 0
+      ? new Set(sortableFields)
+      : new Set(getSortableFieldSet(strategyId))
+    base.add('corr_pct')
+    base.add('peg_pct')
+    return base
+  }, [sortableFields, strategyId])
+
   const [visibleCount, setVisibleCount] = useState(200)
 
   const isModalOpen = !!selectedStock
@@ -392,60 +353,40 @@ export default function RankList({
   useEffect(() => {
     setSortKey(normalizedDefaultSortKey)
     setSortDirection(DEFAULT_SORT_DIRECTION)
-    if (isMarketRank) setVisibleCount(200)   // 切換到市場總排名時重置為200筆
+    if (isMarketRank) setVisibleCount(200)
   }, [normalizedDefaultSortKey, isMarketRank])
-
-  const allowedSortableFields = useMemo(() => {
-    if (!Array.isArray(sortableFields) || sortableFields.length === 0) return sortableFieldSet
-    return new Set(sortableFields.filter(f => sortableFieldSet.has(f)))
-  }, [sortableFields, sortableFieldSet])
 
   const filteredRows = useMemo(() => {
     const safeRows = Array.isArray(rows) ? rows : []
     const keyword = search.trim().toLowerCase()
-
     if (!keyword) return safeRows
-
     return safeRows.filter(row => {
       const stockId = String(row?.stock_id ?? '').toLowerCase()
       const name = String(row?.name ?? '').toLowerCase()
       const fullName = String(row?.full_name ?? '').toLowerCase()
-
-      return (
-        stockId.includes(keyword) ||
-        name.includes(keyword) ||
-        fullName.includes(keyword)
-      )
+      return stockId.includes(keyword) || name.includes(keyword) || fullName.includes(keyword)
     })
   }, [rows, search])
 
   const sortedRows = useMemo(() => {
     const safeRows = Array.isArray(filteredRows) ? filteredRows : []
-    const activeSortKey = normalizeSortKey(sortKey, [...allowedSortableFields], sortableFieldSet)
+    const activeSortKey = normalizeSortKey(sortKey, [...allowedSortableFields], allowedSortableFields)
 
     if (isFilteredRankList && activeSortKey === 'rank_change' && sortDirection === 'new') {
       return [...safeRows].sort((a, b) => {
         const leftIsNew = a?.change_type === 'new'
         const rightIsNew = b?.change_type === 'new'
-
         if (leftIsNew !== rightIsNew) return leftIsNew ? -1 : 1
-
         if (!leftIsNew && !rightIsNew) {
           const rankChangeCompare = compareRows(a, b, 'rank_change', 'desc')
           if (rankChangeCompare !== 0) return rankChangeCompare
         }
-
-        return (
-          (parseSortValue(a?.base_rank) ?? Number.MAX_SAFE_INTEGER) -
-          (parseSortValue(b?.base_rank) ?? Number.MAX_SAFE_INTEGER)
-        )
+        return (parseSortValue(a?.base_rank) ?? Number.MAX_SAFE_INTEGER) - (parseSortValue(b?.base_rank) ?? Number.MAX_SAFE_INTEGER)
       })
     }
-
     return [...safeRows].sort((a, b) => compareRows(a, b, activeSortKey, sortDirection))
-  }, [allowedSortableFields, isFilteredRankList, filteredRows, sortDirection, sortKey, sortableFieldSet])
+  }, [allowedSortableFields, isFilteredRankList, filteredRows, sortDirection, sortKey])
 
-  // ==================== 顯示的資料（只在市場總排名限制筆數） ====================
   const displayedRows = useMemo(() => {
     if (!isMarketRank) return sortedRows
     return sortedRows.slice(0, visibleCount)
@@ -468,10 +409,8 @@ export default function RankList({
         }
         return
       }
-
-      if (sortDirection === 'desc') {
-        setSortDirection('asc')
-      } else {
+      if (sortDirection === 'desc') setSortDirection('asc')
+      else {
         setSortKey(normalizedDefaultSortKey)
         setSortDirection(DEFAULT_SORT_DIRECTION)
       }
@@ -486,7 +425,23 @@ export default function RankList({
     <div className={`isolate flex h-full min-h-0 landscape:max-md:h-screen landscape:max-md:min-h-screen flex-col overflow-hidden rounded-2xl border border-zinc-200 bg-white shadow-sm max-w-[960px] mx-auto ${isModalOpen ? 'pointer-events-none' : ''}`}>
       <div className="z-40 border-b border-zinc-200 bg-white">
         <div className="flex w-full items-center justify-between gap-3 px-4 py-3 shadow-sm landscape:max-md:pl-5 landscape:max-md:pr-3 landscape:max-md:py-2">
-          <div className="text-sm font-semibold text-zinc-900">{title}</div>
+          <div className="flex items-center gap-4">
+            <div className="text-sm font-semibold text-zinc-900">{title}</div>
+
+            {/* ==================== 牛熊切換按鈕（只在多因子策略顯示） ==================== */}
+            {isMultiFactor && (
+              <button
+                onClick={() => setRegime(prev => (prev === 'bull' ? 'bear' : 'bull'))}
+                disabled={loading}
+                className="px-8 py-2 rounded-2xl border border-zinc-300 bg-white text-sm font-medium text-zinc-700 hover:bg-zinc-50 transition-colors shadow-sm disabled:opacity-50 flex items-center gap-2"
+              >
+                {regime === 'bull' ? '牛' : '熊'}
+                {loading && (
+                  <div className="animate-spin h-3 w-3 border-2 border-zinc-400 border-t-transparent rounded-full"></div>
+                )}
+              </button>
+            )}
+          </div>
 
           <div className="flex items-center gap-3">
             <input
@@ -505,159 +460,162 @@ export default function RankList({
 
       <div className="min-h-0 flex-1 overflow-auto -webkit-overflow-scrolling-touch">
         <div className={`${minWidth}`}>
-          <div className={`sticky top-0 z-10 grid ${gridCols} items-center gap-1 border-b border-zinc-200 bg-white px-4 py-4 text-sm font-semibold text-zinc-600 shadow-sm landscape:max-md:px-3 landscape:max-md:py-1`}>
-            <div className="flex min-h-[52px] items-center justify-center text-center landscape:max-md:min-h-[40px]">{TEXT.rank}</div>
-
-            <div className={`${STOCK_CELL_LAYOUT_CLASS} min-h-[52px] text-left landscape:max-md:min-h-[40px]`}>
-              <div className="col-span-2 self-center justify-self-start text-left">{TEXT.stock}</div>
+          {/* ==================== Loading 狀態 ==================== */}
+          {loading ? (
+            <div className="flex flex-col items-center justify-center h-96 text-zinc-500">
+              <div className="animate-spin h-8 w-8 border-4 border-zinc-300 border-t-zinc-600 rounded-full mb-4"></div>
+              <div className="text-sm font-medium">載入中...</div>
             </div>
+          ) : (
+            <>
+              <div className={`sticky top-0 z-10 grid ${gridCols} items-center gap-1 border-b border-zinc-200 bg-white px-4 py-4 text-sm font-semibold text-zinc-600 shadow-sm landscape:max-md:px-3 landscape:max-md:py-1`}>
+                <div className="flex min-h-[52px] items-center justify-center text-center landscape:max-md:min-h-[40px]">{TEXT.rank}</div>
 
-            <button
-              type="button"
-              className={headerClassName(allowedSortableFields.has('score'), sortKey === 'score')}
-              onClick={() => handleSortChange('score')}
-            >
-              <span>{TEXT.score}</span>
-              <span className="text-xs">{sortIndicator(sortDirection, sortKey === 'score')}</span>
-            </button>
+                <div className={`${STOCK_CELL_LAYOUT_CLASS} min-h-[52px] text-left landscape:max-md:min-h-[40px]`}>
+                  <div className="col-span-2 self-center justify-self-start text-left">{TEXT.stock}</div>
+                </div>
 
-            {metricColumns.map(column => {
-              if (!column.sortable) {
-                return (
-                  <div
-                    key={column.key}
-                    className="flex min-h-[52px] items-center justify-center text-center landscape:max-md:min-h-[40px]"
-                  >
-                    {column.label}
-                  </div>
-                )
-              }
-
-              return (
                 <button
-                  key={column.key}
                   type="button"
-                  className={headerClassName(allowedSortableFields.has(column.key), sortKey === column.key)}
-                  onClick={() => handleSortChange(column.key)}
+                  className={headerClassName(allowedSortableFields.has('score'), sortKey === 'score')}
+                  onClick={() => handleSortChange('score')}
                 >
-                  <span>{column.label}</span>
-                  <span className="text-xs">{sortIndicator(sortDirection, sortKey === column.key)}</span>
+                  <span>{TEXT.score}</span>
+                  <span className="text-xs">{sortIndicator(sortDirection, sortKey === 'score')}</span>
                 </button>
-              )
-            })}
 
-            <button
-              type="button"
-              className={`${headerClassName(allowedSortableFields.has('rank_change'), sortKey === 'rank_change')} flex items-center justify-center min-h-[52px]`}
-              onClick={() => handleSortChange('rank_change')}
-            >
-              <span className="whitespace-nowrap text-center">{changeHeaderText}</span>
-              <span className="ml-1 text-xs">{sortIndicator(sortDirection, sortKey === 'rank_change')}</span>
-            </button>
+                {metricColumns.map(column => {
+                  if (!column.sortable) {
+                    return (
+                      <div
+                        key={column.key}
+                        className="flex min-h-[52px] items-center justify-center text-center landscape:max-md:min-h-[40px]"
+                      >
+                        {column.label}
+                      </div>
+                    )
+                  }
+                  return (
+                    <button
+                      key={column.key}
+                      type="button"
+                      className={headerClassName(allowedSortableFields.has(column.key), sortKey === column.key)}
+                      onClick={() => handleSortChange(column.key)}
+                    >
+                      <span>{column.label}</span>
+                      <span className="text-xs">{sortIndicator(sortDirection, sortKey === column.key)}</span>
+                    </button>
+                  )
+                })}
 
-            {showFilterColumn && (
-              <div className="flex min-h-[52px] items-center justify-center text-center">
-                濾網
-              </div>
-            )}
-          </div>
-
-          <div className="divide-y divide-zinc-100">
-            {displayedRows.map((row, index) => {
-              const rankChange = formatRankChange(row.change_type, row.rank_change, row.prev_rank, row.base_rank)
-              const isSearching = !!search.trim()
-              const displayedRank = getDisplayedRank(row, sortKey, isSearching, index)
-
-              return (
-                <div
-                  key={`${row.base_rank ?? index}-${row.stock_id}`}
-                  className={`grid ${gridCols} items-center gap-1 px-4 py-4 hover:bg-zinc-50 landscape:max-md:px-3 landscape:max-md:py-2`}
+                <button
+                  type="button"
+                  className={`${headerClassName(allowedSortableFields.has('rank_change'), sortKey === 'rank_change')} flex items-center justify-center min-h-[52px]`}
+                  onClick={() => handleSortChange('rank_change')}
                 >
-                  <div className="text-center text-sm font-semibold tabular-nums">
-                    {formatMaybeNumber(displayedRank)}
-                  </div>
+                  <span className="whitespace-nowrap text-center">{changeHeaderText}</span>
+                  <span className="ml-1 text-xs">{sortIndicator(sortDirection, sortKey === 'rank_change')}</span>
+                </button>
 
-                  <div className={`${STOCK_CELL_LAYOUT_CLASS} text-left text-sm tabular-nums`}>
-                    <span className="font-bold text-zinc-900">{row.stock_id ?? '--'}</span>
-                    <span className="min-w-0 truncate font-normal" title={row.full_name ?? ''}>
-                      {row.name ?? '--'}
-                    </span>
+                {showFilterColumn && (
+                  <div className="flex min-h-[52px] items-center justify-center text-center">
+                    濾網
                   </div>
+                )}
+              </div>
 
-                  <div className="text-center text-sm tabular-nums" onClick={() => setSelectedStock(row)}>
-                    <span className={scoreBadgeClass(row.display_score)}>
-                      {formatScore(row.display_score)}
-                    </span>
-                  </div>
+              <div className="divide-y divide-zinc-100">
+                {displayedRows.map((row, index) => {
+                  const rankChange = formatRankChange(row.change_type, row.rank_change, row.prev_rank, row.base_rank)
+                  const isSearching = !!search.trim()
+                  const displayedRank = getDisplayedRank(row, sortKey, isSearching, index)
 
-                  {metricColumns.map(column => (
-                    <div key={column.key} className="text-center text-sm tabular-nums">
-                      {column.type === 'pct' ? (
-                        <span className={`${pctBadgeClass(row[column.key])} opacity-80`}>
-                          {formatPct(row[column.key])}
+                  return (
+                    <div
+                      key={`${row.base_rank ?? index}-${row.stock_id}`}
+                      className={`grid ${gridCols} items-center gap-1 px-4 py-4 hover:bg-zinc-50 landscape:max-md:px-3 landscape:max-md:py-2`}
+                    >
+                      <div className="text-center text-sm font-semibold tabular-nums">
+                        {formatMaybeNumber(displayedRank)}
+                      </div>
+
+                      <div className={`${STOCK_CELL_LAYOUT_CLASS} text-left text-sm tabular-nums`}>
+                        <span className="font-bold text-zinc-900">{row.stock_id ?? '--'}</span>
+                        <span className="min-w-0 truncate font-normal" title={row.full_name ?? ''}>
+                          {row.name ?? '--'}
                         </span>
-                      ) : (
-                        <span
-                          className="inline-block max-w-full truncate text-zinc-700"
-                          title={row[column.key] ?? ''}
+                      </div>
+
+                      <div className="text-center text-sm tabular-nums" onClick={() => setSelectedStock(row)}>
+                        <span className={scoreBadgeClass(row.display_score)}>
+                          {formatScore(row.display_score)}
+                        </span>
+                      </div>
+
+                      {metricColumns.map(column => (
+                        <div key={column.key} className="text-center text-sm tabular-nums">
+                          {column.type === 'pct' ? (
+                            <span className={`${pctBadgeClass(row[column.key])} opacity-80`}>
+                              {formatPct(row[column.key])}
+                            </span>
+                          ) : (
+                            <span className="inline-block max-w-full truncate text-zinc-700" title={row[column.key] ?? ''}>
+                              {row[column.key] ?? '--'}
+                            </span>
+                          )}
+                        </div>
+                      ))}
+
+                      <div className={`flex flex-col items-center justify-center text-sm font-semibold tabular-nums ${rankChange.className} min-h-[52px] landscape:max-md:min-h-[40px]`}>
+                        <div>{rankChange.mainLabel}</div>
+                        {rankChange.detailLabel && (
+                          <div className="text-xs text-zinc-500 mt-0.5">
+                            {rankChange.detailLabel}
+                          </div>
+                        )}
+                      </div>
+
+                      {showFilterColumn && (
+                        <button
+                          type="button"
+                          className="flex min-h-[52px] items-center justify-center rounded-xl hover:bg-zinc-100 landscape:max-md:min-h-[40px]"
+                          onClick={() => setSelectedStock(row)}
+                          title={row.passed_filter ? '通過濾網' : '未通過濾網，點擊查看原因'}
                         >
-                          {row[column.key] ?? '--'}
-                        </span>
+                          {row.passed_filter ? (
+                            <span className="text-xl font-black text-emerald-600">✔</span>
+                          ) : (
+                            <span className="text-xl font-black text-rose-500">✖</span>
+                          )}
+                        </button>
                       )}
                     </div>
-                  ))}
+                  )
+                })}
 
-                  <div className={`flex flex-col items-center justify-center text-sm font-semibold tabular-nums ${rankChange.className} min-h-[52px] landscape:max-md:min-h-[40px]`}>
-                    <div>{rankChange.mainLabel}</div>
-                    {rankChange.detailLabel && (
-                      <div className="text-xs text-zinc-500 mt-0.5">
-                        {rankChange.detailLabel}
-                      </div>
-                    )}
+                {sortedRows.length === 0 && (
+                  <div className="p-8 text-center text-sm text-zinc-500">
+                    {TEXT.empty}
                   </div>
-
-                  {showFilterColumn && (
-                    <button
-                      type="button"
-                      className="flex min-h-[52px] items-center justify-center rounded-xl hover:bg-zinc-100 landscape:max-md:min-h-[40px]"
-                      onClick={() => setSelectedStock(row)}
-                      title={row.passed_filter ? '通過濾網' : '未通過濾網，點擊查看原因'}
-                    >
-                      {row.passed_filter ? (
-                        <span className="text-xl font-black text-emerald-600">✔</span>
-                      ) : (
-                        <span className="text-xl font-black text-rose-500">✖</span>
-                      )}
-                    </button>
-                  )}
-                </div>
-              )
-            })}
-
-            {sortedRows.length === 0 && (
-              <div className="p-8 text-center text-sm text-zinc-500">
-                {TEXT.empty}
+                )}
               </div>
-            )}
-          </div>
 
-          {/* ==================== 載入更多按鈕 ==================== */}
-          {isMarketRank && displayedRows.length < sortedRows.length && (
-            <div className="flex justify-center py-8 border-t">
-              <button
-                onClick={handleLoadMore}
-                className="px-8 py-3 bg-white border border-zinc-300 hover:border-zinc-400 text-zinc-700 font-medium rounded-2xl transition-colors flex items-center gap-2 shadow-sm"
-              >
-                載入更多（已顯示 {displayedRows.length} / {sortedRows.length} 筆）
-              </button>
-            </div>
+              {isMarketRank && displayedRows.length < sortedRows.length && (
+                <div className="flex justify-center py-8 border-t">
+                  <button
+                    onClick={handleLoadMore}
+                    className="px-8 py-3 bg-white border border-zinc-300 hover:border-zinc-400 text-zinc-700 font-medium rounded-2xl transition-colors flex items-center gap-2 shadow-sm"
+                  >
+                    載入更多（已顯示 {displayedRows.length} / {sortedRows.length} 筆）
+                  </button>
+                </div>
+              )}
+            </>
           )}
         </div>
       </div>
 
-      {selectedStock && (
-        <ScoreModal stock={selectedStock} onClose={() => setSelectedStock(null)} />
-      )}
+      {selectedStock && <ScoreModal stock={selectedStock} onClose={() => setSelectedStock(null)} />}
     </div>
   )
 }
