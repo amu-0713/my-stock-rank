@@ -370,7 +370,7 @@ curr_regime = regime.loc[latest_dt]
 # === 定義原始權重 ===
 w = weights.apply(lambda x: x[curr_regime])
 
-# === PEG NaN 時的權重調整（你指定的新比例）===
+# === PEG NaN 時的權重調整（只影響缺值股票）===
 peg_series = peg.loc[latest_dt]
 peg_nan_mask = peg_series.isna() | (peg_series <= 0)
 
@@ -379,13 +379,13 @@ w_peg_adj = pd.Series(w["peg"], index=peg_nan_mask.index)
 w_dd_adj = pd.Series(w["dd"], index=peg_nan_mask.index)
 w_corr_adj = pd.Series(w["corr"], index=peg_nan_mask.index)
 
-# PEG 缺值時直接使用 rs=0.6、peg=0、dd=0.4（只在牛市生效）
+# PEG 缺值時 → rs=0.6、peg=0、dd=0.4（牛市生效）
 if curr_regime == 'bull':
-    w_rs_adj = pd.Series(0.6, index=peg_nan_mask.index)
-    w_peg_adj = pd.Series(0.0, index=peg_nan_mask.index)
-    w_dd_adj = pd.Series(0.4, index=peg_nan_mask.index)
+    w_rs_adj = w_rs_adj.where(~peg_nan_mask, 0.6)
+    w_peg_adj = w_peg_adj.where(~peg_nan_mask, 0.0)
+    w_dd_adj = w_dd_adj.where(~peg_nan_mask, 0.4)
 
-# 使用調整後的權重計算 score（三種排名共同使用）
+# 使用調整後的權重計算 score
 score_raw_today = (
     r_rs_today * w_rs_adj +
     r_peg_today * w_peg_adj +
@@ -399,7 +399,7 @@ prev_filtered_rank_map = {}
 prev_market_rank_map = {}
 
 if compare_dt is not None:
-    # prev 也要使用完全相同的權重調整規則（避免大量 NEW）
+    # === prev 也要使用完全相同的 PEG 缺值調整 ===
     r_rs_prev = rs_fixed.loc[compare_dt].rank(pct=True)
     r_peg_prev = (1 / peg).loc[compare_dt].rank(pct=True).fillna(0)
     r_dd_prev = (-dd).loc[compare_dt].rank(pct=True)
@@ -417,9 +417,9 @@ if compare_dt is not None:
     w_corr_adj_prev = pd.Series(w_prev["corr"], index=peg_nan_mask_prev.index)
 
     if prev_regime == 'bull':
-        w_rs_adj_prev = pd.Series(0.6, index=peg_nan_mask_prev.index)
-        w_peg_adj_prev = pd.Series(0.0, index=peg_nan_mask_prev.index)
-        w_dd_adj_prev = pd.Series(0.4, index=peg_nan_mask_prev.index)
+        w_rs_adj_prev = w_rs_adj_prev.where(~peg_nan_mask_prev, 0.6)
+        w_peg_adj_prev = w_peg_adj_prev.where(~peg_nan_mask_prev, 0.0)
+        w_dd_adj_prev = w_dd_adj_prev.where(~peg_nan_mask_prev, 0.4)
 
     score_raw_prev = (
         r_rs_prev * w_rs_adj_prev +
