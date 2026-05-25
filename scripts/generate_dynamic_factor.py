@@ -308,14 +308,23 @@ def get_failed_conditions(sid, dt):
 
 def build_stock_item(sid, row, base_rank, prev_rank_map, selected=None, passed_filter=None):
     prev_rank, rank_change, change_type = get_rank_change_info(sid, prev_rank_map, int(base_rank))
+    
+    # 加強名字處理，避免空白
+    short_name = str(company_short_name_map.get(sid, ""))
+    full_name = str(company_full_name_map.get(sid, ""))
+    
+    name = short_name
+    if not name or name.strip() == "":
+        name = full_name if full_name and full_name.strip() != "" else str(sid)
+    
     item = {
         "base_rank": int(base_rank),
         "prev_rank": prev_rank,
         "rank_change": rank_change,
         "change_type": change_type,
         "stock_id": str(sid),
-        "name": str(company_short_name_map.get(sid, "")),
-        "full_name": str(company_full_name_map.get(sid, "")),
+        "name": name,
+        "full_name": full_name if full_name and full_name.strip() != "" else name,
         "score": round(float(row.get("score", 0)), 6),
         "display_score": score_to_display(row.get("score")),
         "close": float(row.get("close")) if pd.notna(row.get("close")) else None,
@@ -324,6 +333,11 @@ def build_stock_item(sid, row, base_rank, prev_rank_map, selected=None, passed_f
         "dd_pct": pct_win(row.get("dd_pct")),
         "corr_pct": pct_win(row.get("corr_pct")),
     }
+    if selected is not None: item["selected"] = bool(selected)
+    if passed_filter is not None:
+        item["passed_filter"] = bool(passed_filter)
+        item["failed_conditions"] = [] if bool(passed_filter) else get_failed_conditions(sid, latest_dt)
+    return item
     if selected is not None: item["selected"] = bool(selected)
     if passed_filter is not None:
         item["passed_filter"] = bool(passed_filter)
@@ -364,23 +378,46 @@ compare_dt = get_compare_dt(valid_dates, latest_dt, days=7)
 prev_current_holdings_rank_map = {}
 prev_filtered_rank_map = {}
 prev_market_rank_map = {}
+
 if compare_dt is not None:
+    # === 關鍵修正：prev 也要使用和今天完全相同的 PEG NaN 權重調整 ===
     r_rs_prev = rs_fixed.loc[compare_dt].rank(pct=True)
-    r_peg_prev = (1 / peg).loc[compare_dt].rank(pct=True)
+    r_peg_prev = (1 / peg).loc[compare_dt].rank(pct=True).fillna(0)
     r_dd_prev = (-dd).loc[compare_dt].rank(pct=True)
     r_corr_prev = (-corr_mkt).loc[compare_dt].rank(pct=True)
-   
+
     prev_regime = regime.loc[compare_dt]
     w_prev = weights.apply(lambda x: x[prev_regime])
-    score_raw_prev = r_rs_prev * w_prev["rs"] + r_peg_prev * w_prev["peg"] + r_corr_prev * w_prev["corr"] + r_dd_prev * w_prev["dd"]
-   
+
+    # PEG NaN 調整（與 today 完全一致）
+    peg_series_prev = peg.loc[compare_dt]
+    peg_nan_mask_prev = peg_series_prev.isna() | (peg_series_prev <= 0)
+
+    w_rs_adj_prev = pd.Series(w_prev["rs"], index=peg_nan_mask_prev.index)
+    w_peg_adj_prev = pd.Series(w_prev["peg"], index=peg_nan_mask_prev.index)
+    w_dd_adj_prev = pd.Series(w_prev["dd"], index=peg_nan_mask_prev.index)
+    w_corr_adj_prev = pd.Series(w_prev["corr"], index=peg_nan_mask_prev.index)
+
+    if prev_regime == 'bull':
+        w_rs_adj_prev = w_rs_adj_prev + 0.15 * peg_nan_mask_prev
+        w_peg_adj_prev = pd.Series(0.0, index=peg_nan_mask_prev.index)
+        w_dd_adj_prev = w_dd_adj_prev + 0.15 * peg_nan_mask_prev
+
+    score_raw_prev = (
+        r_rs_prev * w_rs_adj_prev +
+        r_peg_prev * w_peg_adj_prev +
+        r_corr_prev * w_corr_adj_prev +
+        r_dd_prev * w_dd_adj_prev
+    )
+
+    # 後續 rank map 建置（不變）
     df_h_prev = pd.DataFrame({"score": score_raw_prev.reindex(fixed_hold_ids)})
     prev_current_holdings_rank_map = build_rank_map(df_h_prev)
-   
+
     filtered_ids_prev = final_cond.loc[compare_dt][final_cond.loc[compare_dt]].index
     df_f_prev = pd.DataFrame({"score": score_raw_prev.reindex(filtered_ids_prev)})
     prev_filtered_rank_map = build_rank_map(df_f_prev)
-   
+
     df_m_prev = pd.DataFrame({"score": score_raw_prev})
     df_m_prev = df_m_prev[df_m_prev["score"] > 0]
     prev_market_rank_map = build_rank_map(df_m_prev)
