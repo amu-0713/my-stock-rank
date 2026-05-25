@@ -40,6 +40,17 @@ function formatCompareDate(value) {
   return `${match[2]}/${match[3]}`
 }
 
+function scoreBadgeClass(value) {
+  const n = typeof value === 'number' ? value : Number(value)
+  const base = 'inline-flex min-w-[64px] items-center justify-center rounded-full px-2 py-1 text-base font-semibold tabular-nums cursor-pointer hover:underline'
+  if (!Number.isFinite(n)) return `${base} bg-gray-200 text-gray-700`
+  if (n >= 90) return `${base} bg-red-600 text-white`
+  if (n >= 80) return `${base} bg-red-400 text-white`
+  if (n >= 70) return `${base} bg-red-100 text-red-700`
+  if (n >= 60) return `${base} bg-gray-200 text-gray-700`
+  return `${base} bg-gray-100 text-gray-400`
+}
+
 function pctBadgeClass(value) {
   const n = typeof value === 'number' ? value : Number(value)
   const base = 'inline-flex min-w-[64px] items-center justify-center rounded-full px-2 py-1 text-sm font-medium tabular-nums'
@@ -62,17 +73,6 @@ function pctBadgeClass(value) {
   // 60以下（包含正常低分）→ 灰色
   return `${base} bg-gray-200 text-gray-700`
 }
-
-function pctBadgeClass(value) {
-  const n = typeof value === 'number' ? value : Number(value)
-  const base = 'inline-flex min-w-[64px] items-center justify-center rounded-full px-2 py-1 text-sm font-medium tabular-nums'
-  if (!Number.isFinite(n)) return `${base} bg-gray-200 text-gray-700`
-  if (n >= 90) return `${base} bg-green-600 text-white`
-  if (n >= 85) return `${base} bg-green-400 text-white`
-  if (n >= 70) return `${base} bg-green-200 text-green-800`
-  return `${base} bg-gray-200 text-gray-700`
-}
-
 function formatRankChange(changeType, rankChange, prevRank, nextRank) {
   const parsedChange = typeof rankChange === 'number' ? rankChange : Number(rankChange)
   const safeChange = Number.isFinite(parsedChange) ? Math.abs(parsedChange) : null
