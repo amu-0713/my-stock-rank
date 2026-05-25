@@ -350,34 +350,33 @@ def add_history_to_items(items):
 # ====================== 產生三種排名 ======================
 fixed_hold_ids = score.loc[real_rebalance_dt].sort_values(ascending=False).head(16).index
 
-# 其他三個 rank 維持原本行為（不 fillna）
+# 其他三個 rank 維持原本行為（PEG 做 fillna(0)）
 r_rs_today = rs_fixed.loc[latest_dt].rank(pct=True)
-r_peg_today = (1 / peg).loc[latest_dt].rank(pct=True).fillna(0)   # ← PEG NaN 時給 0（最低分）
+r_peg_today = (1 / peg).loc[latest_dt].rank(pct=True).fillna(0)   # ← PEG NaN 時給 0
 r_dd_today = (-dd).loc[latest_dt].rank(pct=True)
 r_corr_today = (-corr_mkt).loc[latest_dt].rank(pct=True)
 
 curr_regime = regime.loc[latest_dt]
 
-# === 先定義原本的權重 w（這一行原本就該在這裡）===
+# 先定義原本的權重
 w = weights.apply(lambda x: x[curr_regime])
 
-# === PEG NaN 時的權重動態調整（只影響牛市）===
+# === PEG NaN 時的權重動態調整（全市場方式）===
 peg_series = peg.loc[latest_dt]
 peg_nan_mask = peg_series.isna() | (peg_series <= 0)
 
-# 以 stock 為 index 的調整後權重
 w_rs_adj = pd.Series(w["rs"], index=peg_nan_mask.index)
 w_peg_adj = pd.Series(w["peg"], index=peg_nan_mask.index)
 w_dd_adj = pd.Series(w["dd"], index=peg_nan_mask.index)
 w_corr_adj = pd.Series(w["corr"], index=peg_nan_mask.index)
 
-# 只在牛市且 PEG 為 NaN 時，把原本 peg 的 0.3 權重平均拆給 rs 和 dd
+# 只在牛市且 PEG 為 NaN 時，把 peg 的 0.3 權重拆給 rs 和 dd
 if curr_regime == 'bull':
     w_rs_adj = w_rs_adj + 0.15 * peg_nan_mask
-    w_peg_adj = pd.Series(0.0, index=peg_nan_mask.index)   # peg 權重強制為 0
+    w_peg_adj = pd.Series(0.0, index=peg_nan_mask.index)
     w_dd_adj = w_dd_adj + 0.15 * peg_nan_mask
 
-# 使用調整後的權重計算 score
+# 使用調整後的權重計算 score（全市場方式）
 score_raw_today = (
     r_rs_today * w_rs_adj +
     r_peg_today * w_peg_adj +
@@ -390,23 +389,22 @@ prev_current_holdings_rank_map = {}
 prev_filtered_rank_map = {}
 prev_market_rank_map = {}
 if compare_dt is not None:
-    # 使用你原本的比較邏輯（只補這部分）
     r_rs_prev = rs_fixed.loc[compare_dt].rank(pct=True)
     r_peg_prev = (1 / peg).loc[compare_dt].rank(pct=True)
     r_dd_prev = (-dd).loc[compare_dt].rank(pct=True)
     r_corr_prev = (-corr_mkt).loc[compare_dt].rank(pct=True)
-    
+   
     prev_regime = regime.loc[compare_dt]
     w_prev = weights.apply(lambda x: x[prev_regime])
     score_raw_prev = r_rs_prev * w_prev["rs"] + r_peg_prev * w_prev["peg"] + r_corr_prev * w_prev["corr"] + r_dd_prev * w_prev["dd"]
-    
+   
     df_h_prev = pd.DataFrame({"score": score_raw_prev.reindex(fixed_hold_ids)})
     prev_current_holdings_rank_map = build_rank_map(df_h_prev)
-    
+   
     filtered_ids_prev = final_cond.loc[compare_dt][final_cond.loc[compare_dt]].index
     df_f_prev = pd.DataFrame({"score": score_raw_prev.reindex(filtered_ids_prev)})
     prev_filtered_rank_map = build_rank_map(df_f_prev)
-    
+   
     df_m_prev = pd.DataFrame({"score": score_raw_prev})
     df_m_prev = df_m_prev[df_m_prev["score"] > 0]
     prev_market_rank_map = build_rank_map(df_m_prev)
@@ -425,7 +423,7 @@ df_h = df_h.sort_values("score", ascending=False).copy()
 df_h["base_rank"] = range(1, len(df_h) + 1)
 current_holdings_rank = [build_stock_item(sid, row, row["base_rank"], prev_current_holdings_rank_map, True, row["passed_filter"]) for sid, row in df_h.iterrows()]
 
-# ====================== 條件篩選排名（全量，不限制） ======================
+# ====================== 條件篩選排名 ======================
 filtered_ids = final_cond.loc[latest_dt][final_cond.loc[latest_dt]].index
 df_f = pd.DataFrame({
     "score": score_raw_today.reindex(filtered_ids),
@@ -440,7 +438,7 @@ df_f = df_f.sort_values("score", ascending=False).copy()
 df_f["base_rank"] = range(1, len(df_f) + 1)
 filtered_rank = [build_stock_item(sid, row, row["base_rank"], prev_filtered_rank_map, False, True) for sid, row in df_f.iterrows()]
 
-# ====================== 全市場排名（全量，不限制） ======================
+# ====================== 全市場排名 ======================
 df_m = pd.DataFrame({
     "score": score_raw_today,
     "close": price.loc[latest_dt],
