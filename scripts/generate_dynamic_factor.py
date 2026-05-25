@@ -309,13 +309,13 @@ def get_failed_conditions(sid, dt):
 def build_stock_item(sid, row, base_rank, prev_rank_map, selected=None, passed_filter=None):
     prev_rank, rank_change, change_type = get_rank_change_info(sid, prev_rank_map, int(base_rank))
     
-    # 加強名字處理，避免空白
-    short_name = str(company_short_name_map.get(sid, ""))
-    full_name = str(company_full_name_map.get(sid, ""))
+    # === 新增：過濾幽靈股票 ===
+    short_name = str(company_short_name_map.get(sid, "")).strip()
+    full_name = str(company_full_name_map.get(sid, "")).strip()
     
-    name = short_name
-    if not name or name.strip() == "":
-        name = full_name if full_name and full_name.strip() != "" else str(sid)
+    name = short_name if short_name else full_name
+    if not name or name == str(sid):   # 如果名字還是空的，或只剩下 stock_id
+        return None                     # ← 直接跳過，不加入排名
     
     item = {
         "base_rank": int(base_rank),
@@ -324,7 +324,7 @@ def build_stock_item(sid, row, base_rank, prev_rank_map, selected=None, passed_f
         "change_type": change_type,
         "stock_id": str(sid),
         "name": name,
-        "full_name": full_name if full_name and full_name.strip() != "" else name,
+        "full_name": full_name if full_name else name,
         "score": round(float(row.get("score", 0)), 6),
         "display_score": score_to_display(row.get("score")),
         "close": float(row.get("close")) if pd.notna(row.get("close")) else None,
@@ -333,11 +333,6 @@ def build_stock_item(sid, row, base_rank, prev_rank_map, selected=None, passed_f
         "dd_pct": pct_win(row.get("dd_pct")),
         "corr_pct": pct_win(row.get("corr_pct")),
     }
-    if selected is not None: item["selected"] = bool(selected)
-    if passed_filter is not None:
-        item["passed_filter"] = bool(passed_filter)
-        item["failed_conditions"] = [] if bool(passed_filter) else get_failed_conditions(sid, latest_dt)
-    return item
     if selected is not None: item["selected"] = bool(selected)
     if passed_filter is not None:
         item["passed_filter"] = bool(passed_filter)
@@ -464,7 +459,10 @@ df_m = pd.DataFrame({
 df_m = df_m[df_m["score"] > 0].copy()
 df_m = df_m.sort_values("score", ascending=False)
 df_m["base_rank"] = range(1, len(df_m) + 1)
-market_rank = [build_stock_item(sid, row, row["base_rank"], prev_market_rank_map, False, bool(row["passed_filter"])) for sid, row in df_m.iterrows()]
+market_rank = [item for item in 
+    [build_stock_item(sid, row, row["base_rank"], prev_market_rank_map, False, bool(row["passed_filter"])) 
+     for sid, row in df_m.iterrows()] 
+    if item is not None]
 
 current_holdings_rank = add_history_to_items(current_holdings_rank)
 filtered_rank = add_history_to_items(filtered_rank)
