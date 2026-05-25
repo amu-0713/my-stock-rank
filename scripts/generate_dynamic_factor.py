@@ -1,4 +1,4 @@
-# scripts/generate_and_push.py
+# scripts/generate_dynamic_factor.py
 import os
 import finlab
 import pandas as pd
@@ -358,19 +358,22 @@ r_corr_today = (-corr_mkt).loc[latest_dt].rank(pct=True)
 
 curr_regime = regime.loc[latest_dt]
 
+# === 原本的 w 計算 ===
+w = weights.apply(lambda x: x[curr_regime])
+
 # === PEG NaN 時的權重動態調整（只影響牛市）===
 peg_series = peg.loc[latest_dt]
 peg_nan_mask = peg_series.isna() | (peg_series <= 0)   # NaN 或無效值都視為需要調整
 
-w_rs_adj = w["rs"].copy() if isinstance(w, pd.Series) else pd.Series(w["rs"], index=peg_nan_mask.index)
-w_peg_adj = w["peg"].copy() if isinstance(w, pd.Series) else pd.Series(w["peg"], index=peg_nan_mask.index)
-w_dd_adj = w["dd"].copy() if isinstance(w, pd.Series) else pd.Series(w["dd"], index=peg_nan_mask.index)
-w_corr_adj = w["corr"].copy() if isinstance(w, pd.Series) else pd.Series(w["corr"], index=peg_nan_mask.index)
+w_rs_adj = w["rs"].copy()
+w_peg_adj = w["peg"].copy()
+w_dd_adj = w["dd"].copy()
+w_corr_adj = w["corr"].copy()
 
 # 只在牛市且 PEG 為 NaN 時才把原本 peg 的 0.3 權重平均拆給 rs 和 dd
 if curr_regime == 'bull':
     w_rs_adj = w["rs"] + 0.15 * peg_nan_mask
-    w_peg_adj = pd.Series(0.0, index=peg_nan_mask.index)   # peg 權重強制為 0
+    w_peg_adj = pd.Series(0.0, index=w.index)   # peg 權重強制為 0
     w_dd_adj = w["dd"] + 0.15 * peg_nan_mask
     # w_corr_adj 不變
 
