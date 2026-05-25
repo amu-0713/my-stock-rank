@@ -40,15 +40,27 @@ function formatCompareDate(value) {
   return `${match[2]}/${match[3]}`
 }
 
-function scoreBadgeClass(value) {
+function pctBadgeClass(value) {
   const n = typeof value === 'number' ? value : Number(value)
-  const base = 'inline-flex min-w-[64px] items-center justify-center rounded-full px-2 py-1 text-base font-semibold tabular-nums cursor-pointer hover:underline'
-  if (!Number.isFinite(n)) return `${base} bg-gray-200 text-gray-700`
-  if (n >= 90) return `${base} bg-red-600 text-white`
-  if (n >= 80) return `${base} bg-red-400 text-white`
-  if (n >= 70) return `${base} bg-red-100 text-red-700`
-  if (n >= 60) return `${base} bg-gray-200 text-gray-700`
-  return `${base} bg-gray-100 text-gray-400`
+  const base = 'inline-flex min-w-[64px] items-center justify-center rounded-full px-2 py-1 text-sm font-medium tabular-nums'
+
+  // PEG = 0 特別處理（之後會改成「缺值」文字）
+  if (n === 0) {
+    return `${base} bg-sky-100 text-sky-700`
+  }
+
+  if (!Number.isFinite(n)) {
+    return `${base} bg-gray-200 text-gray-700`
+  }
+
+  // 10分區間漸層（簡潔版）
+  if (n >= 90) return `${base} bg-green-600 text-white`     // 90以上：深綠（最強）
+  if (n >= 80) return `${base} bg-green-500 text-white`     // 80～89：綠
+  if (n >= 70) return `${base} bg-green-300 text-green-900` // 70～79：淺綠
+  if (n >= 60) return `${base} bg-yellow-300 text-yellow-800` // 60～69：淡黃 / 黃綠
+
+  // 60以下（包含正常低分）→ 灰色
+  return `${base} bg-gray-200 text-gray-700`
 }
 
 function pctBadgeClass(value) {
