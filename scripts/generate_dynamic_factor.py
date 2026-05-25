@@ -350,39 +350,15 @@ def add_history_to_items(items):
 # ====================== 產生三種排名 ======================
 fixed_hold_ids = score.loc[real_rebalance_dt].sort_values(ascending=False).head(16).index
 
-# 其他三個 rank 維持原本行為（PEG 做 fillna(0)）
+# 計算各因子百分位（用於顯示 rs_pct、peg_pct、dd_pct、corr_pct）
 r_rs_today = rs_fixed.loc[latest_dt].rank(pct=True)
-r_peg_today = (1 / peg).loc[latest_dt].rank(pct=True).fillna(0)   # ← PEG NaN 時給 0
+r_peg_today = (1 / peg).loc[latest_dt].rank(pct=True).fillna(0)   # PEG NaN 時顯示為 0.0
 r_dd_today = (-dd).loc[latest_dt].rank(pct=True)
 r_corr_today = (-corr_mkt).loc[latest_dt].rank(pct=True)
 
-curr_regime = regime.loc[latest_dt]
-
-# 先定義原本的權重
-w = weights.apply(lambda x: x[curr_regime])
-
-# === PEG NaN 時的權重動態調整（全市場方式）===
-peg_series = peg.loc[latest_dt]
-peg_nan_mask = peg_series.isna() | (peg_series <= 0)
-
-w_rs_adj = pd.Series(w["rs"], index=peg_nan_mask.index)
-w_peg_adj = pd.Series(w["peg"], index=peg_nan_mask.index)
-w_dd_adj = pd.Series(w["dd"], index=peg_nan_mask.index)
-w_corr_adj = pd.Series(w["corr"], index=peg_nan_mask.index)
-
-# 只在牛市且 PEG 為 NaN 時，把 peg 的 0.3 權重拆給 rs 和 dd
-if curr_regime == 'bull':
-    w_rs_adj = w_rs_adj + 0.15 * peg_nan_mask
-    w_peg_adj = pd.Series(0.0, index=peg_nan_mask.index)
-    w_dd_adj = w_dd_adj + 0.15 * peg_nan_mask
-
-# 使用調整後的權重計算 score（全市場方式）
-score_raw_today = (
-    r_rs_today * w_rs_adj +
-    r_peg_today * w_peg_adj +
-    r_corr_today * w_corr_adj +
-    r_dd_today * w_dd_adj
-)
+# 關鍵修正：直接使用 full_score_matrix 的原始分數
+# → 保證 display_score 與 history 的 05-22 完全一致
+score_raw_today = full_score_matrix.loc[latest_dt]
 
 compare_dt = get_compare_dt(valid_dates, latest_dt, days=7)
 prev_current_holdings_rank_map = {}
@@ -456,7 +432,6 @@ market_rank = [build_stock_item(sid, row, row["base_rank"], prev_market_rank_map
 current_holdings_rank = add_history_to_items(current_holdings_rank)
 filtered_rank = add_history_to_items(filtered_rank)
 market_rank = add_history_to_items(market_rank)
-
 # ====================== 計算 overview ======================
 print("🚀 開始計算首頁進階指標...")
 daily_return = report.creturn.pct_change().fillna(0)
