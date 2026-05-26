@@ -253,6 +253,8 @@ export default function RankList({
   sortableFields,
   compareDate,
   strategyId = '1',
+  regime,          // 從 StrategyPage 傳入
+  setRegime,       // 從 StrategyPage 傳入
 }) {
   const isFilteredRankList = title === '條件篩選排名'
   const showFilterColumn = !isFilteredRankList
@@ -276,7 +278,6 @@ export default function RankList({
   const [search, setSearch] = useState('')
 
   // ==================== 牛熊切換 + 載入效果 ====================
-  const [regime, setRegime] = useState('bull')
   const [currentData, setCurrentData] = useState(null)
   const [loading, setLoading] = useState(false)
 
@@ -429,11 +430,12 @@ export default function RankList({
             <div className="text-sm font-semibold text-zinc-900">{title}</div>
 
             {/* ==================== 牛熊切換按鈕（只在多因子策略顯示） ==================== */}
+            {/* 電腦版 + 手機橫式顯示，手機直式隱藏 */}
             {isMultiFactor && (
               <button
                 onClick={() => setRegime(prev => (prev === 'bull' ? 'bear' : 'bull'))}
                 disabled={loading}
-                className="px-8 py-2 rounded-2xl border border-zinc-300 bg-white text-sm font-medium text-zinc-700 hover:bg-zinc-50 transition-colors shadow-sm disabled:opacity-50 flex items-center gap-2"
+                className="px-8 py-2 rounded-2xl border border-zinc-300 bg-white text-sm font-medium text-zinc-700 hover:bg-zinc-50 transition-colors shadow-sm disabled:opacity-50 flex items-center gap-2 hidden md:flex landscape:max-md:flex"
               >
                 {regime === 'bull' ? '牛' : '熊'}
                 {loading && (
