@@ -1,5 +1,5 @@
 // src/components/RankList.jsx
-import { useEffect, useMemo, useState, useCallback } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { createPortal } from 'react-dom'
 
 const TEXT = {
@@ -196,7 +196,7 @@ function ScoreModal({ stock, onClose }) {
   )
 }
 
-// ====================== Tooltip 文字（已按照你指定的格式） ======================
+// ====================== Tooltip 文字 ======================
 const tooltipTexts = {
   score: `分數（綜合多因子分數）\n由 RS + PEG/CORR + DD 加權計算\n排名越高代表整體表現越佳\n-點擊排序-`,
   rs_pct: `RS（相對強度指標）\n股票相對於大盤的近期表現排名\n排名越高代表近期表現越強勢\n-點擊排序-`,
@@ -264,6 +264,8 @@ export default function RankList({
   sortableFields,
   compareDate,
   strategyId = '1',
+  regime,
+  setRegime
 }) {
   const isFilteredRankList = title === '條件篩選排名'
   const showFilterColumn = !isFilteredRankList
@@ -277,7 +279,9 @@ export default function RankList({
   const minWidth = showFilterColumn ? 'min-w-[740px]' : 'min-w-[680px]'
 
   const formattedCompareDate = formatCompareDate(compareDate)
-  const changeHeaderText = formattedCompareDate === null ? `\( {TEXT.change}（vs 上週）` : ` \){TEXT.change}（vs ${formattedCompareDate}）`
+  const changeHeaderText = formattedCompareDate === null 
+    ? `${TEXT.change}（vs 上週）` 
+    : `${TEXT.change}（vs ${formattedCompareDate}）`
 
   const normalizedDefaultSortKey = useMemo(() => normalizeSortKey(defaultSortKey, sortableFields, sortableFieldSet), [defaultSortKey, sortableFields, sortableFieldSet])
 
@@ -286,7 +290,6 @@ export default function RankList({
   const [selectedStock, setSelectedStock] = useState(null)
   const [search, setSearch] = useState('')
 
-  const [regime, setRegime] = useState('bull')
   const [currentData, setCurrentData] = useState(null)
   const [loading, setLoading] = useState(false)
 
@@ -439,9 +442,9 @@ export default function RankList({
 
             {isMultiFactor && (
               <button
-                onClick={() => setRegime(prev => (prev === 'bull' ? 'bear' : 'bull'))}
+                onClick={() => setRegime?.(prev => (prev === 'bull' ? 'bear' : 'bull'))}
                 disabled={loading}
-                className="px-8 py-2 rounded-2xl border border-zinc-300 bg-white text-sm font-medium text-zinc-700 hover:bg-zinc-50 transition-colors shadow-sm disabled:opacity-50 flex items-center gap-2"
+                className="hidden md:flex landscape:flex px-8 py-2 rounded-2xl border border-zinc-300 bg-white text-sm font-medium text-zinc-700 hover:bg-zinc-50 transition-colors shadow-sm disabled:opacity-50 flex items-center gap-2"
               >
                 {regime === 'bull' ? '牛' : '熊'}
                 {loading && (
@@ -521,14 +524,15 @@ export default function RankList({
                   )
                 })}
 
+                {/* 變動表頭 - 已修正為乾淨文字 */}
                 <button
                   type="button"
-                  className={`${headerClassName(allowedSortableFields.has('rank_change'), sortKey === 'rank_change')} flex items-center justify-center min-h-[52px]`}
+                  className={headerClassName(allowedSortableFields.has('rank_change'), sortKey === 'rank_change')}
                   onClick={() => handleSortChange('rank_change')}
                   title={tooltipTexts.rank_change}
                 >
                   <span className="whitespace-nowrap text-center">{changeHeaderText}</span>
-                  <span className="ml-1 text-xs">{sortIndicator(sortDirection, sortKey === 'rank_change')}</span>
+                  <span className="text-xs">{sortIndicator(sortDirection, sortKey === 'rank_change')}</span>
                 </button>
 
                 {showFilterColumn && (
@@ -563,7 +567,6 @@ export default function RankList({
                         </span>
                       </div>
 
-                      {/* 個股分數欄位（81 那種）加上你指定的 tooltip */}
                       <div 
                         className="text-center text-sm tabular-nums" 
                         onClick={() => setSelectedStock(row)}
@@ -588,6 +591,7 @@ export default function RankList({
                         </div>
                       ))}
 
+                      {/* 個股變動欄位 - 已修正為乾淨顯示 */}
                       <div className={`flex flex-col items-center justify-center text-sm font-semibold tabular-nums ${rankChange.className} min-h-[52px] landscape:max-md:min-h-[40px]`}>
                         <div>{rankChange.mainLabel}</div>
                         {rankChange.detailLabel && (
