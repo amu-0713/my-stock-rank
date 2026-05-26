@@ -1,5 +1,5 @@
 // src/components/RankList.jsx
-import { useEffect, useMemo, useState, useCallback } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { createPortal } from 'react-dom'
 
 const TEXT = {
@@ -196,6 +196,16 @@ function ScoreModal({ stock, onClose }) {
   )
 }
 
+// ====================== Tooltip 文字（僅保留量化因子科普） ======================
+const tooltipTexts = {
+  rs_pct: `RS（相對強度指標）\n股票相對於大盤的近期表現排名\n排名越高代表近期表現越強勢\n-點擊排序-`,
+  peg_pct: `PEG（本益成長比）\n成長股的估值合理性排名\n排名越高代表成長價值越佳\n-點擊排序-`,
+  corr_pct: `CORR（市場相關性）\n股票與大盤的相關程度排名\n排名越高代表獨立性，分散風險效果越好\n-點擊排序-`,
+  dd_pct: `DD（下行風險）\n股票短期下跌波動風險排名\n排名越高代表風險控制能力越佳\n-點擊排序-`,
+  std_pct: `STD（波動度排名）\n股票短期股價波動穩定度排名\n排名越高代表股價越穩定\n-點擊排序-`,
+  dy_pct: `DY（預估殖利率排名）\n股票之預估股利殖利率排名\n排名越高代表股息回報率預期越高\n-點擊排序-`
+}
+
 const DEFAULT_SORT_KEY = 'score'
 const DEFAULT_SORT_DIRECTION = 'desc'
 const SORTABLE_FIELD_SET_BY_STRATEGY = {
@@ -253,8 +263,8 @@ export default function RankList({
   sortableFields,
   compareDate,
   strategyId = '1',
-  regime,          // 從 StrategyPage 傳入
-  setRegime,       // 從 StrategyPage 傳入
+  regime,
+  setRegime,
 }) {
   const isFilteredRankList = title === '條件篩選排名'
   const showFilterColumn = !isFilteredRankList
@@ -277,7 +287,6 @@ export default function RankList({
   const [selectedStock, setSelectedStock] = useState(null)
   const [search, setSearch] = useState('')
 
-  // ==================== 牛熊切換 + 載入效果 ====================
   const [currentData, setCurrentData] = useState(null)
   const [loading, setLoading] = useState(false)
 
@@ -315,7 +324,6 @@ export default function RankList({
 
   const rows = useMemo(() => getRankList(currentData) || initialRows || [], [currentData, initialRows, title])
 
-  // ==================== 動態欄位 ====================
   const metricColumns = useMemo(() => {
     if (isMultiFactor) {
       return [
@@ -429,8 +437,6 @@ export default function RankList({
           <div className="flex items-center gap-4">
             <div className="text-sm font-semibold text-zinc-900">{title}</div>
 
-            {/* ==================== 牛熊切換按鈕（只在多因子策略顯示） ==================== */}
-            {/* 電腦版 + 手機橫式顯示，手機直式隱藏 */}
             {isMultiFactor && (
               <button
                 onClick={() => setRegime(prev => (prev === 'bull' ? 'bear' : 'bull'))}
@@ -462,7 +468,6 @@ export default function RankList({
 
       <div className="min-h-0 flex-1 overflow-auto -webkit-overflow-scrolling-touch">
         <div className={`${minWidth}`}>
-          {/* ==================== Loading 狀態 ==================== */}
           {loading ? (
             <div className="flex flex-col items-center justify-center h-96 text-zinc-500">
               <div className="animate-spin h-8 w-8 border-4 border-zinc-300 border-t-zinc-600 rounded-full mb-4"></div>
@@ -477,6 +482,7 @@ export default function RankList({
                   <div className="col-span-2 self-center justify-self-start text-left">{TEXT.stock}</div>
                 </div>
 
+                {/* 1. 分數標頭：已拿掉 hover title */}
                 <button
                   type="button"
                   className={headerClassName(allowedSortableFields.has('score'), sortKey === 'score')}
@@ -487,11 +493,15 @@ export default function RankList({
                 </button>
 
                 {metricColumns.map(column => {
+                  const tooltipKey = column.key
+                  const tooltip = tooltipTexts[tooltipKey] || ''
+
                   if (!column.sortable) {
                     return (
                       <div
                         key={column.key}
                         className="flex min-h-[52px] items-center justify-center text-center landscape:max-md:min-h-[40px]"
+                        title={tooltip}
                       >
                         {column.label}
                       </div>
@@ -503,6 +513,7 @@ export default function RankList({
                       type="button"
                       className={headerClassName(allowedSortableFields.has(column.key), sortKey === column.key)}
                       onClick={() => handleSortChange(column.key)}
+                      title={tooltip}
                     >
                       <span>{column.label}</span>
                       <span className="text-xs">{sortIndicator(sortDirection, sortKey === column.key)}</span>
@@ -510,15 +521,17 @@ export default function RankList({
                   )
                 })}
 
+                {/* 2. 變動標頭：已拿掉 hover title */}
                 <button
                   type="button"
-                  className={`${headerClassName(allowedSortableFields.has('rank_change'), sortKey === 'rank_change')} flex items-center justify-center min-h-[52px]`}
+                  className={headerClassName(allowedSortableFields.has('rank_change'), sortKey === 'rank_change')}
                   onClick={() => handleSortChange('rank_change')}
                 >
                   <span className="whitespace-nowrap text-center">{changeHeaderText}</span>
-                  <span className="ml-1 text-xs">{sortIndicator(sortDirection, sortKey === 'rank_change')}</span>
+                  <span className="text-xs">{sortIndicator(sortDirection, sortKey === 'rank_change')}</span>
                 </button>
 
+                {/* 3. 濾網標頭：已拿掉 hover title */}
                 {showFilterColumn && (
                   <div className="flex min-h-[52px] items-center justify-center text-center">
                     濾網
@@ -548,7 +561,12 @@ export default function RankList({
                         </span>
                       </div>
 
-                      <div className="text-center text-sm tabular-nums" onClick={() => setSelectedStock(row)}>
+                      {/* 保留：點擊分數跳出近五日走勢 Modal 的提示語 */}
+                      <div 
+                        className="text-center text-sm tabular-nums" 
+                        onClick={() => setSelectedStock(row)}
+                        title="-點擊顯示近五日分數走勢-"
+                      >
                         <span className={scoreBadgeClass(row.display_score)}>
                           {formatScore(row.display_score)}
                         </span>
@@ -578,6 +596,7 @@ export default function RankList({
                       </div>
 
                       {showFilterColumn && (
+                        /* 保留：點擊濾網查看原因的動態提示語 */
                         <button
                           type="button"
                           className="flex min-h-[52px] items-center justify-center rounded-xl hover:bg-zinc-100 landscape:max-md:min-h-[40px]"
@@ -602,22 +621,4 @@ export default function RankList({
                 )}
               </div>
 
-              {isMarketRank && displayedRows.length < sortedRows.length && (
-                <div className="flex justify-center py-8 border-t">
-                  <button
-                    onClick={handleLoadMore}
-                    className="px-8 py-3 bg-white border border-zinc-300 hover:border-zinc-400 text-zinc-700 font-medium rounded-2xl transition-colors flex items-center gap-2 shadow-sm"
-                  >
-                    載入更多（已顯示 {displayedRows.length} / {sortedRows.length} 筆）
-                  </button>
-                </div>
-              )}
-            </>
-          )}
-        </div>
-      </div>
-
-      {selectedStock && <ScoreModal stock={selectedStock} onClose={() => setSelectedStock(null)} />}
-    </div>
-  )
-}
+              {isMarketRank && displayedRows.length < sortedRows.length
