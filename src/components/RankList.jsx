@@ -1,5 +1,5 @@
 // src/components/RankList.jsx
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useState, useCallback } from 'react'
 import { createPortal } from 'react-dom'
 
 const TEXT = {
@@ -38,7 +38,7 @@ function formatCompareDate(value) {
   if (typeof value !== 'string') return null
   const match = value.match(/^(\d{4})-(\d{2})-(\d{2})$/)
   if (!match) return null
-  return `${match[2]}/${match[3]}` // 已修復：正確的模板字串
+  return `${match[2]}/${match[3]}`
 }
 
 function scoreBadgeClass(value) {
@@ -71,8 +71,7 @@ function formatRankChange(changeType, rankChange, prevRank, nextRank) {
   const safeChange = Number.isFinite(parsedChange) ? Math.abs(parsedChange) : null
   const parsedPrevRank = typeof prevRank === 'number' ? prevRank : Number(prevRank)
   const parsedNextRank = typeof nextRank === 'number' ? nextRank : Number(nextRank)
-  // 已修復：正確的模板字串
-  const rankRange = Number.isFinite(parsedPrevRank) && Number.isFinite(parsedNextRank) ? `（${parsedPrevRank}→${parsedNextRank}）` : ''
+  const rankRange = Number.isFinite(parsedPrevRank) && Number.isFinite(parsedNextRank) ? `（${parsedPrevRank}→${parsedNextRank}）` : null
 
   switch (changeType) {
     case 'up':
@@ -82,9 +81,9 @@ function formatRankChange(changeType, rankChange, prevRank, nextRank) {
     case 'flat':
       return { mainLabel: '=', detailLabel: '（維持）', className: 'text-zinc-600 text-base font-bold' }
     case 'new':
-      return { mainLabel: 'NEW', detailLabel: '', className: 'text-sky-600' }
+      return { mainLabel: 'NEW', detailLabel: null, className: 'text-sky-600' }
     default:
-      return { mainLabel: '--', detailLabel: '', className: 'text-zinc-500' }
+      return { mainLabel: '--', detailLabel: null, className: 'text-zinc-500' }
   }
 }
 
@@ -104,7 +103,6 @@ function ScoreModal({ stock, onClose }) {
   const range = maxScore - minScore
   const vWidth = 500
   const vHeight = 260
-  // 已修復：正確的模板字串，SVG才能讀取座標
   const pointsData = stock.history.map((item, i) => {
     const x = (i / (stock.history.length - 1)) * vWidth
     const clampedScore = Math.max(minScore, Math.min(maxScore, item.score))
@@ -163,14 +161,7 @@ function ScoreModal({ stock, onClose }) {
                   return <line key={i} x1="0" y1={y} x2={vWidth} y2={y} stroke="#e2e8f0" strokeWidth="1" strokeDasharray="4 4" />
                 })}
 
-                <polyline 
-                  points={polylinePoints} 
-                  fill="none" 
-                  stroke="#8b5cf6" 
-                  strokeWidth="4" 
-                  strokeLinejoin="round" 
-                  strokeLinecap="round" 
-                />
+                <polyline points={polylinePoints} fill="none" stroke="#8b5cf6" strokeWidth="4" strokeLinejoin="round" strokeLinecap="round" />
 
                 {pointsData.map((p, i) => (
                   <g key={i}>
@@ -203,17 +194,6 @@ function ScoreModal({ stock, onClose }) {
     </div>,
     document.body
   )
-}
-
-// ====================== Tooltip 文字 ======================
-const tooltipTexts = {
-  score: `分數（綜合多因子分數）\n由 RS + PEG/CORR + DD 加權計算\n排名越高代表整體表現越佳\n-點擊排序-`,
-  rs_pct: `RS（相對強度指標）\n股票相對於大盤的近期表現排名\n排名越高代表近期表現越強勢\n-點擊排序-`,
-  peg_pct: `PEG（本益成長比）\n成長股的估值合理性排名\n排名越高代表成長價值越佳\n-點擊排序-`,
-  corr_pct: `CORR（市場相關性）\n股票與大盤的相關程度排名\n排名越高代表獨立性，分散風險效果越好\n-點擊排序-`,
-  dd_pct: `DD（下行風險）\n股票短期下跌波動風險排名\n排名越高代表風險控制能力越佳\n-點擊排序-`,
-  rank_change: `變動（排名變動）\n與上週排名比較\n正數代表排名上升\n-點擊排序-`,
-  filter: `濾網（選股條件）\n✔ 已通過全部條件　✖ 未通過`
 }
 
 const DEFAULT_SORT_KEY = 'score'
@@ -271,10 +251,10 @@ export default function RankList({
   rows: initialRows,
   defaultSortKey,
   sortableFields,
-  compareDate, // 保留從外部傳入當作 fallback
+  compareDate,
   strategyId = '1',
-  regime,
-  setRegime
+  regime,          // 從 StrategyPage 傳入
+  setRegime,       // 從 StrategyPage 傳入
 }) {
   const isFilteredRankList = title === '條件篩選排名'
   const showFilterColumn = !isFilteredRankList
@@ -287,6 +267,9 @@ export default function RankList({
   const gridCols = showFilterColumn ? 'grid-cols-[64px_minmax(150px,220px)_80px_75px_75px_75px_110px_60px]' : 'grid-cols-[64px_minmax(150px,220px)_80px_75px_75px_75px_160px]'
   const minWidth = showFilterColumn ? 'min-w-[740px]' : 'min-w-[680px]'
 
+  const formattedCompareDate = formatCompareDate(compareDate)
+  const changeHeaderText = formattedCompareDate === null ? `${TEXT.change}（vs 上週）` : `${TEXT.change}（vs ${formattedCompareDate}）`
+
   const normalizedDefaultSortKey = useMemo(() => normalizeSortKey(defaultSortKey, sortableFields, sortableFieldSet), [defaultSortKey, sortableFields, sortableFieldSet])
 
   const [sortKey, setSortKey] = useState(normalizedDefaultSortKey)
@@ -294,15 +277,9 @@ export default function RankList({
   const [selectedStock, setSelectedStock] = useState(null)
   const [search, setSearch] = useState('')
 
+  // ==================== 牛熊切換 + 載入效果 ====================
   const [currentData, setCurrentData] = useState(null)
   const [loading, setLoading] = useState(false)
-
-  // 決定當前要使用的對比日期：優先使用動態抓到的 json 內的 compare_date
-  const activeCompareDate = currentData?.compare_date || compareDate
-  const formattedCompareDate = formatCompareDate(activeCompareDate)
-  const changeHeaderText = formattedCompareDate === null 
-    ? `${TEXT.change}（vs 上週）` 
-    : `${TEXT.change}（vs ${formattedCompareDate}）`
 
   useEffect(() => {
     const loadData = async () => {
@@ -338,11 +315,17 @@ export default function RankList({
 
   const rows = useMemo(() => getRankList(currentData) || initialRows || [], [currentData, initialRows, title])
 
+  // ==================== 動態欄位 ====================
   const metricColumns = useMemo(() => {
     if (isMultiFactor) {
       return [
         { key: 'rs_pct', label: 'RS', sortable: true, type: 'pct' },
-        { key: regime === 'bull' ? 'peg_pct' : 'corr_pct', label: regime === 'bull' ? 'PEG' : 'CORR', sortable: true, type: 'pct' },
+        {
+          key: regime === 'bull' ? 'peg_pct' : 'corr_pct',
+          label: regime === 'bull' ? 'PEG' : 'CORR',
+          sortable: true,
+          type: 'pct'
+        },
         { key: 'dd_pct', label: 'DD', sortable: true, type: 'pct' },
       ]
     } else if (isHighDividend) {
@@ -446,11 +429,13 @@ export default function RankList({
           <div className="flex items-center gap-4">
             <div className="text-sm font-semibold text-zinc-900">{title}</div>
 
+            {/* ==================== 牛熊切換按鈕（只在多因子策略顯示） ==================== */}
+            {/* 電腦版 + 手機橫式顯示，手機直式隱藏 */}
             {isMultiFactor && (
               <button
-                onClick={() => setRegime?.(prev => (prev === 'bull' ? 'bear' : 'bull'))}
+                onClick={() => setRegime(prev => (prev === 'bull' ? 'bear' : 'bull'))}
                 disabled={loading}
-                className="hidden md:flex landscape:flex px-8 py-2 rounded-2xl border border-zinc-300 bg-white text-sm font-medium text-zinc-700 hover:bg-zinc-50 transition-colors shadow-sm disabled:opacity-50 flex items-center gap-2"
+                className="px-8 py-2 rounded-2xl border border-zinc-300 bg-white text-sm font-medium text-zinc-700 hover:bg-zinc-50 transition-colors shadow-sm disabled:opacity-50 flex items-center gap-2 hidden md:flex landscape:max-md:flex"
               >
                 {regime === 'bull' ? '牛' : '熊'}
                 {loading && (
@@ -477,6 +462,7 @@ export default function RankList({
 
       <div className="min-h-0 flex-1 overflow-auto -webkit-overflow-scrolling-touch">
         <div className={`${minWidth}`}>
+          {/* ==================== Loading 狀態 ==================== */}
           {loading ? (
             <div className="flex flex-col items-center justify-center h-96 text-zinc-500">
               <div className="animate-spin h-8 w-8 border-4 border-zinc-300 border-t-zinc-600 rounded-full mb-4"></div>
@@ -495,22 +481,17 @@ export default function RankList({
                   type="button"
                   className={headerClassName(allowedSortableFields.has('score'), sortKey === 'score')}
                   onClick={() => handleSortChange('score')}
-                  title={tooltipTexts.score}
                 >
                   <span>{TEXT.score}</span>
                   <span className="text-xs">{sortIndicator(sortDirection, sortKey === 'score')}</span>
                 </button>
 
                 {metricColumns.map(column => {
-                  const tooltipKey = column.key
-                  const tooltip = tooltipTexts[tooltipKey] || ''
-
                   if (!column.sortable) {
                     return (
                       <div
                         key={column.key}
                         className="flex min-h-[52px] items-center justify-center text-center landscape:max-md:min-h-[40px]"
-                        title={tooltip}
                       >
                         {column.label}
                       </div>
@@ -522,7 +503,6 @@ export default function RankList({
                       type="button"
                       className={headerClassName(allowedSortableFields.has(column.key), sortKey === column.key)}
                       onClick={() => handleSortChange(column.key)}
-                      title={tooltip}
                     >
                       <span>{column.label}</span>
                       <span className="text-xs">{sortIndicator(sortDirection, sortKey === column.key)}</span>
@@ -532,19 +512,15 @@ export default function RankList({
 
                 <button
                   type="button"
-                  className={headerClassName(allowedSortableFields.has('rank_change'), sortKey === 'rank_change')}
+                  className={`${headerClassName(allowedSortableFields.has('rank_change'), sortKey === 'rank_change')} flex items-center justify-center min-h-[52px]`}
                   onClick={() => handleSortChange('rank_change')}
-                  title={tooltipTexts.rank_change}
                 >
                   <span className="whitespace-nowrap text-center">{changeHeaderText}</span>
-                  <span className="text-xs">{sortIndicator(sortDirection, sortKey === 'rank_change')}</span>
+                  <span className="ml-1 text-xs">{sortIndicator(sortDirection, sortKey === 'rank_change')}</span>
                 </button>
 
                 {showFilterColumn && (
-                  <div 
-                    className="flex min-h-[52px] items-center justify-center text-center"
-                    title={tooltipTexts.filter}
-                  >
+                  <div className="flex min-h-[52px] items-center justify-center text-center">
                     濾網
                   </div>
                 )}
@@ -557,7 +533,6 @@ export default function RankList({
                   const displayedRank = getDisplayedRank(row, sortKey, isSearching, index)
 
                   return (
-                    {/* 已修復：正確的 key 模板字串 */}
                     <div
                       key={`${row.base_rank ?? index}-${row.stock_id}`}
                       className={`grid ${gridCols} items-center gap-1 px-4 py-4 hover:bg-zinc-50 landscape:max-md:px-3 landscape:max-md:py-2`}
@@ -573,11 +548,7 @@ export default function RankList({
                         </span>
                       </div>
 
-                      <div 
-                        className="text-center text-sm tabular-nums" 
-                        onClick={() => setSelectedStock(row)}
-                        title="-點擊顯示近五日分數走勢-"
-                      >
+                      <div className="text-center text-sm tabular-nums" onClick={() => setSelectedStock(row)}>
                         <span className={scoreBadgeClass(row.display_score)}>
                           {formatScore(row.display_score)}
                         </span>
