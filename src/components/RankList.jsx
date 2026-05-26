@@ -264,8 +264,8 @@ export default function RankList({
   sortableFields,
   compareDate,
   strategyId = '1',
-  regime,          // ← 從 StrategyPage 傳入
-  setRegime        // ← 從 StrategyPage 傳入
+  regime,
+  setRegime
 }) {
   const isFilteredRankList = title === '條件篩選排名'
   const showFilterColumn = !isFilteredRankList
@@ -435,7 +435,6 @@ export default function RankList({
     <div className={`isolate flex h-full min-h-0 landscape:max-md:h-screen landscape:max-md:min-h-screen flex-col overflow-hidden rounded-2xl border border-zinc-200 bg-white shadow-sm max-w-[960px] mx-auto ${isModalOpen ? 'pointer-events-none' : ''}`}>
       <div className="z-40 border-b border-zinc-200 bg-white">
         <div className="flex w-full items-center justify-between gap-3 px-4 py-3 shadow-sm landscape:max-md:pl-5 landscape:max-md:pr-3 landscape:max-md:py-2">
-          {/* 左側：標題 + 牛熊按鈕（電腦 + 手機橫式顯示，手機直式隱藏） */}
           <div className="flex items-center gap-4">
             <div className="text-sm font-semibold text-zinc-900">{title}</div>
 
@@ -453,7 +452,6 @@ export default function RankList({
             )}
           </div>
 
-          {/* 右側：搜尋框 + 共X筆 */}
           <div className="flex items-center gap-3">
             <input
               value={search}
@@ -524,14 +522,15 @@ export default function RankList({
                   )
                 })}
 
+                {/* 變動欄位 - 修正後的正確結構 */}
                 <button
                   type="button"
-                  className={`${headerClassName(allowedSortableFields.has('rank_change'), sortKey === 'rank_change')} flex items-center justify-center min-h-[52px]`}
+                  className={headerClassName(allowedSortableFields.has('rank_change'), sortKey === 'rank_change')}
                   onClick={() => handleSortChange('rank_change')}
                   title={tooltipTexts.rank_change}
                 >
                   <span className="whitespace-nowrap text-center">{changeHeaderText}</span>
-                  <span className="ml-1 text-xs">{sortIndicator(sortDirection, sortKey === 'rank_change')}</span>
+                  <span className="text-xs">{sortIndicator(sortDirection, sortKey === 'rank_change')}</span>
                 </button>
 
                 {showFilterColumn && (
