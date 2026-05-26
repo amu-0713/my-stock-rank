@@ -35,6 +35,9 @@ export default function StrategyPage() {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
 
+  // ====================== 牛熊切換狀態（提升到這裡，供 RankList 使用） ======================
+  const [regime, setRegime] = useState('bull')
+
   // ====================== 動態多因子（策略1） ======================
   useEffect(() => {
     if (!isStrategy1) return
@@ -43,7 +46,7 @@ export default function StrategyPage() {
     setError(null)
     fetch('/result.json', { cache: 'no-store' })
       .then(async (res) => {
-        if (!res.ok) throw new Error(`\( {TEXT.loadErrorPrefix} \){res.status}`)
+        if (!res.ok) throw new Error(`\\( {TEXT.loadErrorPrefix} \\)${res.status}`)
         return await res.json()
       })
       .then((json) => {
@@ -69,7 +72,7 @@ export default function StrategyPage() {
     setError(null)
     fetch('/result_2.json', { cache: 'no-store' })
       .then(async (res) => {
-        if (!res.ok) throw new Error(`\( {TEXT.loadErrorPrefix} \){res.status}`)
+        if (!res.ok) throw new Error(`\\( {TEXT.loadErrorPrefix} \\)${res.status}`)
         return await res.json()
       })
       .then((json) => {
@@ -116,6 +119,17 @@ export default function StrategyPage() {
                 </div>
               </div>
             </div>
+
+            {/* 手機直式專用牛熊切換按鈕（放在問號的正左側） */}
+            {isStrategy1 && (
+              <button
+                onClick={() => setRegime(prev => (prev === 'bull' ? 'bear' : 'bull'))}
+                className="md:hidden landscape:hidden px-8 py-2 rounded-2xl border border-zinc-300 bg-white text-sm font-medium text-zinc-700 hover:bg-zinc-50 transition-colors shadow-sm flex items-center gap-2"
+              >
+                {regime === 'bull' ? '牛' : '熊'}
+              </button>
+            )}
+
             <Link
               to={`/strategy/${id}/info`}
               className="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-zinc-200 bg-white text-sm text-zinc-700 shadow-sm hover:bg-zinc-50"
@@ -124,6 +138,7 @@ export default function StrategyPage() {
               ?
             </Link>
           </div>
+
           <div className="landscape:max-md:pr-6 landscape:max-md:scale-[0.9] landscape:max-md:origin-top-left landscape:max-md:w-[111.111%]">
             <Tabs items={tabItems} activeId={activeTab} onChange={setActiveTab} />
           </div>
@@ -149,6 +164,8 @@ export default function StrategyPage() {
                   sortableFields={data?.sortable_fields}
                   compareDate={data?.compare_date}
                   strategyId={id}
+                  regime={regime}
+                  setRegime={setRegime}
                 />
               </div>
             </div>
@@ -157,4 +174,4 @@ export default function StrategyPage() {
       </div>
     </AppSidebarLayout>
   )
-            }
+}
