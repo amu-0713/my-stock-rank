@@ -1,5 +1,5 @@
 // src/components/RankList.jsx
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useState, useCallback } from 'react'
 import { createPortal } from 'react-dom'
 
 const TEXT = {
@@ -196,7 +196,7 @@ function ScoreModal({ stock, onClose }) {
   )
 }
 
-// ====================== Tooltip 文字 ======================
+// ====================== Tooltip 文字（已按照你指定的格式） ======================
 const tooltipTexts = {
   score: `分數（綜合多因子分數）\n由 RS + PEG/CORR + DD 加權計算\n排名越高代表整體表現越佳\n-點擊排序-`,
   rs_pct: `RS（相對強度指標）\n股票相對於大盤的近期表現排名\n排名越高代表近期表現越強勢\n-點擊排序-`,
@@ -264,8 +264,6 @@ export default function RankList({
   sortableFields,
   compareDate,
   strategyId = '1',
-  regime,
-  setRegime
 }) {
   const isFilteredRankList = title === '條件篩選排名'
   const showFilterColumn = !isFilteredRankList
@@ -279,9 +277,7 @@ export default function RankList({
   const minWidth = showFilterColumn ? 'min-w-[740px]' : 'min-w-[680px]'
 
   const formattedCompareDate = formatCompareDate(compareDate)
-  const changeHeaderText = formattedCompareDate === null 
-    ? `${TEXT.change}（vs 上週）` 
-    : `${TEXT.change}（vs ${formattedCompareDate}）`
+  const changeHeaderText = formattedCompareDate === null ? `\( {TEXT.change}（vs 上週）` : ` \){TEXT.change}（vs ${formattedCompareDate}）`
 
   const normalizedDefaultSortKey = useMemo(() => normalizeSortKey(defaultSortKey, sortableFields, sortableFieldSet), [defaultSortKey, sortableFields, sortableFieldSet])
 
@@ -290,6 +286,7 @@ export default function RankList({
   const [selectedStock, setSelectedStock] = useState(null)
   const [search, setSearch] = useState('')
 
+  const [regime, setRegime] = useState('bull')
   const [currentData, setCurrentData] = useState(null)
   const [loading, setLoading] = useState(false)
 
@@ -298,8 +295,11 @@ export default function RankList({
       setLoading(true)
       try {
         let file = '/result.json'
-        if (isHighDividend) file = '/result_2.json'
-        else if (isMultiFactor && regime === 'bear') file = '/result_bear.json'
+        if (isHighDividend) {
+          file = '/result_2.json'
+        } else if (isMultiFactor && regime === 'bear') {
+          file = '/result_bear.json'
+        }
         const response = await fetch(file)
         if (!response.ok) throw new Error('無法載入資料')
         const jsonData = await response.json()
@@ -328,7 +328,12 @@ export default function RankList({
     if (isMultiFactor) {
       return [
         { key: 'rs_pct', label: 'RS', sortable: true, type: 'pct' },
-        { key: regime === 'bull' ? 'peg_pct' : 'corr_pct', label: regime === 'bull' ? 'PEG' : 'CORR', sortable: true, type: 'pct' },
+        {
+          key: regime === 'bull' ? 'peg_pct' : 'corr_pct',
+          label: regime === 'bull' ? 'PEG' : 'CORR',
+          sortable: true,
+          type: 'pct'
+        },
         { key: 'dd_pct', label: 'DD', sortable: true, type: 'pct' },
       ]
     } else if (isHighDividend) {
@@ -342,7 +347,9 @@ export default function RankList({
   }, [isMultiFactor, isHighDividend, regime])
 
   const allowedSortableFields = useMemo(() => {
-    const base = Array.isArray(sortableFields) && sortableFields.length > 0 ? new Set(sortableFields) : new Set(getSortableFieldSet(strategyId))
+    const base = Array.isArray(sortableFields) && sortableFields.length > 0
+      ? new Set(sortableFields)
+      : new Set(getSortableFieldSet(strategyId))
     base.add('corr_pct')
     base.add('peg_pct')
     return base
@@ -362,11 +369,12 @@ export default function RankList({
     const safeRows = Array.isArray(rows) ? rows : []
     const keyword = search.trim().toLowerCase()
     if (!keyword) return safeRows
-    return safeRows.filter(row => 
-      String(row?.stock_id ?? '').toLowerCase().includes(keyword) ||
-      String(row?.name ?? '').toLowerCase().includes(keyword) ||
-      String(row?.full_name ?? '').toLowerCase().includes(keyword)
-    )
+    return safeRows.filter(row => {
+      const stockId = String(row?.stock_id ?? '').toLowerCase()
+      const name = String(row?.name ?? '').toLowerCase()
+      const fullName = String(row?.full_name ?? '').toLowerCase()
+      return stockId.includes(keyword) || name.includes(keyword) || fullName.includes(keyword)
+    })
   }, [rows, search])
 
   const sortedRows = useMemo(() => {
@@ -378,6 +386,10 @@ export default function RankList({
         const leftIsNew = a?.change_type === 'new'
         const rightIsNew = b?.change_type === 'new'
         if (leftIsNew !== rightIsNew) return leftIsNew ? -1 : 1
+        if (!leftIsNew && !rightIsNew) {
+          const rankChangeCompare = compareRows(a, b, 'rank_change', 'desc')
+          if (rankChangeCompare !== 0) return rankChangeCompare
+        }
         return (parseSortValue(a?.base_rank) ?? Number.MAX_SAFE_INTEGER) - (parseSortValue(b?.base_rank) ?? Number.MAX_SAFE_INTEGER)
       })
     }
@@ -389,7 +401,9 @@ export default function RankList({
     return sortedRows.slice(0, visibleCount)
   }, [sortedRows, visibleCount, isMarketRank])
 
-  const handleLoadMore = () => setVisibleCount(prev => Math.min(prev + 200, sortedRows.length))
+  const handleLoadMore = () => {
+    setVisibleCount(prev => Math.min(prev + 200, sortedRows.length))
+  }
 
   const handleSortChange = nextSortKey => {
     if (!allowedSortableFields.has(nextSortKey)) return
@@ -404,8 +418,8 @@ export default function RankList({
         }
         return
       }
-      setSortDirection(sortDirection === 'desc' ? 'asc' : DEFAULT_SORT_DIRECTION)
-      if (sortDirection !== 'desc') {
+      if (sortDirection === 'desc') setSortDirection('asc')
+      else {
         setSortKey(normalizedDefaultSortKey)
         setSortDirection(DEFAULT_SORT_DIRECTION)
       }
@@ -418,7 +432,6 @@ export default function RankList({
 
   return (
     <div className={`isolate flex h-full min-h-0 landscape:max-md:h-screen landscape:max-md:min-h-screen flex-col overflow-hidden rounded-2xl border border-zinc-200 bg-white shadow-sm max-w-[960px] mx-auto ${isModalOpen ? 'pointer-events-none' : ''}`}>
-      {/* Header with 牛熊 button (only on StrategyPage) */}
       <div className="z-40 border-b border-zinc-200 bg-white">
         <div className="flex w-full items-center justify-between gap-3 px-4 py-3 shadow-sm landscape:max-md:pl-5 landscape:max-md:pr-3 landscape:max-md:py-2">
           <div className="flex items-center gap-4">
@@ -426,12 +439,14 @@ export default function RankList({
 
             {isMultiFactor && (
               <button
-                onClick={() => setRegime?.(prev => (prev === 'bull' ? 'bear' : 'bull'))}
+                onClick={() => setRegime(prev => (prev === 'bull' ? 'bear' : 'bull'))}
                 disabled={loading}
-                className="hidden md:flex landscape:flex px-8 py-2 rounded-2xl border border-zinc-300 bg-white text-sm font-medium text-zinc-700 hover:bg-zinc-50 transition-colors shadow-sm disabled:opacity-50 flex items-center gap-2"
+                className="px-8 py-2 rounded-2xl border border-zinc-300 bg-white text-sm font-medium text-zinc-700 hover:bg-zinc-50 transition-colors shadow-sm disabled:opacity-50 flex items-center gap-2"
               >
                 {regime === 'bull' ? '牛' : '熊'}
-                {loading && <div className="animate-spin h-3 w-3 border-2 border-zinc-400 border-t-transparent rounded-full" />}
+                {loading && (
+                  <div className="animate-spin h-3 w-3 border-2 border-zinc-400 border-t-transparent rounded-full"></div>
+                )}
               </button>
             )}
           </div>
@@ -443,7 +458,10 @@ export default function RankList({
               placeholder="搜尋 2330 / 台積電"
               className="h-8 w-48 rounded-lg border border-zinc-200 px-3 text-sm text-zinc-700 placeholder:text-zinc-400 focus:outline-none focus:ring-2 focus:ring-blue-500 landscape:max-md:h-7 landscape:max-md:w-40 landscape:max-md:px-2"
             />
-            <div className="text-xs text-zinc-500">共 {sortedRows.length} 筆</div>
+
+            <div className="text-xs text-zinc-500">
+              共 {sortedRows.length} 筆
+            </div>
           </div>
         </div>
       </div>
@@ -457,7 +475,6 @@ export default function RankList({
             </div>
           ) : (
             <>
-              {/* 表頭 */}
               <div className={`sticky top-0 z-10 grid ${gridCols} items-center gap-1 border-b border-zinc-200 bg-white px-4 py-4 text-sm font-semibold text-zinc-600 shadow-sm landscape:max-md:px-3 landscape:max-md:py-1`}>
                 <div className="flex min-h-[52px] items-center justify-center text-center landscape:max-md:min-h-[40px]">{TEXT.rank}</div>
 
@@ -465,7 +482,12 @@ export default function RankList({
                   <div className="col-span-2 self-center justify-self-start text-left">{TEXT.stock}</div>
                 </div>
 
-                <button type="button" className={headerClassName(allowedSortableFields.has('score'), sortKey === 'score')} onClick={() => handleSortChange('score')} title={tooltipTexts.score}>
+                <button
+                  type="button"
+                  className={headerClassName(allowedSortableFields.has('score'), sortKey === 'score')}
+                  onClick={() => handleSortChange('score')}
+                  title={tooltipTexts.score}
+                >
                   <span>{TEXT.score}</span>
                   <span className="text-xs">{sortIndicator(sortDirection, sortKey === 'score')}</span>
                 </button>
@@ -473,34 +495,52 @@ export default function RankList({
                 {metricColumns.map(column => {
                   const tooltipKey = column.key
                   const tooltip = tooltipTexts[tooltipKey] || ''
+
                   if (!column.sortable) {
-                    return <div key={column.key} className="flex min-h-[52px] items-center justify-center text-center landscape:max-md:min-h-[40px]" title={tooltip}>{column.label}</div>
+                    return (
+                      <div
+                        key={column.key}
+                        className="flex min-h-[52px] items-center justify-center text-center landscape:max-md:min-h-[40px]"
+                        title={tooltip}
+                      >
+                        {column.label}
+                      </div>
+                    )
                   }
                   return (
-                    <button key={column.key} type="button" className={headerClassName(allowedSortableFields.has(column.key), sortKey === column.key)} onClick={() => handleSortChange(column.key)} title={tooltip}>
+                    <button
+                      key={column.key}
+                      type="button"
+                      className={headerClassName(allowedSortableFields.has(column.key), sortKey === column.key)}
+                      onClick={() => handleSortChange(column.key)}
+                      title={tooltip}
+                    >
                       <span>{column.label}</span>
                       <span className="text-xs">{sortIndicator(sortDirection, sortKey === column.key)}</span>
                     </button>
                   )
                 })}
 
-                {/* 變動欄位 - 乾淨修正 */}
                 <button
                   type="button"
-                  className={headerClassName(allowedSortableFields.has('rank_change'), sortKey === 'rank_change')}
+                  className={`${headerClassName(allowedSortableFields.has('rank_change'), sortKey === 'rank_change')} flex items-center justify-center min-h-[52px]`}
                   onClick={() => handleSortChange('rank_change')}
                   title={tooltipTexts.rank_change}
                 >
                   <span className="whitespace-nowrap text-center">{changeHeaderText}</span>
-                  <span className="text-xs">{sortIndicator(sortDirection, sortKey === 'rank_change')}</span>
+                  <span className="ml-1 text-xs">{sortIndicator(sortDirection, sortKey === 'rank_change')}</span>
                 </button>
 
                 {showFilterColumn && (
-                  <div className="flex min-h-[52px] items-center justify-center text-center" title={tooltipTexts.filter}>濾網</div>
+                  <div 
+                    className="flex min-h-[52px] items-center justify-center text-center"
+                    title={tooltipTexts.filter}
+                  >
+                    濾網
+                  </div>
                 )}
               </div>
 
-              {/* 表格內容 */}
               <div className="divide-y divide-zinc-100">
                 {displayedRows.map((row, index) => {
                   const rankChange = formatRankChange(row.change_type, row.rank_change, row.prev_rank, row.base_rank)
@@ -508,36 +548,67 @@ export default function RankList({
                   const displayedRank = getDisplayedRank(row, sortKey, isSearching, index)
 
                   return (
-                    <div key={`\( {row.base_rank ?? index}- \){row.stock_id}`} className={`grid ${gridCols} items-center gap-1 px-4 py-4 hover:bg-zinc-50 landscape:max-md:px-3 landscape:max-md:py-2`}>
-                      <div className="text-center text-sm font-semibold tabular-nums">{formatMaybeNumber(displayedRank)}</div>
+                    <div
+                      key={`\( {row.base_rank ?? index}- \){row.stock_id}`}
+                      className={`grid ${gridCols} items-center gap-1 px-4 py-4 hover:bg-zinc-50 landscape:max-md:px-3 landscape:max-md:py-2`}
+                    >
+                      <div className="text-center text-sm font-semibold tabular-nums">
+                        {formatMaybeNumber(displayedRank)}
+                      </div>
 
                       <div className={`${STOCK_CELL_LAYOUT_CLASS} text-left text-sm tabular-nums`}>
                         <span className="font-bold text-zinc-900">{row.stock_id ?? '--'}</span>
-                        <span className="min-w-0 truncate font-normal" title={row.full_name ?? ''}>{row.name ?? '--'}</span>
+                        <span className="min-w-0 truncate font-normal" title={row.full_name ?? ''}>
+                          {row.name ?? '--'}
+                        </span>
                       </div>
 
-                      <div className="text-center text-sm tabular-nums" onClick={() => setSelectedStock(row)} title="-點擊顯示近五日分數走勢-">
-                        <span className={scoreBadgeClass(row.display_score)}>{formatScore(row.display_score)}</span>
+                      {/* 個股分數欄位（81 那種）加上你指定的 tooltip */}
+                      <div 
+                        className="text-center text-sm tabular-nums" 
+                        onClick={() => setSelectedStock(row)}
+                        title="-點擊顯示近五日分數走勢-"
+                      >
+                        <span className={scoreBadgeClass(row.display_score)}>
+                          {formatScore(row.display_score)}
+                        </span>
                       </div>
 
                       {metricColumns.map(column => (
                         <div key={column.key} className="text-center text-sm tabular-nums">
                           {column.type === 'pct' ? (
-                            <span className={`${pctBadgeClass(row[column.key])} opacity-80`}>{formatPct(row[column.key])}</span>
+                            <span className={`${pctBadgeClass(row[column.key])} opacity-80`}>
+                              {formatPct(row[column.key])}
+                            </span>
                           ) : (
-                            <span className="inline-block max-w-full truncate text-zinc-700" title={row[column.key] ?? ''}>{row[column.key] ?? '--'}</span>
+                            <span className="inline-block max-w-full truncate text-zinc-700" title={row[column.key] ?? ''}>
+                              {row[column.key] ?? '--'}
+                            </span>
                           )}
                         </div>
                       ))}
 
                       <div className={`flex flex-col items-center justify-center text-sm font-semibold tabular-nums ${rankChange.className} min-h-[52px] landscape:max-md:min-h-[40px]`}>
                         <div>{rankChange.mainLabel}</div>
-                        {rankChange.detailLabel && <div className="text-xs text-zinc-500 mt-0.5">{rankChange.detailLabel}</div>}
+                        {rankChange.detailLabel && (
+                          <div className="text-xs text-zinc-500 mt-0.5">
+                            {rankChange.detailLabel}
+                          </div>
+                        )}
                       </div>
 
                       {showFilterColumn && (
-                        <button type="button" className="flex min-h-[52px] items-center justify-center rounded-xl hover:bg-zinc-100 landscape:max-md:min-h-[40px]" onClick={() => setSelectedStock(row)} title={row.passed_filter ? '通過濾網' : '未通過濾網，點擊查看原因'}>
-                          {row.passed_filter ? <span className="text-xl font-black text-emerald-600">✔</span> : <span className="text-xl font-black text-rose-500">✖</span>}
+                        <button
+                          type="button"
+                          className="flex min-h-[52px] items-center justify-center rounded-xl hover:bg-zinc-100 landscape:max-md:min-h-[40px]"
+                          onClick={() => setSelectedStock(row)}
+                          title={row.passed_filter ? '通過濾網' : '未通過濾網，點擊查看原因'}
+                        >
+                          {row.passed_filter ? (
+                            <span className="text-xl font-black text-emerald-600">✔</span>
+                          ) : (
+                            <span className="text-xl font-black text-rose-500">✖</span>
+                          )}
                         </button>
                       )}
                     </div>
@@ -545,13 +616,18 @@ export default function RankList({
                 })}
 
                 {sortedRows.length === 0 && (
-                  <div className="p-8 text-center text-sm text-zinc-500">{TEXT.empty}</div>
+                  <div className="p-8 text-center text-sm text-zinc-500">
+                    {TEXT.empty}
+                  </div>
                 )}
               </div>
 
               {isMarketRank && displayedRows.length < sortedRows.length && (
                 <div className="flex justify-center py-8 border-t">
-                  <button onClick={handleLoadMore} className="px-8 py-3 bg-white border border-zinc-300 hover:border-zinc-400 text-zinc-700 font-medium rounded-2xl transition-colors flex items-center gap-2 shadow-sm">
+                  <button
+                    onClick={handleLoadMore}
+                    className="px-8 py-3 bg-white border border-zinc-300 hover:border-zinc-400 text-zinc-700 font-medium rounded-2xl transition-colors flex items-center gap-2 shadow-sm"
+                  >
                     載入更多（已顯示 {displayedRows.length} / {sortedRows.length} 筆）
                   </button>
                 </div>
