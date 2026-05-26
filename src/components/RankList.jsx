@@ -524,7 +524,7 @@ export default function RankList({
                   )
                 })}
 
-                {/* 變動表頭 - 已修正為乾淨文字 */}
+                {/* 變動表頭 - 乾淨顯示 */}
                 <button
                   type="button"
                   className={headerClassName(allowedSortableFields.has('rank_change'), sortKey === 'rank_change')}
@@ -591,7 +591,7 @@ export default function RankList({
                         </div>
                       ))}
 
-                      {/* 個股變動欄位 - 已修正為乾淨顯示 */}
+                      {/* 個股變動欄位 - 乾淨顯示 */}
                       <div className={`flex flex-col items-center justify-center text-sm font-semibold tabular-nums ${rankChange.className} min-h-[52px] landscape:max-md:min-h-[40px]`}>
                         <div>{rankChange.mainLabel}</div>
                         {rankChange.detailLabel && (
