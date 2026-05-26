@@ -196,6 +196,17 @@ function ScoreModal({ stock, onClose }) {
   )
 }
 
+// ====================== Tooltip 文字（已按照你指定的格式） ======================
+const tooltipTexts = {
+  score: `分數（綜合多因子分數）\n由 RS + PEG/CORR + DD 加權計算\n排名越高代表整體表現越佳\n-點擊排序-`,
+  rs_pct: `RS（相對強度指標）\n股票相對於大盤的近期表現排名\n排名越高代表近期表現越強勢\n-點擊排序-`,
+  peg_pct: `PEG（本益成長比）\n成長股的估值合理性排名\n排名越高代表成長價值越佳\n-點擊排序-`,
+  corr_pct: `CORR（市場相關性）\n股票與大盤的相關程度排名\n排名越高代表獨立性，分散風險效果越好\n-點擊排序-`,
+  dd_pct: `DD（下行風險）\n股票短期下跌波動風險排名\n排名越高代表風險控制能力越佳\n-點擊排序-`,
+  rank_change: `變動（排名變動）\n與上週排名比較\n正數代表排名上升\n-點擊排序-`,
+  filter: `濾網（選股條件）\n✔ 已通過全部條件　✖ 未通過`
+}
+
 const DEFAULT_SORT_KEY = 'score'
 const DEFAULT_SORT_DIRECTION = 'desc'
 const SORTABLE_FIELD_SET_BY_STRATEGY = {
@@ -253,8 +264,6 @@ export default function RankList({
   sortableFields,
   compareDate,
   strategyId = '1',
-  regime,          // 從 StrategyPage 傳入
-  setRegime,       // 從 StrategyPage 傳入
 }) {
   const isFilteredRankList = title === '條件篩選排名'
   const showFilterColumn = !isFilteredRankList
@@ -277,7 +286,7 @@ export default function RankList({
   const [selectedStock, setSelectedStock] = useState(null)
   const [search, setSearch] = useState('')
 
-  // ==================== 牛熊切換 + 載入效果 ====================
+  const [regime, setRegime] = useState('bull')
   const [currentData, setCurrentData] = useState(null)
   const [loading, setLoading] = useState(false)
 
@@ -315,7 +324,6 @@ export default function RankList({
 
   const rows = useMemo(() => getRankList(currentData) || initialRows || [], [currentData, initialRows, title])
 
-  // ==================== 動態欄位 ====================
   const metricColumns = useMemo(() => {
     if (isMultiFactor) {
       return [
@@ -429,13 +437,11 @@ export default function RankList({
           <div className="flex items-center gap-4">
             <div className="text-sm font-semibold text-zinc-900">{title}</div>
 
-            {/* ==================== 牛熊切換按鈕（只在多因子策略顯示） ==================== */}
-            {/* 電腦版 + 手機橫式顯示，手機直式隱藏 */}
             {isMultiFactor && (
               <button
                 onClick={() => setRegime(prev => (prev === 'bull' ? 'bear' : 'bull'))}
                 disabled={loading}
-                className="px-8 py-2 rounded-2xl border border-zinc-300 bg-white text-sm font-medium text-zinc-700 hover:bg-zinc-50 transition-colors shadow-sm disabled:opacity-50 flex items-center gap-2 hidden md:flex landscape:max-md:flex"
+                className="px-8 py-2 rounded-2xl border border-zinc-300 bg-white text-sm font-medium text-zinc-700 hover:bg-zinc-50 transition-colors shadow-sm disabled:opacity-50 flex items-center gap-2"
               >
                 {regime === 'bull' ? '牛' : '熊'}
                 {loading && (
@@ -462,7 +468,6 @@ export default function RankList({
 
       <div className="min-h-0 flex-1 overflow-auto -webkit-overflow-scrolling-touch">
         <div className={`${minWidth}`}>
-          {/* ==================== Loading 狀態 ==================== */}
           {loading ? (
             <div className="flex flex-col items-center justify-center h-96 text-zinc-500">
               <div className="animate-spin h-8 w-8 border-4 border-zinc-300 border-t-zinc-600 rounded-full mb-4"></div>
@@ -481,17 +486,22 @@ export default function RankList({
                   type="button"
                   className={headerClassName(allowedSortableFields.has('score'), sortKey === 'score')}
                   onClick={() => handleSortChange('score')}
+                  title={tooltipTexts.score}
                 >
                   <span>{TEXT.score}</span>
                   <span className="text-xs">{sortIndicator(sortDirection, sortKey === 'score')}</span>
                 </button>
 
                 {metricColumns.map(column => {
+                  const tooltipKey = column.key
+                  const tooltip = tooltipTexts[tooltipKey] || ''
+
                   if (!column.sortable) {
                     return (
                       <div
                         key={column.key}
                         className="flex min-h-[52px] items-center justify-center text-center landscape:max-md:min-h-[40px]"
+                        title={tooltip}
                       >
                         {column.label}
                       </div>
@@ -503,6 +513,7 @@ export default function RankList({
                       type="button"
                       className={headerClassName(allowedSortableFields.has(column.key), sortKey === column.key)}
                       onClick={() => handleSortChange(column.key)}
+                      title={tooltip}
                     >
                       <span>{column.label}</span>
                       <span className="text-xs">{sortIndicator(sortDirection, sortKey === column.key)}</span>
@@ -514,13 +525,17 @@ export default function RankList({
                   type="button"
                   className={`${headerClassName(allowedSortableFields.has('rank_change'), sortKey === 'rank_change')} flex items-center justify-center min-h-[52px]`}
                   onClick={() => handleSortChange('rank_change')}
+                  title={tooltipTexts.rank_change}
                 >
                   <span className="whitespace-nowrap text-center">{changeHeaderText}</span>
                   <span className="ml-1 text-xs">{sortIndicator(sortDirection, sortKey === 'rank_change')}</span>
                 </button>
 
                 {showFilterColumn && (
-                  <div className="flex min-h-[52px] items-center justify-center text-center">
+                  <div 
+                    className="flex min-h-[52px] items-center justify-center text-center"
+                    title={tooltipTexts.filter}
+                  >
                     濾網
                   </div>
                 )}
@@ -548,7 +563,12 @@ export default function RankList({
                         </span>
                       </div>
 
-                      <div className="text-center text-sm tabular-nums" onClick={() => setSelectedStock(row)}>
+                      {/* 個股分數欄位（81 那種）加上你指定的 tooltip */}
+                      <div 
+                        className="text-center text-sm tabular-nums" 
+                        onClick={() => setSelectedStock(row)}
+                        title="-點擊顯示近五日分數走勢-"
+                      >
                         <span className={scoreBadgeClass(row.display_score)}>
                           {formatScore(row.display_score)}
                         </span>
