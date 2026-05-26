@@ -278,6 +278,7 @@ export default function RankList({
   const gridCols = showFilterColumn ? 'grid-cols-[64px_minmax(150px,220px)_80px_75px_75px_75px_110px_60px]' : 'grid-cols-[64px_minmax(150px,220px)_80px_75px_75px_75px_160px]'
   const minWidth = showFilterColumn ? 'min-w-[740px]' : 'min-w-[680px]'
 
+  // 使用 compare_date 產生正確的標頭文字
   const formattedCompareDate = formatCompareDate(compareDate)
   const changeHeaderText = formattedCompareDate === null 
     ? `${TEXT.change}（vs 上週）` 
@@ -331,12 +332,7 @@ export default function RankList({
     if (isMultiFactor) {
       return [
         { key: 'rs_pct', label: 'RS', sortable: true, type: 'pct' },
-        {
-          key: regime === 'bull' ? 'peg_pct' : 'corr_pct',
-          label: regime === 'bull' ? 'PEG' : 'CORR',
-          sortable: true,
-          type: 'pct'
-        },
+        { key: regime === 'bull' ? 'peg_pct' : 'corr_pct', label: regime === 'bull' ? 'PEG' : 'CORR', sortable: true, type: 'pct' },
         { key: 'dd_pct', label: 'DD', sortable: true, type: 'pct' },
       ]
     } else if (isHighDividend) {
@@ -524,7 +520,6 @@ export default function RankList({
                   )
                 })}
 
-                {/* 變動表頭 - 乾淨顯示 */}
                 <button
                   type="button"
                   className={headerClassName(allowedSortableFields.has('rank_change'), sortKey === 'rank_change')}
@@ -591,7 +586,6 @@ export default function RankList({
                         </div>
                       ))}
 
-                      {/* 個股變動欄位 - 乾淨顯示 */}
                       <div className={`flex flex-col items-center justify-center text-sm font-semibold tabular-nums ${rankChange.className} min-h-[52px] landscape:max-md:min-h-[40px]`}>
                         <div>{rankChange.mainLabel}</div>
                         {rankChange.detailLabel && (
