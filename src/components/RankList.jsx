@@ -38,7 +38,7 @@ function formatCompareDate(value) {
   if (typeof value !== 'string') return null
   const match = value.match(/^(\d{4})-(\d{2})-(\d{2})$/)
   if (!match) return null
-  return `\( {match[2]}/ \){match[3]}`
+  return `${match[2]}/${match[3]}` // 已修復：正確的模板字串
 }
 
 function scoreBadgeClass(value) {
@@ -71,7 +71,8 @@ function formatRankChange(changeType, rankChange, prevRank, nextRank) {
   const safeChange = Number.isFinite(parsedChange) ? Math.abs(parsedChange) : null
   const parsedPrevRank = typeof prevRank === 'number' ? prevRank : Number(prevRank)
   const parsedNextRank = typeof nextRank === 'number' ? nextRank : Number(nextRank)
-  const rankRange = Number.isFinite(parsedPrevRank) && Number.isFinite(parsedNextRank) ? `（\( {parsedPrevRank}→ \){parsedNextRank}）` : ''
+  // 已修復：正確的模板字串
+  const rankRange = Number.isFinite(parsedPrevRank) && Number.isFinite(parsedNextRank) ? `（${parsedPrevRank}→${parsedNextRank}）` : ''
 
   switch (changeType) {
     case 'up':
@@ -103,13 +104,14 @@ function ScoreModal({ stock, onClose }) {
   const range = maxScore - minScore
   const vWidth = 500
   const vHeight = 260
+  // 已修復：正確的模板字串，SVG才能讀取座標
   const pointsData = stock.history.map((item, i) => {
     const x = (i / (stock.history.length - 1)) * vWidth
     const clampedScore = Math.max(minScore, Math.min(maxScore, item.score))
     const y = vHeight - ((clampedScore - minScore) / range) * vHeight
     return { x, y, date: item.date, score: item.score }
   })
-  const polylinePoints = pointsData.map(p => `\( {p.x}, \){p.y}`).join(' ')
+  const polylinePoints = pointsData.map(p => `${p.x},${p.y}`).join(' ')
 
   return createPortal(
     <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/80 backdrop-blur-sm" onClick={onClose}>
@@ -269,7 +271,7 @@ export default function RankList({
   rows: initialRows,
   defaultSortKey,
   sortableFields,
-  compareDate,
+  compareDate, // 保留從外部傳入當作 fallback
   strategyId = '1',
   regime,
   setRegime
@@ -285,11 +287,6 @@ export default function RankList({
   const gridCols = showFilterColumn ? 'grid-cols-[64px_minmax(150px,220px)_80px_75px_75px_75px_110px_60px]' : 'grid-cols-[64px_minmax(150px,220px)_80px_75px_75px_75px_160px]'
   const minWidth = showFilterColumn ? 'min-w-[740px]' : 'min-w-[680px]'
 
-  const formattedCompareDate = formatCompareDate(compareDate)
-  const changeHeaderText = formattedCompareDate === null 
-    ? `${TEXT.change}（vs 上週）` 
-    : `${TEXT.change}（vs ${formattedCompareDate}）`
-
   const normalizedDefaultSortKey = useMemo(() => normalizeSortKey(defaultSortKey, sortableFields, sortableFieldSet), [defaultSortKey, sortableFields, sortableFieldSet])
 
   const [sortKey, setSortKey] = useState(normalizedDefaultSortKey)
@@ -299,6 +296,13 @@ export default function RankList({
 
   const [currentData, setCurrentData] = useState(null)
   const [loading, setLoading] = useState(false)
+
+  // 決定當前要使用的對比日期：優先使用動態抓到的 json 內的 compare_date
+  const activeCompareDate = currentData?.compare_date || compareDate
+  const formattedCompareDate = formatCompareDate(activeCompareDate)
+  const changeHeaderText = formattedCompareDate === null 
+    ? `${TEXT.change}（vs 上週）` 
+    : `${TEXT.change}（vs ${formattedCompareDate}）`
 
   useEffect(() => {
     const loadData = async () => {
@@ -553,8 +557,9 @@ export default function RankList({
                   const displayedRank = getDisplayedRank(row, sortKey, isSearching, index)
 
                   return (
+                    {/* 已修復：正確的 key 模板字串 */}
                     <div
-                      key={`\( {row.base_rank ?? index}- \){row.stock_id}`}
+                      key={`${row.base_rank ?? index}-${row.stock_id}`}
                       className={`grid ${gridCols} items-center gap-1 px-4 py-4 hover:bg-zinc-50 landscape:max-md:px-3 landscape:max-md:py-2`}
                     >
                       <div className="text-center text-sm font-semibold tabular-nums">
