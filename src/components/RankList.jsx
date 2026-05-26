@@ -71,7 +71,7 @@ function formatRankChange(changeType, rankChange, prevRank, nextRank) {
   const safeChange = Number.isFinite(parsedChange) ? Math.abs(parsedChange) : null
   const parsedPrevRank = typeof prevRank === 'number' ? prevRank : Number(prevRank)
   const parsedNextRank = typeof nextRank === 'number' ? nextRank : Number(nextRank)
-  const rankRange = Number.isFinite(parsedPrevRank) && Number.isFinite(parsedNextRank) ? `（\( {parsedPrevRank}→ \){parsedNextRank}）` : null
+  const rankRange = Number.isFinite(parsedPrevRank) && Number.isFinite(parsedNextRank) ? `（\( {parsedPrevRank}→ \){parsedNextRank}）` : ''
 
   switch (changeType) {
     case 'up':
@@ -81,9 +81,9 @@ function formatRankChange(changeType, rankChange, prevRank, nextRank) {
     case 'flat':
       return { mainLabel: '=', detailLabel: '（維持）', className: 'text-zinc-600 text-base font-bold' }
     case 'new':
-      return { mainLabel: 'NEW', detailLabel: null, className: 'text-sky-600' }
+      return { mainLabel: 'NEW', detailLabel: '', className: 'text-sky-600' }
     default:
-      return { mainLabel: '--', detailLabel: null, className: 'text-zinc-500' }
+      return { mainLabel: '--', detailLabel: '', className: 'text-zinc-500' }
   }
 }
 
@@ -161,7 +161,14 @@ function ScoreModal({ stock, onClose }) {
                   return <line key={i} x1="0" y1={y} x2={vWidth} y2={y} stroke="#e2e8f0" strokeWidth="1" strokeDasharray="4 4" />
                 })}
 
-                <polyline points={polylinePoints} fill="none" stroke="#8b5cf6" strokeWidth="4" strokeLinejoin="round" strokeLinecap="round" />
+                <polyline 
+                  points={polylinePoints} 
+                  fill="none" 
+                  stroke="#8b5cf6" 
+                  strokeWidth="4" 
+                  strokeLinejoin="round" 
+                  strokeLinecap="round" 
+                />
 
                 {pointsData.map((p, i) => (
                   <g key={i}>
@@ -278,7 +285,6 @@ export default function RankList({
   const gridCols = showFilterColumn ? 'grid-cols-[64px_minmax(150px,220px)_80px_75px_75px_75px_110px_60px]' : 'grid-cols-[64px_minmax(150px,220px)_80px_75px_75px_75px_160px]'
   const minWidth = showFilterColumn ? 'min-w-[740px]' : 'min-w-[680px]'
 
-  // 使用 compare_date 產生正確的標頭文字
   const formattedCompareDate = formatCompareDate(compareDate)
   const changeHeaderText = formattedCompareDate === null 
     ? `${TEXT.change}（vs 上週）` 
