@@ -429,12 +429,11 @@ export default function RankList({
             <div className="text-sm font-semibold text-zinc-900">{title}</div>
 
             {/* ==================== 牛熊切換按鈕（只在多因子策略顯示） ==================== */}
-            {/* 電腦版 + 手機橫式：放在標題右邊 */}
             {isMultiFactor && (
               <button
                 onClick={() => setRegime(prev => (prev === 'bull' ? 'bear' : 'bull'))}
                 disabled={loading}
-                className="px-8 py-2 rounded-2xl border border-zinc-300 bg-white text-sm font-medium text-zinc-700 hover:bg-zinc-50 transition-colors shadow-sm disabled:opacity-50 flex items-center gap-2 hidden md:flex landscape:max-md:flex"
+                className="px-8 py-2 rounded-2xl border border-zinc-300 bg-white text-sm font-medium text-zinc-700 hover:bg-zinc-50 transition-colors shadow-sm disabled:opacity-50 flex items-center gap-2"
               >
                 {regime === 'bull' ? '牛' : '熊'}
                 {loading && (
@@ -456,20 +455,6 @@ export default function RankList({
               共 {sortedRows.length} 筆
             </div>
           </div>
-
-          {/* ==================== 手機直式專用牛熊切換按鈕（放在右上角，緊鄰問號 ? 的左側） ==================== */}
-          {isMultiFactor && (
-            <button
-              onClick={() => setRegime(prev => (prev === 'bull' ? 'bear' : 'bull'))}
-              disabled={loading}
-              className="px-8 py-2 rounded-2xl border border-zinc-300 bg-white text-sm font-medium text-zinc-700 hover:bg-zinc-50 transition-colors shadow-sm disabled:opacity-50 flex items-center gap-2 flex md:hidden max-md:landscape:hidden"
-            >
-              {regime === 'bull' ? '牛' : '熊'}
-              {loading && (
-                <div className="animate-spin h-3 w-3 border-2 border-zinc-400 border-t-transparent rounded-full"></div>
-              )}
-            </button>
-          )}
         </div>
       </div>
 
