@@ -38,7 +38,7 @@ function formatCompareDate(value) {
   if (typeof value !== 'string') return null
   const match = value.match(/^(\d{4})-(\d{2})-(\d{2})$/)
   if (!match) return null
-  return `${match[2]}/${match[3]}`
+  return `\( {match[2]}/ \){match[3]}`
 }
 
 function scoreBadgeClass(value) {
@@ -71,7 +71,7 @@ function formatRankChange(changeType, rankChange, prevRank, nextRank) {
   const safeChange = Number.isFinite(parsedChange) ? Math.abs(parsedChange) : null
   const parsedPrevRank = typeof prevRank === 'number' ? prevRank : Number(prevRank)
   const parsedNextRank = typeof nextRank === 'number' ? nextRank : Number(nextRank)
-  const rankRange = Number.isFinite(parsedPrevRank) && Number.isFinite(parsedNextRank) ? `（${parsedPrevRank}→${parsedNextRank}）` : null
+  const rankRange = Number.isFinite(parsedPrevRank) && Number.isFinite(parsedNextRank) ? `（\( {parsedPrevRank}→ \){parsedNextRank}）` : null
 
   switch (changeType) {
     case 'up':
@@ -109,7 +109,7 @@ function ScoreModal({ stock, onClose }) {
     const y = vHeight - ((clampedScore - minScore) / range) * vHeight
     return { x, y, date: item.date, score: item.score }
   })
-  const polylinePoints = pointsData.map(p => `${p.x},${p.y}`).join(' ')
+  const polylinePoints = pointsData.map(p => `\( {p.x}, \){p.y}`).join(' ')
 
   return createPortal(
     <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/80 backdrop-blur-sm" onClick={onClose}>
@@ -196,9 +196,9 @@ function ScoreModal({ stock, onClose }) {
   )
 }
 
-// ====================== Tooltip 文字（已按照你指定的格式） ======================
+// ====================== Tooltip 文字 ======================
 const tooltipTexts = {
-  score: `分數（綜合多因子分數）\n由 RS PEG/CORR DD 加權計算\n排名越高代表整體表現越佳\n-點擊排序-`,
+  score: `分數（綜合多因子分數）\n由 RS + PEG/CORR + DD 加權計算\n排名越高代表整體表現越佳\n-點擊排序-`,
   rs_pct: `RS（相對強度指標）\n股票相對於大盤的近期表現排名\n排名越高代表近期表現越強勢\n-點擊排序-`,
   peg_pct: `PEG（本益成長比）\n成長股的估值合理性排名\n排名越高代表成長價值越佳\n-點擊排序-`,
   corr_pct: `CORR（市場相關性）\n股票與大盤的相關程度排名\n排名越高代表獨立性，分散風險效果越好\n-點擊排序-`,
@@ -264,6 +264,8 @@ export default function RankList({
   sortableFields,
   compareDate,
   strategyId = '1',
+  regime,          // ← 從 StrategyPage 傳入
+  setRegime        // ← 從 StrategyPage 傳入
 }) {
   const isFilteredRankList = title === '條件篩選排名'
   const showFilterColumn = !isFilteredRankList
@@ -277,7 +279,7 @@ export default function RankList({
   const minWidth = showFilterColumn ? 'min-w-[740px]' : 'min-w-[680px]'
 
   const formattedCompareDate = formatCompareDate(compareDate)
-  const changeHeaderText = formattedCompareDate === null ? `${TEXT.change}（vs 上週）` : `${TEXT.change}（vs ${formattedCompareDate}）`
+  const changeHeaderText = formattedCompareDate === null ? `\( {TEXT.change}（vs 上週）` : ` \){TEXT.change}（vs ${formattedCompareDate}）`
 
   const normalizedDefaultSortKey = useMemo(() => normalizeSortKey(defaultSortKey, sortableFields, sortableFieldSet), [defaultSortKey, sortableFields, sortableFieldSet])
 
@@ -286,7 +288,6 @@ export default function RankList({
   const [selectedStock, setSelectedStock] = useState(null)
   const [search, setSearch] = useState('')
 
-  const [regime, setRegime] = useState('bull')
   const [currentData, setCurrentData] = useState(null)
   const [loading, setLoading] = useState(false)
 
@@ -434,6 +435,7 @@ export default function RankList({
     <div className={`isolate flex h-full min-h-0 landscape:max-md:h-screen landscape:max-md:min-h-screen flex-col overflow-hidden rounded-2xl border border-zinc-200 bg-white shadow-sm max-w-[960px] mx-auto ${isModalOpen ? 'pointer-events-none' : ''}`}>
       <div className="z-40 border-b border-zinc-200 bg-white">
         <div className="flex w-full items-center justify-between gap-3 px-4 py-3 shadow-sm landscape:max-md:pl-5 landscape:max-md:pr-3 landscape:max-md:py-2">
+          {/* 左側：標題 + 牛熊按鈕（電腦 + 手機橫式顯示，手機直式隱藏） */}
           <div className="flex items-center gap-4">
             <div className="text-sm font-semibold text-zinc-900">{title}</div>
 
@@ -441,7 +443,7 @@ export default function RankList({
               <button
                 onClick={() => setRegime(prev => (prev === 'bull' ? 'bear' : 'bull'))}
                 disabled={loading}
-                className="px-8 py-2 rounded-2xl border border-zinc-300 bg-white text-sm font-medium text-zinc-700 hover:bg-zinc-50 transition-colors shadow-sm disabled:opacity-50 flex items-center gap-2"
+                className="hidden md:flex landscape:flex px-8 py-2 rounded-2xl border border-zinc-300 bg-white text-sm font-medium text-zinc-700 hover:bg-zinc-50 transition-colors shadow-sm disabled:opacity-50 flex items-center gap-2"
               >
                 {regime === 'bull' ? '牛' : '熊'}
                 {loading && (
@@ -451,6 +453,7 @@ export default function RankList({
             )}
           </div>
 
+          {/* 右側：搜尋框 + 共X筆 */}
           <div className="flex items-center gap-3">
             <input
               value={search}
@@ -549,7 +552,7 @@ export default function RankList({
 
                   return (
                     <div
-                      key={`${row.base_rank ?? index}-${row.stock_id}`}
+                      key={`\( {row.base_rank ?? index}- \){row.stock_id}`}
                       className={`grid ${gridCols} items-center gap-1 px-4 py-4 hover:bg-zinc-50 landscape:max-md:px-3 landscape:max-md:py-2`}
                     >
                       <div className="text-center text-sm font-semibold tabular-nums">
@@ -563,7 +566,6 @@ export default function RankList({
                         </span>
                       </div>
 
-                      {/* 個股分數欄位（81 那種）加上你指定的 tooltip */}
                       <div 
                         className="text-center text-sm tabular-nums" 
                         onClick={() => setSelectedStock(row)}
