@@ -522,16 +522,20 @@ export default function RankList({
                   <span className="text-xs">{sortIndicator(sortDirection, sortKey === 'rank_change')}</span>
                 </button>
 
-               {isFilteredRankList && (
-                  <button
-                    type="button"
-                    className={`${headerClassName(allowedSortableFields.has('filter_days'), sortKey === 'filter_days')} leading-tight`}
-                    onClick={() => handleSortChange('filter_days')}
-                  >
-                    <span className="whitespace-nowrap">{TEXT.filterDays}</span>
-                    <span className="text-xs">{sortIndicator(sortDirection, sortKey === 'filter_days')}</span>
-                  </button>
-                )}
+                {isFilteredRankList && (
+                <button
+                  type="button"
+                  /* 加上 text-xs md:text-sm 確保手機畫面上字體縮小不擠壓，並補上觸控選取優化 */
+                  className={`${headerClassName(allowedSortableFields.has('filter_days'), sortKey === 'filter_days')} text-xs md:text-sm leading-tight touch-manipulation`}
+                  onClick={() => handleSortChange('filter_days')}
+                >
+                  <span className="whitespace-nowrap">{TEXT.filterDays}</span>
+                  {/* 手機版把指標字體也縮小，避免折行 */}
+                  <span className="text-[10px] md:text-xs block md:inline-block mt-0.5 md:mt-0 md:ml-0.5">
+                    {sortIndicator(sortDirection, sortKey === 'filter_days')}
+                  </span>
+                </button>
+              )}
                 {showFilterColumn && (
                   <div className="flex min-h-[52px] items-center justify-center text-center">
                     濾網
