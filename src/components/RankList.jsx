@@ -621,4 +621,22 @@ export default function RankList({
                 )}
               </div>
 
-              {isMarketRank && displayedRows.length < sortedRows.length
+              {isMarketRank && displayedRows.length < sortedRows.length && (
+                <div className="flex justify-center py-8 border-t">
+                  <button
+                    onClick={handleLoadMore}
+                    className="px-8 py-3 bg-white border border-zinc-300 hover:border-zinc-400 text-zinc-700 font-medium rounded-2xl transition-colors flex items-center gap-2 shadow-sm"
+                  >
+                    載入更多（已顯示 {displayedRows.length} / {sortedRows.length} 筆）
+                  </button>
+                </div>
+              )}
+            </>
+          )}
+        </div>
+      </div>
+
+      {selectedStock && <ScoreModal stock={selectedStock} onClose={() => setSelectedStock(null)} />}
+    </div>
+  )
+}
