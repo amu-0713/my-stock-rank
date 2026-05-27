@@ -468,9 +468,6 @@ def update_filter_days_with_prev_result(rank_list, latest_dt):
 
     print(f"✅ 濾網天數計算完成！模式: {'[鎖定不動]' if is_same_day else '[跨日累加]'}")
 
-# 只對主要策略的 filtered_rank 加上 filter_days（條件篩選排名專用）
-update_filter_days_with_prev_result(filtered_rank, latest_dt)
-
 # ====================== 計算 overview ======================
 print("🚀 開始計算首頁進階指標...")
 daily_return = report.creturn.pct_change().fillna(0)
