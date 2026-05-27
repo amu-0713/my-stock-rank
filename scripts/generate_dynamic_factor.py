@@ -618,5 +618,4 @@ with open("public/chart_data.json", 'w', encoding='utf-8') as f:
 
 print(f"✅ result.json（無 corr_pct） & result_bear.json（直接使用 corr_pct） & chart_data.json 已更新")
 print(f"今年報酬最終值: +{overview['total_return_ytd']}%")
-升級至 SuperGrok
-Dynamic Filter Days Badge in RankList - Grok
+
