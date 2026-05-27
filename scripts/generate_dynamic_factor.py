@@ -424,34 +424,41 @@ PREV_RESULT_FILE = Path("public/result.json")
 
 def update_filter_days_with_prev_result(rank_list, latest_dt):
     """
-    嚴謹版 filter_days（已加同一天保護）
+    嚴謹版 filter_days + 同一天保護 + 保留原有 filter_days
     """
     if not rank_list:
         return
 
-    # === 同一天保護：如果上一個 result.json 就是今天，就不要再更新 ===
+    # 同一天保護：如果上一個 result.json 就是今天，就保留原本的 filter_days
     if PREV_RESULT_FILE.exists():
         try:
             prev_data = json.loads(PREV_RESULT_FILE.read_text(encoding="utf-8"))
             if prev_data.get("latest_date") == str(latest_dt.date()):
                 print("⚠️ 同一天執行，跳過 filter_days 更新（保留 Colab 回朔結果）")
+                
+                # 重要：從 prev_result 複製 filter_days 回來
+                prev_map = {item["stock_id"]: item.get("filter_days", 1) 
+                           for item in prev_data.get("filtered_rank", [])}
+                
+                for item in rank_list:
+                    sid = item["stock_id"]
+                    item["filter_days"] = prev_map.get(sid, 1)
                 return
         except Exception as e:
             print(f"⚠️ 讀取上一個 result.json 失敗: {e}")
 
+    # 正常情況：比對上一個交易日來更新
     today_ids = {item["stock_id"] for item in rank_list}
-
-    # 讀取上一次的 result.json
     prev_filtered_ids = set()
+
     if PREV_RESULT_FILE.exists():
         try:
             prev_data = json.loads(PREV_RESULT_FILE.read_text(encoding="utf-8"))
             prev_filtered = prev_data.get("filtered_rank", [])
             prev_filtered_ids = {item.get("stock_id") for item in prev_filtered if item.get("stock_id")}
         except Exception as e:
-            print(f"⚠️ 無法讀取上一次 result.json 來計算 filter_days: {e}")
+            print(f"⚠️ 無法讀取上一次 result.json: {e}")
 
-    # 讀取 streak 狀態
     if STREAK_FILE.exists():
         try:
             state = json.loads(STREAK_FILE.read_text(encoding="utf-8"))
@@ -475,7 +482,6 @@ def update_filter_days_with_prev_result(rank_list, latest_dt):
         "streak": new_streak
     }
     STREAK_FILE.write_text(json.dumps(new_state, ensure_ascii=False, indent=2), encoding="utf-8")
-
 # 只對主要策略的 filtered_rank 加上 filter_days（條件篩選排名專用）
 update_filter_days_with_prev_result(filtered_rank, latest_dt)
 
