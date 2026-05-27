@@ -1,4 +1,4 @@
-// src/components/RankList.jsx
+// src/components/generate_dynamic_factor.py
 import { useEffect, useMemo, useState, useCallback } from 'react'
 import { createPortal } from 'react-dom'
 
