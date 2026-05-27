@@ -212,7 +212,7 @@ const SORTABLE_FIELD_SET_BY_STRATEGY = {
   '1': new Set(['score', 'rs_pct', 'peg_pct', 'dd_pct', 'rank_change', 'filter_days']),
   '2': new Set(['score', 'std_pct', 'dy_pct', 'rank_change']),
 }
-const STOCK_CELL_LAYOUT_CLASS = 'grid grid-cols-[72px_minmax(0,1fr)] items-center gap-3 landscape:max-md:grid-cols-[64px_minmax(0,1fr)] landscape:max-md:gap-2'
+const STOCK_CELL_LAYOUT_CLASS = 'grid grid-cols-[72px_minmax(0,1fr)] items-center gap-3 landscape:max-md:grid-cols-[64px_minmax(0,1fr)] landscape:max-md:gap-1'
 
 function getSortableFieldSet(strategyId) {
   return SORTABLE_FIELD_SET_BY_STRATEGY[strategyId] ?? SORTABLE_FIELD_SET_BY_STRATEGY['1']
@@ -276,9 +276,9 @@ export default function RankList({
 
   // === 使用舊版較適合手機的 grid 設定（間距更佳）===
   const gridCols = isFilteredRankList 
-    ? 'grid-cols-[64px_minmax(150px,220px)_78px_70px_70px_70px_110px_80px]' 
+    ? 'grid-cols-[64px_minmax(130px,200px)_78px_70px_70px_70px_110px_80px]' 
     : showFilterColumn 
-      ? 'grid-cols-[64px_minmax(150px,220px)_78px_70px_70px_70px_110px_65px]' 
+      ? 'grid-cols-[64px_minmax(130px,200px)_78px_70px_70px_70px_110px_65px]' 
       : 'grid-cols-[64px_minmax(150px,220px)_80px_75px_75px_75px_160px]'
 
   const minWidth = (isFilteredRankList || showFilterColumn) ? 'min-w-[780px]' : 'min-w-[680px]'
