@@ -367,69 +367,58 @@ current_holdings_rank = add_history_to_items(current_holdings_rank)
 filtered_rank = add_history_to_items(filtered_rank)
 market_rank = add_history_to_items(market_rank)
 
-# ====================== 嚴謹版 filter_days ======================
-STREAK_FILE_HIGH_DIV = Path("filter_streak_high_div.json")
+# ====================== 嚴謹版 filter_days：比對上一個實際 result_2.json ======================
 PREV_RESULT_FILE_HIGH_DIV = Path("public/result_2.json")
 
 def update_filter_days_with_prev_result_high_div(rank_list, latest_dt):
+    """
+    精準版 filter_days（完全去狀態化 - 高息低波專用）：
+    1. 同一天（或非交易日導致最新資料日期未推進）重複執行時，天數完全不動。
+    2. 真正進入新交易日，才進行天數累加 (+1) 或新進榜初始化 (1)。
+    """
     if not rank_list:
         return
 
-    # 同一天保護
+    prev_days_map = {}
+    is_same_day = False
+    current_date_str = str(latest_dt.date())
+
     if PREV_RESULT_FILE_HIGH_DIV.exists():
         try:
             prev_data = json.loads(PREV_RESULT_FILE_HIGH_DIV.read_text(encoding="utf-8"))
-            if prev_data.get("latest_date") == str(latest_dt.date()):
-                print("⚠️ 高息低波：同一天執行，保留原有 filter_days")
-                prev_map = {item.get("stock_id"): item.get("filter_days", 1) 
-                           for item in prev_data.get("filtered_rank", [])}
-                for item in rank_list:
-                    sid = item.get("stock_id")
-                    if sid in prev_map:
-                        item["filter_days"] = prev_map[sid]
-                return
+            prev_date_str = prev_data.get("latest_date")
+            
+            # 【關鍵判定】如果上一次的資料日期跟今天算出來的一模一樣，代表是非交易日或同日重複執行
+            if prev_date_str == current_date_str:
+                is_same_day = True
+                print(f"📅 高息低波：資料日期相同 ({current_date_str})，判定為非交易日或同日重複執行 → 鎖定天數不變。")
+            
+            # 直接從上一次的 filtered_rank 撈出所有股票的留存天數
+            for item in prev_data.get("filtered_rank", []):
+                sid = item.get("stock_id")
+                if sid:
+                    prev_days_map[sid] = item.get("filter_days", 1)
         except Exception as e:
             print(f"⚠️ 讀取上一個 result_2.json 失敗: {e}")
 
-    # 正常累加邏輯
-    today_ids = {item["stock_id"] for item in rank_list}
-    prev_filtered_ids = set()
-
-    if PREV_RESULT_FILE_HIGH_DIV.exists():
-        try:
-            prev_data = json.loads(PREV_RESULT_FILE_HIGH_DIV.read_text(encoding="utf-8"))
-            prev_filtered = prev_data.get("filtered_rank", [])
-            prev_filtered_ids = {item.get("stock_id") for item in prev_filtered if item.get("stock_id")}
-        except Exception as e:
-            print(f"⚠️ 無法讀取上一次 result_2.json: {e}")
-
-    if STREAK_FILE_HIGH_DIV.exists():
-        try:
-            state = json.loads(STREAK_FILE_HIGH_DIV.read_text(encoding="utf-8"))
-            prev_streak = state.get("streak", {})
-        except:
-            prev_streak = {}
-    else:
-        prev_streak = {}
-
-    new_streak = {}
+    # 開始更新當前列表的天數
     for item in rank_list:
         sid = item["stock_id"]
-        if sid in prev_filtered_ids:
-            new_streak[sid] = prev_streak.get(sid, 0) + 1
+        
+        if is_same_day:
+            # 狀況 A：非交易日或同天重複執行，直接沿用上一次的天數（若上一次找不到則預設給 1）
+            item["filter_days"] = prev_days_map.get(sid, 1)
         else:
-            new_streak[sid] = 1
-        item["filter_days"] = new_streak[sid]
+            # 狀況 B：真正的新交易日，比對上一個交易日是否有這檔股票
+            if sid in prev_days_map:
+                item["filter_days"] = prev_days_map[sid] + 1  # 舊人加 1 天
+            else:
+                item["filter_days"] = 1                       # 新人算 1 天
 
-    new_state = {
-        "last_date": str(latest_dt.date()),
-        "streak": new_streak
-    }
-    STREAK_FILE_HIGH_DIV.write_text(json.dumps(new_state, ensure_ascii=False, indent=2), encoding="utf-8")
+    print(f"✅ 高息低波：濾網天數計算完成！模式: {'[鎖定不動]' if is_same_day else '[跨日累加]'}")
 
 # 加入 filter_days（只對 filtered_rank）
 update_filter_days_with_prev_result_high_div(filtered_rank, latest_dt)
-
 # =============================================================================
 # 九、計算 Overview 績效指標與圖表
 # =============================================================================
