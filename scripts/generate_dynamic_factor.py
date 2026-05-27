@@ -418,6 +418,30 @@ current_holdings_rank = add_history_to_items(current_holdings_rank)
 filtered_rank = add_history_to_items(filtered_rank)
 market_rank = add_history_to_items(market_rank)
 
+# ====================== 新增：計算 filter_days（連續通過選股條件天數） ======================
+# 使用小狀態檔 filter_streak.json 維護連續天數（不影響任何原有邏輯）
+STREAK_FILE = Path("filter_streak.json")
+
+def update_filter_days(rank_list):
+    if not rank_list:
+        return
+    if STREAK_FILE.exists():
+        prev_streak = json.loads(STREAK_FILE.read_text(encoding="utf-8"))
+    else:
+        prev_streak = {}
+    new_streak = {}
+    for item in rank_list:
+        sid = item["stock_id"]
+        if sid in prev_streak:
+            new_streak[sid] = prev_streak[sid] + 1
+        else:
+            new_streak[sid] = 1
+        item["filter_days"] = new_streak[sid]
+    STREAK_FILE.write_text(json.dumps(new_streak, ensure_ascii=False, indent=2), encoding="utf-8")
+
+# 只對 filtered_rank 加上 filter_days（條件篩選排名專用）
+update_filter_days(filtered_rank)
+
 # ====================== 計算 overview ======================
 print("🚀 開始計算首頁進階指標...")
 daily_return = report.creturn.pct_change().fillna(0)
@@ -594,3 +618,5 @@ with open("public/chart_data.json", 'w', encoding='utf-8') as f:
 
 print(f"✅ result.json（無 corr_pct） & result_bear.json（直接使用 corr_pct） & chart_data.json 已更新")
 print(f"今年報酬最終值: +{overview['total_return_ytd']}%")
+升級至 SuperGrok
+Dynamic Filter Days Badge in RankList - Grok
