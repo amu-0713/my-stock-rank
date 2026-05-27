@@ -9,6 +9,7 @@ const TEXT = {
   stock: '股票',
   score: '分數',
   change: '變動',
+  filterDays: '濾網天數',
   empty: '目前沒有資料',
 }
 
@@ -196,7 +197,6 @@ function ScoreModal({ stock, onClose }) {
   )
 }
 
-// ====================== Tooltip 文字（僅保留量化因子科普） ======================
 const tooltipTexts = {
   rs_pct: `RS（相對強度指標）\n股票相對於大盤的近期表現排名\n排名越高代表近期表現越強勢\n-點擊排序-`,
   peg_pct: `PEG（本益成長比）\n成長股的估值合理性排名\n排名越高代表成長價值越佳\n-點擊排序-`,
@@ -209,7 +209,7 @@ const tooltipTexts = {
 const DEFAULT_SORT_KEY = 'score'
 const DEFAULT_SORT_DIRECTION = 'desc'
 const SORTABLE_FIELD_SET_BY_STRATEGY = {
-  '1': new Set(['score', 'rs_pct', 'peg_pct', 'dd_pct', 'rank_change']),
+  '1': new Set(['score', 'rs_pct', 'peg_pct', 'dd_pct', 'rank_change', 'filter_days']),
   '2': new Set(['score', 'std_pct', 'dy_pct', 'rank_change']),
 }
 const STOCK_CELL_LAYOUT_CLASS = 'grid grid-cols-[72px_minmax(0,1fr)] items-center gap-3 landscape:max-md:grid-cols-[64px_minmax(0,1fr)] landscape:max-md:gap-2'
@@ -274,8 +274,25 @@ export default function RankList({
 
   const sortableFieldSet = useMemo(() => getSortableFieldSet(strategyId), [strategyId])
 
-  const gridCols = showFilterColumn ? 'grid-cols-[64px_minmax(150px,220px)_80px_75px_75px_75px_110px_60px]' : 'grid-cols-[64px_minmax(150px,220px)_80px_75px_75px_75px_160px]'
-  const minWidth = showFilterColumn ? 'min-w-[740px]' : 'min-w-[680px]'
+// 三頁統一對齊 + 垂直對齊優化
+let gridCols = ''
+
+if (isFilteredRankList) {
+  // 條件篩選排名：最後一欄是「濾網天數 (XX天)」，需要稍微寬一點點
+  // 欄位數：8 欄 (排名_64px, 股票_彈性, 分數_78px, RS_70px, PEG_70px, DD_70px, 變動_120px, 濾網天數_80px)
+  gridCols = 'grid-cols-[64px_minmax(150px,220px)_78px_70px_70px_70px_120px_80px]'
+} else if (showFilterColumn) {
+  // 目前持股排名：最後一欄是「濾網 (✔/✘)」
+  // 欄位數：8 欄 (排名_64px, 股票_彈性, 分數_78px, RS_70px, PEG_70px, DD_70px, 變動_120px, 濾網_65px)
+  gridCols = 'grid-cols-[64px_minmax(150px,220px)_78px_70px_70px_70px_120px_65px]'
+} else {
+  // 市場總排名（無濾網、無濾網天數）
+  // 欄位數：7 欄 (排名_64px, 股票_彈性, 分數_80px, RS_75px, PEG_75px, DD_75px, 變動_160px)
+  gridCols = 'grid-cols-[64px_minmax(150px,220px)_80px_75px_75px_75px_160px]'
+}
+
+// 根據最寬的佈局同步調整最小寬度，避免破版
+const minWidth = (isFilteredRankList || showFilterColumn) ? 'min-w-[825px]' : 'min-w-[680px]'
 
   const formattedCompareDate = formatCompareDate(compareDate)
   const changeHeaderText = formattedCompareDate === null ? `${TEXT.change}（vs 上週）` : `${TEXT.change}（vs ${formattedCompareDate}）`
@@ -286,6 +303,7 @@ export default function RankList({
   const [sortDirection, setSortDirection] = useState(DEFAULT_SORT_DIRECTION)
   const [selectedStock, setSelectedStock] = useState(null)
   const [search, setSearch] = useState('')
+  
 
   const [currentData, setCurrentData] = useState(null)
   const [loading, setLoading] = useState(false)
@@ -295,11 +313,8 @@ export default function RankList({
       setLoading(true)
       try {
         let file = '/result.json'
-        if (isHighDividend) {
-          file = '/result_2.json'
-        } else if (isMultiFactor && regime === 'bear') {
-          file = '/result_bear.json'
-        }
+        if (isHighDividend) file = '/result_2.json'
+        else if (isMultiFactor && regime === 'bear') file = '/result_bear.json'
         const response = await fetch(file)
         if (!response.ok) throw new Error('無法載入資料')
         const jsonData = await response.json()
@@ -328,12 +343,7 @@ export default function RankList({
     if (isMultiFactor) {
       return [
         { key: 'rs_pct', label: 'RS', sortable: true, type: 'pct' },
-        {
-          key: regime === 'bull' ? 'peg_pct' : 'corr_pct',
-          label: regime === 'bull' ? 'PEG' : 'CORR',
-          sortable: true,
-          type: 'pct'
-        },
+        { key: regime === 'bull' ? 'peg_pct' : 'corr_pct', label: regime === 'bull' ? 'PEG' : 'CORR', sortable: true, type: 'pct' },
         { key: 'dd_pct', label: 'DD', sortable: true, type: 'pct' },
       ]
     } else if (isHighDividend) {
@@ -357,13 +367,11 @@ export default function RankList({
 
   const [visibleCount, setVisibleCount] = useState(200)
 
-  const isModalOpen = !!selectedStock
-
   useEffect(() => {
     setSortKey(normalizedDefaultSortKey)
     setSortDirection(DEFAULT_SORT_DIRECTION)
     if (isMarketRank) setVisibleCount(200)
-  }, [normalizedDefaultSortKey, isMarketRank])
+  }, [normalizedDefaultSortKey, isMarketRank, title, regime])
 
   const filteredRows = useMemo(() => {
     const safeRows = Array.isArray(rows) ? rows : []
@@ -431,7 +439,7 @@ export default function RankList({
   }
 
   return (
-    <div className={`isolate flex h-full min-h-0 landscape:max-md:h-screen landscape:max-md:min-h-screen flex-col overflow-hidden rounded-2xl border border-zinc-200 bg-white shadow-sm max-w-[960px] mx-auto ${isModalOpen ? 'pointer-events-none' : ''}`}>
+    <div className={`isolate flex h-full min-h-0 landscape:max-md:h-screen landscape:max-md:min-h-screen flex-col overflow-hidden rounded-2xl border border-zinc-200 bg-white shadow-sm max-w-[960px] mx-auto ${!!selectedStock ? 'pointer-events-none' : ''}`}>
       <div className="z-40 border-b border-zinc-200 bg-white">
         <div className="flex w-full items-center justify-between gap-3 px-4 py-3 shadow-sm landscape:max-md:pl-5 landscape:max-md:pr-3 landscape:max-md:py-2">
           <div className="flex items-center gap-4">
@@ -482,7 +490,6 @@ export default function RankList({
                   <div className="col-span-2 self-center justify-self-start text-left">{TEXT.stock}</div>
                 </div>
 
-                {/* 1. 分數標頭：已拿掉 hover title */}
                 <button
                   type="button"
                   className={headerClassName(allowedSortableFields.has('score'), sortKey === 'score')}
@@ -498,11 +505,7 @@ export default function RankList({
 
                   if (!column.sortable) {
                     return (
-                      <div
-                        key={column.key}
-                        className="flex min-h-[52px] items-center justify-center text-center landscape:max-md:min-h-[40px]"
-                        title={tooltip}
-                      >
+                      <div key={column.key} className="flex min-h-[52px] items-center justify-center text-center landscape:max-md:min-h-[40px]" title={tooltip}>
                         {column.label}
                       </div>
                     )
@@ -521,7 +524,6 @@ export default function RankList({
                   )
                 })}
 
-                {/* 2. 變動標頭：已拿掉 hover title */}
                 <button
                   type="button"
                   className={headerClassName(allowedSortableFields.has('rank_change'), sortKey === 'rank_change')}
@@ -531,7 +533,17 @@ export default function RankList({
                   <span className="text-xs">{sortIndicator(sortDirection, sortKey === 'rank_change')}</span>
                 </button>
 
-                {/* 3. 濾網標頭：已拿掉 hover title */}
+                {isFilteredRankList && (
+                  <button
+                    type="button"
+                    className={headerClassName(allowedSortableFields.has('filter_days'), sortKey === 'filter_days')}
+                    onClick={() => handleSortChange('filter_days')}
+                  >
+                    <span>{TEXT.filterDays}</span>
+                    <span className="text-xs">{sortIndicator(sortDirection, sortKey === 'filter_days')}</span>
+                  </button>
+                )}
+
                 {showFilterColumn && (
                   <div className="flex min-h-[52px] items-center justify-center text-center">
                     濾網
@@ -561,9 +573,8 @@ export default function RankList({
                         </span>
                       </div>
 
-                      {/* 保留：點擊分數跳出近五日走勢 Modal 的提示語 */}
                       <div 
-                        className="text-center text-sm tabular-nums" 
+                        className="text-center text-sm tabular-nums cursor-pointer" 
                         onClick={() => setSelectedStock(row)}
                         title="-點擊顯示近五日分數走勢-"
                       >
@@ -595,8 +606,13 @@ export default function RankList({
                         )}
                       </div>
 
+                      {isFilteredRankList && (
+                        <div className="flex items-center justify-center text-center text-sm tabular-nums font-medium text-zinc-700">
+                          {row.filter_days != null ? `${row.filter_days} 天` : '--'}
+                        </div>
+                      )}
+
                       {showFilterColumn && (
-                        /* 保留：點擊濾網查看原因的動態提示語 */
                         <button
                           type="button"
                           className="flex min-h-[52px] items-center justify-center rounded-xl hover:bg-zinc-100 landscape:max-md:min-h-[40px]"
