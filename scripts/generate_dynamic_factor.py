@@ -424,17 +424,24 @@ PREV_RESULT_FILE = Path("public/result.json")
 
 def update_filter_days_with_prev_result(rank_list, latest_dt):
     """
-    嚴謹版 filter_days：
-    每次都讀取上一次產生的 public/result.json，取得上一個實際交易日的 filtered_rank，
-    來決定要不要累加或重置。
-    這樣即使中間漏跑幾天，也能維持較正確的連續天數。
+    嚴謹版 filter_days（已加同一天保護）
     """
     if not rank_list:
         return
 
+    # === 同一天保護：如果上一個 result.json 就是今天，就不要再更新 ===
+    if PREV_RESULT_FILE.exists():
+        try:
+            prev_data = json.loads(PREV_RESULT_FILE.read_text(encoding="utf-8"))
+            if prev_data.get("latest_date") == str(latest_dt.date()):
+                print("⚠️ 同一天執行，跳過 filter_days 更新（保留 Colab 回朔結果）")
+                return
+        except Exception as e:
+            print(f"⚠️ 讀取上一個 result.json 失敗: {e}")
+
     today_ids = {item["stock_id"] for item in rank_list}
 
-    # 讀取上一次的 result.json（取得上一個實際交易日的 filtered set）
+    # 讀取上一次的 result.json
     prev_filtered_ids = set()
     if PREV_RESULT_FILE.exists():
         try:
@@ -444,7 +451,7 @@ def update_filter_days_with_prev_result(rank_list, latest_dt):
         except Exception as e:
             print(f"⚠️ 無法讀取上一次 result.json 來計算 filter_days: {e}")
 
-    # 讀取 streak 狀態（加速用）
+    # 讀取 streak 狀態
     if STREAK_FILE.exists():
         try:
             state = json.loads(STREAK_FILE.read_text(encoding="utf-8"))
@@ -458,15 +465,11 @@ def update_filter_days_with_prev_result(rank_list, latest_dt):
     for item in rank_list:
         sid = item["stock_id"]
         if sid in prev_filtered_ids:
-            # 上一個實際交易日也在 filtered_rank → 累加
             new_streak[sid] = prev_streak.get(sid, 0) + 1
         else:
-            # 上一個實際交易日不在 → 重置為 1
             new_streak[sid] = 1
-
         item["filter_days"] = new_streak[sid]
 
-    # 儲存新的狀態
     new_state = {
         "last_date": str(latest_dt.date()),
         "streak": new_streak
