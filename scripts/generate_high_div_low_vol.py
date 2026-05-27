@@ -367,7 +367,7 @@ current_holdings_rank = add_history_to_items(current_holdings_rank)
 filtered_rank = add_history_to_items(filtered_rank)
 market_rank = add_history_to_items(market_rank)
 
-# ====================== 嚴謹版 filter_days（修正版） ======================
+# ====================== 嚴謹版 filter_days ======================
 STREAK_FILE_HIGH_DIV = Path("filter_streak_high_div.json")
 PREV_RESULT_FILE_HIGH_DIV = Path("public/result_2.json")
 
@@ -375,9 +375,7 @@ def update_filter_days_with_prev_result_high_div(rank_list, latest_dt):
     if not rank_list:
         return
 
-    today_ids = {item.get("stock_id") for item in rank_list}
-
-    # 1. 同一天保護
+    # 同一天保護
     if PREV_RESULT_FILE_HIGH_DIV.exists():
         try:
             prev_data = json.loads(PREV_RESULT_FILE_HIGH_DIV.read_text(encoding="utf-8"))
@@ -387,22 +385,24 @@ def update_filter_days_with_prev_result_high_div(rank_list, latest_dt):
                            for item in prev_data.get("filtered_rank", [])}
                 for item in rank_list:
                     sid = item.get("stock_id")
-                    item["filter_days"] = prev_map.get(sid, 1)
+                    if sid in prev_map:
+                        item["filter_days"] = prev_map[sid]
                 return
         except Exception as e:
-            print(f"⚠️ 讀取 prev result_2.json 失敗: {e}")
+            print(f"⚠️ 讀取上一個 result_2.json 失敗: {e}")
 
-    # 2. 正常跨天累加邏輯
+    # 正常累加邏輯
+    today_ids = {item["stock_id"] for item in rank_list}
     prev_filtered_ids = set()
+
     if PREV_RESULT_FILE_HIGH_DIV.exists():
         try:
             prev_data = json.loads(PREV_RESULT_FILE_HIGH_DIV.read_text(encoding="utf-8"))
-            prev_filtered_ids = {item.get("stock_id") for item in prev_data.get("filtered_rank", []) 
-                               if item.get("stock_id")}
+            prev_filtered = prev_data.get("filtered_rank", [])
+            prev_filtered_ids = {item.get("stock_id") for item in prev_filtered if item.get("stock_id")}
         except Exception as e:
-            print(f"⚠️ 讀取上一次 filtered_rank 失敗: {e}")
+            print(f"⚠️ 無法讀取上一次 result_2.json: {e}")
 
-    # 讀取之前的 streak 狀態
     if STREAK_FILE_HIGH_DIV.exists():
         try:
             state = json.loads(STREAK_FILE_HIGH_DIV.read_text(encoding="utf-8"))
@@ -414,24 +414,20 @@ def update_filter_days_with_prev_result_high_div(rank_list, latest_dt):
 
     new_streak = {}
     for item in rank_list:
-        sid = item.get("stock_id")
+        sid = item["stock_id"]
         if sid in prev_filtered_ids:
             new_streak[sid] = prev_streak.get(sid, 0) + 1
         else:
             new_streak[sid] = 1
         item["filter_days"] = new_streak[sid]
 
-    # 儲存新狀態
     new_state = {
         "last_date": str(latest_dt.date()),
         "streak": new_streak
     }
-    try:
-        STREAK_FILE_HIGH_DIV.write_text(json.dumps(new_state, ensure_ascii=False, indent=2), encoding="utf-8")
-    except Exception as e:
-        print(f"⚠️ 寫入 streak 檔案失敗: {e}")
+    STREAK_FILE_HIGH_DIV.write_text(json.dumps(new_state, ensure_ascii=False, indent=2), encoding="utf-8")
 
-# 呼叫（保持不變）
+# 加入 filter_days（只對 filtered_rank）
 update_filter_days_with_prev_result_high_div(filtered_rank, latest_dt)
 
 # =============================================================================
