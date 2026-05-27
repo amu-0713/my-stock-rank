@@ -631,10 +631,30 @@ def add_history_to_items_bear(items):
         item["history"] = history_list
     return items
 
+# 1. 處理完 bear 的歷史紀錄
 current_holdings_rank_bear = add_history_to_items_bear(current_holdings_rank_bear)
 filtered_rank_bear = add_history_to_items_bear(filtered_rank_bear)
 market_rank_bear = add_history_to_items_bear(market_rank_bear)
 
+# ================= 💡 新增：將牛市的 filter_days 同步給熊市 =================
+# 先從牛市的各個 rank 列表中建立完整的 {stock_id: filter_days} 對照表
+bull_filter_days_map = {}
+for item in (result_json.get("market_rank", []) + 
+             result_json.get("filtered_rank", []) + 
+             result_json.get("current_holdings_rank", [])):
+    if "stock_id" in item and "filter_days" in item:
+        bull_filter_days_map[item["stock_id"]] = item["filter_days"]
+
+# 將天數動態寫入熊市的列表資料中
+for item in (current_holdings_rank_bear + filtered_rank_bear + market_rank_bear):
+    sid = item.get("stock_id")
+    if sid in bull_filter_days_map:
+        item["filter_days"] = bull_filter_days_map[sid]
+    else:
+        item["filter_days"] = 0  # 若牛市找不到，預設給 0 或 None
+# =========================================================================
+
+# 2. 接著產出原本的 result_bear_json 結構
 result_bear_json = {
     "latest_date": str(latest_dt.date()),
     "updated_at": datetime.now(ZoneInfo("Asia/Taipei")).strftime('%Y-%m-%d %H:%M'),
