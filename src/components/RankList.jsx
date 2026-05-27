@@ -472,7 +472,10 @@ export default function RankList({
             </div>
           ) : (
             <>
-               <div className={`sticky top-0 z-10 grid ${gridCols} items-center gap-1 border-b border-zinc-200 bg-white px-4 py-4 text-sm font-semibold text-zinc-600 shadow-sm landscape:max-md:px-2 landscape:max-md:py-2 landscape:max-md:min-h-[44px]`}>  
+               <div className={`sticky top-0 z-10 grid ${gridCols} items-center gap-1 border-b border-zinc-200 bg-white px-4 py-4 text-sm font-semibold text-zinc-600 shadow-sm 
+  landscape:max-md:px-3 
+  landscape:max-md:py-2 
+  landscape:max-md:min-h-[50px]`}>
                 <div className="flex min-h-[52px] items-center justify-center text-center landscape:max-md:min-h-[40px]">{TEXT.rank}</div>
 
                 <div className={`${STOCK_CELL_LAYOUT_CLASS} min-h-[52px] text-left landscape:max-md:min-h-[40px]`}>
@@ -522,17 +525,16 @@ export default function RankList({
                   <span className="text-xs">{sortIndicator(sortDirection, sortKey === 'rank_change')}</span>
                 </button>
 
-                {isFilteredRankList && (
+               {isFilteredRankList && (
                   <button
                     type="button"
-                    className={headerClassName(allowedSortableFields.has('filter_days'), sortKey === 'filter_days')}
+                    className={`${headerClassName(allowedSortableFields.has('filter_days'), sortKey === 'filter_days')} leading-tight`}
                     onClick={() => handleSortChange('filter_days')}
                   >
-                    <span>{TEXT.filterDays}</span>
+                    <span className="whitespace-nowrap">{TEXT.filterDays}</span>
                     <span className="text-xs">{sortIndicator(sortDirection, sortKey === 'filter_days')}</span>
                   </button>
                 )}
-
                 {showFilterColumn && (
                   <div className="flex min-h-[52px] items-center justify-center text-center">
                     濾網
