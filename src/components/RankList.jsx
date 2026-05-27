@@ -276,9 +276,9 @@ export default function RankList({
 
   // === 使用舊版較適合手機的 grid 設定（間距更佳）===
   const gridCols = isFilteredRankList 
-    ? 'grid-cols-[64px_minmax(80px,200px)_78px_70px_70px_70px_110px_80px]' 
+    ? 'grid-cols-[60px_minmax(95px,170px)_72px_65px_65px_65px_100px_75px]' 
     : showFilterColumn 
-      ? 'grid-cols-[64px_minmax(80px,200px)_78px_70px_70px_70px_110px_65px]' 
+      ? 'grid-cols-[60px_minmax(95px,170px)_72px_65px_65px_65px_100px_60px]' 
       : 'grid-cols-[64px_minmax(150px,220px)_80px_75px_75px_75px_160px]'
 
   const minWidth = (isFilteredRankList || showFilterColumn) ? 'min-w-[780px]' : 'min-w-[680px]'
