@@ -418,29 +418,63 @@ current_holdings_rank = add_history_to_items(current_holdings_rank)
 filtered_rank = add_history_to_items(filtered_rank)
 market_rank = add_history_to_items(market_rank)
 
-# ====================== 新增：計算 filter_days（連續通過選股條件天數） ======================
-# 使用小狀態檔 filter_streak.json 維護連續天數（不影響任何原有邏輯）
+# ====================== 嚴謹版 filter_days：比對上一個實際 result.json ======================
 STREAK_FILE = Path("filter_streak.json")
+PREV_RESULT_FILE = Path("public/result.json")
 
-def update_filter_days(rank_list):
+def update_filter_days_with_prev_result(rank_list, latest_dt):
+    """
+    嚴謹版 filter_days：
+    每次都讀取上一次產生的 public/result.json，取得上一個實際交易日的 filtered_rank，
+    來決定要不要累加或重置。
+    這樣即使中間漏跑幾天，也能維持較正確的連續天數。
+    """
     if not rank_list:
         return
+
+    today_ids = {item["stock_id"] for item in rank_list}
+
+    # 讀取上一次的 result.json（取得上一個實際交易日的 filtered set）
+    prev_filtered_ids = set()
+    if PREV_RESULT_FILE.exists():
+        try:
+            prev_data = json.loads(PREV_RESULT_FILE.read_text(encoding="utf-8"))
+            prev_filtered = prev_data.get("filtered_rank", [])
+            prev_filtered_ids = {item.get("stock_id") for item in prev_filtered if item.get("stock_id")}
+        except Exception as e:
+            print(f"⚠️ 無法讀取上一次 result.json 來計算 filter_days: {e}")
+
+    # 讀取 streak 狀態（加速用）
     if STREAK_FILE.exists():
-        prev_streak = json.loads(STREAK_FILE.read_text(encoding="utf-8"))
+        try:
+            state = json.loads(STREAK_FILE.read_text(encoding="utf-8"))
+            prev_streak = state.get("streak", {})
+        except:
+            prev_streak = {}
     else:
         prev_streak = {}
+
     new_streak = {}
     for item in rank_list:
         sid = item["stock_id"]
-        if sid in prev_streak:
-            new_streak[sid] = prev_streak[sid] + 1
+        if sid in prev_filtered_ids:
+            # 上一個實際交易日也在 filtered_rank → 累加
+            new_streak[sid] = prev_streak.get(sid, 0) + 1
         else:
+            # 上一個實際交易日不在 → 重置為 1
             new_streak[sid] = 1
-        item["filter_days"] = new_streak[sid]
-    STREAK_FILE.write_text(json.dumps(new_streak, ensure_ascii=False, indent=2), encoding="utf-8")
 
-# 只對 filtered_rank 加上 filter_days（條件篩選排名專用）
-update_filter_days(filtered_rank)
+        item["filter_days"] = new_streak[sid]
+
+    # 儲存新的狀態
+    new_state = {
+        "last_date": str(latest_dt.date()),
+        "streak": new_streak
+    }
+    STREAK_FILE.write_text(json.dumps(new_state, ensure_ascii=False, indent=2), encoding="utf-8")
+
+# 只對主要策略的 filtered_rank 加上 filter_days（條件篩選排名專用）
+update_filter_days_with_prev_result(filtered_rank, latest_dt)
 
 # ====================== 計算 overview ======================
 print("🚀 開始計算首頁進階指標...")
@@ -586,7 +620,6 @@ def add_history_to_items_bear(items):
             history_list.append({"date": str(dt.date()), "score": round(display_score, 1)})
             count += 1
         item["history"] = history_list
-        # 已經直接使用 corr_pct，不需要再 pop / 替換
     return items
 
 current_holdings_rank_bear = add_history_to_items_bear(current_holdings_rank_bear)
@@ -616,6 +649,6 @@ with open("public/result_bear.json", 'w', encoding='utf-8') as f:
 with open("public/chart_data.json", 'w', encoding='utf-8') as f:
     json.dump(chart_json, f, ensure_ascii=False, indent=2)
 
-print(f"✅ result.json（無 corr_pct） & result_bear.json（直接使用 corr_pct） & chart_data.json 已更新")
+print(f"✅ result.json & result_bear.json & chart_data.json 已更新（filter_days 已使用上一個實際交易日比對）")
 print(f"今年報酬最終值: +{overview['total_return_ytd']}%")
 
