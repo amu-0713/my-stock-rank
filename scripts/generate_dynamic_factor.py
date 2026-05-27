@@ -652,3 +652,4 @@ with open("public/chart_data.json", 'w', encoding='utf-8') as f:
 print(f"✅ result.json & result_bear.json & chart_data.json 已更新（filter_days 已使用上一個實際交易日比對）")
 print(f"今年報酬最終值: +{overview['total_return_ytd']}%")
 
+
