@@ -131,7 +131,6 @@ print("✅ 回測執行完成！開始精準生成三頁排名資料...")
 # =============================================================================
 # 八、精準脫水前端 JSON 生成邏輯
 # =============================================================================
-# 🎯 【作法 A 修正】：改用 dy_filter 實體資料的最後一天，確保 loc 絕對有解，避免 KeyError
 latest_dt = dy_filter.index[-1] 
 print(f"✅ 最新資料日期 (依據資料庫實際現況): {latest_dt.date()}")
 
@@ -179,13 +178,12 @@ def get_rank_change_info(stock_id, prev_rank_map, current_rank):
     change_type = "up" if rank_change > 0 else "down" if rank_change < 0 else "flat"
     return int(prev_rank), rank_change, change_type
 
-# 濾網切片 (回推未通過原因) -> 這邊 latest_dt 帶入 index[-1] 後，保證安全
+# 濾網切片
 dy_filter_series = dy_filter.loc[latest_dt]
 liq_filter_series = liq_filter.loc[latest_dt]
 ma_filter_series = ma_filter.loc[latest_dt]
 dy_rank_series = dy_rank.loc[latest_dt]
 
-# ====================== 修正重點2：殖利率失敗條件拆成兩個獨立條件 ======================
 def get_failed_conditions_high_div(sid):
     fail = []
     sid_str = str(sid)
@@ -225,9 +223,7 @@ def build_stock_item_high_div(sid, row, base_rank, prev_rank_map, selected=None,
         item["failed_conditions"] = [] if bool(passed_filter) else get_failed_conditions_high_div(sid)
     return item
 
-# ====================== 修正重點1：normalize_pct 強制鎖死 100% ======================
 def normalize_pct(series, active_mask=None):
-    """強制當日最佳股票的百分位為 1.0（解決 ties / 下市股壓縮問題）"""
     if active_mask is not None:
         s = series[active_mask].dropna()
     else:
@@ -235,8 +231,7 @@ def normalize_pct(series, active_mask=None):
     if s.empty:
         return series
     normalized = series / s.max()
-    normalized = normalized.clip(upper=1.0)                    # ← 強制鎖死 100%
-    # 再強制把活躍股中的最大值設為 1.0（防 floating point 誤差）
+    normalized = normalized.clip(upper=1.0)
     if active_mask is not None:
         active_max_idx = normalized[active_mask].idxmax()
         if pd.notna(active_max_idx):
@@ -265,7 +260,7 @@ if len(fixed_hold_ids) < max_holdings:
         if len(fixed_hold_ids) >= max_holdings: break
 
 # =============================================================================
-# 🎯 當日因子歸一化（已強制最佳為 100%）
+# 當日因子歸一化
 # =============================================================================
 active_today = price.loc[latest_dt].notna()
 
@@ -336,19 +331,18 @@ df_m = df_m[df_m["score"] > 0].copy().sort_values("score", ascending=False)
 df_m["base_rank"] = range(1, len(df_m) + 1)
 market_rank = [build_stock_item_high_div(sid, row, row["base_rank"], prev_market_rank_map, False, bool(row["passed_filter"])) for sid, row in df_m.iterrows()]
 
-# === 歷史走勢也同步修正 ===
+# ====================== 歷史走勢（修正版） ======================
 def add_history_to_items(items):
     if len(items) == 0: return items
-    past_dates = score_raw_today.index[-5:]
+    all_dates = score_raw_today.index
+    past_dates = all_dates[all_dates <= latest_dt][-5:]
     sub_df = pd.DataFrame(index=past_dates, columns=score_raw_today.columns)
-   
     for dt in past_dates:
         active_dt = price.loc[dt].notna()
         dy_pct_h = normalize_pct(dy_rank.loc[dt])
         std_pct_h = normalize_pct(std_score.loc[dt], active_mask=active_dt)
         clean_h = dy_pct_h * 0.33 + std_pct_h * 0.67
         sub_df.loc[dt] = clean_h.map(score_to_display)
-  
     history_dict = {}
     for sid in sub_df.columns:
         history_dict[str(sid)] = [
@@ -363,6 +357,69 @@ def add_history_to_items(items):
 current_holdings_rank = add_history_to_items(current_holdings_rank)
 filtered_rank = add_history_to_items(filtered_rank)
 market_rank = add_history_to_items(market_rank)
+
+# ====================== 嚴謹版 filter_days（與主策略相同） ======================
+STREAK_FILE_HIGH_DIV = Path("filter_streak_high_div.json")
+PREV_RESULT_FILE_HIGH_DIV = Path("public/result_2.json")
+
+def update_filter_days_with_prev_result_high_div(rank_list, latest_dt):
+    if not rank_list:
+        return
+
+    # 同一天保護
+    if PREV_RESULT_FILE_HIGH_DIV.exists():
+        try:
+            prev_data = json.loads(PREV_RESULT_FILE_HIGH_DIV.read_text(encoding="utf-8"))
+            if prev_data.get("latest_date") == str(latest_dt.date()):
+                print("⚠️ 高息低波：同一天執行，保留原有 filter_days")
+                prev_map = {item.get("stock_id"): item.get("filter_days", 1) 
+                           for item in prev_data.get("filtered_rank", [])}
+                for item in rank_list:
+                    sid = item.get("stock_id")
+                    if sid in prev_map:
+                        item["filter_days"] = prev_map[sid]
+                return
+        except Exception as e:
+            print(f"⚠️ 讀取上一個 result_2.json 失敗: {e}")
+
+    # 正常累加邏輯
+    today_ids = {item["stock_id"] for item in rank_list}
+    prev_filtered_ids = set()
+
+    if PREV_RESULT_FILE_HIGH_DIV.exists():
+        try:
+            prev_data = json.loads(PREV_RESULT_FILE_HIGH_DIV.read_text(encoding="utf-8"))
+            prev_filtered = prev_data.get("filtered_rank", [])
+            prev_filtered_ids = {item.get("stock_id") for item in prev_filtered if item.get("stock_id")}
+        except Exception as e:
+            print(f"⚠️ 無法讀取上一次 result_2.json: {e}")
+
+    if STREAK_FILE_HIGH_DIV.exists():
+        try:
+            state = json.loads(STREAK_FILE_HIGH_DIV.read_text(encoding="utf-8"))
+            prev_streak = state.get("streak", {})
+        except:
+            prev_streak = {}
+    else:
+        prev_streak = {}
+
+    new_streak = {}
+    for item in rank_list:
+        sid = item["stock_id"]
+        if sid in prev_filtered_ids:
+            new_streak[sid] = prev_streak.get(sid, 0) + 1
+        else:
+            new_streak[sid] = 1
+        item["filter_days"] = new_streak[sid]
+
+    new_state = {
+        "last_date": str(latest_dt.date()),
+        "streak": new_streak
+    }
+    STREAK_FILE_HIGH_DIV.write_text(json.dumps(new_state, ensure_ascii=False, indent=2), encoding="utf-8")
+
+# 加入 filter_days（只對 filtered_rank）
+update_filter_days_with_prev_result_high_div(filtered_rank, latest_dt)
 
 # =============================================================================
 # 九、計算 Overview 績效指標與圖表
@@ -394,24 +451,18 @@ overview = {
 }
 
 def get_pts(series, benchmark_series, start_dt, period=None):
-    """支援周切片：5年與全部改成每周資料，徹底解決 lag"""
     start_dt = pd.to_datetime(start_dt).tz_localize(None) if not isinstance(start_dt, str) else pd.to_datetime(start_dt)
     mask = series.index >= start_dt
     target = series[mask]
     target_bench = benchmark_series.reindex(target.index).ffill()
     if len(target) == 0: 
         return []
-
-    # === 關鍵修正：長週期改成周切片 ===
     if period in ['5年', '全部']:
-        target = target.resample('W-FRI').last().dropna()           # 每周五
+        target = target.resample('W-FRI').last().dropna()
         target_bench = target_bench.resample('W-FRI').last().dropna()
-    # 今年 / 1年 保持日頻（資料量小，保留細節）
-
     base, base_bench = target.iloc[0], target_bench.iloc[0]
     norm = ((target / base) - 1) * 100
     norm_bench = ((target_bench / base_bench) - 1) * 100
-
     return [
         {
             "date": d.strftime('%Y-%m-%d'),
@@ -451,4 +502,4 @@ with open(public_path / "result_2.json", 'w', encoding='utf-8') as f:
 with open(public_path / "chart_data_2.json", 'w', encoding='utf-8') as f:
     json.dump(chart_json, f, ensure_ascii=False, indent=2)
 
-print(f"============== ✅ 高息低波 完全修正完成（STD 鎖 100% + 殖利率拆兩條件） ==============")
+print(f"============== ✅ 高息低波 已加入 filter_days（與主策略相同） ==============")
