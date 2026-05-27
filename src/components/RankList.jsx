@@ -472,7 +472,7 @@ export default function RankList({
             </div>
           ) : (
             <>
-              <div className={`sticky top-0 z-10 grid ${gridCols} items-center gap-1 border-b border-zinc-200 bg-white px-4 py-4 text-sm font-semibold text-zinc-600 shadow-sm landscape:max-md:px-3 landscape:max-md:py-1 landscape:max-md:max-h-[48px] landscape:max-md:min-h-[48px]`}>    
+              <div className={`sticky top-0 z-10 grid ${gridCols} items-center gap-1 border-b border-zinc-200 bg-white px-4 py-4 text-sm font-semibold text-zinc-600 shadow-sm landscape:max-md:px-3 landscape:max-md:py-1 landscape:max-md:max-h-[52px] landscape:max-md:min-h-[52px]`}>    
                 <div className="flex min-h-[52px] items-center justify-center text-center landscape:max-md:min-h-[40px]">{TEXT.rank}</div>
 
                 <div className={`${STOCK_CELL_LAYOUT_CLASS} min-h-[52px] text-left landscape:max-md:min-h-[40px]`}>
