@@ -9,6 +9,7 @@ from datetime import datetime
 from zoneinfo import ZoneInfo
 from finlab import data
 from finlab.backtest import sim
+
 print("🚀 執行：高息低波策略（欄位與排序真正對齊版）自動化更新...")
 
 # FinLab 登入
@@ -49,7 +50,7 @@ dy_filter = (dy_rank > 0.6) & (dy_rank < 0.9)
 # 綜合濾網
 final_cond = dy_filter & liq_filter & ma_filter
 
-# === 四、評分 (全市場歷史回測專用原始分數) ===
+# === 四、評分 ===
 std_score = std240.rank(axis=1, pct=True, ascending=False)
 dy_score = dy_rank
 score_raw_today = dy_score * 0.33 + std_score * 0.67
@@ -62,6 +63,7 @@ max_financial = 4
 candidate_n = 25
 loop_score = score_raw_today.where(final_cond)
 raw_position = pd.DataFrame(0, index=loop_score.index, columns=loop_score.columns, dtype=int)
+
 for dt in loop_score.index:
     row_score = loop_score.loc[dt].dropna()
     if len(row_score) == 0:
@@ -101,6 +103,7 @@ limit_pct.loc[:'2015-05-31'] = 0.065
 limit_up_price_next = price.mul(1 + limit_pct, axis=0)
 cannot_buy_t1 = open_p.shift(-1) >= limit_up_price_next
 cannot_buy_t1 = cannot_buy_t1.reindex_like(raw_position).fillna(False)
+
 target_pos_qe = raw_position.resample('QE-JAN').last()
 prev_target_pos_qe = target_pos_qe.shift(1).fillna(0)
 prev_position = prev_target_pos_qe.reindex(raw_position.index).ffill().fillna(0)
@@ -122,6 +125,7 @@ report_x = sim(
     live_performance_start='2025-12-30',
     upload=True
 )
+
 if not hasattr(report_x, 'benchmark') or report_x.benchmark is None:
     benchmark = data.get('benchmark_return:發行量加權股價報酬指數').squeeze()
     report_x.benchmark = benchmark.reindex(report_x.creturn.index).ffill()
@@ -131,7 +135,11 @@ print("✅ 回測執行完成！開始精準生成三頁排名資料...")
 # =============================================================================
 # 八、精準脫水前端 JSON 生成邏輯
 # =============================================================================
-latest_dt = dy_filter.index[-1] 
+# 【重要修正】確保使用所有資料都存在的最後一天
+common_index = price.index.intersection(dy_rank.index).intersection(std_score.index).intersection(final_cond.index)
+available_dates = common_index[final_cond.loc[common_index].any(axis=1)]
+latest_dt = available_dates.max()
+
 print(f"✅ 最新資料日期 (依據資料庫實際現況): {latest_dt.date()}")
 
 def get_rebalance_date_qe_jan(dt):
@@ -267,7 +275,7 @@ active_today = price.loc[latest_dt].notna()
 dy_pct_today = normalize_pct(dy_rank.loc[latest_dt])
 std_pct_today = normalize_pct(std_score.loc[latest_dt], active_mask=active_today)
 
-print(f"🔍 DEBUG: std_pct_today max = {std_pct_today.max():.4f}（現在一定是 1.0）")
+print(f"🔍 DEBUG: std_pct_today max = {std_pct_today.max():.4f}")
 print(f"    DY max = {dy_pct_today.max():.4f}")
 
 clean_score_today = dy_pct_today * 0.33 + std_pct_today * 0.67
@@ -277,6 +285,7 @@ compare_dt = get_compare_dt(score_raw_today.index, latest_dt, days=7)
 prev_current_holdings_rank_map = {}
 prev_filtered_rank_map = {}
 prev_market_rank_map = {}
+
 if compare_dt is not None:
     dy_pct_prev = normalize_pct(dy_rank.loc[compare_dt])
     std_pct_prev = normalize_pct(std_score.loc[compare_dt])
@@ -331,11 +340,11 @@ df_m = df_m[df_m["score"] > 0].copy().sort_values("score", ascending=False)
 df_m["base_rank"] = range(1, len(df_m) + 1)
 market_rank = [build_stock_item_high_div(sid, row, row["base_rank"], prev_market_rank_map, False, bool(row["passed_filter"])) for sid, row in df_m.iterrows()]
 
-# ====================== 歷史走勢（修正版） ======================
+# ====================== 歷史走勢（加強版） ======================
 def add_history_to_items(items):
     if len(items) == 0: return items
     all_dates = score_raw_today.index
-    past_dates = all_dates[all_dates <= latest_dt][-5:]
+    past_dates = all_dates[all_dates <= latest_dt][-5:]   # 加強保護
     sub_df = pd.DataFrame(index=past_dates, columns=score_raw_today.columns)
     for dt in past_dates:
         active_dt = price.loc[dt].notna()
@@ -358,7 +367,7 @@ current_holdings_rank = add_history_to_items(current_holdings_rank)
 filtered_rank = add_history_to_items(filtered_rank)
 market_rank = add_history_to_items(market_rank)
 
-# ====================== 嚴謹版 filter_days（與主策略相同） ======================
+# ====================== 嚴謹版 filter_days ======================
 STREAK_FILE_HIGH_DIV = Path("filter_streak_high_div.json")
 PREV_RESULT_FILE_HIGH_DIV = Path("public/result_2.json")
 
@@ -425,9 +434,11 @@ update_filter_days_with_prev_result_high_div(filtered_rank, latest_dt)
 # 九、計算 Overview 績效指標與圖表
 # =============================================================================
 daily_return = report_x.creturn.pct_change().fillna(0)
+
 def calc_performance(ret_series, start_date=None):
     if start_date: ret_series = ret_series.loc[start_date:]
-    if len(ret_series) == 0: return {"total_return": 0.0, "annual_return": 0.0, "max_drawdown": 0.0, "sharpe_ratio": 0.0}
+    if len(ret_series) == 0: 
+        return {"total_return": 0.0, "annual_return": 0.0, "max_drawdown": 0.0, "sharpe_ratio": 0.0}
     cum = (1 + ret_series).cumprod()
     total_ret = (cum.iloc[-1] - 1) * 100 if len(cum) > 0 else 0
     days = (ret_series.index[-1] - ret_series.index[0]).days if len(ret_series) > 1 else 1
@@ -435,7 +446,8 @@ def calc_performance(ret_series, start_date=None):
     annual_ret = ((1 + total_ret/100) ** (1/years) - 1) * 100 if years > 0 else 0
     max_dd = ((cum / cum.cummax()) - 1).min() * 100
     sharpe = (ret_series.mean() * 252 - 0.02) / (ret_series.std() * np.sqrt(252)) if ret_series.std() != 0 else 0
-    return {"total_return": round(total_ret, 2), "annual_return": round(annual_ret, 2), "max_drawdown": round(max_dd, 2), "sharpe_ratio": round(sharpe, 2)}
+    return {"total_return": round(total_ret, 2), "annual_return": round(annual_ret, 2), 
+            "max_drawdown": round(max_dd, 2), "sharpe_ratio": round(sharpe, 2)}
 
 overview = {
     "start_date": "2010-03-31",
@@ -479,6 +491,7 @@ chart_json = {
     "5年": get_pts(report_x.creturn, report_x.benchmark, now - pd.Timedelta(days=5*365), period="5年"),
     "全部": get_pts(report_x.creturn, report_x.benchmark, report_x.creturn.index.min(), period="全部")
 }
+
 if chart_json.get("今年") and len(chart_json["今年"]) > 0:
     overview["total_return_ytd"] = round(float(chart_json["今年"][-1]["returns"]), 2)
 
@@ -497,9 +510,10 @@ result_json = {
 
 public_path = Path("public")
 public_path.mkdir(parents=True, exist_ok=True)
+
 with open(public_path / "result_2.json", 'w', encoding='utf-8') as f:
     json.dump(result_json, f, ensure_ascii=False, indent=2)
 with open(public_path / "chart_data_2.json", 'w', encoding='utf-8') as f:
     json.dump(chart_json, f, ensure_ascii=False, indent=2)
 
-print(f"============== ✅ 高息低波 已加入 filter_days（與主策略相同） ==============")
+print(f"============== ✅ 高息低波 已完成（含 filter_days + 日期保護） ==============")
