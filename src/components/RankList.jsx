@@ -572,18 +572,24 @@ export default function RankList({
                       </div>
 
                       {metricColumns.map(column => (
-                        <div key={column.key} className="text-center text-sm tabular-nums">
-                          {column.type === 'pct' ? (
-                            <span className={`${pctBadgeClass(row[column.key])} opacity-80`}>
-                              {formatPct(row[column.key])}
-                            </span>
-                          ) : (
-                            <span className="inline-block max-w-full truncate text-zinc-700" title={row[column.key] ?? ''}>
-                              {row[column.key] ?? '--'}
-                            </span>
-                          )}
-                        </div>
-                      ))}
+                      <div key={column.key} className="text-center text-sm tabular-nums">
+                        {column.type === 'pct' ? (
+                          <span className={`${pctBadgeClass(row[column.key])} opacity-80`}>
+                            {formatPct(row[column.key])}
+                          </span>
+                        ) : (
+                          /* 這裡加上了微軟正黑體的條件判定與加粗 font-semibold，讓字體更清晰 */
+                          <span 
+                            className={`inline-block max-w-full truncate text-zinc-700 ${
+                              column.key === 'industry' ? "font-['Microsoft_JhengHei'] font-semibold" : ""
+                            }`} 
+                            title={row[column.key] ?? ''}
+                          >
+                            {row[column.key] ?? '--'}
+                          </span>
+                        )}
+                      </div>
+                    ))}
 
                       <div className={`flex flex-col items-center justify-center text-sm font-semibold tabular-nums ${rankChange.className} min-h-[52px] landscape:max-md:min-h-[40px]`}>
                         <div>{rankChange.mainLabel}</div>
