@@ -276,10 +276,10 @@ export default function RankList({
 
   // === 使用舊版較適合手機的 grid 設定（間距更佳）===
   const gridCols = isFilteredRankList 
-  ? 'grid-cols-[60px_minmax(95px,135px)_68px_75px_75px_75px_100px_75px] landscape:md:grid-cols-[60px_minmax(95px,170px)_85px_75px_75px_75px_100px_75px] md:grid-cols-[60px_minmax(95px,170px)_85px_75px_75px_75px_100px_75px]' 
+  ? 'grid-cols-[60px_minmax(95px,135px)_68px_85px_85px_85px_100px_75px] landscape:md:grid-cols-[60px_minmax(95px,170px)_85px_85px_85px_85px_100px_75px] md:grid-cols-[60px_minmax(95px,170px)_85px_85px_85px_85px_100px_75px]' 
   : showFilterColumn 
-    ? 'grid-cols-[60px_minmax(95px,135px)_68px_75px_75px_75px_100px_60px] landscape:md:grid-cols-[60px_minmax(95px,170px)_85px_75px_75px_75px_100px_60px] md:grid-cols-[60px_minmax(95px,170px)_85px_75px_75px_75px_100px_60px]' 
-    : 'grid-cols-[64px_minmax(150px,220px)_85px_80px_80px_80px_160px]'
+    ? 'grid-cols-[60px_minmax(95px,135px)_68px_85px_85px_85px_100px_60px] landscape:md:grid-cols-[60px_minmax(95px,170px)_85px_85px_85px_85px_100px_60px] md:grid-cols-[60px_minmax(95px,170px)_85px_85px_85px_85px_100px_60px]' 
+    : 'grid-cols-[64px_minmax(150px,220px)_85px_85px_85px_85px_160px]'
 
   const minWidth = (isFilteredRankList || showFilterColumn) ? 'min-w-[830px]' : 'min-w-[720px]'
 
