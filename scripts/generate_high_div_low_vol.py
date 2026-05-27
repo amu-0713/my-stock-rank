@@ -367,10 +367,6 @@ current_holdings_rank = add_history_to_items(current_holdings_rank)
 filtered_rank = add_history_to_items(filtered_rank)
 market_rank = add_history_to_items(market_rank)
 
-# ====================== 嚴謹版 filter_days ======================
-STREAK_FILE_HIGH_DIV = Path("filter_streak_high_div.json")
-PREV_RESULT_FILE_HIGH_DIV = Path("public/result_2.json")
-
 # ====================== 嚴謹版 filter_days（修正版） ======================
 STREAK_FILE_HIGH_DIV = Path("filter_streak_high_div.json")
 PREV_RESULT_FILE_HIGH_DIV = Path("public/result_2.json")
