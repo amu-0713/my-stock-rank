@@ -363,7 +363,6 @@ df_h = pd.DataFrame({
     "rs_pct": r_rs_today.reindex(fixed_hold_ids),
     "peg_pct": r_peg_today.reindex(fixed_hold_ids),
     "dd_pct": r_dd_today.reindex(fixed_hold_ids),
-    # result.json 不包含 corr_pct
     "passed_filter": final_cond.loc[latest_dt].reindex(fixed_hold_ids)
 })
 df_h = df_h.sort_values("score", ascending=False).copy()
@@ -378,7 +377,6 @@ df_f = pd.DataFrame({
     "rs_pct": r_rs_today.reindex(filtered_ids),
     "peg_pct": r_peg_today.reindex(filtered_ids),
     "dd_pct": r_dd_today.reindex(filtered_ids),
-    # result.json 不包含 corr_pct
     "passed_filter": True
 })
 df_f = df_f.sort_values("score", ascending=False).copy()
@@ -392,7 +390,6 @@ df_m = pd.DataFrame({
     "rs_pct": r_rs_today,
     "peg_pct": r_peg_today,
     "dd_pct": r_dd_today,
-    # result.json 不包含 corr_pct
     "passed_filter": final_cond.loc[latest_dt]
 })
 df_m = df_m[df_m["score"] > 0].copy()
@@ -422,51 +419,39 @@ market_rank = add_history_to_items(market_rank)
 PREV_RESULT_FILE = Path("public/result.json")
 
 def update_filter_days_with_prev_result(rank_list, latest_dt):
-    """
-    精準版 filter_days（完全去狀態化）：
-    1. 同一天（或非交易日導致最新資料日期未推進）重複執行時，天數完全不動。
-    2. 真正進入新交易日，才進行天數累加 (+1) 或新進榜初始化 (1)。
-    """
     if not rank_list:
         return
-
     prev_days_map = {}
     is_same_day = False
     current_date_str = str(latest_dt.date())
-
     if PREV_RESULT_FILE.exists():
         try:
             prev_data = json.loads(PREV_RESULT_FILE.read_text(encoding="utf-8"))
             prev_date_str = prev_data.get("latest_date")
-            
-            # 【關鍵判定】如果上一次的資料日期跟今天算出來的一模一樣，代表是非交易日或同日重複執行
             if prev_date_str == current_date_str:
                 is_same_day = True
-                print(f"📅 資料日期相同 ({current_date_str})，判定為非交易日或同日重複執行 → 鎖定天數不變。")
-            
-            # 直接從上一次的 filtered_rank 撈出所有股票的留存天數
+                print(f"📅 資料日期相同 ({current_date_str})，鎖定天數不變。")
             for item in prev_data.get("filtered_rank", []):
                 sid = item.get("stock_id")
                 if sid:
                     prev_days_map[sid] = item.get("filter_days", 1)
         except Exception as e:
             print(f"⚠️ 讀取上一個 result.json 失敗: {e}")
-
-    # 開始更新當前列表的天數
     for item in rank_list:
         sid = item["stock_id"]
-        
         if is_same_day:
-            # 狀況 A：非交易日或同天重複執行，直接沿用上一次的天數（若上一次找不到則預設給 1）
             item["filter_days"] = prev_days_map.get(sid, 1)
         else:
-            # 狀況 B：真正的新交易日，比對上一個交易日是否有這檔股票
             if sid in prev_days_map:
-                item["filter_days"] = prev_days_map[sid] + 1  # 舊人加 1 天
+                item["filter_days"] = prev_days_map[sid] + 1
             else:
-                item["filter_days"] = 1                       # 新人算 1 天
+                item["filter_days"] = 1
+    print(f"✅ 濾網天數計算完成！")
 
-    print(f"✅ 濾網天數計算完成！模式: {'[鎖定不動]' if is_same_day else '[跨日累加]'}")
+# 💡 💡 修正：在此呼叫計算天數的函式，將留存天數寫入牛市各排名的 item 中
+update_filter_days_with_prev_result(current_holdings_rank, latest_dt)
+update_filter_days_with_prev_result(filtered_rank, latest_dt)
+update_filter_days_with_prev_result(market_rank, latest_dt)
 
 # ====================== 計算 overview ======================
 print("🚀 開始計算首頁進階指標...")
@@ -533,7 +518,7 @@ if chart_json.get("今年") and len(chart_json["今年"]) > 0:
     latest_ytd = chart_json["今年"][-1]["returns"]
     overview["total_return_ytd"] = round(float(latest_ytd), 2)
 
-# ====================== 最終輸出 result.json（不含 corr_pct） ======================
+# ====================== 最終輸出 result.json ======================
 result_json = {
     "latest_date": str(latest_dt.date()),
     "updated_at": datetime.now(ZoneInfo("Asia/Taipei")).strftime('%Y-%m-%d %H:%M'),
@@ -545,7 +530,7 @@ result_json = {
     "market_rank": market_rank
 }
 
-# ====================== 產生 result_bear.json（純熊市權重 + 直接使用 corr_pct） ======================
+# ====================== 產生 result_bear.json ======================
 print("🚀 開始產生 result_bear.json（純熊市權重）...")
 w_bear = {'rs': 0.3, 'corr': 0.3, 'dd': 0.4, 'peg': 0.0}
 score_raw_today_bear = (
@@ -554,7 +539,6 @@ score_raw_today_bear = (
     r_dd_today * w_bear['dd']
 )
 
-# recent_adjusted_bear（修正為使用 bear score 的 index）
 recent_adjusted_bear = pd.DataFrame(index=recent_dates, columns=score_raw_today_bear.index)
 for dt in recent_dates:
     r_rs_h = rs_fixed.loc[dt].rank(pct=True)
@@ -562,13 +546,12 @@ for dt in recent_dates:
     r_dd_h = (-dd).loc[dt].rank(pct=True)
     recent_adjusted_bear.loc[dt] = r_rs_h * w_bear['rs'] + r_corr_h * w_bear['corr'] + r_dd_h * w_bear['dd']
 
-# 熊市版本的三種排名（直接使用 corr_pct，不產生 peg_pct）
 df_h_bear = pd.DataFrame({
     "score": score_raw_today_bear.reindex(fixed_hold_ids),
     "close": price.loc[latest_dt].reindex(fixed_hold_ids),
     "rs_pct": r_rs_today.reindex(fixed_hold_ids),
     "dd_pct": r_dd_today.reindex(fixed_hold_ids),
-    "corr_pct": r_corr_today.reindex(fixed_hold_ids),   # 直接使用 corr_pct
+    "corr_pct": r_corr_today.reindex(fixed_hold_ids),
     "passed_filter": final_cond.loc[latest_dt].reindex(fixed_hold_ids)
 })
 df_h_bear = df_h_bear.sort_values("score", ascending=False).copy()
@@ -580,7 +563,7 @@ df_f_bear = pd.DataFrame({
     "close": price.loc[latest_dt].reindex(filtered_ids),
     "rs_pct": r_rs_today.reindex(filtered_ids),
     "dd_pct": r_dd_today.reindex(filtered_ids),
-    "corr_pct": r_corr_today.reindex(filtered_ids),   # 直接使用 corr_pct
+    "corr_pct": r_corr_today.reindex(filtered_ids),
     "passed_filter": True
 })
 df_f_bear = df_f_bear.sort_values("score", ascending=False).copy()
@@ -592,7 +575,7 @@ df_m_bear = pd.DataFrame({
     "close": price.loc[latest_dt],
     "rs_pct": r_rs_today,
     "dd_pct": r_dd_today,
-    "corr_pct": r_corr_today,   # 直接使用 corr_pct
+    "corr_pct": r_corr_today,
     "passed_filter": final_cond.loc[latest_dt]
 })
 df_m_bear = df_m_bear[df_m_bear["score"] > 0].copy()
@@ -600,27 +583,11 @@ df_m_bear = df_m_bear.sort_values("score", ascending=False)
 df_m_bear["base_rank"] = range(1, len(df_m_bear) + 1)
 market_rank_bear = [item for item in [build_stock_item(sid, row, row["base_rank"], prev_market_rank_map, False, bool(row["passed_filter"])) for sid, row in df_m_bear.iterrows()] if item is not None]
 
-def add_history_to_items_bear(items):
-    for item in items:
-        sid = item["stock_id"]
-        history_list = []
-        count = 0
-        for dt in recent_dates:
-            if count >= 5: break
-            val = recent_adjusted_bear.loc[dt, sid]
-            display_score = score_to_display(val) if pd.notna(val) else 42.9
-            history_list.append({"date": str(dt.date()), "score": round(display_score, 1)})
-            count += 1
-        item["history"] = history_list
-    return items
+current_holdings_rank_bear = add_history_to_items(current_holdings_rank_bear)
+filtered_rank_bear = add_history_to_items(filtered_rank_bear)
+market_rank_bear = add_history_to_items(market_rank_bear)
 
-# 1. 處理完 bear 的歷史紀錄
-current_holdings_rank_bear = add_history_to_items_bear(current_holdings_rank_bear)
-filtered_rank_bear = add_history_to_items_bear(filtered_rank_bear)
-market_rank_bear = add_history_to_items_bear(market_rank_bear)
-
-# ================= 💡 新增：將牛市的 filter_days 同步給熊市 =================
-# 先從牛市的各個 rank 列表中建立完整的 {stock_id: filter_days} 對照表
+# ================= 💡 修正：將牛市剛算好的 filter_days 同步給熊市 =================
 bull_filter_days_map = {}
 for item in (result_json.get("market_rank", []) + 
              result_json.get("filtered_rank", []) + 
@@ -628,16 +595,14 @@ for item in (result_json.get("market_rank", []) +
     if "stock_id" in item and "filter_days" in item:
         bull_filter_days_map[item["stock_id"]] = item["filter_days"]
 
-# 將天數動態寫入熊市的列表資料中
 for item in (current_holdings_rank_bear + filtered_rank_bear + market_rank_bear):
     sid = item.get("stock_id")
     if sid in bull_filter_days_map:
         item["filter_days"] = bull_filter_days_map[sid]
     else:
-        item["filter_days"] = 0  # 若牛市找不到，預設給 0 或 None
+        item["filter_days"] = 1  # 預設為 1，與高息低波同步，避免給 0 導致前端異常
 # =========================================================================
 
-# 2. 接著產出原本的 result_bear_json 結構
 result_bear_json = {
     "latest_date": str(latest_dt.date()),
     "updated_at": datetime.now(ZoneInfo("Asia/Taipei")).strftime('%Y-%m-%d %H:%M'),
@@ -649,17 +614,11 @@ result_bear_json = {
     "market_rank": market_rank_bear
 }
 
-# ====================== 寫入兩個 json ======================
 Path("public").mkdir(parents=True, exist_ok=True)
-
 with open("public/result.json", 'w', encoding='utf-8') as f:
     json.dump(result_json, f, ensure_ascii=False, indent=2)
-
 with open("public/result_bear.json", 'w', encoding='utf-8') as f:
     json.dump(result_bear_json, f, ensure_ascii=False, indent=2)
-
 with open("public/chart_data.json", 'w', encoding='utf-8') as f:
     json.dump(chart_json, f, ensure_ascii=False, indent=2)
-
-print(f"✅ result.json & result_bear.json & chart_data.json 已更新（filter_days 已使用上一個實際交易日比對）")
-print(f"今年報酬最終值: +{overview['total_return_ytd']}%")
+print(f"✅ 更新完成！")
