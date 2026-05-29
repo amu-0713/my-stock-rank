@@ -415,43 +415,42 @@ current_holdings_rank = add_history_to_items(current_holdings_rank)
 filtered_rank = add_history_to_items(filtered_rank)
 market_rank = add_history_to_items(market_rank)
 
-# ====================== 嚴謹版 filter_days：比對上一個實際 result.json ======================
+# ====================== 🛠️ 嚴謹版 filter_days 處理機制（假日與同天更新保護） ======================
 PREV_RESULT_FILE = Path("public/result.json")
+prev_days_map = {}
+is_same_day = False
+current_date_str = str(latest_dt.date())
 
-def update_filter_days_with_prev_result(rank_list, latest_dt):
-    if not rank_list:
-        return
-    prev_days_map = {}
-    is_same_day = False
-    current_date_str = str(latest_dt.date())
-    if PREV_RESULT_FILE.exists():
-        try:
-            prev_data = json.loads(PREV_RESULT_FILE.read_text(encoding="utf-8"))
-            prev_date_str = prev_data.get("latest_date")
-            if prev_date_str == current_date_str:
-                is_same_day = True
-                print(f"📅 資料日期相同 ({current_date_str})，鎖定天數不變。")
-            for item in prev_data.get("filtered_rank", []):
-                sid = item.get("stock_id")
-                if sid:
-                    prev_days_map[sid] = item.get("filter_days", 1)
-        except Exception as e:
-            print(f"⚠️ 讀取上一個 result.json 失敗: {e}")
-    for item in rank_list:
-        sid = item["stock_id"]
-        if is_same_day:
-            item["filter_days"] = prev_days_map.get(sid, 1)
-        else:
-            if sid in prev_days_map:
-                item["filter_days"] = prev_days_map[sid] + 1
-            else:
-                item["filter_days"] = 1
-    print(f"✅ 濾網天數計算完成！")
+# 1. 讀取昨日舊檔並進行同天判定
+if PREV_RESULT_FILE.exists():
+    try:
+        prev_data = json.loads(PREV_RESULT_FILE.read_text(encoding="utf-8"))
+        prev_date_str = prev_data.get("latest_date")
+        if prev_date_str == current_date_str:
+            is_same_day = True
+            print(f"📅 偵測到今日資料日期已存在 ({current_date_str})，鎖定昨日天數不進行遞增。")
+        
+        # 僅提取舊檔中 filtered_rank 的留存天數
+        for item in prev_data.get("filtered_rank", []):
+            sid = item.get("stock_id")
+            if sid and "filter_days" in item:
+                prev_days_map[sid] = item["filter_days"]
+    except Exception as e:
+        print(f"⚠️ 讀取上一個 result.json 失敗: {e}")
 
-# 💡 💡 修正：在此呼叫計算天數的函式，將留存天數寫入牛市各排名的 item 中
-update_filter_days_with_prev_result(current_holdings_rank, latest_dt)
-update_filter_days_with_prev_result(filtered_rank, latest_dt)
-update_filter_days_with_prev_result(market_rank, latest_dt)
+# 2. 【核心修改點一】只更新牛市的 filtered_rank 天數，其餘兩個 Rank 絕不注入天數欄位
+today_filtered_days_map = {}
+for item in filtered_rank:
+    sid = item["stock_id"]
+    yesterday_days = prev_days_map.get(sid, 0)
+    if is_same_day:
+        item["filter_days"] = yesterday_days if yesterday_days > 0 else 1
+    else:
+        item["filter_days"] = yesterday_days + 1
+    # 存入記憶體對照表，等等完美對齊共享給熊市
+    today_filtered_days_map[sid] = item["filter_days"]
+
+print(f"✅ 牛市篩選榜天數計算完成！")
 
 # ====================== 計算 overview ======================
 print("🚀 開始計算首頁進階指標...")
@@ -587,20 +586,21 @@ current_holdings_rank_bear = add_history_to_items(current_holdings_rank_bear)
 filtered_rank_bear = add_history_to_items(filtered_rank_bear)
 market_rank_bear = add_history_to_items(market_rank_bear)
 
-# ================= 💡 修正：將牛市剛算好的 filter_days 同步給熊市 =================
-bull_filter_days_map = {}
-for item in (result_json.get("market_rank", []) + 
-             result_json.get("filtered_rank", []) + 
-             result_json.get("current_holdings_rank", [])):
-    if "stock_id" in item and "filter_days" in item:
-        bull_filter_days_map[item["stock_id"]] = item["filter_days"]
-
-for item in (current_holdings_rank_bear + filtered_rank_bear + market_rank_bear):
-    sid = item.get("stock_id")
-    if sid in bull_filter_days_map:
-        item["filter_days"] = bull_filter_days_map[sid]
+# ================= 🛠️ 【核心修改點二】將牛市算好的正確天數精準同步給熊市篩選榜 =================
+for item in filtered_rank_bear:
+    sid = item["stock_id"]
+    if sid in today_filtered_days_map:
+        # 完美與牛市當日的最終天數對齊
+        item["filter_days"] = today_filtered_days_map[sid]
     else:
-        item["filter_days"] = 1  # 預設為 1，與高息低波同步，避免給 0 導致前端異常
+        # 極少數例外狀況：若該股今天只出現在熊市榜，則比對舊歷史資料處理
+        yesterday_days = prev_days_map.get(sid, 0)
+        if is_same_day:
+            item["filter_days"] = yesterday_days if yesterday_days > 0 else 1
+        else:
+            item["filter_days"] = yesterday_days + 1
+
+# 💡 乾淨度保證：熊市的持股與全市場排名不加入任何天數欄位
 # =========================================================================
 
 result_bear_json = {
