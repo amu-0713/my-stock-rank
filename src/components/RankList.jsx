@@ -252,6 +252,7 @@ function headerClassName(isClickable, isActive) {
 
 function sortIndicator(sortDirection, isActive) {
   if (!isActive) return '< >'
+  if (sortDirection === 'new') return 'NEW'
   return sortDirection === 'asc' ? '^' : 'v'
 }
 
@@ -375,8 +376,21 @@ export default function RankList({
   const sortedRows = useMemo(() => {
     const safeRows = Array.isArray(filteredRows) ? filteredRows : []
     const activeSortKey = normalizeSortKey(sortKey, [...allowedSortableFields], allowedSortableFields)
+
+    if (isFilteredRankList && activeSortKey === 'rank_change' && sortDirection === 'new') {
+      return [...safeRows].sort((a, b) => {
+        const leftIsNew = a?.change_type === 'new'
+        const rightIsNew = b?.change_type === 'new'
+        if (leftIsNew !== rightIsNew) return leftIsNew ? -1 : 1
+        if (!leftIsNew && !rightIsNew) {
+          const rankChangeCompare = compareRows(a, b, 'rank_change', 'desc')
+          if (rankChangeCompare !== 0) return rankChangeCompare
+        }
+        return (parseSortValue(a?.base_rank) ?? Number.MAX_SAFE_INTEGER) - (parseSortValue(b?.base_rank) ?? Number.MAX_SAFE_INTEGER)
+      })
+    }
     return [...safeRows].sort((a, b) => compareRows(a, b, activeSortKey, sortDirection))
-  }, [allowedSortableFields, filteredRows, sortDirection, sortKey])
+  }, [allowedSortableFields, isFilteredRankList, filteredRows, sortDirection, sortKey])
 
   const displayedRows = useMemo(() => {
     if (!isMarketRank) return sortedRows
@@ -391,6 +405,15 @@ export default function RankList({
     if (!allowedSortableFields.has(nextSortKey)) return
 
     if (sortKey === nextSortKey) {
+      if (isFilteredRankList && nextSortKey === 'rank_change') {
+        if (sortDirection === 'desc') setSortDirection('asc')
+        else if (sortDirection === 'asc') setSortDirection('new')
+        else {
+          setSortKey(normalizedDefaultSortKey)
+          setSortDirection(DEFAULT_SORT_DIRECTION)
+        }
+        return
+      }
       if (sortDirection === 'desc') setSortDirection('asc')
       else {
         setSortKey(normalizedDefaultSortKey)
