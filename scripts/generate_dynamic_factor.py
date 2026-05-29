@@ -397,14 +397,16 @@ df_m = df_m.sort_values("score", ascending=False)
 df_m["base_rank"] = range(1, len(df_m) + 1)
 market_rank = [item for item in [build_stock_item(sid, row, row["base_rank"], prev_market_rank_map, False, bool(row["passed_filter"])) for sid, row in df_m.iterrows()] if item is not None]
 
-def add_history_to_items(items):
+def add_history_to_items(items, adjusted_df=None):
+    if adjusted_df is None:
+        adjusted_df = recent_adjusted
     for item in items:
         sid = item["stock_id"]
         history_list = []
         count = 0
         for dt in recent_dates:
             if count >= 5: break
-            val = recent_adjusted.loc[dt, sid]
+            val = adjusted_df.loc[dt, sid]
             display_score = score_to_display(val) if pd.notna(val) else 42.9
             history_list.append({"date": str(dt.date()), "score": round(display_score, 1)})
             count += 1
@@ -582,9 +584,9 @@ df_m_bear = df_m_bear.sort_values("score", ascending=False)
 df_m_bear["base_rank"] = range(1, len(df_m_bear) + 1)
 market_rank_bear = [item for item in [build_stock_item(sid, row, row["base_rank"], prev_market_rank_map, False, bool(row["passed_filter"])) for sid, row in df_m_bear.iterrows()] if item is not None]
 
-current_holdings_rank_bear = add_history_to_items(current_holdings_rank_bear)
-filtered_rank_bear = add_history_to_items(filtered_rank_bear)
-market_rank_bear = add_history_to_items(market_rank_bear)
+current_holdings_rank_bear = add_history_to_items(current_holdings_rank_bear, recent_adjusted_bear)
+filtered_rank_bear = add_history_to_items(filtered_rank_bear, recent_adjusted_bear)
+market_rank_bear = add_history_to_items(market_rank_bear, recent_adjusted_bear)
 
 # ================= 🛠️ 【核心修改點二】將牛市算好的正確天數精準同步給熊市篩選榜 =================
 for item in filtered_rank_bear:
@@ -622,3 +624,4 @@ with open("public/result_bear.json", 'w', encoding='utf-8') as f:
 with open("public/chart_data.json", 'w', encoding='utf-8') as f:
     json.dump(chart_json, f, ensure_ascii=False, indent=2)
 print(f"✅ 更新完成！")
+
