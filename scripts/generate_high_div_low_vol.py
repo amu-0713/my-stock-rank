@@ -56,11 +56,11 @@ dy_score = dy_rank
 score_raw_today = dy_score * 0.33 + std_score * 0.67
 
 # =============================================================================
-# 五、選股迴圈（歷史季度換股）
+# 五、選股迴圈（精準嚴格防呆版：金融最多4檔 + 補滿12檔）
 # =============================================================================
 max_holdings = 12
 max_financial = 4
-candidate_n = 25
+
 loop_score = score_raw_today.where(final_cond)
 raw_position = pd.DataFrame(0, index=loop_score.index, columns=loop_score.columns, dtype=int)
 
@@ -69,30 +69,34 @@ for dt in loop_score.index:
     if len(row_score) == 0:
         continue
       
-    s = row_score.sort_values(ascending=False).head(candidate_n)
-    fin_selected = []
-    non_selected = []
+    # 依分數由大到小排序
+    s = row_score.sort_values(ascending=False)
+    
+    selected = []
+    fin_count = 0
+    
+    # 嚴格按順序掃描所有合格股票
     for stock in s.index:
         fin_flag = is_fin.get(stock, False)
+        
         if fin_flag:
-            if len(fin_selected) < max_financial:
-                fin_selected.append(stock)
+            if fin_count < max_financial:
+                selected.append(stock)
+                fin_count += 1
         else:
-            non_selected.append(stock)
-        if len(fin_selected) + len(non_selected) >= max_holdings:
-            break
-    selected = fin_selected + non_selected
-    if len(selected) < max_holdings:
-        remaining_rb = [stk for stk in s.index if stk not in selected]
-        for stock in remaining_rb:
-            f_flag = is_fin.get(stock, False)
-            if f_flag and len(fin_selected) >= max_financial:
-                continue
             selected.append(stock)
-            if f_flag:
-                fin_selected.append(stock)
+            
+        if len(selected) >= max_holdings:
+            break
+            
+    # 【安全備用池】若掃完一輪非金融股不足，導致總持股不滿 12 檔，則放寬限制用剩餘金融股補滿
+    if len(selected) < max_holdings:
+        remaining = [stk for stk in s.index if stk not in selected]
+        for stock in remaining:
+            selected.append(stock)
             if len(selected) >= max_holdings:
                 break
+                
     raw_position.loc[dt, selected] = 1
 
 # =============================================================================
@@ -135,7 +139,6 @@ print("✅ 回測執行完成！開始精準生成三頁排名資料...")
 # =============================================================================
 # 八、精準脫水前端 JSON 生成邏輯
 # =============================================================================
-# 【重要修正】確保使用所有資料都存在的最後一天
 common_index = price.index.intersection(dy_rank.index).intersection(std_score.index).intersection(final_cond.index)
 available_dates = common_index[final_cond.loc[common_index].any(axis=1)]
 latest_dt = available_dates.max()
@@ -247,25 +250,30 @@ def normalize_pct(series, active_mask=None):
             normalized.loc[active_max_idx] = 1.0
     return normalized
 
-# ====================== 產生歷史固定持股名單 ======================
-rb_score = loop_score.loc[real_rebalance_dt].dropna().sort_values(ascending=False).head(candidate_n)
-fin_selected_rb = []
-non_selected_rb = []
+# ====================== 產生歷史固定持股名單（同步修正為安全防防呆邏輯） ======================
+rb_score = loop_score.loc[real_rebalance_dt].dropna().sort_values(ascending=False)
+
+fixed_hold_ids = []
+fin_count_rb = 0
+
 for stock in rb_score.index:
-    if is_fin.get(stock, False):
-        if len(fin_selected_rb) < max_financial: fin_selected_rb.append(stock)
+    fin_flag = is_fin.get(stock, False)
+    if fin_flag:
+        if fin_count_rb < max_financial:
+            fixed_hold_ids.append(stock)
+            fin_count_rb += 1
     else:
-        non_selected_rb.append(stock)
-    if len(fin_selected_rb) + len(non_selected_rb) >= max_holdings: break
-fixed_hold_ids = fin_selected_rb + non_selected_rb
+        fixed_hold_ids.append(stock)
+        
+    if len(fixed_hold_ids) >= max_holdings:
+        break
+
 if len(fixed_hold_ids) < max_holdings:
     remaining_rb = [stk for stk in rb_score.index if stk not in fixed_hold_ids]
     for stock in remaining_rb:
-        f_flag = is_fin.get(stock, False)
-        if f_flag and len(fin_selected_rb) >= max_financial: continue
         fixed_hold_ids.append(stock)
-        if f_flag: fin_selected_rb.append(stock)
-        if len(fixed_hold_ids) >= max_holdings: break
+        if len(fixed_hold_ids) >= max_holdings:
+            break
 
 # =============================================================================
 # 當日因子歸一化
@@ -290,7 +298,7 @@ if compare_dt is not None:
     dy_pct_prev = normalize_pct(dy_rank.loc[compare_dt])
     std_pct_prev = normalize_pct(std_score.loc[compare_dt])
     clean_score_prev = dy_pct_prev * 0.33 + std_pct_prev * 0.67
-   
+    
     df_h_prev = pd.DataFrame({"score": clean_score_prev.reindex(fixed_hold_ids)})
     prev_current_holdings_rank_map = build_rank_map(df_h_prev)
   
@@ -344,7 +352,7 @@ market_rank = [build_stock_item_high_div(sid, row, row["base_rank"], prev_market
 def add_history_to_items(items):
     if len(items) == 0: return items
     all_dates = score_raw_today.index
-    past_dates = all_dates[all_dates <= latest_dt][-5:]   # 加強保護
+    past_dates = all_dates[all_dates <= latest_dt][-5:]
     sub_df = pd.DataFrame(index=past_dates, columns=score_raw_today.columns)
     for dt in past_dates:
         active_dt = price.loc[dt].notna()
@@ -371,11 +379,6 @@ market_rank = add_history_to_items(market_rank)
 PREV_RESULT_FILE_HIGH_DIV = Path("public/result_2.json")
 
 def update_filter_days_with_prev_result_high_div(rank_list, latest_dt):
-    """
-    精準版 filter_days（完全去狀態化 - 高息低波專用）：
-    1. 同一天（或非交易日導致最新資料日期未推進）重複執行時，天數完全不動。
-    2. 真正進入新交易日，才進行天數累加 (+1) 或新進榜初始化 (1)。
-    """
     if not rank_list:
         return
 
@@ -388,12 +391,10 @@ def update_filter_days_with_prev_result_high_div(rank_list, latest_dt):
             prev_data = json.loads(PREV_RESULT_FILE_HIGH_DIV.read_text(encoding="utf-8"))
             prev_date_str = prev_data.get("latest_date")
             
-            # 【關鍵判定】如果上一次的資料日期跟今天算出來的一模一樣，代表是非交易日或同日重複執行
             if prev_date_str == current_date_str:
                 is_same_day = True
                 print(f"📅 高息低波：資料日期相同 ({current_date_str})，判定為非交易日或同日重複執行 → 鎖定天數不變。")
             
-            # 直接從上一次的 filtered_rank 撈出所有股票的留存天數
             for item in prev_data.get("filtered_rank", []):
                 sid = item.get("stock_id")
                 if sid:
@@ -401,24 +402,20 @@ def update_filter_days_with_prev_result_high_div(rank_list, latest_dt):
         except Exception as e:
             print(f"⚠️ 讀取上一個 result_2.json 失敗: {e}")
 
-    # 開始更新當前列表的天數
     for item in rank_list:
         sid = item["stock_id"]
-        
         if is_same_day:
-            # 狀況 A：非交易日或同天重複執行，直接沿用上一次的天數（若上一次找不到則預設給 1）
             item["filter_days"] = prev_days_map.get(sid, 1)
         else:
-            # 狀況 B：真正的新交易日，比對上一個交易日是否有這檔股票
             if sid in prev_days_map:
-                item["filter_days"] = prev_days_map[sid] + 1  # 舊人加 1 天
+                item["filter_days"] = prev_days_map[sid] + 1
             else:
-                item["filter_days"] = 1                       # 新人算 1 天
+                item["filter_days"] = 1
 
     print(f"✅ 高息低波：濾網天數計算完成！模式: {'[鎖定不動]' if is_same_day else '[跨日累加]'}")
 
-# 加入 filter_days（只對 filtered_rank）
 update_filter_days_with_prev_result_high_div(filtered_rank, latest_dt)
+
 # =============================================================================
 # 九、計算 Overview 績效指標與圖表
 # =============================================================================
