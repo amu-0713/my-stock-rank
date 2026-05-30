@@ -93,7 +93,7 @@ function getDisplayedRank(row, sortKey, isSearching, currentIndex) {
   return currentIndex + 1
 }
 
-function ScoreModal({ stock, onClose }) {
+function ScoreModal({ stock, rank, onClose }) {
   if (!stock?.history || stock.history.length === 0) return null
 
   const scoreValues = stock.history.map(item => item.score || 50)
@@ -123,8 +123,13 @@ function ScoreModal({ stock, onClose }) {
               <div className="font-bold text-2xl landscape:max-md:text-lg text-zinc-900 leading-tight landscape:max-md:pr-4">
                 {stock.name} ({stock.stock_id})
               </div>
-              <div className="text-4xl landscape:max-md:text-2xl font-bold text-blue-600 mt-2 landscape:max-md:mt-1">
-                {formatScore(stock.display_score)}
+              <div className="flex items-baseline gap-2 mt-2 landscape:max-md:mt-1">
+                <span className="text-4xl landscape:max-md:text-2xl font-bold text-blue-600">
+                  {formatScore(stock.display_score)}
+                </span>
+                <span className="text-base landscape:max-md:text-xs font-medium text-zinc-500 tabular-nums">
+                  (第 {rank} 名)
+                </span>
               </div>
             </div>
           </div>
@@ -146,7 +151,14 @@ function ScoreModal({ stock, onClose }) {
             <div className="flex justify-between items-start">
               <div>
                 <div className="font-bold text-2xl text-zinc-900">{stock.name} ({stock.stock_id})</div>
-                <div className="text-4xl font-bold text-blue-600 mt-2">{formatScore(stock.display_score)}</div>
+                <div className="flex items-baseline gap-2 mt-2">
+                  <span className="text-4xl font-bold text-blue-600">
+                    {formatScore(stock.display_score)}
+                  </span>
+                  <span className="text-lg font-medium text-zinc-500 tabular-nums">
+                    (第 {rank} 名)
+                  </span>
+                </div>
               </div>
               <button onClick={onClose} className="p-2 text-gray-400 hover:text-zinc-900 transition-colors">✕</button>
             </div>
@@ -274,7 +286,6 @@ export default function RankList({
 
   const sortableFieldSet = useMemo(() => getSortableFieldSet(strategyId), [strategyId])
 
-  // === 使用舊版較適合手機的 grid 設定（間距更佳）===
   const gridCols = isFilteredRankList 
   ? 'grid-cols-[60px_minmax(95px,135px)_68px_85px_85px_85px_100px_75px] landscape:md:grid-cols-[60px_minmax(95px,170px)_85px_85px_85px_85px_100px_75px] md:grid-cols-[60px_minmax(95px,170px)_85px_85px_85px_85px_100px_75px]' 
   : showFilterColumn 
@@ -428,7 +439,6 @@ export default function RankList({
 
   return (
     <div className={`isolate flex h-full min-h-0 landscape:max-md:h-screen landscape:max-md:min-h-screen flex-col overflow-hidden rounded-2xl border border-zinc-200 bg-white shadow-sm max-w-[960px] mx-auto ${!!selectedStock ? 'pointer-events-none' : ''}`}>
-      {/* Header 部分保持不變 */}
       <div className="z-40 border-b border-zinc-200 bg-white">
         <div className="flex w-full items-center justify-between gap-3 px-4 py-3 shadow-sm landscape:max-md:pl-5 landscape:max-md:pr-3 landscape:max-md:py-2">
           <div className="flex items-center gap-4">
@@ -523,19 +533,17 @@ export default function RankList({
                 </button>
 
                 {isFilteredRankList && (
-                <button
-                  type="button"
-                  /* 加上 text-xs md:text-sm 確保手機畫面上字體縮小不擠壓，並補上觸控選取優化 */
-                  className={`${headerClassName(allowedSortableFields.has('filter_days'), sortKey === 'filter_days')} text-xs md:text-sm leading-tight touch-manipulation`}
-                  onClick={() => handleSortChange('filter_days')}
-                >
-                  <span className="whitespace-nowrap">{TEXT.filterDays}</span>
-                  {/* 手機版把指標字體也縮小，避免折行 */}
-                  <span className="text-[10px] md:text-xs block md:inline-block mt-0.5 md:mt-0 md:ml-0.5">
-                    {sortIndicator(sortDirection, sortKey === 'filter_days')}
-                  </span>
-                </button>
-              )}
+                  <button
+                    type="button"
+                    className={`${headerClassName(allowedSortableFields.has('filter_days'), sortKey === 'filter_days')} text-xs md:text-sm leading-tight touch-manipulation`}
+                    onClick={() => handleSortChange('filter_days')}
+                  >
+                    <span className="whitespace-nowrap">{TEXT.filterDays}</span>
+                    <span className="text-[10px] md:text-xs block md:inline-block mt-0.5 md:mt-0 md:ml-0.5">
+                      {sortIndicator(sortDirection, sortKey === 'filter_days')}
+                    </span>
+                  </button>
+                )}
                 {showFilterColumn && (
                   <div className="flex min-h-[52px] items-center justify-center text-center">
                     濾網
@@ -567,7 +575,7 @@ export default function RankList({
 
                       <div 
                         className="text-center text-sm tabular-nums cursor-pointer" 
-                        onClick={() => setSelectedStock(row)}
+                        onClick={() => setSelectedStock({ data: row, rank: row.base_rank })}
                         title="-點擊顯示近五日分數走勢-"
                       >
                         <span className={scoreBadgeClass(row.display_score)}>
@@ -576,24 +584,23 @@ export default function RankList({
                       </div>
 
                       {metricColumns.map(column => (
-                      <div key={column.key} className="text-center text-sm tabular-nums">
-                        {column.type === 'pct' ? (
-                          <span className={`${pctBadgeClass(row[column.key])} opacity-80`}>
-                            {formatPct(row[column.key])}
-                          </span>
-                        ) : (
-                          /* 這裡加上了微軟正黑體的條件判定與加粗 font-semibold，讓字體更清晰 */
-                          <span 
-                            className={`inline-block max-w-full truncate text-zinc-700 ${
-                              column.key === 'industry' ? "font-['Microsoft_JhengHei'] font-semibold" : ""
-                            }`} 
-                            title={row[column.key] ?? ''}
-                          >
-                            {row[column.key] ?? '--'}
-                          </span>
-                        )}
-                      </div>
-                    ))}
+                        <div key={column.key} className="text-center text-sm tabular-nums">
+                          {column.type === 'pct' ? (
+                            <span className={`${pctBadgeClass(row[column.key])} opacity-80`}>
+                              {formatPct(row[column.key])}
+                            </span>
+                          ) : (
+                            <span 
+                              className={`inline-block max-w-full truncate text-zinc-700 ${
+                                column.key === 'industry' ? "font-['Microsoft_JhengHei'] font-semibold" : ""
+                              }`} 
+                              title={row[column.key] ?? ''}
+                            >
+                              {row[column.key] ?? '--'}
+                            </span>
+                          )}
+                        </div>
+                      ))}
 
                       <div className={`flex flex-col items-center justify-center text-sm font-semibold tabular-nums ${rankChange.className} min-h-[52px] landscape:max-md:min-h-[40px]`}>
                         <div>{rankChange.mainLabel}</div>
@@ -614,7 +621,7 @@ export default function RankList({
                         <button
                           type="button"
                           className="flex min-h-[52px] items-center justify-center rounded-xl hover:bg-zinc-100 landscape:max-md:min-h-[40px]"
-                          onClick={() => setSelectedStock(row)}
+                          onClick={() => setSelectedStock({ data: row, rank: row.base_rank })}
                           title={row.passed_filter ? '通過濾網' : '未通過濾網，點擊查看原因'}
                         >
                           {row.passed_filter ? (
@@ -650,7 +657,13 @@ export default function RankList({
         </div>
       </div>
 
-      {selectedStock && <ScoreModal stock={selectedStock} onClose={() => setSelectedStock(null)} />}
+      {selectedStock && (
+        <ScoreModal 
+          stock={selectedStock.data} 
+          rank={selectedStock.rank} 
+          onClose={() => setSelectedStock(null)} 
+        />
+      )}
     </div>
   )
 }
