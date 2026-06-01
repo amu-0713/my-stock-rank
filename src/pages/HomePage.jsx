@@ -526,22 +526,22 @@ export default function HomePage() {
                 先透過基本濾網篩選合格股票，再依牛熊市濾網判斷市場狀態，<span className="font-bold text-zinc-900">動態調整因子權重</span>進行排名。
               </p>
               <div className="pt-4">
-                <p className="font-medium text-zinc-800 mb-4">因子權重配置：</p>
+                <p className="font-medium text-zinc-800 mb-4">因子排名使用：</p>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div className="bg-zinc-50 border border-zinc-100 rounded-3xl p-6">
                     <div className="font-semibold text-emerald-700 mb-3">牛市</div>
                     <div className="space-y-2.5 text-[15px]">
-                      <div>• 相對強弱</div>
-                      <div>• PEG</div>
-                      <div>• 低回撤</div>
+                      <div>• RS 相對強弱</div>
+                      <div>• PEG 本益成長比</div>
+                      <div>• DD 下行風險</div>
                     </div>
                   </div>
                   <div className="bg-zinc-50 border border-zinc-100 rounded-3xl p-6">
                     <div className="font-semibold text-emerald-700 mb-3">熊市</div>
                     <div className="space-y-2.5 text-[15px]">
-                      <div>• 相對強弱</div>
-                      <div>• 低相關性</div>
-                      <div>• 低回撤</div>
+                      <div>• RS 相對強弱</div>
+                      <div>• Corr 低相關性</div>
+                      <div>• DD 下行風險</div>
                     </div>
                   </div>
                 </div>
@@ -559,14 +559,32 @@ export default function HomePage() {
             onClose={() => setInfoModalId(null)}
           >
             <div className="space-y-5 text-zinc-600 leading-relaxed">
-              <p className="text-[15px]">偏穩健與風險控制</p>
+              <p className="text-[15px]">
+                本策略為<span className="font-bold text-zinc-900">每季換股</span>的量化高息低波模型。
+              </p>
+              <p className="text-[15px]">
+                完全以<span className="font-bold text-zinc-900">固定邏輯規則</span>運作，不含人工主觀挑選，純粹由量化條件與數學模型驅動。
+              </p>
+              <p className="text-[15px]">
+                先透過基本濾網篩選合格股票，再透過因子進行排名。
+              </p>
+
+              <div className="pt-4">
+                <p className="font-medium text-zinc-800 mb-4">因子排名使用：</p>
+                <div className="bg-zinc-50 border border-zinc-100 rounded-3xl p-6">
+                  <div className="space-y-2.5 text-[15px]">
+                    <div>• DY 高殖利率</div>
+                    <div>• STD 低波動率</div>
+                  </div>
+                </div>
+              </div>
+
               <p className="text-xs text-zinc-500 pt-6 border-t">
                 點擊「進入策略」查看完整排名、持股明細與詳細選股邏輯
               </p>
             </div>
           </StrategyInfoModal>
         )}
-
         <section id="meta" className="mt-12 scroll-mt-8 rounded-xl border border-zinc-200/80 bg-zinc-50/80 px-5 py-4">
           <h2 className="text-xs font-medium uppercase tracking-wide text-zinc-500">更新與聯絡</h2>
           <dl className="mt-3 space-y-2 text-sm text-zinc-700">
