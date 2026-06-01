@@ -566,7 +566,7 @@ export default function HomePage() {
                 完全以<span className="font-bold text-zinc-900">固定邏輯規則</span>運作，不含人工主觀挑選，純粹由量化條件與數學模型驅動。
               </p>
               <p className="text-[15px]">
-                先透過基本濾網篩選合格股票，再透過因子進行排名，同時限制金融股上限（4檔）。
+                先透過基本濾網篩選合格股票，再透過因子進行排名，同時<span className="font-bold text-zinc-900">限制金融股上限</span>。
               </p>
 
               <div className="pt-4">
