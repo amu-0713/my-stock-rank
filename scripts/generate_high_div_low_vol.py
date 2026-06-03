@@ -213,8 +213,6 @@ else:
         next_rebalance_dt += pd.Timedelta(days=1)
 
 print(f"DEBUG: 基準日 {base_date.date()} -> 換倉執行日 {execution_dt.date()} -> 下次預計 {next_rebalance_dt.date()}")
-
-print(f"DEBUG: 基準日 {base_date.date()} -> 換倉執行日 {execution_dt.date()} -> 下次預計 {next_rebalance_dt.date()}")
 # 公司與產業映射
 company_info = data.get("company_basic_info").set_index("stock_id")
 company_short_name_map = company_info["公司簡稱"]
