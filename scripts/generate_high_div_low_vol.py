@@ -154,36 +154,35 @@ def get_rebalance_date_qe_jan(dt):
     else: return pd.Timestamp(f"{y}-10-31")
 
 real_rebalance_dt = get_rebalance_date_qe_jan(latest_dt)
-# 1. 取得完整交易日曆
+# 1. 取得交易日曆
 trading_days = data.get('price:收盤價').index
 
-# 2. 定義本次基準日 (T)
-base_date = pd.to_datetime(real_rebalance_dt)
+# 2. 【核心修改】依照您的策略邏輯取得基準日
+# 使用您原本的 get_rebalance_date_qe_jan(latest_dt)
+base_date = get_rebalance_date_qe_jan(latest_dt) 
 
-# 3. 計算本次換倉執行日 (T+1)
+# 3. 計算本次換倉日 (T+1 順延)
 idx = trading_days.searchsorted(base_date)
 if idx < len(trading_days) and trading_days[idx] == base_date:
     idx += 1
 execution_dt = trading_days[idx] if idx < len(trading_days) else trading_days[-1]
 
-# 4. 【關鍵修改】計算下次預計換倉日：純數學運算，強制避開假日
-# 邏輯：基準日 + 1個季度 = 下季末，再找之後第一個開盤日
-target_date = (base_date + pd.offsets.QuarterEnd(1)) + pd.Timedelta(days=1)
+# 4. 【關鍵點】計算下次預計換倉日
+# 邏輯：下一個季度是什麼時候？根據您的函式，下一個基準日應為 base_date + 3個月
+# 我們先推算下一個基準日，再取它後面的第一個交易日
+next_base_date = base_date + pd.offsets.QuarterEnd(0) + pd.Timedelta(days=1) + pd.offsets.QuarterEnd(0)
 
-# 使用 searchsorted 尋找 target_date 之後第一個真實存在的交易日
-next_idx = trading_days.searchsorted(target_date)
-
-# 如果搜尋結果超出範圍，代表我們要找的日期還沒出現在資料庫中
-# 我們就直接使用計算出來的「目標日期 (target_date)」作為預計日期
+# 強制對齊交易日曆 (避開假日)
+next_idx = trading_days.searchsorted(next_base_date)
 if next_idx < len(trading_days):
     next_rebalance_dt = trading_days[next_idx]
 else:
-    # 這裡就是關鍵：直接回傳 target_date 而不是抓最後一天資料！
-    # 如果 target_date 剛好是假日，我們用簡單邏輯順延一天即可
-    if target_date.dayofweek >= 5: # 5=週六, 6=週日
-        target_date += pd.Timedelta(days=(7 - target_date.dayofweek))
-    next_rebalance_dt = target_date
+    # 萬一超過資料範圍，直接數學推算 (防止變成今天)
+    next_rebalance_dt = next_base_date
+    if next_rebalance_dt.dayofweek >= 5:
+        next_rebalance_dt += pd.Timedelta(days=(7 - next_rebalance_dt.dayofweek))
 
+# 輸出檢查
 print(f"DEBUG: 基準日 {base_date.date()} -> 換倉執行日 {execution_dt.date()} -> 下次預計 {next_rebalance_dt.date()}")
 # 公司與產業映射
 company_info = data.get("company_basic_info").set_index("stock_id")
