@@ -13,7 +13,8 @@ const TEXT = {
   marketRank: '市場總排名',
   strategyDataPage: '策略資料頁面',
   latestDate: '最新日期：',
-  rebalanceBaseDate: '調倉基準日：',
+  rebalanceBaseDate: '最近換倉日：',
+  nextRebalanceDate: '預計下次換倉日：',
   strategyInfo: '策略說明',
   loading: '資料載入中...',
   verifyJsonPrefix: '請確認 ',
@@ -107,16 +108,34 @@ export default function StrategyPage() {
           <div className="flex items-start justify-between gap-3 landscape:max-md:hidden">
             <div>
               <div className="pl-4 text-lg font-semibold sm:text-xl">{title}</div>
-              <div className="mt-1 pl-4 flex flex-col sm:flex-row sm:items-center gap-y-1 sm:gap-x-4 text-xs text-zinc-600 sm:text-sm">
+              
+              {/* 這裡使用 flex-wrap 與 gap 讓手機版自動換行 */}
+              <div className="mt-1 pl-4 flex flex-wrap sm:flex-row sm:items-center gap-y-1 sm:gap-x-4 text-xs text-zinc-600 sm:text-sm">
+                
+                {/* 最新日期 */}
                 <div className="flex items-baseline">
                   <span className="font-medium">最新日期：</span>
                   <span className="ml-1">{data?.latest_date ?? '—'}</span>
                 </div>
+                
+                {/* 分隔線：在 sm 以上顯示 */}
                 <div className="hidden sm:block text-zinc-300">｜</div>
+                
+                {/* 最近換倉日 */}
                 <div className="flex items-baseline">
-                  <span className="font-medium">調倉基準日：</span>
+                  <span className="font-medium">{TEXT.rebalanceBaseDate}</span>
                   <span className="ml-1">{data?.rebalance_base_date ?? '—'}</span>
                 </div>
+                
+                {/* 分隔線：在 sm 以上顯示 */}
+                <div className="hidden sm:block text-zinc-300">｜</div>
+                
+                {/* 預計下次換倉日 (新增) */}
+                <div className="flex items-baseline">
+                  <span className="font-medium text-emerald-700">{TEXT.nextRebalanceDate}</span>
+                  <span className="ml-1 font-semibold text-emerald-700">{data?.next_rebalance_date ?? '—'}</span>
+                </div>
+                
               </div>
             </div>
 
