@@ -157,39 +157,50 @@ real_rebalance_dt = get_rebalance_date_qe_jan(latest_dt)
 # 1. 取得交易日曆
 trading_days = data.get('price:收盤價').index
 
-# 2. 【核心修改】依照您的策略邏輯取得基準日
-# 使用您原本的 get_rebalance_date_qe_jan(latest_dt)
-base_date = get_rebalance_date_qe_jan(latest_dt) 
+# 2. 取得基準日 (T)
+base_date = get_rebalance_date_qe_jan(latest_dt)
 
-# 3. 計算本次換倉日 (T+1 順延)
+# 3. 計算本次換倉執行日 (T+1 順延)
 idx = trading_days.searchsorted(base_date)
+# 邏輯：搜尋到的日期若是當日，強制向後移一位，達成 T+1
 if idx < len(trading_days) and trading_days[idx] == base_date:
     idx += 1
 execution_dt = trading_days[idx] if idx < len(trading_days) else trading_days[-1]
 
-# 4. 【關鍵點】計算下次預計換倉日
-# 直接基於 base_date 的年份與月份進行位移，保證跳到下一個季度
-# 將月份 +3，如果超過 12 月則年份 +1
+# 4. 計算下次預計換倉日 (強制達成：下季初 + T+1 順延)
 next_month = base_date.month + 3
 next_year = base_date.year
 if next_month > 12:
     next_month -= 12
     next_year += 1
+# 下季初起點
+next_start_date = pd.Timestamp(next_year, next_month, 1)
 
-# 建立下一個季度的基礎日期 (例如 2026-04-30 -> 2026-07-31)
-# 這裡使用 DateOffset 或直接建構時間戳記
-next_base_date = pd.Timestamp(next_year, next_month, base_date.day)
+# 使用 searchsorted 取得「大於或等於」季初的第一個交易日
+next_idx = trading_days.searchsorted(next_start_date)
 
-# 強制對齊交易日曆：找到該日期之後的第一個交易日 (避開假日)
-next_idx = trading_days.searchsorted(next_base_date)
-
-# 防呆：確保下一個日期是在交易日曆範圍內，或者超出範圍時手動避開假日
+# 強制達成 T+1 且避開假日
+# 只要找到的日期 <= next_start_date，代表這天就是季初開盤日，必須往後加一位 (+1)
 if next_idx < len(trading_days):
-    next_rebalance_dt = trading_days[next_idx]
+    if trading_days[next_idx] <= next_start_date:
+        next_idx += 1
+    
+    # 再次檢查越界
+    if next_idx < len(trading_days):
+        next_rebalance_dt = trading_days[next_idx]
+    else:
+        # 資料庫到期了，改用最後一天代替
+        next_rebalance_dt = trading_days[-1]
 else:
-    # 超出資料範圍時的計算邏輯
-    next_rebalance_dt = next_base_date
-    # 如果算出的是週末，自動推算到下週一
+    # --- 超出資料庫範圍的強效 Fallback ---
+    # 直接以 1 號為起點，若 1 號是假日，自動推到週一，然後再 +1 天達成 T+1
+    temp_dt = next_start_date
+    # 確保是第一個交易日 (避開六日)
+    while temp_dt.dayofweek >= 5:
+        temp_dt += pd.Timedelta(days=1)
+    # 達成 T+1 (因為這天是開盤日，要變成下一天)
+    next_rebalance_dt = temp_dt + pd.Timedelta(days=1)
+    # 加完後若又變六日，再順延一次
     while next_rebalance_dt.dayofweek >= 5:
         next_rebalance_dt += pd.Timedelta(days=1)
 
