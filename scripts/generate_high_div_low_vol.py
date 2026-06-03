@@ -168,19 +168,30 @@ if idx < len(trading_days) and trading_days[idx] == base_date:
 execution_dt = trading_days[idx] if idx < len(trading_days) else trading_days[-1]
 
 # 4. 【關鍵點】計算下次預計換倉日
-# 邏輯：下一個季度是什麼時候？根據您的函式，下一個基準日應為 base_date + 3個月
-# 我們先推算下一個基準日，再取它後面的第一個交易日
-next_base_date = base_date + pd.offsets.QuarterEnd(0) + pd.Timedelta(days=1) + pd.offsets.QuarterEnd(0)
+# 直接基於 base_date 的年份與月份進行位移，保證跳到下一個季度
+# 將月份 +3，如果超過 12 月則年份 +1
+next_month = base_date.month + 3
+next_year = base_date.year
+if next_month > 12:
+    next_month -= 12
+    next_year += 1
 
-# 強制對齊交易日曆 (避開假日)
+# 建立下一個季度的基礎日期 (例如 2026-04-30 -> 2026-07-31)
+# 這裡使用 DateOffset 或直接建構時間戳記
+next_base_date = pd.Timestamp(next_year, next_month, base_date.day)
+
+# 強制對齊交易日曆：找到該日期之後的第一個交易日 (避開假日)
 next_idx = trading_days.searchsorted(next_base_date)
+
+# 防呆：確保下一個日期是在交易日曆範圍內，或者超出範圍時手動避開假日
 if next_idx < len(trading_days):
     next_rebalance_dt = trading_days[next_idx]
 else:
-    # 萬一超過資料範圍，直接數學推算 (防止變成今天)
+    # 超出資料範圍時的計算邏輯
     next_rebalance_dt = next_base_date
-    if next_rebalance_dt.dayofweek >= 5:
-        next_rebalance_dt += pd.Timedelta(days=(7 - next_rebalance_dt.dayofweek))
+    # 如果算出的是週末，自動推算到下週一
+    while next_rebalance_dt.dayofweek >= 5:
+        next_rebalance_dt += pd.Timedelta(days=1)
 
 # 輸出檢查
 print(f"DEBUG: 基準日 {base_date.date()} -> 換倉執行日 {execution_dt.date()} -> 下次預計 {next_rebalance_dt.date()}")
