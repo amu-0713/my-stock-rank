@@ -171,6 +171,28 @@ else:
     rebalance_date_str = f"{curr_year}-12-31"
 real_rebalance_dt = score.index[score.index >= pd.to_datetime(rebalance_date_str)].min()
 
+# 1. 取得所有交易日
+trading_days = data.get('price:收盤價').index
+
+# 2. 原本的換倉執行日 (T+1) 計算邏輯
+base_date = pd.to_datetime(rebalance_date_str)
+idx = trading_days.searchsorted(base_date)
+if idx < len(trading_days) and trading_days[idx] == base_date:
+    idx += 1
+execution_dt = trading_days[idx] if idx < len(trading_days) else trading_days[-1]
+
+# 3. 【新增】計算下次換倉日
+# 邏輯：根據當前季度基準日，直接加 3 個月，再找下一個交易日
+next_base_date = base_date + pd.Timedelta(days=92) # 直接加約三個月
+# 為了確保落在季度末 (例如 3-31 變 6-30)，使用類似月份處理
+next_base_date = pd.Timestamp(f"{next_base_date.year}-{next_base_date.month:02d}-01") + pd.offsets.MonthEnd(0)
+
+next_idx = trading_days.searchsorted(next_base_date)
+# 這裡我們同樣取 T+1 的邏輯作為下次的「換倉執行日」
+if next_idx < len(trading_days) and trading_days[next_idx] == next_base_date:
+    next_idx += 1
+next_rebalance_dt = trading_days[next_idx] if next_idx < len(trading_days) else trading_days[-1]
+
 company_info = data.get("company_basic_info").set_index("stock_id")
 company_short_name_map = company_info["公司簡稱"]
 company_full_name_map = company_info["公司名稱"]
@@ -524,7 +546,8 @@ result_json = {
     "latest_date": str(latest_dt.date()),
     "updated_at": datetime.now(ZoneInfo("Asia/Taipei")).strftime('%Y-%m-%d %H:%M'),
     "compare_date": str(compare_dt.date()) if compare_dt else None,
-    "rebalance_base_date": str(real_rebalance_dt.date()),
+    "rebalance_base_date": str(execution_dt.date()),
+    "next_rebalance_date": str(next_rebalance_dt.date()), # 新增下次執行日
     "overview": overview,
     "current_holdings_rank": current_holdings_rank,
     "filtered_rank": filtered_rank,
@@ -609,7 +632,8 @@ result_bear_json = {
     "latest_date": str(latest_dt.date()),
     "updated_at": datetime.now(ZoneInfo("Asia/Taipei")).strftime('%Y-%m-%d %H:%M'),
     "compare_date": str(compare_dt.date()) if compare_dt else None,
-    "rebalance_base_date": str(real_rebalance_dt.date()),
+    "rebalance_base_date": str(execution_dt.date()),
+    "next_rebalance_date": str(next_rebalance_dt.date()), # 新增下次執行日
     "overview": overview,
     "current_holdings_rank": current_holdings_rank_bear,
     "filtered_rank": filtered_rank_bear,
