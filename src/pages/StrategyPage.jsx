@@ -146,7 +146,7 @@ export default function StrategyPage() {
               {isStrategy1 && (
                 <button
                   onClick={() => setRegime(prev => (prev === 'bull' ? 'bear' : 'bull'))}
-                  className="md:hidden landscape:hidden px-4 py-1.5 rounded-2xl border border-zinc-300 bg-white text-sm font-medium text-zinc-700 hover:bg-zinc-50 transition-colors shadow-sm flex items-center gap-2"
+                  className="md:hidden landscape:hidden px-6 py-1.5 rounded-2xl border border-zinc-300 bg-white text-sm font-medium text-zinc-700 hover:bg-zinc-50 transition-colors shadow-sm flex items-center gap-2"
                 >
                   {regime === 'bull' ? '牛' : '熊'}
                 </button>
