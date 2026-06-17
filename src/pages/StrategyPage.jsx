@@ -35,8 +35,6 @@ export default function StrategyPage() {
   const [data, setData] = useState(null)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
-
-  // ====================== 牛熊切換狀態 ======================
   const [regime, setRegime] = useState('bull')
 
   // ====================== 動態多因子（策略1） ======================
@@ -106,28 +104,21 @@ export default function StrategyPage() {
         {/* Header */}
         <div className="sticky top-0 z-50 space-y-4 border-b border-zinc-200 bg-zinc-50 pb-4 shadow-sm sm:space-y-6 sm:pb-6 landscape:max-md:space-y-0 landscape:max-md:pb-0 landscape:max-md:pt-0">
           <div className="flex items-start justify-between gap-3 landscape:max-md:hidden">
-            {/* 左側：標題 + 日期資訊 */}
+            {/* 左側標題與日期 */}
             <div className="flex-1 min-w-0">
               <div className="pl-4 text-lg font-semibold sm:text-xl">{title}</div>
 
               <div className="mt-1 pl-4 flex flex-wrap sm:flex-row sm:items-center gap-y-1 sm:gap-x-4 text-xs text-zinc-600 sm:text-sm">
-                {/* 最新日期 */}
                 <div className="flex items-baseline">
                   <span className="font-medium">最新日期：</span>
                   <span className="ml-1">{data?.latest_date ?? '—'}</span>
                 </div>
-
                 <div className="hidden sm:block text-zinc-300">｜</div>
-
-                {/* 最近換倉日 */}
                 <div className="flex items-baseline">
                   <span className="font-medium">{TEXT.rebalanceBaseDate}</span>
                   <span className="ml-1">{data?.rebalance_base_date ?? '—'}</span>
                 </div>
-
                 <div className="hidden sm:block text-zinc-300">｜</div>
-
-                {/* 預計下次換倉日 */}
                 <div className="flex items-baseline">
                   <span className="font-medium text-emerald-700">{TEXT.nextRebalanceDate}</span>
                   <span className="ml-1 font-semibold text-emerald-700">{data?.next_rebalance_date ?? '—'}</span>
@@ -135,9 +126,9 @@ export default function StrategyPage() {
               </div>
             </div>
 
-            {/* 右側按鈕群組 */}
+            {/* 右側按鈕區 */}
             <div className="flex items-center gap-2 flex-shrink-0">
-              {/* 桌面版牛熊切換按鈕 */}
+              {/* 桌面版牛熊按鈕 */}
               {isStrategy1 && (
                 <button
                   onClick={() => setRegime(prev => (prev === 'bull' ? 'bear' : 'bull'))}
@@ -162,7 +153,7 @@ export default function StrategyPage() {
                 </button>
               )}
 
-              {/* 手機直式牛熊切換按鈕 */}
+              {/* 手機直式牛熊按鈕 */}
               {isStrategy1 && (
                 <button
                   onClick={() => setRegime(prev => (prev === 'bull' ? 'bear' : 'bull'))}
