@@ -47,7 +47,7 @@ export default function StrategyPage() {
     setError(null)
     fetch('/result.json', { cache: 'no-store' })
       .then(async (res) => {
-        if (!res.ok) throw new Error(`${TEXT.loadErrorPrefix}${res.status}`)
+        if (!res.ok) throw new Error(`\\( {TEXT.loadErrorPrefix} \\)${res.status}`)
         return await res.json()
       })
       .then((json) => {
@@ -73,7 +73,7 @@ export default function StrategyPage() {
     setError(null)
     fetch('/result_2.json', { cache: 'no-store' })
       .then(async (res) => {
-        if (!res.ok) throw new Error(`${TEXT.loadErrorPrefix}${res.status}`)
+        if (!res.ok) throw new Error(`\\( {TEXT.loadErrorPrefix} \\)${res.status}`)
         return await res.json()
       })
       .then((json) => {
@@ -106,12 +106,11 @@ export default function StrategyPage() {
         {/* Header */}
         <div className="sticky top-0 z-50 space-y-4 border-b border-zinc-200 bg-zinc-50 pb-4 shadow-sm sm:space-y-6 sm:pb-6 landscape:max-md:space-y-0 landscape:max-md:pb-0 landscape:max-md:pt-0">
           <div className="flex items-start justify-between gap-3 landscape:max-md:hidden">
-            {/* 左側：標題 + 日期資訊（加 flex-1 min-w-0 避免擠壓右側按鈕） */}
-            <div className="flex-1 min-w-0">
+            <div>
               <div className="pl-4 text-lg font-semibold sm:text-xl">{title}</div>
               
-              {/* 手機直式：三個日期改用 flex-col 垂直堆疊，確保正確換行 */}
-              <div className="mt-1 pl-4 flex flex-col gap-1 text-xs text-zinc-600 sm:flex-row sm:items-center sm:gap-x-4 sm:text-sm">
+              {/* 這裡使用 flex-wrap 與 gap 讓手機版自動換行 */}
+              <div className="mt-1 pl-4 flex flex-wrap sm:flex-row sm:items-center gap-y-1 sm:gap-x-4 text-xs text-zinc-600 sm:text-sm">
                 
                 {/* 最新日期 */}
                 <div className="flex items-baseline">
@@ -131,35 +130,32 @@ export default function StrategyPage() {
                 {/* 分隔線：在 sm 以上顯示 */}
                 <div className="hidden sm:block text-zinc-300">｜</div>
                 
-                {/* 預計下次換倉日 */}
+                {/* 預計下次換倉日 (新增) */}
                 <div className="flex items-baseline">
                   <span className="font-medium text-emerald-700">{TEXT.nextRebalanceDate}</span>
-                  <span className="ml-1 font-semibold text-emerald-700">{data?.next_rebalance_date ?? '—'}</span>
+                  <span className="ml-1 font-semibold text-emerald-700">{data?.next_rebalanc_date ?? '—'}</span>
                 </div>
                 
               </div>
             </div>
 
-            {/* 右側按鈕群組（加 flex-shrink-0 保護按鈕大小） */}
-            <div className="flex items-center gap-2 flex-shrink-0">
-              {/* 手機直式專用牛熊切換按鈕（策略1） */}
-              {isStrategy1 && (
-                <button
-                  onClick={() => setRegime(prev => (prev === 'bull' ? 'bear' : 'bull'))}
-                  className="md:hidden landscape:hidden px-6 py-1.5 rounded-2xl border border-zinc-300 bg-white text-sm font-medium text-zinc-700 hover:bg-zinc-50 transition-colors shadow-sm flex items-center gap-2"
-                >
-                  {regime === 'bull' ? '牛' : '熊'}
-                </button>
-              )}
-
-              <Link
-                to={`/strategy/${id}/info`}
-                className="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-zinc-200 bg-white text-sm text-zinc-700 shadow-sm hover:bg-zinc-50"
-                title="策略說明"
+            {/* 手機直式專用牛熊切換按鈕（放在問號的正左側） */}
+            {isStrategy1 && (
+              <button
+                onClick={() => setRegime(prev => (prev === 'bull' ? 'bear' : 'bull'))}
+                className="md:hidden landscape:hidden px-8 py-2 rounded-2xl border border-zinc-300 bg-white text-sm font-medium text-zinc-700 hover:bg-zinc-50 transition-colors shadow-sm flex items-center gap-2"
               >
-                ?
-              </Link>
-            </div>
+                {regime === 'bull' ? '牛' : '熊'}
+              </button>
+            )}
+
+            <Link
+              to={`/strategy/${id}/info`}
+              className="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-zinc-200 bg-white text-sm text-zinc-700 shadow-sm hover:bg-zinc-50"
+              title="策略說明"
+            >
+              ?
+            </Link>
           </div>
 
           <div className="landscape:max-md:pr-6 landscape:max-md:scale-[0.9] landscape:max-md:origin-top-left landscape:max-md:w-[111.111%]">
