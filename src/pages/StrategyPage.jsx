@@ -133,7 +133,7 @@ export default function StrategyPage() {
                 {/* 預計下次換倉日 (新增) */}
                 <div className="flex items-baseline">
                   <span className="font-medium text-emerald-700">{TEXT.nextRebalanceDate}</span>
-                  <span className="ml-1 font-semibold text-emerald-700">{data?.next_rebalanc_date ?? '—'}</span>
+                  <span className="ml-1 font-semibold text-emerald-700">{data?.next_rebalance_date ?? '—'}</span>
                 </div>
                 
               </div>
