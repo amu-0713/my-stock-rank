@@ -585,45 +585,39 @@ export default function RankList({
                             {row.name ?? '--'}
                           </span>
 
-                          {/* TradingView 小圖示 */}
+                          {/* TradingView 小圖示（點擊直接開啟，hover 顯示提示） */}
                           <button
-                          type="button"
-                          onClick={(e) => {
-                            e.stopPropagation()
-                            const stockName = row.name || row.stock_id
-                            const confirmed = window.confirm(
-                              `確定要在 TradingView 開啟「${stockName}」(${row.stock_id}) 的圖表嗎？`
-                            )
-                            if (confirmed) {
-                              // ====================== 正確判斷 + 使用台灣網域 ======================
+                            type="button"
+                            onClick={(e) => {
+                              e.stopPropagation()
+                              
+                              // 直接開啟，不再跳確認視窗
                               const prefix = row.market === '上櫃' ? 'TPEX' : 'TWSE'
                               const symbol = `${prefix}:${row.stock_id}`
                               
-                              // 使用 tw.tradingview.com 強制繁體中文
                               window.open(
                                 `https://tw.tradingview.com/chart/?symbol=${encodeURIComponent(symbol)}`,
                                 '_blank'
                               )
-                            }
-                          }}
-                          className="flex-shrink-0 p-0.5 rounded hover:bg-zinc-100 active:bg-zinc-200 transition-colors"
-                          title="在 TradingView 查看圖表"
-                        >
-                          <svg 
-                            xmlns="http://www.w3.org/2000/svg" 
-                            className="w-3.5 h-3.5 text-[#2962FF]" 
-                            fill="none" 
-                            viewBox="0 0 24 24" 
-                            stroke="currentColor"
-                            strokeWidth={2.5}
+                            }}
+                            className="flex-shrink-0 p-0.5 rounded hover:bg-zinc-100 active:bg-zinc-200 transition-colors"
+                            title="在 TradingView 查看圖表"
                           >
-                            <path 
-                              strokeLinecap="round" 
-                              strokeLinejoin="round" 
-                              d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" 
-                            />
-                          </svg>
-                        </button>
+                            <svg 
+                              xmlns="http://www.w3.org/2000/svg" 
+                              className="w-3.5 h-3.5 text-[#2962FF]" 
+                              fill="none" 
+                              viewBox="0 0 24 24" 
+                              stroke="currentColor"
+                              strokeWidth={2.5}
+                            >
+                              <path 
+                                strokeLinecap="round" 
+                                strokeLinejoin="round" 
+                                d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" 
+                              />
+                            </svg>
+                          </button>
                         </div>
                       </div>
                       {/* ============================================================ */}
