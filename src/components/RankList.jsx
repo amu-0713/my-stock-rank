@@ -576,7 +576,7 @@ export default function RankList({
                         {formatMaybeNumber(displayedRank)}
                       </div>
 
-                      {/* ==================== 股票名稱 + TradingView 圖示 ==================== */}
+                      {/* ==================== 股票名稱 + TradingView 圖示（已修正上櫃/上市網址） ==================== */}
                       <div className={`${STOCK_CELL_LAYOUT_CLASS} text-left text-sm tabular-nums`}>
                         <span className="font-bold text-zinc-900">{row.stock_id ?? '--'}</span>
                         
@@ -585,7 +585,7 @@ export default function RankList({
                             {row.name ?? '--'}
                           </span>
 
-                          {/* TradingView 小圖示（點擊有確認視窗） */}
+                          {/* TradingView 小圖示 */}
                           <button
                             type="button"
                             onClick={(e) => {
@@ -595,7 +595,9 @@ export default function RankList({
                                 `確定要在 TradingView 開啟「${stockName}」(${row.stock_id}) 的圖表嗎？`
                               )
                               if (confirmed) {
-                                const symbol = `TWSE:${row.stock_id}`
+                                // ====================== 正確判斷上市/上櫃 ======================
+                                const prefix = row.market === '上櫃' ? 'TPEX' : 'TWSE'
+                                const symbol = `${prefix}:${row.stock_id}`
                                 window.open(
                                   `https://www.tradingview.com/chart/?symbol=${encodeURIComponent(symbol)}`,
                                   '_blank'
