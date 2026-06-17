@@ -9,6 +9,7 @@ from datetime import datetime
 from zoneinfo import ZoneInfo
 from finlab import data
 from finlab.backtest import sim
+import twstock   # 新增：用來取得股票「上市 / 上櫃」標籤
 print("🚀 GitHub Actions 一鍵更新開始...")
 
 # =============================================================================
@@ -278,6 +279,19 @@ def get_failed_conditions(sid, dt):
         fail.append("未通過綜合濾網")
     return fail
 
+
+# ====================== 新增：上市上櫃標籤 helper（只顯示用，極簡版） ======================
+def get_market_type(stock_id):
+    """從 twstock 取得該股票的市場別（上市 / 上櫃）"""
+    try:
+        info = twstock.codes.get(str(stock_id))
+        if info and hasattr(info, 'market'):
+            return info.market  # 會回傳 '上市' 或 '上櫃'
+    except Exception:
+        pass
+    return '未知'
+
+
 def build_stock_item(sid, row, base_rank, prev_rank_map, selected=None, passed_filter=None):
     prev_rank, rank_change, change_type = get_rank_change_info(sid, prev_rank_map, int(base_rank))
     short_name = str(company_short_name_map.get(sid, "")).strip()
@@ -293,6 +307,7 @@ def build_stock_item(sid, row, base_rank, prev_rank_map, selected=None, passed_f
         "stock_id": str(sid),
         "name": name,
         "full_name": full_name if full_name else name,
+        "market": get_market_type(sid),   # 新增：上市 / 上櫃 標籤（只顯示用）
         "score": round(float(row.get("score", 0)), 6),
         "display_score": score_to_display(row.get("score")),
         "close": float(row.get("close")) if pd.notna(row.get("close")) else None,
@@ -428,9 +443,9 @@ filtered_rank = [build_stock_item(sid, row, row["base_rank"], prev_filtered_rank
 df_m = pd.DataFrame({
     "score": score_raw_today,
     "close": price.loc[latest_dt],
-    "rs_pct": r_rs_today,
-    "peg_pct": r_peg_today,
-    "dd_pct": r_dd_today,
+    "rs_pct": r_rs_today.reindex(filtered_ids),
+    "peg_pct": r_peg_today.reindex(filtered_ids),
+    "dd_pct": r_dd_today.reindex(filtered_ids),
     "passed_filter": final_cond.loc[latest_dt]
 })
 df_m = df_m[df_m["score"] > 0].copy()
@@ -616,9 +631,9 @@ filtered_rank_bear = [build_stock_item(sid, row, row["base_rank"], prev_filtered
 df_m_bear = pd.DataFrame({
     "score": score_raw_today_bear,
     "close": price.loc[latest_dt],
-    "rs_pct": r_rs_today,
-    "dd_pct": r_dd_today,
-    "corr_pct": r_corr_today,
+    "rs_pct": r_rs_today.reindex(filtered_ids),
+    "dd_pct": r_dd_today.reindex(filtered_ids),
+    "corr_pct": r_corr_today.reindex(filtered_ids),
     "passed_filter": final_cond.loc[latest_dt]
 })
 df_m_bear = df_m_bear[df_m_bear["score"] > 0].copy()
@@ -667,4 +682,3 @@ with open("public/result_bear.json", 'w', encoding='utf-8') as f:
 with open("public/chart_data.json", 'w', encoding='utf-8') as f:
     json.dump(chart_json, f, ensure_ascii=False, indent=2)
 print(f"✅ 更新完成！")
-
