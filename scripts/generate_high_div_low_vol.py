@@ -9,6 +9,7 @@ from datetime import datetime
 from zoneinfo import ZoneInfo
 from finlab import data
 from finlab.backtest import sim
+import twstock   # 新增：用來取得股票「上市 / 上櫃」標籤
 
 print("🚀 執行：高息低波策略（欄位與排序真正對齊版）自動化更新...")
 
@@ -269,6 +270,19 @@ def get_failed_conditions_high_div(sid):
         fail.append("股價未站上年線")
     return fail
 
+
+# ====================== 新增：上市上櫃標籤 helper（只顯示用，極簡版） ======================
+def get_market_type(stock_id):
+    """從 twstock 取得該股票的市場別（上市 / 上櫃）"""
+    try:
+        info = twstock.codes.get(str(stock_id))
+        if info and hasattr(info, 'market'):
+            return info.market  # 會回傳 '上市' 或 '上櫃'
+    except Exception:
+        pass
+    return '未知'
+
+
 def build_stock_item_high_div(sid, row, base_rank, prev_rank_map, selected=None, passed_filter=None):
     prev_rank, rank_change, change_type = get_rank_change_info(sid, prev_rank_map, int(base_rank))
     item = {
@@ -280,6 +294,7 @@ def build_stock_item_high_div(sid, row, base_rank, prev_rank_map, selected=None,
         "name": str(company_short_name_map.get(str(sid), "")),
         "full_name": str(company_full_name_map.get(str(sid), "")),
         "industry": str(industry_map.get(str(sid), "")),
+        "market": get_market_type(sid),   # 新增：上市 / 上櫃 標籤（只顯示用）
         "score": round(float(row.get("score", 0)), 6),
         "display_score": score_to_display(row.get("score")),
         "close": float(row.get("close")) if pd.notna(row.get("close")) else None,
