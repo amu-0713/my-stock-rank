@@ -455,17 +455,31 @@ export default function RankList({
             <div className="text-sm font-semibold text-zinc-900">{title}</div>
 
             {isMultiFactor && (
-              <button
-                onClick={() => setRegime(prev => (prev === 'bull' ? 'bear' : 'bull'))}
-                disabled={loading}
-                className="px-8 py-2 rounded-2xl border border-zinc-300 bg-white text-sm font-medium text-zinc-700 hover:bg-zinc-50 transition-colors shadow-sm disabled:opacity-50 flex items-center gap-2 hidden md:flex landscape:max-md:flex"
-              >
-                {regime === 'bull' ? '牛' : '熊'}
-                {loading && (
-                  <div className="animate-spin h-3 w-3 border-2 border-zinc-400 border-t-transparent rounded-full"></div>
-                )}
-              </button>
-            )}
+            <button
+              onClick={() => setRegime(prev => (prev === 'bull' ? 'bear' : 'bull'))}
+              disabled={loading}
+              className={`flex items-center gap-2 px-5 py-2 rounded-2xl border transition-all shadow-sm disabled:opacity-50
+                ${regime === 'bull' 
+                  ? 'bg-emerald-50 border-emerald-200 text-emerald-700 hover:bg-emerald-100' 
+                  : 'bg-rose-50 border-rose-200 text-rose-700 hover:bg-rose-100'
+                } hidden md:flex landscape:max-md:flex`}
+            >
+              {regime === 'bull' ? (
+                <>
+                  <span className="text-lg">📈</span>
+                  <span className="font-medium">牛市模式</span>
+                </>
+              ) : (
+                <>
+                  <span className="text-lg">📉</span>
+                  <span className="font-medium">熊市模式</span>
+                </>
+              )}
+              {loading && (
+                <div className="animate-spin h-3 w-3 border-2 border-zinc-400 border-t-transparent rounded-full"></div>
+              )}
+            </button>
+          )}
           </div>
 
           <div className="flex items-center gap-3">
