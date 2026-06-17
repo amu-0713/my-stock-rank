@@ -1,5 +1,5 @@
 // src/components/RankList.jsx
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useState, useRef } from 'react'
 import { createPortal } from 'react-dom'
 
 const TEXT = {
@@ -37,7 +37,7 @@ function formatScore(value) {
 
 function formatCompareDate(value) {
   if (typeof value !== 'string') return null
-  const match = value.match(/^(\d{4})-(\d{2})-(\d{2})$/)
+  const match = value.match(/^(\d{4})-(\d{2})-(\d{3})$/)
   if (!match) return null
   return `${match[2]}/${match[3]}`
 }
@@ -307,6 +307,16 @@ export default function RankList({
   const [currentData, setCurrentData] = useState(null)
   const [loading, setLoading] = useState(false)
 
+  // ====================== 新增：捲動容器 ref ======================
+  const scrollContainerRef = useRef(null)
+
+  // ====================== 新增：切換 Tab 時自動重置捲動到最上方 ======================
+  useEffect(() => {
+    if (scrollContainerRef.current) {
+      scrollContainerRef.current.scrollTop = 0
+    }
+  }, [title])
+
   useEffect(() => {
     const loadData = async () => {
       setLoading(true)
@@ -473,7 +483,7 @@ export default function RankList({
         </div>
       </div>
 
-      <div className="min-h-0 flex-1 overflow-auto -webkit-overflow-scrolling-touch">
+      <div className="min-h-0 flex-1 overflow-auto -webkit-overflow-scrolling-touch" ref={scrollContainerRef}>
         <div className={`${minWidth}`}>
           {loading ? (
             <div className="flex flex-col items-center justify-center h-96 text-zinc-500">
@@ -566,12 +576,53 @@ export default function RankList({
                         {formatMaybeNumber(displayedRank)}
                       </div>
 
+                      {/* ==================== 股票名稱 + TradingView 圖示 ==================== */}
                       <div className={`${STOCK_CELL_LAYOUT_CLASS} text-left text-sm tabular-nums`}>
                         <span className="font-bold text-zinc-900">{row.stock_id ?? '--'}</span>
-                        <span className="min-w-0 truncate font-normal" title={row.full_name ?? ''}>
-                          {row.name ?? '--'}
-                        </span>
+                        
+                        <div className="flex items-center gap-1 min-w-0">
+                          <span className="min-w-0 truncate font-normal" title={row.full_name ?? ''}>
+                            {row.name ?? '--'}
+                          </span>
+
+                          {/* TradingView 小圖示（點擊有確認視窗） */}
+                          <button
+                            type="button"
+                            onClick={(e) => {
+                              e.stopPropagation()
+                              const stockName = row.name || row.stock_id
+                              const confirmed = window.confirm(
+                                `確定要在 TradingView 開啟「${stockName}」(${row.stock_id}) 的圖表嗎？`
+                              )
+                              if (confirmed) {
+                                const symbol = `TWSE:${row.stock_id}`
+                                window.open(
+                                  `https://www.tradingview.com/chart/?symbol=${encodeURIComponent(symbol)}`,
+                                  '_blank'
+                                )
+                              }
+                            }}
+                            className="flex-shrink-0 p-0.5 rounded hover:bg-zinc-100 active:bg-zinc-200 transition-colors"
+                            title="在 TradingView 查看圖表"
+                          >
+                            <svg 
+                              xmlns="http://www.w3.org/2000/svg" 
+                              className="w-3.5 h-3.5 text-[#2962FF]" 
+                              fill="none" 
+                              viewBox="0 0 24 24" 
+                              stroke="currentColor"
+                              strokeWidth={2.5}
+                            >
+                              <path 
+                                strokeLinecap="round" 
+                                strokeLinejoin="round" 
+                                d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" 
+                              />
+                            </svg>
+                          </button>
+                        </div>
                       </div>
+                      {/* ============================================================ */}
 
                       <div 
                         className="text-center text-sm tabular-nums cursor-pointer" 
