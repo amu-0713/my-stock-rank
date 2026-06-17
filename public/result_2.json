@@ -1,17 +1,17 @@
 {
   "latest_date": "2026-06-16",
-  "updated_at": "2026-06-16 20:46",
+  "updated_at": "2026-06-17 16:04",
   "compare_date": "2026-06-09",
   "rebalance_base_date": "2026-05-04",
   "next_rebalance_date": "2026-08-03",
   "overview": {
     "start_date": "2010-03-31",
-    "total_return_all": 4339.11,
-    "annual_return_all": 26.51,
-    "total_return_ytd": 12.63,
-    "total_return_1y": 19.7,
-    "total_return_3y": 103.1,
-    "total_return_5y": 332.92,
+    "total_return_all": 4351.27,
+    "annual_return_all": 26.53,
+    "total_return_ytd": 12.94,
+    "total_return_1y": 19.02,
+    "total_return_3y": 103.65,
+    "total_return_5y": 334.69,
     "max_drawdown": -19.51,
     "sharpe_ratio": 2.04,
     "current_holdings": 12
@@ -12073,7 +12073,8 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "殖利率過高"
+        "殖利率過高",
+        "流通性不足"
       ],
       "history": [
         {
