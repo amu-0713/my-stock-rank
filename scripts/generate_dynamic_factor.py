@@ -394,9 +394,9 @@ if compare_dt is not None:
     w_dd_adj_prev = pd.Series(w_prev["dd"], index=peg_nan_mask_prev.index)
     w_corr_adj_prev = pd.Series(w_prev["corr"], index=peg_nan_mask_prev.index)
     if prev_regime == 'bull':
-        w_rs_adj_prev = w_rs_adj_prev.where(\~peg_nan_mask_prev, 0.6)
-        w_peg_adj_prev = w_peg_adj_prev.where(\~peg_nan_mask_prev, 0.0)
-        w_dd_adj_prev = w_dd_adj_prev.where(\~peg_nan_mask_prev, 0.4)
+        w_rs_adj_prev = w_rs_adj_prev.where(~peg_nan_mask_prev, 0.6)
+        w_peg_adj_prev = w_peg_adj_prev.where(~peg_nan_mask_prev, 0.0)
+        w_dd_adj_prev = w_dd_adj_prev.where(~peg_nan_mask_prev, 0.4)
     score_raw_prev = (
         r_rs_prev * w_rs_adj_prev +
         r_peg_prev * w_peg_adj_prev +
