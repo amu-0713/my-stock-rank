@@ -106,7 +106,7 @@ def run_full_backtest():
     bear_mask = score_ranks <= N_BEAR
     weight_bull = bull_mask.div(bull_mask.sum(axis=1).replace(0, np.nan), axis=0).fillna(0)
     weight_bear = bear_mask.div(bear_mask.sum(axis=1).replace(0, np.nan), axis=0).fillna(0)
-    raw_position = weight_bull.where(\~is_bear_mask, weight_bear).fillna(0)
+    raw_position = weight_bull.where(~is_bear_mask, weight_bear).fillna(0)
     # T+1 處理
     limit_pct = pd.Series(0.095, index=price.index)
     limit_pct.loc[:'2015-05-31'] = 0.065
