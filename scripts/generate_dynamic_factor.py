@@ -342,9 +342,9 @@ w_dd_adj = pd.Series(w["dd"], index=peg_nan_mask.index)
 w_corr_adj = pd.Series(w["corr"], index=peg_nan_mask.index)
 
 if curr_regime == 'bull':
-    w_rs_adj = w_rs_adj.where(\~peg_nan_mask, 0.6)
-    w_peg_adj = w_peg_adj.where(\~peg_nan_mask, 0.0)
-    w_dd_adj = w_dd_adj.where(\~peg_nan_mask, 0.4)
+    w_rs_adj = w_rs_adj.where(~peg_nan_mask, 0.6)
+    w_peg_adj = w_peg_adj.where(~peg_nan_mask, 0.0)
+    w_dd_adj = w_dd_adj.where(~peg_nan_mask, 0.4)
 
 score_raw_today = (
     r_rs_today * w_rs_adj +
