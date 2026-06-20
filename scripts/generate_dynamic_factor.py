@@ -106,7 +106,7 @@ def run_full_backtest():
     bear_mask = score_ranks <= N_BEAR
     weight_bull = bull_mask.div(bull_mask.sum(axis=1).replace(0, np.nan), axis=0).fillna(0)
     weight_bear = bear_mask.div(bear_mask.sum(axis=1).replace(0, np.nan), axis=0).fillna(0)
-    raw_position = weight_bull.where(~is_bear_mask, weight_bear).fillna(0)
+    raw_position = weight_bull.where(\~is_bear_mask, weight_bear).fillna(0)
     # T+1 處理
     limit_pct = pd.Series(0.095, index=price.index)
     limit_pct.loc[:'2015-05-31'] = 0.065
@@ -342,9 +342,9 @@ w_dd_adj = pd.Series(w["dd"], index=peg_nan_mask.index)
 w_corr_adj = pd.Series(w["corr"], index=peg_nan_mask.index)
 
 if curr_regime == 'bull':
-    w_rs_adj = w_rs_adj.where(~peg_nan_mask, 0.6)
-    w_peg_adj = w_peg_adj.where(~peg_nan_mask, 0.0)
-    w_dd_adj = w_dd_adj.where(~peg_nan_mask, 0.4)
+    w_rs_adj = w_rs_adj.where(\~peg_nan_mask, 0.6)
+    w_peg_adj = w_peg_adj.where(\~peg_nan_mask, 0.0)
+    w_dd_adj = w_dd_adj.where(\~peg_nan_mask, 0.4)
 
 score_raw_today = (
     r_rs_today * w_rs_adj +
@@ -366,9 +366,9 @@ for dt in recent_dates:
     w_dd = pd.Series(w_dt["dd"], index=peg_nan_mask_dt.index)
     w_corr = pd.Series(w_dt["corr"], index=peg_nan_mask_dt.index)
     if regime_dt == 'bull':
-        w_rs = w_rs.where(~peg_nan_mask_dt, 0.6)
-        w_peg = w_peg.where(~peg_nan_mask_dt, 0.0)
-        w_dd = w_dd.where(~peg_nan_mask_dt, 0.4)
+        w_rs = w_rs.where(\~peg_nan_mask_dt, 0.6)
+        w_peg = w_peg.where(\~peg_nan_mask_dt, 0.0)
+        w_dd = w_dd.where(\~peg_nan_mask_dt, 0.4)
     r_rs_h = rs_fixed.loc[dt].rank(pct=True)
     r_peg_h = (1 / peg).loc[dt].rank(pct=True).fillna(0)
     r_dd_h = (-dd).loc[dt].rank(pct=True)
@@ -394,9 +394,9 @@ if compare_dt is not None:
     w_dd_adj_prev = pd.Series(w_prev["dd"], index=peg_nan_mask_prev.index)
     w_corr_adj_prev = pd.Series(w_prev["corr"], index=peg_nan_mask_prev.index)
     if prev_regime == 'bull':
-        w_rs_adj_prev = w_rs_adj_prev.where(~peg_nan_mask_prev, 0.6)
-        w_peg_adj_prev = w_peg_adj_prev.where(~peg_nan_mask_prev, 0.0)
-        w_dd_adj_prev = w_dd_adj_prev.where(~peg_nan_mask_prev, 0.4)
+        w_rs_adj_prev = w_rs_adj_prev.where(\~peg_nan_mask_prev, 0.6)
+        w_peg_adj_prev = w_peg_adj_prev.where(\~peg_nan_mask_prev, 0.0)
+        w_dd_adj_prev = w_dd_adj_prev.where(\~peg_nan_mask_prev, 0.4)
     score_raw_prev = (
         r_rs_prev * w_rs_adj_prev +
         r_peg_prev * w_peg_adj_prev +
@@ -442,11 +442,11 @@ filtered_rank = [build_stock_item(sid, row, row["base_rank"], prev_filtered_rank
 # ====================== 全市場排名（result.json）======================
 df_m = pd.DataFrame({
     "score": score_raw_today,
-    "close": price.loc[latest_dt],
-    "rs_pct": r_rs_today.reindex(filtered_ids),
-    "peg_pct": r_peg_today.reindex(filtered_ids),
-    "dd_pct": r_dd_today.reindex(filtered_ids),
-    "passed_filter": final_cond.loc[latest_dt]
+    "close": price.loc[latest_dt].reindex(score_raw_today.index),
+    "rs_pct": r_rs_today.reindex(score_raw_today.index),
+    "peg_pct": r_peg_today.reindex(score_raw_today.index),
+    "dd_pct": r_dd_today.reindex(score_raw_today.index),
+    "passed_filter": final_cond.loc[latest_dt].reindex(score_raw_today.index).fillna(False)
 })
 df_m = df_m[df_m["score"] > 0].copy()
 df_m = df_m.sort_values("score", ascending=False)
@@ -630,11 +630,11 @@ filtered_rank_bear = [build_stock_item(sid, row, row["base_rank"], prev_filtered
 
 df_m_bear = pd.DataFrame({
     "score": score_raw_today_bear,
-    "close": price.loc[latest_dt],
-    "rs_pct": r_rs_today.reindex(filtered_ids),
-    "dd_pct": r_dd_today.reindex(filtered_ids),
-    "corr_pct": r_corr_today.reindex(filtered_ids),
-    "passed_filter": final_cond.loc[latest_dt]
+    "close": price.loc[latest_dt].reindex(score_raw_today_bear.index),
+    "rs_pct": r_rs_today.reindex(score_raw_today_bear.index),
+    "dd_pct": r_dd_today.reindex(score_raw_today_bear.index),
+    "corr_pct": r_corr_today.reindex(score_raw_today_bear.index),
+    "passed_filter": final_cond.loc[latest_dt].reindex(score_raw_today_bear.index).fillna(False)
 })
 df_m_bear = df_m_bear[df_m_bear["score"] > 0].copy()
 df_m_bear = df_m_bear.sort_values("score", ascending=False)
