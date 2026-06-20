@@ -366,9 +366,9 @@ for dt in recent_dates:
     w_dd = pd.Series(w_dt["dd"], index=peg_nan_mask_dt.index)
     w_corr = pd.Series(w_dt["corr"], index=peg_nan_mask_dt.index)
     if regime_dt == 'bull':
-        w_rs = w_rs.where(\~peg_nan_mask_dt, 0.6)
-        w_peg = w_peg.where(\~peg_nan_mask_dt, 0.0)
-        w_dd = w_dd.where(\~peg_nan_mask_dt, 0.4)
+        w_rs = w_rs.where(~peg_nan_mask_dt, 0.6)
+        w_peg = w_peg.where(~peg_nan_mask_dt, 0.0)
+        w_dd = w_dd.where(~peg_nan_mask_dt, 0.4)
     r_rs_h = rs_fixed.loc[dt].rank(pct=True)
     r_peg_h = (1 / peg).loc[dt].rank(pct=True).fillna(0)
     r_dd_h = (-dd).loc[dt].rank(pct=True)
