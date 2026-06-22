@@ -1,6 +1,6 @@
 {
   "latest_date": "2026-06-22",
-  "updated_at": "2026-06-22 19:08",
+  "updated_at": "2026-06-22 21:27",
   "compare_date": "2026-06-15",
   "rebalance_base_date": "2026-04-01",
   "next_rebalance_date": "2026-07-01",
@@ -10805,7 +10805,6 @@
       "passed_filter": false,
       "failed_conditions": [
         "季均營收未創新高",
-        "PEG過高",
         "均線未呈多頭排列"
       ],
       "history": [
@@ -42597,6 +42596,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
+        "PEG過高",
         "均線未呈多頭排列"
       ],
       "history": [
@@ -58060,6 +58060,7 @@
       "passed_filter": false,
       "failed_conditions": [
         "季均營收未創新高",
+        "PEG過高",
         "均線未呈多頭排列"
       ],
       "history": [
