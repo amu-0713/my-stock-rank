@@ -594,1223 +594,1228 @@
       "date": "2026-07-03",
       "returns": 97.84,
       "benchmark": 60.73
+    },
+    {
+      "date": "2026-07-06",
+      "returns": 96.99,
+      "benchmark": 59.98
     }
   ],
   "1年": [
     {
-      "date": "2025-07-04",
+      "date": "2025-07-07",
       "returns": 0.0,
       "benchmark": 0.0
     },
     {
-      "date": "2025-07-07",
-      "returns": -1.55,
-      "benchmark": -0.52
-    },
-    {
       "date": "2025-07-08",
-      "returns": 0.05,
-      "benchmark": -0.79
+      "returns": 1.62,
+      "benchmark": -0.27
     },
     {
       "date": "2025-07-09",
-      "returns": 0.78,
-      "benchmark": 0.07
-    },
-    {
-      "date": "2025-07-10",
-      "returns": 1.07,
-      "benchmark": 0.87
-    },
-    {
-      "date": "2025-07-11",
-      "returns": 1.01,
-      "benchmark": 1.14
-    },
-    {
-      "date": "2025-07-14",
-      "returns": 0.44,
+      "returns": 2.37,
       "benchmark": 0.6
     },
     {
+      "date": "2025-07-10",
+      "returns": 2.67,
+      "benchmark": 1.4
+    },
+    {
+      "date": "2025-07-11",
+      "returns": 2.6,
+      "benchmark": 1.66
+    },
+    {
+      "date": "2025-07-14",
+      "returns": 2.02,
+      "benchmark": 1.12
+    },
+    {
       "date": "2025-07-15",
-      "returns": 1.53,
-      "benchmark": 1.62
+      "returns": 3.13,
+      "benchmark": 2.15
     },
     {
       "date": "2025-07-16",
-      "returns": 2.0,
-      "benchmark": 2.56
+      "returns": 3.61,
+      "benchmark": 3.09
     },
     {
       "date": "2025-07-17",
-      "returns": 2.25,
-      "benchmark": 2.93
+      "returns": 3.86,
+      "benchmark": 3.46
     },
     {
       "date": "2025-07-18",
-      "returns": 3.24,
-      "benchmark": 4.14
+      "returns": 4.87,
+      "benchmark": 4.68
     },
     {
       "date": "2025-07-21",
-      "returns": 2.99,
-      "benchmark": 3.95
+      "returns": 4.62,
+      "benchmark": 4.49
     },
     {
       "date": "2025-07-22",
-      "returns": 0.65,
-      "benchmark": 2.42
+      "returns": 2.24,
+      "benchmark": 2.96
     },
     {
       "date": "2025-07-23",
-      "returns": 1.25,
-      "benchmark": 3.91
+      "returns": 2.84,
+      "benchmark": 4.45
     },
     {
       "date": "2025-07-24",
-      "returns": 2.07,
-      "benchmark": 4.19
+      "returns": 3.68,
+      "benchmark": 4.73
     },
     {
       "date": "2025-07-25",
-      "returns": 2.07,
-      "benchmark": 4.15
+      "returns": 3.68,
+      "benchmark": 4.7
     },
     {
       "date": "2025-07-28",
-      "returns": 2.47,
-      "benchmark": 4.37
+      "returns": 4.08,
+      "benchmark": 4.92
     },
     {
       "date": "2025-07-29",
-      "returns": 2.27,
-      "benchmark": 3.43
+      "returns": 3.89,
+      "benchmark": 3.97
     },
     {
       "date": "2025-07-30",
-      "returns": 2.93,
-      "benchmark": 4.63
+      "returns": 4.55,
+      "benchmark": 5.18
     },
     {
       "date": "2025-07-31",
-      "returns": 4.57,
-      "benchmark": 5.06
+      "returns": 6.22,
+      "benchmark": 5.61
     },
     {
       "date": "2025-08-01",
-      "returns": 5.54,
-      "benchmark": 4.58
+      "returns": 7.2,
+      "benchmark": 5.12
     },
     {
       "date": "2025-08-04",
-      "returns": 4.54,
-      "benchmark": 4.33
+      "returns": 6.19,
+      "benchmark": 4.88
     },
     {
       "date": "2025-08-05",
-      "returns": 6.25,
-      "benchmark": 5.6
+      "returns": 7.92,
+      "benchmark": 6.15
     },
     {
       "date": "2025-08-06",
-      "returns": 5.59,
-      "benchmark": 4.65
+      "returns": 7.26,
+      "benchmark": 5.2
     },
     {
       "date": "2025-08-07",
-      "returns": 6.35,
-      "benchmark": 7.2
+      "returns": 8.03,
+      "benchmark": 7.76
     },
     {
       "date": "2025-08-08",
-      "returns": 8.8,
-      "benchmark": 7.28
+      "returns": 10.51,
+      "benchmark": 7.84
     },
     {
       "date": "2025-08-11",
-      "returns": 9.69,
-      "benchmark": 7.79
+      "returns": 11.42,
+      "benchmark": 8.36
     },
     {
       "date": "2025-08-12",
-      "returns": 10.99,
-      "benchmark": 7.93
+      "returns": 12.74,
+      "benchmark": 8.49
     },
     {
       "date": "2025-08-13",
-      "returns": 10.92,
-      "benchmark": 8.92
+      "returns": 12.66,
+      "benchmark": 9.49
     },
     {
       "date": "2025-08-14",
-      "returns": 11.64,
-      "benchmark": 8.34
+      "returns": 13.4,
+      "benchmark": 8.9
     },
     {
       "date": "2025-08-15",
-      "returns": 12.26,
-      "benchmark": 8.77
+      "returns": 14.03,
+      "benchmark": 9.34
     },
     {
       "date": "2025-08-18",
-      "returns": 14.01,
-      "benchmark": 9.43
+      "returns": 15.81,
+      "benchmark": 10.0
     },
     {
       "date": "2025-08-19",
-      "returns": 12.24,
-      "benchmark": 8.87
+      "returns": 14.01,
+      "benchmark": 9.44
     },
     {
       "date": "2025-08-20",
-      "returns": 8.6,
-      "benchmark": 5.62
+      "returns": 10.31,
+      "benchmark": 6.17
     },
     {
       "date": "2025-08-21",
-      "returns": 10.77,
-      "benchmark": 7.15
+      "returns": 12.51,
+      "benchmark": 7.71
     },
     {
       "date": "2025-08-22",
-      "returns": 10.19,
-      "benchmark": 6.26
+      "returns": 11.93,
+      "benchmark": 6.82
     },
     {
       "date": "2025-08-25",
-      "returns": 11.14,
-      "benchmark": 8.57
+      "returns": 12.89,
+      "benchmark": 9.13
     },
     {
       "date": "2025-08-26",
-      "returns": 11.97,
-      "benchmark": 8.7
+      "returns": 13.74,
+      "benchmark": 9.26
     },
     {
       "date": "2025-08-27",
-      "returns": 14.14,
-      "benchmark": 9.66
+      "returns": 15.94,
+      "benchmark": 10.23
     },
     {
       "date": "2025-08-28",
-      "returns": 13.97,
-      "benchmark": 8.42
+      "returns": 15.77,
+      "benchmark": 8.98
     },
     {
       "date": "2025-08-29",
-      "returns": 15.3,
-      "benchmark": 8.4
+      "returns": 17.12,
+      "benchmark": 8.97
     },
     {
       "date": "2025-09-01",
-      "returns": 11.34,
-      "benchmark": 7.68
+      "returns": 13.1,
+      "benchmark": 8.25
     },
     {
       "date": "2025-09-02",
-      "returns": 9.9,
-      "benchmark": 7.45
+      "returns": 11.63,
+      "benchmark": 8.01
     },
     {
       "date": "2025-09-03",
-      "returns": 11.11,
-      "benchmark": 7.83
+      "returns": 12.86,
+      "benchmark": 8.39
     },
     {
       "date": "2025-09-04",
-      "returns": 11.39,
-      "benchmark": 8.19
+      "returns": 13.14,
+      "benchmark": 8.76
     },
     {
       "date": "2025-09-05",
-      "returns": 13.23,
-      "benchmark": 9.6
+      "returns": 15.02,
+      "benchmark": 10.17
     },
     {
       "date": "2025-09-08",
-      "returns": 13.47,
-      "benchmark": 9.84
+      "returns": 15.26,
+      "benchmark": 10.41
     },
     {
       "date": "2025-09-09",
-      "returns": 14.53,
-      "benchmark": 11.22
+      "returns": 16.34,
+      "benchmark": 11.8
     },
     {
       "date": "2025-09-10",
-      "returns": 16.14,
-      "benchmark": 12.75
+      "returns": 17.97,
+      "benchmark": 13.33
     },
     {
       "date": "2025-09-11",
-      "returns": 17.59,
-      "benchmark": 12.85
+      "returns": 19.44,
+      "benchmark": 13.44
     },
     {
       "date": "2025-09-12",
-      "returns": 17.9,
-      "benchmark": 14.01
+      "returns": 19.76,
+      "benchmark": 14.6
     },
     {
       "date": "2025-09-15",
-      "returns": 16.92,
-      "benchmark": 13.48
+      "returns": 18.76,
+      "benchmark": 14.08
     },
     {
       "date": "2025-09-16",
-      "returns": 16.77,
-      "benchmark": 14.89
+      "returns": 18.61,
+      "benchmark": 15.49
     },
     {
       "date": "2025-09-17",
-      "returns": 15.72,
-      "benchmark": 14.03
+      "returns": 17.54,
+      "benchmark": 14.62
     },
     {
       "date": "2025-09-18",
-      "returns": 17.47,
-      "benchmark": 15.52
+      "returns": 19.33,
+      "benchmark": 16.12
     },
     {
       "date": "2025-09-19",
-      "returns": 17.02,
-      "benchmark": 14.66
+      "returns": 18.87,
+      "benchmark": 15.26
     },
     {
       "date": "2025-09-22",
-      "returns": 17.72,
-      "benchmark": 16.02
+      "returns": 19.57,
+      "benchmark": 16.62
     },
     {
       "date": "2025-09-23",
-      "returns": 17.52,
-      "benchmark": 17.67
+      "returns": 19.37,
+      "benchmark": 18.28
     },
     {
       "date": "2025-09-24",
-      "returns": 17.13,
-      "benchmark": 17.44
+      "returns": 18.98,
+      "benchmark": 18.05
     },
     {
       "date": "2025-09-25",
-      "returns": 15.64,
-      "benchmark": 16.67
+      "returns": 17.47,
+      "benchmark": 17.28
     },
     {
       "date": "2025-09-26",
-      "returns": 13.31,
-      "benchmark": 14.69
+      "returns": 15.09,
+      "benchmark": 15.28
     },
     {
       "date": "2025-09-30",
-      "returns": 16.7,
-      "benchmark": 15.76
+      "returns": 18.54,
+      "benchmark": 16.37
     },
     {
       "date": "2025-10-01",
-      "returns": 17.07,
-      "benchmark": 16.49
+      "returns": 18.92,
+      "benchmark": 17.1
     },
     {
       "date": "2025-10-02",
-      "returns": 19.57,
-      "benchmark": 18.26
+      "returns": 21.46,
+      "benchmark": 18.88
     },
     {
       "date": "2025-10-03",
-      "returns": 20.79,
-      "benchmark": 19.98
+      "returns": 22.69,
+      "benchmark": 20.61
     },
     {
       "date": "2025-10-07",
-      "returns": 19.9,
-      "benchmark": 22.0
+      "returns": 21.79,
+      "benchmark": 22.64
     },
     {
       "date": "2025-10-08",
-      "returns": 19.11,
-      "benchmark": 21.34
+      "returns": 20.99,
+      "benchmark": 21.97
     },
     {
       "date": "2025-10-09",
-      "returns": 21.66,
-      "benchmark": 22.41
+      "returns": 23.58,
+      "benchmark": 23.04
     },
     {
       "date": "2025-10-13",
-      "returns": 22.08,
-      "benchmark": 20.71
+      "returns": 24.01,
+      "benchmark": 21.34
     },
     {
       "date": "2025-10-14",
-      "returns": 20.61,
-      "benchmark": 20.12
+      "returns": 22.51,
+      "benchmark": 20.75
     },
     {
       "date": "2025-10-15",
-      "returns": 23.63,
-      "benchmark": 22.29
+      "returns": 25.58,
+      "benchmark": 22.93
     },
     {
       "date": "2025-10-16",
-      "returns": 24.53,
-      "benchmark": 23.96
+      "returns": 26.5,
+      "benchmark": 24.6
     },
     {
       "date": "2025-10-17",
-      "returns": 22.17,
-      "benchmark": 22.41
+      "returns": 24.1,
+      "benchmark": 23.05
     },
     {
       "date": "2025-10-20",
-      "returns": 22.41,
-      "benchmark": 24.14
+      "returns": 24.34,
+      "benchmark": 24.79
     },
     {
       "date": "2025-10-21",
-      "returns": 23.9,
-      "benchmark": 24.43
+      "returns": 25.85,
+      "benchmark": 25.08
     },
     {
       "date": "2025-10-22",
-      "returns": 23.09,
-      "benchmark": 23.96
-    },
-    {
-      "date": "2025-10-23",
-      "returns": 22.48,
-      "benchmark": 23.44
-    },
-    {
-      "date": "2025-10-27",
-      "returns": 25.62,
-      "benchmark": 25.51
-    },
-    {
-      "date": "2025-10-28",
-      "returns": 25.29,
-      "benchmark": 25.31
-    },
-    {
-      "date": "2025-10-29",
-      "returns": 25.95,
-      "benchmark": 26.86
-    },
-    {
-      "date": "2025-10-30",
-      "returns": 27.04,
-      "benchmark": 26.83
-    },
-    {
-      "date": "2025-10-31",
-      "returns": 29.22,
-      "benchmark": 26.58
-    },
-    {
-      "date": "2025-11-03",
-      "returns": 30.13,
-      "benchmark": 27.04
-    },
-    {
-      "date": "2025-11-04",
-      "returns": 26.14,
-      "benchmark": 26.06
-    },
-    {
-      "date": "2025-11-05",
-      "returns": 25.38,
-      "benchmark": 24.27
-    },
-    {
-      "date": "2025-11-06",
-      "returns": 27.49,
-      "benchmark": 25.09
-    },
-    {
-      "date": "2025-11-07",
-      "returns": 26.16,
-      "benchmark": 23.97
-    },
-    {
-      "date": "2025-11-10",
-      "returns": 27.49,
-      "benchmark": 24.95
-    },
-    {
-      "date": "2025-11-11",
-      "returns": 26.93,
-      "benchmark": 24.57
-    },
-    {
-      "date": "2025-11-12",
-      "returns": 27.78,
-      "benchmark": 25.3
-    },
-    {
-      "date": "2025-11-13",
-      "returns": 27.38,
-      "benchmark": 25.1
-    },
-    {
-      "date": "2025-11-14",
-      "returns": 24.83,
-      "benchmark": 22.84
-    },
-    {
-      "date": "2025-11-17",
-      "returns": 23.43,
-      "benchmark": 23.06
-    },
-    {
-      "date": "2025-11-18",
-      "returns": 19.89,
-      "benchmark": 19.96
-    },
-    {
-      "date": "2025-11-19",
-      "returns": 18.32,
-      "benchmark": 19.17
-    },
-    {
-      "date": "2025-11-20",
-      "returns": 21.32,
-      "benchmark": 22.97
-    },
-    {
-      "date": "2025-11-21",
-      "returns": 15.47,
-      "benchmark": 18.52
-    },
-    {
-      "date": "2025-11-24",
-      "returns": 16.71,
-      "benchmark": 18.83
-    },
-    {
-      "date": "2025-11-25",
-      "returns": 19.17,
-      "benchmark": 20.66
-    },
-    {
-      "date": "2025-11-26",
-      "returns": 20.25,
-      "benchmark": 22.89
-    },
-    {
-      "date": "2025-11-27",
-      "returns": 21.65,
-      "benchmark": 23.54
-    },
-    {
-      "date": "2025-11-28",
-      "returns": 23.54,
-      "benchmark": 23.86
-    },
-    {
-      "date": "2025-12-01",
-      "returns": 21.24,
-      "benchmark": 22.59
-    },
-    {
-      "date": "2025-12-02",
-      "returns": 21.58,
-      "benchmark": 23.58
-    },
-    {
-      "date": "2025-12-03",
-      "returns": 22.34,
+      "returns": 25.03,
       "benchmark": 24.61
     },
     {
-      "date": "2025-12-04",
-      "returns": 22.6,
+      "date": "2025-10-23",
+      "returns": 24.42,
+      "benchmark": 24.08
+    },
+    {
+      "date": "2025-10-27",
+      "returns": 27.6,
+      "benchmark": 26.16
+    },
+    {
+      "date": "2025-10-28",
+      "returns": 27.26,
+      "benchmark": 25.96
+    },
+    {
+      "date": "2025-10-29",
+      "returns": 27.94,
+      "benchmark": 27.52
+    },
+    {
+      "date": "2025-10-30",
+      "returns": 29.04,
+      "benchmark": 27.49
+    },
+    {
+      "date": "2025-10-31",
+      "returns": 31.26,
+      "benchmark": 27.24
+    },
+    {
+      "date": "2025-11-03",
+      "returns": 32.18,
+      "benchmark": 27.7
+    },
+    {
+      "date": "2025-11-04",
+      "returns": 28.13,
+      "benchmark": 26.72
+    },
+    {
+      "date": "2025-11-05",
+      "returns": 27.36,
+      "benchmark": 24.92
+    },
+    {
+      "date": "2025-11-06",
+      "returns": 29.5,
+      "benchmark": 25.74
+    },
+    {
+      "date": "2025-11-07",
+      "returns": 28.15,
       "benchmark": 24.62
     },
     {
+      "date": "2025-11-10",
+      "returns": 29.5,
+      "benchmark": 25.6
+    },
+    {
+      "date": "2025-11-11",
+      "returns": 28.94,
+      "benchmark": 25.22
+    },
+    {
+      "date": "2025-11-12",
+      "returns": 29.79,
+      "benchmark": 25.95
+    },
+    {
+      "date": "2025-11-13",
+      "returns": 29.39,
+      "benchmark": 25.76
+    },
+    {
+      "date": "2025-11-14",
+      "returns": 26.8,
+      "benchmark": 23.48
+    },
+    {
+      "date": "2025-11-17",
+      "returns": 25.37,
+      "benchmark": 23.7
+    },
+    {
+      "date": "2025-11-18",
+      "returns": 21.78,
+      "benchmark": 20.59
+    },
+    {
+      "date": "2025-11-19",
+      "returns": 20.18,
+      "benchmark": 19.79
+    },
+    {
+      "date": "2025-11-20",
+      "returns": 23.24,
+      "benchmark": 23.61
+    },
+    {
+      "date": "2025-11-21",
+      "returns": 17.29,
+      "benchmark": 19.14
+    },
+    {
+      "date": "2025-11-24",
+      "returns": 18.55,
+      "benchmark": 19.45
+    },
+    {
+      "date": "2025-11-25",
+      "returns": 21.05,
+      "benchmark": 21.29
+    },
+    {
+      "date": "2025-11-26",
+      "returns": 22.15,
+      "benchmark": 23.53
+    },
+    {
+      "date": "2025-11-27",
+      "returns": 23.57,
+      "benchmark": 24.18
+    },
+    {
+      "date": "2025-11-28",
+      "returns": 25.49,
+      "benchmark": 24.51
+    },
+    {
+      "date": "2025-12-01",
+      "returns": 23.15,
+      "benchmark": 23.23
+    },
+    {
+      "date": "2025-12-02",
+      "returns": 23.49,
+      "benchmark": 24.23
+    },
+    {
+      "date": "2025-12-03",
+      "returns": 24.27,
+      "benchmark": 25.26
+    },
+    {
+      "date": "2025-12-04",
+      "returns": 24.54,
+      "benchmark": 25.27
+    },
+    {
       "date": "2025-12-05",
-      "returns": 23.26,
-      "benchmark": 25.45
+      "returns": 25.2,
+      "benchmark": 26.11
     },
     {
       "date": "2025-12-08",
-      "returns": 23.32,
-      "benchmark": 26.9
+      "returns": 25.26,
+      "benchmark": 27.56
     },
     {
       "date": "2025-12-09",
-      "returns": 25.14,
-      "benchmark": 26.36
+      "returns": 27.11,
+      "benchmark": 27.02
     },
     {
       "date": "2025-12-10",
-      "returns": 25.74,
-      "benchmark": 27.34
+      "returns": 27.72,
+      "benchmark": 28.0
     },
     {
       "date": "2025-12-11",
-      "returns": 26.45,
-      "benchmark": 25.83
+      "returns": 28.45,
+      "benchmark": 26.48
     },
     {
       "date": "2025-12-12",
-      "returns": 27.23,
-      "benchmark": 26.61
+      "returns": 29.24,
+      "benchmark": 27.27
     },
     {
       "date": "2025-12-15",
-      "returns": 26.62,
-      "benchmark": 25.12
+      "returns": 28.61,
+      "benchmark": 25.77
     },
     {
       "date": "2025-12-16",
-      "returns": 23.91,
-      "benchmark": 23.64
+      "returns": 25.87,
+      "benchmark": 24.28
     },
     {
       "date": "2025-12-17",
-      "returns": 24.23,
-      "benchmark": 23.59
+      "returns": 26.19,
+      "benchmark": 24.23
     },
     {
       "date": "2025-12-18",
-      "returns": 23.68,
-      "benchmark": 23.33
+      "returns": 25.63,
+      "benchmark": 23.98
     },
     {
       "date": "2025-12-19",
-      "returns": 26.67,
-      "benchmark": 24.35
+      "returns": 28.67,
+      "benchmark": 25.0
     },
     {
       "date": "2025-12-22",
-      "returns": 28.66,
-      "benchmark": 26.39
+      "returns": 30.69,
+      "benchmark": 27.05
     },
     {
       "date": "2025-12-23",
-      "returns": 28.93,
-      "benchmark": 27.12
+      "returns": 30.96,
+      "benchmark": 27.78
     },
     {
       "date": "2025-12-24",
-      "returns": 29.78,
-      "benchmark": 27.39
+      "returns": 31.82,
+      "benchmark": 28.06
     },
     {
       "date": "2025-12-26",
-      "returns": 29.75,
-      "benchmark": 28.22
+      "returns": 31.8,
+      "benchmark": 28.89
     },
     {
       "date": "2025-12-29",
-      "returns": 30.08,
-      "benchmark": 29.36
+      "returns": 32.13,
+      "benchmark": 30.04
     },
     {
       "date": "2025-12-30",
-      "returns": 31.41,
-      "benchmark": 28.9
+      "returns": 33.48,
+      "benchmark": 29.57
     },
     {
       "date": "2025-12-31",
-      "returns": 32.35,
-      "benchmark": 30.05
+      "returns": 34.43,
+      "benchmark": 30.73
     },
     {
       "date": "2026-01-02",
-      "returns": 31.89,
-      "benchmark": 31.78
+      "returns": 33.97,
+      "benchmark": 32.47
     },
     {
       "date": "2026-01-05",
-      "returns": 32.89,
-      "benchmark": 35.17
+      "returns": 34.98,
+      "benchmark": 35.88
     },
     {
       "date": "2026-01-06",
-      "returns": 34.98,
-      "benchmark": 37.35
+      "returns": 37.1,
+      "benchmark": 38.07
     },
     {
       "date": "2026-01-07",
-      "returns": 36.54,
-      "benchmark": 36.72
+      "returns": 38.69,
+      "benchmark": 37.44
     },
     {
       "date": "2026-01-08",
-      "returns": 35.2,
-      "benchmark": 36.39
+      "returns": 37.34,
+      "benchmark": 37.1
     },
     {
       "date": "2026-01-09",
-      "returns": 34.48,
-      "benchmark": 36.06
+      "returns": 36.6,
+      "benchmark": 36.77
     },
     {
       "date": "2026-01-12",
-      "returns": 35.05,
-      "benchmark": 37.32
+      "returns": 37.18,
+      "benchmark": 38.03
     },
     {
       "date": "2026-01-13",
-      "returns": 35.31,
-      "benchmark": 37.94
+      "returns": 37.44,
+      "benchmark": 38.66
     },
     {
       "date": "2026-01-14",
-      "returns": 36.75,
-      "benchmark": 39.0
+      "returns": 38.91,
+      "benchmark": 39.72
     },
     {
       "date": "2026-01-15",
-      "returns": 35.98,
-      "benchmark": 38.41
+      "returns": 38.12,
+      "benchmark": 39.13
     },
     {
       "date": "2026-01-16",
-      "returns": 38.01,
-      "benchmark": 41.1
+      "returns": 40.19,
+      "benchmark": 41.83
     },
     {
       "date": "2026-01-19",
-      "returns": 41.57,
-      "benchmark": 42.13
+      "returns": 43.8,
+      "benchmark": 42.87
     },
     {
       "date": "2026-01-20",
-      "returns": 40.73,
-      "benchmark": 42.67
+      "returns": 42.95,
+      "benchmark": 43.42
     },
     {
       "date": "2026-01-21",
-      "returns": 37.07,
-      "benchmark": 40.37
+      "returns": 39.23,
+      "benchmark": 41.1
     },
     {
       "date": "2026-01-22",
-      "returns": 38.33,
-      "benchmark": 42.61
+      "returns": 40.52,
+      "benchmark": 43.35
     },
     {
       "date": "2026-01-23",
-      "returns": 38.46,
-      "benchmark": 43.58
+      "returns": 40.64,
+      "benchmark": 44.33
     },
     {
       "date": "2026-01-26",
-      "returns": 40.35,
-      "benchmark": 44.04
+      "returns": 42.56,
+      "benchmark": 44.79
     },
     {
       "date": "2026-01-27",
-      "returns": 40.29,
-      "benchmark": 45.18
+      "returns": 42.5,
+      "benchmark": 45.94
     },
     {
       "date": "2026-01-28",
-      "returns": 41.98,
-      "benchmark": 47.36
+      "returns": 44.22,
+      "benchmark": 48.13
     },
     {
       "date": "2026-01-29",
-      "returns": 41.54,
-      "benchmark": 46.16
+      "returns": 43.78,
+      "benchmark": 46.92
     },
     {
       "date": "2026-01-30",
-      "returns": 43.51,
-      "benchmark": 44.04
+      "returns": 45.77,
+      "benchmark": 44.79
     },
     {
       "date": "2026-02-02",
-      "returns": 41.83,
-      "benchmark": 42.06
+      "returns": 44.07,
+      "benchmark": 42.8
     },
     {
       "date": "2026-02-03",
-      "returns": 45.42,
-      "benchmark": 44.63
+      "returns": 47.71,
+      "benchmark": 45.38
     },
     {
       "date": "2026-02-04",
-      "returns": 45.36,
-      "benchmark": 45.05
+      "returns": 47.65,
+      "benchmark": 45.81
     },
     {
       "date": "2026-02-05",
-      "returns": 43.12,
-      "benchmark": 42.86
+      "returns": 45.38,
+      "benchmark": 43.6
     },
     {
       "date": "2026-02-06",
-      "returns": 40.41,
-      "benchmark": 42.78
+      "returns": 42.62,
+      "benchmark": 43.52
     },
     {
       "date": "2026-02-09",
-      "returns": 43.94,
-      "benchmark": 45.57
+      "returns": 46.21,
+      "benchmark": 46.33
     },
     {
       "date": "2026-02-10",
-      "returns": 46.57,
-      "benchmark": 48.57
+      "returns": 48.88,
+      "benchmark": 49.35
     },
     {
       "date": "2026-02-11",
-      "returns": 47.81,
-      "benchmark": 50.96
+      "returns": 50.14,
+      "benchmark": 51.75
     },
     {
       "date": "2026-02-23",
-      "returns": 50.14,
-      "benchmark": 51.72
+      "returns": 52.51,
+      "benchmark": 52.51
     },
     {
       "date": "2026-02-24",
-      "returns": 54.76,
-      "benchmark": 55.88
+      "returns": 57.2,
+      "benchmark": 56.7
     },
     {
       "date": "2026-02-25",
-      "returns": 57.87,
-      "benchmark": 59.08
+      "returns": 60.36,
+      "benchmark": 59.91
     },
     {
       "date": "2026-02-26",
-      "returns": 59.34,
-      "benchmark": 59.09
+      "returns": 61.85,
+      "benchmark": 59.92
     },
     {
       "date": "2026-03-02",
-      "returns": 57.63,
-      "benchmark": 57.66
+      "returns": 60.11,
+      "benchmark": 58.48
     },
     {
       "date": "2026-03-03",
-      "returns": 54.77,
-      "benchmark": 54.19
+      "returns": 57.21,
+      "benchmark": 54.99
     },
     {
       "date": "2026-03-04",
-      "returns": 50.93,
-      "benchmark": 47.47
+      "returns": 53.31,
+      "benchmark": 48.24
     },
     {
       "date": "2026-03-05",
-      "returns": 57.53,
-      "benchmark": 51.27
+      "returns": 60.01,
+      "benchmark": 52.06
     },
     {
       "date": "2026-03-06",
-      "returns": 60.74,
-      "benchmark": 50.94
+      "returns": 63.27,
+      "benchmark": 51.72
     },
     {
       "date": "2026-03-09",
-      "returns": 57.82,
-      "benchmark": 44.25
+      "returns": 60.31,
+      "benchmark": 45.0
     },
     {
       "date": "2026-03-10",
-      "returns": 63.21,
-      "benchmark": 47.22
+      "returns": 65.79,
+      "benchmark": 47.99
     },
     {
       "date": "2026-03-11",
-      "returns": 69.78,
-      "benchmark": 53.25
+      "returns": 72.46,
+      "benchmark": 54.05
     },
     {
       "date": "2026-03-12",
-      "returns": 68.24,
-      "benchmark": 50.86
+      "returns": 70.89,
+      "benchmark": 51.65
     },
     {
       "date": "2026-03-13",
-      "returns": 71.02,
-      "benchmark": 50.04
+      "returns": 73.72,
+      "benchmark": 50.83
     },
     {
       "date": "2026-03-16",
-      "returns": 75.97,
-      "benchmark": 49.78
+      "returns": 78.74,
+      "benchmark": 50.57
     },
     {
       "date": "2026-03-17",
-      "returns": 85.29,
-      "benchmark": 52.22
+      "returns": 88.21,
+      "benchmark": 53.02
     },
     {
       "date": "2026-03-18",
-      "returns": 92.31,
-      "benchmark": 54.53
+      "returns": 95.34,
+      "benchmark": 55.33
     },
     {
       "date": "2026-03-19",
-      "returns": 93.5,
-      "benchmark": 51.58
+      "returns": 96.55,
+      "benchmark": 52.37
     },
     {
       "date": "2026-03-20",
-      "returns": 87.1,
-      "benchmark": 50.93
+      "returns": 90.05,
+      "benchmark": 51.72
     },
     {
       "date": "2026-03-23",
-      "returns": 78.32,
-      "benchmark": 47.24
+      "returns": 81.13,
+      "benchmark": 48.01
     },
     {
       "date": "2026-03-24",
-      "returns": 71.75,
-      "benchmark": 46.74
+      "returns": 74.45,
+      "benchmark": 47.51
     },
     {
       "date": "2026-03-25",
-      "returns": 76.01,
-      "benchmark": 50.48
+      "returns": 78.78,
+      "benchmark": 51.26
     },
     {
       "date": "2026-03-26",
-      "returns": 71.16,
-      "benchmark": 50.04
+      "returns": 73.86,
+      "benchmark": 50.82
     },
     {
       "date": "2026-03-27",
-      "returns": 69.0,
-      "benchmark": 49.04
+      "returns": 71.66,
+      "benchmark": 49.82
     },
     {
       "date": "2026-03-30",
-      "returns": 68.73,
-      "benchmark": 46.36
+      "returns": 71.39,
+      "benchmark": 47.13
     },
     {
       "date": "2026-03-31",
-      "returns": 61.04,
-      "benchmark": 42.78
+      "returns": 63.58,
+      "benchmark": 43.53
     },
     {
       "date": "2026-04-01",
-      "returns": 69.03,
-      "benchmark": 49.32
+      "returns": 71.69,
+      "benchmark": 50.1
     },
     {
       "date": "2026-04-02",
-      "returns": 67.93,
-      "benchmark": 46.61
+      "returns": 70.58,
+      "benchmark": 47.38
     },
     {
       "date": "2026-04-07",
-      "returns": 72.92,
-      "benchmark": 49.57
+      "returns": 75.64,
+      "benchmark": 50.35
     },
     {
       "date": "2026-04-08",
-      "returns": 80.17,
-      "benchmark": 56.47
+      "returns": 83.01,
+      "benchmark": 57.28
     },
     {
       "date": "2026-04-09",
-      "returns": 84.76,
-      "benchmark": 56.92
+      "returns": 87.67,
+      "benchmark": 57.74
     },
     {
       "date": "2026-04-10",
-      "returns": 89.62,
-      "benchmark": 59.42
+      "returns": 92.61,
+      "benchmark": 60.26
     },
     {
       "date": "2026-04-13",
-      "returns": 91.67,
-      "benchmark": 59.6
+      "returns": 94.69,
+      "benchmark": 60.43
     },
     {
       "date": "2026-04-14",
-      "returns": 97.13,
-      "benchmark": 63.38
+      "returns": 100.24,
+      "benchmark": 64.23
     },
     {
       "date": "2026-04-15",
-      "returns": 101.17,
-      "benchmark": 65.3
+      "returns": 104.34,
+      "benchmark": 66.16
     },
     {
       "date": "2026-04-16",
-      "returns": 99.7,
-      "benchmark": 67.15
+      "returns": 102.85,
+      "benchmark": 68.02
     },
     {
       "date": "2026-04-17",
-      "returns": 104.72,
-      "benchmark": 65.67
+      "returns": 107.95,
+      "benchmark": 66.54
     },
     {
       "date": "2026-04-20",
-      "returns": 106.01,
-      "benchmark": 66.37
+      "returns": 109.26,
+      "benchmark": 67.24
     },
     {
       "date": "2026-04-21",
-      "returns": 109.53,
-      "benchmark": 69.28
+      "returns": 112.84,
+      "benchmark": 70.16
     },
     {
       "date": "2026-04-22",
-      "returns": 114.57,
-      "benchmark": 70.51
+      "returns": 117.95,
+      "benchmark": 71.4
     },
     {
       "date": "2026-04-23",
-      "returns": 109.11,
-      "benchmark": 69.77
+      "returns": 112.4,
+      "benchmark": 70.66
     },
     {
       "date": "2026-04-24",
-      "returns": 113.58,
-      "benchmark": 75.26
+      "returns": 116.95,
+      "benchmark": 76.17
     },
     {
       "date": "2026-04-27",
-      "returns": 113.12,
-      "benchmark": 78.34
+      "returns": 116.48,
+      "benchmark": 79.27
     },
     {
       "date": "2026-04-28",
-      "returns": 122.14,
-      "benchmark": 77.91
+      "returns": 125.64,
+      "benchmark": 78.84
     },
     {
       "date": "2026-04-29",
-      "returns": 127.83,
-      "benchmark": 76.93
+      "returns": 131.42,
+      "benchmark": 77.85
     },
     {
       "date": "2026-04-30",
-      "returns": 130.08,
-      "benchmark": 75.23
+      "returns": 133.71,
+      "benchmark": 76.14
     },
     {
       "date": "2026-05-04",
-      "returns": 138.98,
-      "benchmark": 83.24
+      "returns": 142.75,
+      "benchmark": 84.19
     },
     {
       "date": "2026-05-05",
-      "returns": 139.77,
-      "benchmark": 83.53
+      "returns": 143.55,
+      "benchmark": 84.48
     },
     {
       "date": "2026-05-06",
-      "returns": 142.75,
-      "benchmark": 85.19
+      "returns": 146.57,
+      "benchmark": 86.15
     },
     {
       "date": "2026-05-07",
-      "returns": 145.14,
-      "benchmark": 88.77
+      "returns": 149.0,
+      "benchmark": 89.75
     },
     {
       "date": "2026-05-08",
-      "returns": 137.85,
-      "benchmark": 87.28
+      "returns": 141.6,
+      "benchmark": 88.26
     },
     {
       "date": "2026-05-11",
-      "returns": 142.28,
-      "benchmark": 88.12
+      "returns": 146.1,
+      "benchmark": 89.1
     },
     {
       "date": "2026-05-12",
-      "returns": 147.83,
-      "benchmark": 88.61
+      "returns": 151.73,
+      "benchmark": 89.59
     },
     {
       "date": "2026-05-13",
-      "returns": 146.43,
-      "benchmark": 86.25
+      "returns": 150.32,
+      "benchmark": 87.22
     },
     {
       "date": "2026-05-14",
-      "returns": 148.91,
-      "benchmark": 87.95
+      "returns": 152.83,
+      "benchmark": 88.93
     },
     {
       "date": "2026-05-15",
-      "returns": 147.78,
-      "benchmark": 85.34
+      "returns": 151.69,
+      "benchmark": 86.31
     },
     {
       "date": "2026-05-18",
-      "returns": 146.62,
-      "benchmark": 84.08
+      "returns": 150.51,
+      "benchmark": 85.04
     },
     {
       "date": "2026-05-19",
-      "returns": 139.55,
-      "benchmark": 80.85
+      "returns": 143.33,
+      "benchmark": 81.8
     },
     {
       "date": "2026-05-20",
-      "returns": 138.53,
-      "benchmark": 80.16
+      "returns": 142.29,
+      "benchmark": 81.1
     },
     {
       "date": "2026-05-21",
-      "returns": 139.94,
-      "benchmark": 86.22
+      "returns": 143.73,
+      "benchmark": 87.19
     },
     {
       "date": "2026-05-22",
-      "returns": 147.17,
-      "benchmark": 90.27
+      "returns": 151.07,
+      "benchmark": 91.26
     },
     {
       "date": "2026-05-25",
-      "returns": 151.1,
-      "benchmark": 96.47
+      "returns": 155.06,
+      "benchmark": 97.49
     },
     {
       "date": "2026-05-26",
-      "returns": 153.9,
-      "benchmark": 95.93
+      "returns": 157.9,
+      "benchmark": 96.95
     },
     {
       "date": "2026-05-27",
-      "returns": 154.21,
-      "benchmark": 99.23
+      "returns": 158.22,
+      "benchmark": 100.27
     },
     {
       "date": "2026-05-28",
-      "returns": 149.45,
-      "benchmark": 96.44
+      "returns": 153.38,
+      "benchmark": 97.46
     },
     {
       "date": "2026-05-29",
-      "returns": 156.85,
-      "benchmark": 101.37
+      "returns": 160.9,
+      "benchmark": 102.43
     },
     {
       "date": "2026-06-01",
-      "returns": 151.65,
-      "benchmark": 104.1
+      "returns": 155.61,
+      "benchmark": 105.17
     },
     {
       "date": "2026-06-02",
-      "returns": 147.29,
-      "benchmark": 105.1
+      "returns": 151.19,
+      "benchmark": 106.17
     },
     {
       "date": "2026-06-03",
-      "returns": 152.07,
-      "benchmark": 109.16
+      "returns": 156.04,
+      "benchmark": 110.25
     },
     {
       "date": "2026-06-04",
-      "returns": 151.17,
-      "benchmark": 105.64
+      "returns": 155.13,
+      "benchmark": 106.71
     },
     {
       "date": "2026-06-05",
-      "returns": 148.87,
-      "benchmark": 102.91
+      "returns": 152.79,
+      "benchmark": 103.97
     },
     {
       "date": "2026-06-08",
-      "returns": 137.54,
-      "benchmark": 95.87
+      "returns": 141.28,
+      "benchmark": 96.9
     },
     {
       "date": "2026-06-09",
-      "returns": 147.76,
-      "benchmark": 101.29
+      "returns": 151.67,
+      "benchmark": 102.34
     },
     {
       "date": "2026-06-10",
-      "returns": 136.57,
-      "benchmark": 94.64
+      "returns": 140.29,
+      "benchmark": 95.65
     },
     {
       "date": "2026-06-11",
-      "returns": 135.02,
-      "benchmark": 94.53
+      "returns": 138.73,
+      "benchmark": 95.55
     },
     {
       "date": "2026-06-12",
-      "returns": 137.95,
-      "benchmark": 99.17
+      "returns": 141.7,
+      "benchmark": 100.2
     },
     {
       "date": "2026-06-15",
-      "returns": 140.36,
-      "benchmark": 104.74
+      "returns": 144.14,
+      "benchmark": 105.81
     },
     {
       "date": "2026-06-16",
-      "returns": 141.77,
-      "benchmark": 106.62
+      "returns": 145.58,
+      "benchmark": 107.69
     },
     {
       "date": "2026-06-17",
-      "returns": 142.5,
-      "benchmark": 107.06
+      "returns": 146.32,
+      "benchmark": 108.14
     },
     {
       "date": "2026-06-18",
-      "returns": 152.69,
-      "benchmark": 109.73
+      "returns": 156.67,
+      "benchmark": 110.82
     },
     {
       "date": "2026-06-22",
-      "returns": 159.0,
-      "benchmark": 115.54
+      "returns": 163.08,
+      "benchmark": 116.66
     },
     {
       "date": "2026-06-23",
-      "returns": 154.35,
-      "benchmark": 112.68
+      "returns": 158.36,
+      "benchmark": 113.79
     },
     {
       "date": "2026-06-24",
-      "returns": 153.36,
-      "benchmark": 107.93
+      "returns": 157.35,
+      "benchmark": 109.02
     },
     {
       "date": "2026-06-25",
-      "returns": 152.16,
-      "benchmark": 108.92
+      "returns": 156.13,
+      "benchmark": 110.01
     },
     {
       "date": "2026-06-26",
-      "returns": 142.09,
-      "benchmark": 101.32
+      "returns": 145.91,
+      "benchmark": 102.37
     },
     {
       "date": "2026-06-29",
-      "returns": 146.4,
-      "benchmark": 103.26
+      "returns": 150.29,
+      "benchmark": 104.32
     },
     {
       "date": "2026-06-30",
-      "returns": 153.94,
-      "benchmark": 108.46
+      "returns": 157.94,
+      "benchmark": 109.55
     },
     {
       "date": "2026-07-01",
-      "returns": 152.09,
-      "benchmark": 112.68
+      "returns": 156.07,
+      "benchmark": 113.79
     },
     {
       "date": "2026-07-02",
-      "returns": 156.58,
-      "benchmark": 111.61
+      "returns": 160.62,
+      "benchmark": 112.71
     },
     {
       "date": "2026-07-03",
-      "returns": 160.94,
-      "benchmark": 111.82
+      "returns": 165.05,
+      "benchmark": 112.92
+    },
+    {
+      "date": "2026-07-06",
+      "returns": 163.91,
+      "benchmark": 111.93
     }
   ],
   "5年": [
@@ -3098,6 +3103,11 @@
       "date": "2026-07-03",
       "returns": 604.18,
       "benchmark": 212.73
+    },
+    {
+      "date": "2026-07-10",
+      "returns": 601.15,
+      "benchmark": 211.28
     }
   ],
   "全部": [
@@ -7290,6 +7300,11 @@
       "date": "2026-07-03",
       "returns": 64160.65,
       "benchmark": 942.69
+    },
+    {
+      "date": "2026-07-10",
+      "returns": 63884.13,
+      "benchmark": 937.84
     }
   ]
 }
