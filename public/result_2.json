@@ -1,19 +1,19 @@
 {
   "latest_date": "2026-07-13",
-  "updated_at": "2026-07-13 18:49",
+  "updated_at": "2026-07-14 17:46",
   "compare_date": "2026-07-06",
   "rebalance_base_date": "2026-05-04",
   "next_rebalance_date": "2026-08-03",
   "overview": {
     "start_date": "2010-03-31",
-    "total_return_all": 4293.08,
-    "annual_return_all": 26.3,
-    "total_return_ytd": 11.46,
-    "total_return_1y": 16.58,
-    "total_return_3y": 100.31,
-    "total_return_5y": 316.48,
+    "total_return_all": 4263.75,
+    "annual_return_all": 26.24,
+    "total_return_ytd": 10.72,
+    "total_return_1y": 15.79,
+    "total_return_3y": 98.33,
+    "total_return_5y": 314.34,
     "max_drawdown": -19.51,
-    "sharpe_ratio": 2.03,
+    "sharpe_ratio": 2.02,
     "current_holdings": 12
   },
   "current_holdings_rank": [
@@ -23254,7 +23254,6 @@
       "passed_filter": false,
       "failed_conditions": [
         "殖利率過高",
-        "流通性不足",
         "股價未站上年線"
       ],
       "history": [
@@ -24430,7 +24429,6 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "流通性不足",
         "股價未站上年線"
       ],
       "history": [
@@ -33893,6 +33891,7 @@
       "passed_filter": false,
       "failed_conditions": [
         "殖利率過高",
+        "流通性不足",
         "股價未站上年線"
       ],
       "history": [
@@ -40002,6 +40001,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
+        "流通性不足",
         "股價未站上年線"
       ],
       "history": [
@@ -53979,6 +53979,7 @@
       "passed_filter": false,
       "failed_conditions": [
         "殖利率過低",
+        "流通性不足",
         "股價未站上年線"
       ],
       "history": [

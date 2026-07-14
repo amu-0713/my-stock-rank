@@ -1,17 +1,17 @@
 {
   "latest_date": "2026-07-13",
-  "updated_at": "2026-07-13 18:49",
+  "updated_at": "2026-07-14 17:46",
   "compare_date": "2026-07-06",
   "rebalance_base_date": "2026-07-01",
   "next_rebalance_date": "2026-10-01",
   "overview": {
     "start_date": "2010-03-31",
-    "total_return_all": 63542.45,
-    "annual_return_all": 48.65,
-    "total_return_ytd": 94.61,
-    "total_return_1y": 154.11,
-    "total_return_3y": 233.08,
-    "total_return_5y": 587.29,
+    "total_return_all": 62492.95,
+    "annual_return_all": 48.49,
+    "total_return_ytd": 91.4,
+    "total_return_1y": 151.35,
+    "total_return_3y": 223.23,
+    "total_return_5y": 581.53,
     "max_drawdown": -29.75,
     "sharpe_ratio": 1.72,
     "current_holdings": 16
@@ -8543,10 +8543,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "當季營收為負或零",
-        "季均營收未創新高",
-        "營收資料不足（少於13個月）",
-        "PEG資料缺失"
+        "PEG過低"
       ],
       "history": [
         {
@@ -12252,10 +12249,8 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "當季營收為負或零",
         "季均營收未創新高",
-        "營收資料不足（少於13個月）",
-        "PEG資料缺失"
+        "PEG過低"
       ],
       "history": [
         {
@@ -13982,10 +13977,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "當季營收為負或零",
-        "季均營收未創新高",
-        "營收資料不足（少於13個月）",
-        "PEG資料缺失"
+        "PEG過高"
       ],
       "history": [
         {
@@ -29407,9 +29399,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "當季營收為負或零",
         "季均營收未創新高",
-        "營收資料不足（少於13個月）",
         "PEG資料缺失",
         "均線未呈多頭排列",
         "流動性不足（成交金額太低）"
@@ -32325,10 +32315,8 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "當季營收為負或零",
         "季均營收未創新高",
-        "營收資料不足（少於13個月）",
-        "PEG資料缺失"
+        "PEG過低"
       ],
       "history": [
         {
@@ -67094,10 +67082,8 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "當季營收為負或零",
         "季均營收未創新高",
-        "營收資料不足（少於13個月）",
-        "PEG資料缺失",
+        "PEG過低",
         "均線未呈多頭排列"
       ],
       "history": [
@@ -70235,10 +70221,8 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "當季營收為負或零",
         "季均營收未創新高",
-        "營收資料不足（少於13個月）",
-        "PEG資料缺失",
+        "PEG過低",
         "均線未呈多頭排列"
       ],
       "history": [
@@ -88876,9 +88860,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "當季營收為負或零",
         "季均營收未創新高",
-        "營收資料不足（少於13個月）",
         "PEG資料缺失",
         "均線未呈多頭排列",
         "流動性不足（成交金額太低）"
