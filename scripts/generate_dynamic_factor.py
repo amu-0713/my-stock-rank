@@ -516,19 +516,111 @@ def calc_performance(ret_series, start_date=None):
     years = days / 365.25
     annual_ret = ((1 + total_ret/100) ** (1/years) - 1) * 100 if years > 0 else 0
     max_dd = ((cum / cum.cummax()) - 1).min() * 100
+    vol = ret_series.std() * np.sqrt(252) * 100
     sharpe = (ret_series.mean() * 252 - 0.02) / (ret_series.std() * np.sqrt(252)) if ret_series.std() != 0 else 0
-    return {"total_return": round(total_ret, 2), "annual_return": round(annual_ret, 2), "max_drawdown": round(max_dd, 2), "sharpe_ratio": round(sharpe, 2)}
+    downside_std = ret_series[ret_series < 0].std()
+    sortino = (ret_series.mean() * 252 - 0.02) / (downside_std * np.sqrt(252)) if downside_std and downside_std != 0 else 0
+    calmar = (annual_ret / abs(max_dd)) if max_dd != 0 else 0
+    return {
+        "total_return": round(total_ret, 2),
+        "annual_return": round(annual_ret, 2),
+        "max_drawdown": round(max_dd, 2),
+        "volatility": round(vol, 2),
+        "sharpe_ratio": round(sharpe, 2),
+        "sortino_ratio": round(sortino, 2),
+        "calmar_ratio": round(calmar, 2),
+    }
+
+def calc_drawdown_stats(nav_series):
+    """計算最大回撤的高點日、低點日、回撤天數、回補天數（尚未回補則為 None）"""
+    nav_series = nav_series.dropna()
+    running_max = nav_series.cummax()
+    drawdown = (nav_series / running_max) - 1
+    trough_date = drawdown.idxmin()
+    max_dd_pct = float(drawdown.loc[trough_date]) * 100
+    peak_candidates = nav_series.loc[:trough_date]
+    peak_date = peak_candidates[peak_candidates == running_max.loc[trough_date]].index.max()
+    peak_value = nav_series.loc[peak_date]
+    after_trough = nav_series.loc[trough_date:]
+    recovered = after_trough[after_trough >= peak_value]
+    recovery_date = recovered.index.min() if len(recovered) > 0 else None
+    return {
+        "max_drawdown": round(max_dd_pct, 2),
+        "peak_date": str(peak_date.date()),
+        "trough_date": str(trough_date.date()),
+        "duration_days": int((trough_date - peak_date).days),
+        "recovery_date": str(recovery_date.date()) if recovery_date is not None else None,
+        "recovery_days": int((recovery_date - trough_date).days) if recovery_date is not None else None,
+        "recovered": recovery_date is not None,
+    }
+
+def calc_yearly_returns(nav_series):
+    """依日曆年切分，回傳每年報酬率（%）"""
+    nav_series = nav_series.dropna()
+    years = sorted(nav_series.index.year.unique())
+    out = []
+    for i, y in enumerate(years):
+        year_data = nav_series[nav_series.index.year == y]
+        if len(year_data) == 0:
+            continue
+        end_val = year_data.iloc[-1]
+        if i == 0:
+            start_val = year_data.iloc[0]
+        else:
+            prev_year_data = nav_series[nav_series.index.year == years[i - 1]]
+            start_val = prev_year_data.iloc[-1] if len(prev_year_data) > 0 else year_data.iloc[0]
+        ret = (end_val / start_val - 1) * 100 if start_val else 0
+        out.append({"year": int(y), "return": round(float(ret), 2)})
+    return out
+
+def calc_monthly_returns(nav_series):
+    """依日曆年月切分，回傳每月報酬率（%），供熱力圖使用"""
+    nav_series = nav_series.dropna()
+    month_end = nav_series.resample('ME').last().dropna()
+    if len(month_end) == 0:
+        return []
+    monthly_ret = month_end.pct_change() * 100
+    monthly_ret.iloc[0] = (month_end.iloc[0] / nav_series.iloc[0] - 1) * 100
+    return [
+        {"year": int(dt.year), "month": int(dt.month), "return": round(float(val), 2)}
+        for dt, val in monthly_ret.items()
+    ]
+
+perf_all = calc_performance(daily_return)
+
+benchmark_daily_return = report.benchmark.pct_change().fillna(0)
+perf_benchmark = calc_performance(benchmark_daily_return)
+
+yearly_strategy = calc_yearly_returns(report.creturn)
+yearly_benchmark_map = {b["year"]: b["return"] for b in calc_yearly_returns(report.benchmark)}
+
 overview = {
     "start_date": "2010-03-31",
-    "total_return_all": calc_performance(daily_return)["total_return"],
-    "annual_return_all": calc_performance(daily_return)["annual_return"],
+    "total_return_all": perf_all["total_return"],
+    "annual_return_all": perf_all["annual_return"],
     "total_return_ytd": calc_performance(daily_return, f"{datetime.now().year}-01-01")["total_return"],
     "total_return_1y": calc_performance(daily_return, datetime.now().replace(year=datetime.now().year-1))["total_return"],
     "total_return_3y": calc_performance(daily_return, datetime.now().replace(year=datetime.now().year-3))["total_return"],
     "total_return_5y": calc_performance(daily_return, datetime.now().replace(year=datetime.now().year-5))["total_return"],
-    "max_drawdown": calc_performance(daily_return)["max_drawdown"],
-    "sharpe_ratio": calc_performance(daily_return)["sharpe_ratio"],
-    "current_holdings": 16
+    "max_drawdown": perf_all["max_drawdown"],
+    "volatility_all": perf_all["volatility"],
+    "sharpe_ratio": perf_all["sharpe_ratio"],
+    "sortino_ratio": perf_all["sortino_ratio"],
+    "calmar_ratio": perf_all["calmar_ratio"],
+    "current_holdings": 16,
+    "drawdown_detail": calc_drawdown_stats(report.creturn),
+    "benchmark": {
+        "total_return_all": perf_benchmark["total_return"],
+        "annual_return_all": perf_benchmark["annual_return"],
+        "max_drawdown": perf_benchmark["max_drawdown"],
+        "volatility_all": perf_benchmark["volatility"],
+        "drawdown_detail": calc_drawdown_stats(report.benchmark),
+    },
+    "yearly_returns": [
+        {"year": s["year"], "strategy": s["return"], "benchmark": yearly_benchmark_map.get(s["year"])}
+        for s in yearly_strategy
+    ],
+    "monthly_returns": calc_monthly_returns(report.creturn),
 }
 # =============================================================================
 # 3. 產生 chart_data.json
