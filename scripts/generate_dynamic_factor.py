@@ -588,11 +588,14 @@ def calc_monthly_returns(nav_series):
 
 perf_all = calc_performance(daily_return)
 
-benchmark_daily_return = report.benchmark.pct_change().fillna(0)
+# 【對齊回測期間】report.benchmark 可能帶有比策略回測（2010~）更長的原始歷史（例如包含 2008 金融海嘯），
+# 若直接拿來算報酬/MDD 會變成跟策略不同期間的比較。這裡強制裁切成跟 report.creturn 完全相同的日期範圍。
+benchmark_aligned = report.benchmark.reindex(report.creturn.index).ffill()
+benchmark_daily_return = benchmark_aligned.pct_change().fillna(0)
 perf_benchmark = calc_performance(benchmark_daily_return)
 
 yearly_strategy = calc_yearly_returns(report.creturn)
-yearly_benchmark_map = {b["year"]: b["return"] for b in calc_yearly_returns(report.benchmark)}
+yearly_benchmark_map = {b["year"]: b["return"] for b in calc_yearly_returns(benchmark_aligned)}
 
 overview = {
     "start_date": "2010-03-31",
@@ -614,7 +617,7 @@ overview = {
         "annual_return_all": perf_benchmark["annual_return"],
         "max_drawdown": perf_benchmark["max_drawdown"],
         "volatility_all": perf_benchmark["volatility"],
-        "drawdown_detail": calc_drawdown_stats(report.benchmark),
+        "drawdown_detail": calc_drawdown_stats(benchmark_aligned),
     },
     "yearly_returns": [
         {"year": s["year"], "strategy": s["return"], "benchmark": yearly_benchmark_map.get(s["year"])}
