@@ -322,29 +322,29 @@ def build_stock_item(sid, row, base_rank, prev_rank_map, selected=None, passed_f
         item["failed_conditions"] = [] if bool(passed_filter) else get_failed_conditions(sid, latest_dt)
     return item
 
-# ====================== 產生三種排名（牛市版本 → result.json）======================
+# ====================== 產生三種排名（牛市版本 → result.json，固定 rs+peg+dd 靜態視角）======================
 fixed_hold_ids = score.loc[real_rebalance_dt].sort_values(ascending=False).head(16).index
+
+# 【靜態牛市權重】無論大盤實際處於牛市或熊市，result.json 永遠固定用 rs+peg+dd（對應 result_bear.json 的 w_bear）
+w_bull = {'rs': 0.3, 'peg': 0.3, 'corr': 0.0, 'dd': 0.4}
 
 r_rs_today = rs_fixed.loc[latest_dt].rank(pct=True)
 r_peg_today = (1 / peg).loc[latest_dt].rank(pct=True).fillna(0)
 r_dd_today = (-dd).loc[latest_dt].rank(pct=True)
 r_corr_today = (-corr_mkt).loc[latest_dt].rank(pct=True)
-curr_regime = regime.loc[latest_dt]
-
-w = weights.apply(lambda x: x[curr_regime])
 
 peg_series = peg.loc[latest_dt]
 peg_nan_mask = peg_series.isna() | (peg_series <= 0)
 
-w_rs_adj = pd.Series(w["rs"], index=peg_nan_mask.index)
-w_peg_adj = pd.Series(w["peg"], index=peg_nan_mask.index)
-w_dd_adj = pd.Series(w["dd"], index=peg_nan_mask.index)
-w_corr_adj = pd.Series(w["corr"], index=peg_nan_mask.index)
+w_rs_adj = pd.Series(w_bull["rs"], index=peg_nan_mask.index)
+w_peg_adj = pd.Series(w_bull["peg"], index=peg_nan_mask.index)
+w_dd_adj = pd.Series(w_bull["dd"], index=peg_nan_mask.index)
+w_corr_adj = pd.Series(w_bull["corr"], index=peg_nan_mask.index)
 
-if curr_regime == 'bull':
-    w_rs_adj = w_rs_adj.where(~peg_nan_mask, 0.6)
-    w_peg_adj = w_peg_adj.where(~peg_nan_mask, 0.0)
-    w_dd_adj = w_dd_adj.where(~peg_nan_mask, 0.4)
+# peg 缺值時，把 peg 的權重轉移給 rs（靜態牛市視角下恆成立）
+w_rs_adj = w_rs_adj.where(~peg_nan_mask, 0.6)
+w_peg_adj = w_peg_adj.where(~peg_nan_mask, 0.0)
+w_dd_adj = w_dd_adj.where(~peg_nan_mask, 0.4)
 
 score_raw_today = (
     r_rs_today * w_rs_adj +
@@ -357,18 +357,15 @@ score_raw_today = (
 recent_dates = valid_dates[-5:]
 recent_adjusted = pd.DataFrame(index=recent_dates, columns=score_raw_today.index)
 for dt in recent_dates:
-    regime_dt = regime.loc[dt]
-    w_dt = weights.apply(lambda x: x[regime_dt])
     peg_series_dt = peg.loc[dt]
     peg_nan_mask_dt = peg_series_dt.isna() | (peg_series_dt <= 0)
-    w_rs = pd.Series(w_dt["rs"], index=peg_nan_mask_dt.index)
-    w_peg = pd.Series(w_dt["peg"], index=peg_nan_mask_dt.index)
-    w_dd = pd.Series(w_dt["dd"], index=peg_nan_mask_dt.index)
-    w_corr = pd.Series(w_dt["corr"], index=peg_nan_mask_dt.index)
-    if regime_dt == 'bull':
-        w_rs = w_rs.where(~peg_nan_mask_dt, 0.6)
-        w_peg = w_peg.where(~peg_nan_mask_dt, 0.0)
-        w_dd = w_dd.where(~peg_nan_mask_dt, 0.4)
+    w_rs = pd.Series(w_bull["rs"], index=peg_nan_mask_dt.index)
+    w_peg = pd.Series(w_bull["peg"], index=peg_nan_mask_dt.index)
+    w_dd = pd.Series(w_bull["dd"], index=peg_nan_mask_dt.index)
+    w_corr = pd.Series(w_bull["corr"], index=peg_nan_mask_dt.index)
+    w_rs = w_rs.where(~peg_nan_mask_dt, 0.6)
+    w_peg = w_peg.where(~peg_nan_mask_dt, 0.0)
+    w_dd = w_dd.where(~peg_nan_mask_dt, 0.4)
     r_rs_h = rs_fixed.loc[dt].rank(pct=True)
     r_peg_h = (1 / peg).loc[dt].rank(pct=True).fillna(0)
     r_dd_h = (-dd).loc[dt].rank(pct=True)
@@ -385,18 +382,15 @@ if compare_dt is not None:
     r_peg_prev = (1 / peg).loc[compare_dt].rank(pct=True).fillna(0)
     r_dd_prev = (-dd).loc[compare_dt].rank(pct=True)
     r_corr_prev = (-corr_mkt).loc[compare_dt].rank(pct=True)
-    prev_regime = regime.loc[compare_dt]
-    w_prev = weights.apply(lambda x: x[prev_regime])
     peg_series_prev = peg.loc[compare_dt]
     peg_nan_mask_prev = peg_series_prev.isna() | (peg_series_prev <= 0)
-    w_rs_adj_prev = pd.Series(w_prev["rs"], index=peg_nan_mask_prev.index)
-    w_peg_adj_prev = pd.Series(w_prev["peg"], index=peg_nan_mask_prev.index)
-    w_dd_adj_prev = pd.Series(w_prev["dd"], index=peg_nan_mask_prev.index)
-    w_corr_adj_prev = pd.Series(w_prev["corr"], index=peg_nan_mask_prev.index)
-    if prev_regime == 'bull':
-        w_rs_adj_prev = w_rs_adj_prev.where(~peg_nan_mask_prev, 0.6)
-        w_peg_adj_prev = w_peg_adj_prev.where(~peg_nan_mask_prev, 0.0)
-        w_dd_adj_prev = w_dd_adj_prev.where(~peg_nan_mask_prev, 0.4)
+    w_rs_adj_prev = pd.Series(w_bull["rs"], index=peg_nan_mask_prev.index)
+    w_peg_adj_prev = pd.Series(w_bull["peg"], index=peg_nan_mask_prev.index)
+    w_dd_adj_prev = pd.Series(w_bull["dd"], index=peg_nan_mask_prev.index)
+    w_corr_adj_prev = pd.Series(w_bull["corr"], index=peg_nan_mask_prev.index)
+    w_rs_adj_prev = w_rs_adj_prev.where(~peg_nan_mask_prev, 0.6)
+    w_peg_adj_prev = w_peg_adj_prev.where(~peg_nan_mask_prev, 0.0)
+    w_dd_adj_prev = w_dd_adj_prev.where(~peg_nan_mask_prev, 0.4)
     score_raw_prev = (
         r_rs_prev * w_rs_adj_prev +
         r_peg_prev * w_peg_adj_prev +
