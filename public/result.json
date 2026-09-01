@@ -1,6 +1,6 @@
 {
   "latest_date": "2026-09-01",
-  "updated_at": "2026-09-01 20:32",
+  "updated_at": "2026-09-01 21:26",
   "compare_date": "2026-08-25",
   "rebalance_base_date": "2026-07-01",
   "next_rebalance_date": "2026-10-01",
@@ -28,17 +28,17 @@
       "recovered": true
     },
     "benchmark": {
-      "total_return_all": 2295.53,
-      "annual_return_all": 14.36,
-      "max_drawdown": -56.02,
-      "volatility_all": 19.19,
+      "total_return_all": 966.98,
+      "annual_return_all": 15.51,
+      "max_drawdown": -28.55,
+      "volatility_all": 17.4,
       "drawdown_detail": {
-        "max_drawdown": -56.02,
-        "peak_date": "2007-10-29",
-        "trough_date": "2008-11-20",
-        "duration_days": 388,
-        "recovery_date": "2010-12-09",
-        "recovery_days": 749,
+        "max_drawdown": -28.55,
+        "peak_date": "2020-01-14",
+        "trough_date": "2020-03-19",
+        "duration_days": 65,
+        "recovery_date": "2020-07-06",
+        "recovery_days": 109,
         "recovered": true
       }
     },
@@ -46,7 +46,7 @@
       {
         "year": 2010,
         "strategy": 59.63,
-        "benchmark": 13.57
+        "benchmark": 17.42
       },
       {
         "year": 2011,
