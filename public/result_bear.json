@@ -1,6 +1,6 @@
 {
   "latest_date": "2026-09-03",
-  "updated_at": "2026-09-03 19:27",
+  "updated_at": "2026-09-03 19:34",
   "compare_date": "2026-08-27",
   "rebalance_base_date": "2026-07-01",
   "next_rebalance_date": "2026-10-01",
@@ -35,7 +35,8 @@
         "duration_days": 50,
         "recovery_date": "2025-10-02",
         "recovery_days": 176,
-        "recovered": true
+        "recovered": true,
+        "counterpart_return": -26.34
       },
       {
         "max_drawdown": -28.25,
@@ -44,7 +45,8 @@
         "duration_days": 16,
         "recovery_date": "2020-04-22",
         "recovery_days": 34,
-        "recovered": true
+        "recovered": true,
+        "counterpart_return": -23.18
       },
       {
         "max_drawdown": -24.42,
@@ -53,7 +55,8 @@
         "duration_days": 141,
         "recovery_date": "2012-03-08",
         "recovery_days": 79,
-        "recovered": true
+        "recovered": true,
+        "counterpart_return": -22.68
       },
       {
         "max_drawdown": -20.58,
@@ -62,7 +65,8 @@
         "duration_days": 203,
         "recovery_date": "2019-03-14",
         "recovery_days": 136,
-        "recovered": true
+        "recovered": true,
+        "counterpart_return": -9.04
       },
       {
         "max_drawdown": -20.26,
@@ -71,7 +75,8 @@
         "duration_days": 146,
         "recovery_date": "2024-12-31",
         "recovery_days": 33,
-        "recovered": true
+        "recovered": true,
+        "counterpart_return": -4.31
       }
     ],
     "benchmark": {
@@ -99,7 +104,8 @@
           "duration_days": 65,
           "recovery_date": "2020-07-06",
           "recovery_days": 109,
-          "recovered": true
+          "recovered": true,
+          "counterpart_return": -25.46
         },
         {
           "max_drawdown": -28.47,
@@ -108,7 +114,8 @@
           "duration_days": 281,
           "recovery_date": "2023-07-14",
           "recovery_days": 262,
-          "recovered": true
+          "recovered": true,
+          "counterpart_return": -4.83
         },
         {
           "max_drawdown": -27.72,
@@ -117,7 +124,8 @@
           "duration_days": 272,
           "recovery_date": "2025-08-05",
           "recovery_days": 118,
-          "recovered": true
+          "recovered": true,
+          "counterpart_return": -26.8
         },
         {
           "max_drawdown": -24.52,
@@ -126,7 +134,8 @@
           "duration_days": 325,
           "recovery_date": "2013-09-16",
           "recovery_days": 637,
-          "recovered": true
+          "recovered": true,
+          "counterpart_return": -12.34
         },
         {
           "max_drawdown": -23.18,
@@ -135,7 +144,8 @@
           "duration_days": 119,
           "recovery_date": "2016-09-07",
           "recovery_days": 380,
-          "recovered": true
+          "recovered": true,
+          "counterpart_return": -12.35
         }
       ]
     },
