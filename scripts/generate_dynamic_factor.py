@@ -629,6 +629,12 @@ def calc_monthly_returns(nav_series):
         for dt, val in monthly_ret.items()
     ]
 
+def calc_rolling_return(nav_series, window=252):
+    """滾動年化報酬（預設1年期，252個交易日）：每個時點往回看 window 天的年化報酬率"""
+    nav_series = nav_series.dropna()
+    rolling = (nav_series / nav_series.shift(window)) - 1
+    return rolling * 100
+
 perf_all = calc_performance(daily_return)
 
 # 【對齊回測期間】report.benchmark 可能帶有比策略回測（2010~）更長的原始歷史（例如包含 2008 金融海嘯），
@@ -642,6 +648,44 @@ yearly_benchmark_map = {b["year"]: b["return"] for b in calc_yearly_returns(benc
 
 yearly_mdd_strategy = calc_yearly_max_drawdown(report.creturn)
 yearly_mdd_benchmark_map = {b["year"]: b["max_drawdown"] for b in calc_yearly_max_drawdown(benchmark_aligned)}
+
+# ====================== 策略驗證①：滾動1年報酬（策略 vs 大盤）======================
+print("🚀 開始計算滾動報酬率...")
+rolling_strategy = calc_rolling_return(report.creturn)
+rolling_benchmark = calc_rolling_return(benchmark_aligned)
+rolling_combined = pd.DataFrame({"strategy": rolling_strategy, "benchmark": rolling_benchmark}).dropna()
+rolling_weekly = rolling_combined.resample('W-FRI').last().dropna()
+rolling_1y_return = [
+    {"date": str(dt.date()), "strategy": round(float(row["strategy"]), 2), "benchmark": round(float(row["benchmark"]), 2)}
+    for dt, row in rolling_weekly.iterrows()
+]
+
+# ====================== 策略驗證②：分數 vs 遠期報酬率（因子評分是否真的有效）======================
+print("🚀 開始計算分數與報酬率驗證...")
+SCORE_VALIDATION_FORWARD_DAYS = 60  # 約一季，對齊實際換倉週期
+fwd_return_matrix = (price.shift(-SCORE_VALIDATION_FORWARD_DAYS) / price - 1) * 100
+display_score_matrix = full_score_matrix.map(score_to_display)
+
+score_flat = display_score_matrix.stack()
+ret_flat = fwd_return_matrix.stack()
+score_ret_df = pd.DataFrame({"score": score_flat, "ret": ret_flat}).dropna()
+
+SCORE_BIN_EDGES = [0, 60, 70, 80, 90, 100.01]
+SCORE_BIN_LABELS = ["<60", "60-70", "70-80", "80-90", "90-100"]
+score_ret_df["bin"] = pd.cut(score_ret_df["score"], bins=SCORE_BIN_EDGES, labels=SCORE_BIN_LABELS, right=False)
+
+score_return_validation = []
+for label in SCORE_BIN_LABELS:
+    sub = score_ret_df[score_ret_df["bin"] == label]
+    if len(sub) == 0:
+        continue
+    score_return_validation.append({
+        "bin": label,
+        "avg_return": round(float(sub["ret"].mean()), 2),
+        "win_rate": round(float((sub["ret"] > 0).mean() * 100), 1),
+        "n": int(len(sub)),
+    })
+print(f"✅ 分數驗證完成，共 {len(score_ret_df)} 筆（日期×股票）樣本，forward={SCORE_VALIDATION_FORWARD_DAYS} 個交易日")
 
 overview = {
     "start_date": "2010-03-31",
@@ -679,6 +723,11 @@ overview = {
         for s in yearly_mdd_strategy
     ],
     "monthly_returns": calc_monthly_returns(report.creturn),
+    "rolling_1y_return": rolling_1y_return,
+    "score_return_validation": {
+        "forward_days": SCORE_VALIDATION_FORWARD_DAYS,
+        "bins": score_return_validation,
+    },
 }
 # =============================================================================
 # 3. 產生 chart_data.json
