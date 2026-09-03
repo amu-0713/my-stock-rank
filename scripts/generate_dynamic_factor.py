@@ -662,7 +662,7 @@ rolling_1y_return = [
 
 # ====================== 策略驗證②：分數 vs 遠期報酬率（因子評分是否真的有效）======================
 print("🚀 開始計算分數與報酬率驗證...")
-SCORE_VALIDATION_FORWARD_DAYS = 60  # 約一季，對齊實際換倉週期
+SCORE_VALIDATION_FORWARD_DAYS = 63  # 一季約90個日曆天，換算成交易日約 252/4 = 63 天，對齊實際換倉週期
 fwd_return_matrix = (price.shift(-SCORE_VALIDATION_FORWARD_DAYS) / price - 1) * 100
 display_score_matrix = full_score_matrix.map(score_to_display)
 
