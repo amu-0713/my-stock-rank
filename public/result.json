@@ -1,6 +1,6 @@
 {
   "latest_date": "2026-09-03",
-  "updated_at": "2026-09-03 20:30",
+  "updated_at": "2026-09-03 20:42",
   "compare_date": "2026-08-27",
   "rebalance_base_date": "2026-07-01",
   "next_rebalance_date": "2026-10-01",
@@ -5293,37 +5293,37 @@
       }
     ],
     "score_return_validation": {
-      "forward_days": 60,
+      "forward_days": 63,
       "bins": [
         {
           "bin": "<60",
-          "avg_return": 2.81,
+          "avg_return": 2.96,
           "win_rate": 46.6,
-          "n": 4296717
+          "n": 4292595
         },
         {
           "bin": "60-70",
-          "avg_return": 2.58,
+          "avg_return": 2.71,
           "win_rate": 47.8,
-          "n": 1337370
+          "n": 1336103
         },
         {
           "bin": "70-80",
-          "avg_return": 2.8,
+          "avg_return": 2.95,
           "win_rate": 49.2,
-          "n": 916593
+          "n": 915889
         },
         {
           "bin": "80-90",
-          "avg_return": 2.93,
+          "avg_return": 3.08,
           "win_rate": 50.8,
-          "n": 468258
+          "n": 467855
         },
         {
           "bin": "90-100",
-          "avg_return": 3.1,
-          "win_rate": 51.7,
-          "n": 171078
+          "avg_return": 3.25,
+          "win_rate": 51.8,
+          "n": 171001
         }
       ]
     }
