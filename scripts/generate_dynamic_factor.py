@@ -532,27 +532,55 @@ def calc_performance(ret_series, start_date=None):
     }
 
 def calc_drawdown_stats(nav_series):
-    """計算最大回撤的高點日、低點日、回撤天數、回補天數（尚未回補則為 None）"""
+    """單一最大回撤的高點日、低點日、回撤天數、回補天數（即 calc_top_drawdowns 的第一名，避免兩套邏輯各算各的）"""
+    return calc_top_drawdowns(nav_series, top_n=1)[0]
+
+def calc_top_drawdowns(nav_series, top_n=5):
+    """找出前 N 個非重疊的回撤週期（依回撤幅度由深到淺排序）。
+    一個週期定義為：從創新高的高點開始，一直到 nav 再次回到（或超過）該高點為止；
+    若一路盤整未創新高就會被視為同一個週期，直到真的突破舊高點才算回補。"""
     nav_series = nav_series.dropna()
     running_max = nav_series.cummax()
     drawdown = (nav_series / running_max) - 1
-    trough_date = drawdown.idxmin()
-    max_dd_pct = float(drawdown.loc[trough_date]) * 100
-    peak_candidates = nav_series.loc[:trough_date]
-    peak_date = peak_candidates[peak_candidates == running_max.loc[trough_date]].index.max()
-    peak_value = nav_series.loc[peak_date]
-    after_trough = nav_series.loc[trough_date:]
-    recovered = after_trough[after_trough >= peak_value]
-    recovery_date = recovered.index.min() if len(recovered) > 0 else None
-    return {
-        "max_drawdown": round(max_dd_pct, 2),
-        "peak_date": str(peak_date.date()),
-        "trough_date": str(trough_date.date()),
-        "duration_days": int((trough_date - peak_date).days),
-        "recovery_date": str(recovery_date.date()) if recovery_date is not None else None,
-        "recovery_days": int((recovery_date - trough_date).days) if recovery_date is not None else None,
-        "recovered": recovery_date is not None,
-    }
+    at_high = (drawdown == 0)
+
+    episodes = []
+    in_drawdown = False
+    episode_start = None
+    last_high_date = nav_series.index[0]
+
+    for dt in nav_series.index:
+        if at_high.loc[dt]:
+            if in_drawdown:
+                episodes.append((episode_start, dt))
+                in_drawdown = False
+            last_high_date = dt
+        else:
+            if not in_drawdown:
+                in_drawdown = True
+                episode_start = last_high_date
+
+    if in_drawdown:
+        episodes.append((episode_start, None))
+
+    results = []
+    for peak_date, recovery_date in episodes:
+        end_date = recovery_date if recovery_date is not None else nav_series.index[-1]
+        segment = drawdown.loc[peak_date:end_date]
+        trough_date = segment.idxmin()
+        max_dd_pct = float(segment.loc[trough_date]) * 100
+        results.append({
+            "max_drawdown": round(max_dd_pct, 2),
+            "peak_date": str(peak_date.date()),
+            "trough_date": str(trough_date.date()),
+            "duration_days": int((trough_date - peak_date).days),
+            "recovery_date": str(recovery_date.date()) if recovery_date is not None else None,
+            "recovery_days": int((recovery_date - trough_date).days) if recovery_date is not None else None,
+            "recovered": recovery_date is not None,
+        })
+
+    results.sort(key=lambda r: r["max_drawdown"])
+    return results[:top_n]
 
 def calc_yearly_returns(nav_series):
     """依日曆年切分，回傳每年報酬率（%）"""
@@ -612,12 +640,17 @@ overview = {
     "calmar_ratio": perf_all["calmar_ratio"],
     "current_holdings": 16,
     "drawdown_detail": calc_drawdown_stats(report.creturn),
+    "top_drawdowns": calc_top_drawdowns(report.creturn, 5),
     "benchmark": {
         "total_return_all": perf_benchmark["total_return"],
         "annual_return_all": perf_benchmark["annual_return"],
         "max_drawdown": perf_benchmark["max_drawdown"],
         "volatility_all": perf_benchmark["volatility"],
+        "sharpe_ratio": perf_benchmark["sharpe_ratio"],
+        "sortino_ratio": perf_benchmark["sortino_ratio"],
+        "calmar_ratio": perf_benchmark["calmar_ratio"],
         "drawdown_detail": calc_drawdown_stats(benchmark_aligned),
+        "top_drawdowns": calc_top_drawdowns(benchmark_aligned, 5),
     },
     "yearly_returns": [
         {"year": s["year"], "strategy": s["return"], "benchmark": yearly_benchmark_map.get(s["year"])}
