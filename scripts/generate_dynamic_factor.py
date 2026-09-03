@@ -136,7 +136,7 @@ def run_full_backtest():
         report.benchmark = benchmark.reindex(report.creturn.index).ffill()
     print("✅ 完整回測執行完成！")
     return (
-        report, position_final, price, score, final_cond,
+        report, position_final, price, open_p, score, final_cond,
         rs_fixed, peg, dd, corr_mkt, regime, weights, full_score_matrix,
         c_rev_positive, c_rev_high, c_hist, c_ma_filter, c_liq
     )
@@ -150,7 +150,7 @@ if finlab_token:
 # =============================================================================
 # 1. 執行完整回測
 # =============================================================================
-report, position_final, price, score, final_cond, rs_fixed, peg, dd, corr_mkt, regime, weights, full_score_matrix, \
+report, position_final, price, open_p, score, final_cond, rs_fixed, peg, dd, corr_mkt, regime, weights, full_score_matrix, \
 c_rev_positive, c_rev_high, c_hist, c_ma_filter, c_liq = run_full_backtest()
 
 # =============================================================================
@@ -661,12 +661,20 @@ rolling_1y_return = [
 ]
 
 # ====================== 策略驗證②：分數 vs 遠期報酬率（因子評分是否真的有效）======================
-# 【只計算通過基本濾網的個股】不是拿全市場（含營收為負、流動性不足等根本不會被選進來的股票）灌水，
-# 而是限定在 final_cond 為 True 的候選池——也就是實際選股時真正會拿來比較高低的那個群體。
+# 【先過濾再排名】用實際選股時真正在用的 score（已經是 .where(final_cond) 之後才排名算出來的「菁英群體分」），
+# 不是 full_score_matrix（那個是對全市場排名，含營收為負、流動性不足等根本不會被選進來的股票，
+# 分數會被灌水／稀釋，95 分應該代表「這群候選人裡的前 5%」而不是跟一堆不合格股票比較出來的名次）。
+# score 對「未通過濾網」的股票是直接填 0（不是 NaN），所以還是要用 final_cond 再遮一次，
+# 不然全市場的不合格股票會通通擠進 <60 分那組。
+#
+# 【T+1 開盤進場】用訊號隔日的開盤價進場、出場也用開盤價，對齊實戰的 T+1 執行規則，
+# 避免用「訊號當天收盤價」進場造成的偷看未來（look-ahead bias）。
 print("🚀 開始計算分數與報酬率驗證...")
 SCORE_VALIDATION_FORWARD_DAYS = 63  # 一季約90個日曆天，換算成交易日約 252/4 = 63 天，對齊實際換倉週期
-fwd_return_matrix = (price.shift(-SCORE_VALIDATION_FORWARD_DAYS) / price - 1) * 100
-display_score_matrix = full_score_matrix.map(score_to_display)
+actual_entry = open_p.shift(-1)
+actual_exit = open_p.shift(-1 - SCORE_VALIDATION_FORWARD_DAYS)
+fwd_return_matrix = (actual_exit / actual_entry - 1) * 100
+display_score_matrix = score.map(score_to_display)
 
 score_flat = display_score_matrix.stack()
 ret_flat = fwd_return_matrix.stack()
@@ -689,7 +697,7 @@ for label in SCORE_BIN_LABELS:
         "win_rate": round(float((sub["ret"] > 0).mean() * 100), 1),
         "n": int(len(sub)),
     })
-print(f"✅ 分數驗證完成，共 {len(score_ret_df)} 筆（僅通過濾網的日期×股票）樣本，forward={SCORE_VALIDATION_FORWARD_DAYS} 個交易日")
+print(f"✅ 分數驗證完成，共 {len(score_ret_df)} 筆（僅通過濾網、菁英群體內排名的日期×股票，T+1開盤進場）樣本，forward={SCORE_VALIDATION_FORWARD_DAYS} 個交易日")
 
 overview = {
     "start_date": "2010-03-31",
