@@ -1,6 +1,6 @@
 {
   "latest_date": "2026-09-03",
-  "updated_at": "2026-09-03 19:34",
+  "updated_at": "2026-09-03 19:48",
   "compare_date": "2026-08-27",
   "rebalance_base_date": "2026-07-01",
   "next_rebalance_date": "2026-10-01",
@@ -35,8 +35,7 @@
         "duration_days": 50,
         "recovery_date": "2025-10-02",
         "recovery_days": 176,
-        "recovered": true,
-        "counterpart_return": -26.34
+        "recovered": true
       },
       {
         "max_drawdown": -28.25,
@@ -45,8 +44,7 @@
         "duration_days": 16,
         "recovery_date": "2020-04-22",
         "recovery_days": 34,
-        "recovered": true,
-        "counterpart_return": -23.18
+        "recovered": true
       },
       {
         "max_drawdown": -24.42,
@@ -55,8 +53,7 @@
         "duration_days": 141,
         "recovery_date": "2012-03-08",
         "recovery_days": 79,
-        "recovered": true,
-        "counterpart_return": -22.68
+        "recovered": true
       },
       {
         "max_drawdown": -20.58,
@@ -65,8 +62,7 @@
         "duration_days": 203,
         "recovery_date": "2019-03-14",
         "recovery_days": 136,
-        "recovered": true,
-        "counterpart_return": -9.04
+        "recovered": true
       },
       {
         "max_drawdown": -20.26,
@@ -75,8 +71,7 @@
         "duration_days": 146,
         "recovery_date": "2024-12-31",
         "recovery_days": 33,
-        "recovered": true,
-        "counterpart_return": -4.31
+        "recovered": true
       }
     ],
     "benchmark": {
@@ -104,8 +99,7 @@
           "duration_days": 65,
           "recovery_date": "2020-07-06",
           "recovery_days": 109,
-          "recovered": true,
-          "counterpart_return": -25.46
+          "recovered": true
         },
         {
           "max_drawdown": -28.47,
@@ -114,8 +108,7 @@
           "duration_days": 281,
           "recovery_date": "2023-07-14",
           "recovery_days": 262,
-          "recovered": true,
-          "counterpart_return": -4.83
+          "recovered": true
         },
         {
           "max_drawdown": -27.72,
@@ -124,8 +117,7 @@
           "duration_days": 272,
           "recovery_date": "2025-08-05",
           "recovery_days": 118,
-          "recovered": true,
-          "counterpart_return": -26.8
+          "recovered": true
         },
         {
           "max_drawdown": -24.52,
@@ -134,8 +126,7 @@
           "duration_days": 325,
           "recovery_date": "2013-09-16",
           "recovery_days": 637,
-          "recovered": true,
-          "counterpart_return": -12.34
+          "recovered": true
         },
         {
           "max_drawdown": -23.18,
@@ -144,8 +135,7 @@
           "duration_days": 119,
           "recovery_date": "2016-09-07",
           "recovery_days": 380,
-          "recovered": true,
-          "counterpart_return": -12.35
+          "recovered": true
         }
       ]
     },
@@ -234,6 +224,93 @@
         "year": 2026,
         "strategy": 104.35,
         "benchmark": 60.66
+      }
+    ],
+    "yearly_max_drawdown": [
+      {
+        "year": 2010,
+        "strategy": -15.48,
+        "benchmark": -13.45
+      },
+      {
+        "year": 2011,
+        "strategy": -24.42,
+        "benchmark": -24.52
+      },
+      {
+        "year": 2012,
+        "strategy": -14.38,
+        "benchmark": -15.32
+      },
+      {
+        "year": 2013,
+        "strategy": -7.28,
+        "benchmark": -8.73
+      },
+      {
+        "year": 2014,
+        "strategy": -14.6,
+        "benchmark": -10.44
+      },
+      {
+        "year": 2015,
+        "strategy": -20.21,
+        "benchmark": -23.18
+      },
+      {
+        "year": 2016,
+        "strategy": -13.43,
+        "benchmark": -8.61
+      },
+      {
+        "year": 2017,
+        "strategy": -6.04,
+        "benchmark": -4.6
+      },
+      {
+        "year": 2018,
+        "strategy": -20.58,
+        "benchmark": -14.47
+      },
+      {
+        "year": 2019,
+        "strategy": -8.08,
+        "benchmark": -7.16
+      },
+      {
+        "year": 2020,
+        "strategy": -28.25,
+        "benchmark": -28.55
+      },
+      {
+        "year": 2021,
+        "strategy": -18.96,
+        "benchmark": -12.74
+      },
+      {
+        "year": 2022,
+        "strategy": -14.18,
+        "benchmark": -28.47
+      },
+      {
+        "year": 2023,
+        "strategy": -8.55,
+        "benchmark": -6.86
+      },
+      {
+        "year": 2024,
+        "strategy": -20.26,
+        "benchmark": -18.31
+      },
+      {
+        "year": 2025,
+        "strategy": -29.75,
+        "benchmark": -26.54
+      },
+      {
+        "year": 2026,
+        "strategy": -16.77,
+        "benchmark": -15.72
       }
     ],
     "monthly_returns": [
