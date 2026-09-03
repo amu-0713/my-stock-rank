@@ -661,6 +661,8 @@ rolling_1y_return = [
 ]
 
 # ====================== 策略驗證②：分數 vs 遠期報酬率（因子評分是否真的有效）======================
+# 【只計算通過基本濾網的個股】不是拿全市場（含營收為負、流動性不足等根本不會被選進來的股票）灌水，
+# 而是限定在 final_cond 為 True 的候選池——也就是實際選股時真正會拿來比較高低的那個群體。
 print("🚀 開始計算分數與報酬率驗證...")
 SCORE_VALIDATION_FORWARD_DAYS = 63  # 一季約90個日曆天，換算成交易日約 252/4 = 63 天，對齊實際換倉週期
 fwd_return_matrix = (price.shift(-SCORE_VALIDATION_FORWARD_DAYS) / price - 1) * 100
@@ -668,7 +670,9 @@ display_score_matrix = full_score_matrix.map(score_to_display)
 
 score_flat = display_score_matrix.stack()
 ret_flat = fwd_return_matrix.stack()
-score_ret_df = pd.DataFrame({"score": score_flat, "ret": ret_flat}).dropna()
+passed_flat = final_cond.stack()
+score_ret_df = pd.DataFrame({"score": score_flat, "ret": ret_flat, "passed": passed_flat}).dropna(subset=["score", "ret"])
+score_ret_df = score_ret_df[score_ret_df["passed"].fillna(False)]
 
 SCORE_BIN_EDGES = [0, 60, 70, 80, 90, 100.01]
 SCORE_BIN_LABELS = ["<60", "60-70", "70-80", "80-90", "90-100"]
@@ -685,7 +689,7 @@ for label in SCORE_BIN_LABELS:
         "win_rate": round(float((sub["ret"] > 0).mean() * 100), 1),
         "n": int(len(sub)),
     })
-print(f"✅ 分數驗證完成，共 {len(score_ret_df)} 筆（日期×股票）樣本，forward={SCORE_VALIDATION_FORWARD_DAYS} 個交易日")
+print(f"✅ 分數驗證完成，共 {len(score_ret_df)} 筆（僅通過濾網的日期×股票）樣本，forward={SCORE_VALIDATION_FORWARD_DAYS} 個交易日")
 
 overview = {
     "start_date": "2010-03-31",
