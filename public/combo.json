@@ -1,0 +1,253 @@
+{
+  "generated_at": "2026-09-03",
+  "method_note": "取「動態多因子」與「高息低波」兩策略已回測好的月報酬率，依設定比例混合、每年1月初重新平衡回目標比例，模擬同時持有兩策略的效果。此為事後用月報酬率近似混合的模擬，不是重新執行一次聯合部位回測，數字會與各自策略頁面顯示的精確逐日回測結果略有差異。",
+  "n_months": 198,
+  "blends": {
+    "30_70": {
+      "label": "動態30% / 高息70%",
+      "w_dynamic": 0.3,
+      "w_highdiv": 0.7,
+      "total_return": 11739.35,
+      "annual_return": 33.55,
+      "max_drawdown": -12.14,
+      "volatility": 14.98,
+      "sharpe_ratio": 1.89,
+      "sortino_ratio": 3.82,
+      "calmar_ratio": 2.76,
+      "yearly_returns": [
+        {
+          "year": 2010,
+          "return": 50.15
+        },
+        {
+          "year": 2011,
+          "return": 6.71
+        },
+        {
+          "year": 2012,
+          "return": 29.99
+        },
+        {
+          "year": 2013,
+          "return": 46.42
+        },
+        {
+          "year": 2014,
+          "return": 19.45
+        },
+        {
+          "year": 2015,
+          "return": 36.03
+        },
+        {
+          "year": 2016,
+          "return": 32.05
+        },
+        {
+          "year": 2017,
+          "return": 45.63
+        },
+        {
+          "year": 2018,
+          "return": 3.87
+        },
+        {
+          "year": 2019,
+          "return": 27.36
+        },
+        {
+          "year": 2020,
+          "return": 51.57
+        },
+        {
+          "year": 2021,
+          "return": 43.24
+        },
+        {
+          "year": 2022,
+          "return": 16.88
+        },
+        {
+          "year": 2023,
+          "return": 76.96
+        },
+        {
+          "year": 2024,
+          "return": 33.98
+        },
+        {
+          "year": 2025,
+          "return": 10.22
+        },
+        {
+          "year": 2026,
+          "return": 41.62
+        }
+      ]
+    },
+    "50_50": {
+      "label": "動態50% / 高息50%",
+      "w_dynamic": 0.5,
+      "w_highdiv": 0.5,
+      "total_return": 20510.94,
+      "annual_return": 38.12,
+      "max_drawdown": -14.65,
+      "volatility": 18.87,
+      "sharpe_ratio": 1.72,
+      "sortino_ratio": 3.68,
+      "calmar_ratio": 2.6,
+      "yearly_returns": [
+        {
+          "year": 2010,
+          "return": 52.86
+        },
+        {
+          "year": 2011,
+          "return": 2.48
+        },
+        {
+          "year": 2012,
+          "return": 30.67
+        },
+        {
+          "year": 2013,
+          "return": 55.54
+        },
+        {
+          "year": 2014,
+          "return": 25.51
+        },
+        {
+          "year": 2015,
+          "return": 54.08
+        },
+        {
+          "year": 2016,
+          "return": 34.25
+        },
+        {
+          "year": 2017,
+          "return": 52.79
+        },
+        {
+          "year": 2018,
+          "return": 0.1
+        },
+        {
+          "year": 2019,
+          "return": 29.84
+        },
+        {
+          "year": 2020,
+          "return": 73.02
+        },
+        {
+          "year": 2021,
+          "return": 51.59
+        },
+        {
+          "year": 2022,
+          "return": 13.71
+        },
+        {
+          "year": 2023,
+          "return": 76.67
+        },
+        {
+          "year": 2024,
+          "return": 33.89
+        },
+        {
+          "year": 2025,
+          "return": 11.56
+        },
+        {
+          "year": 2026,
+          "return": 59.54
+        }
+      ]
+    },
+    "70_30": {
+      "label": "動態70% / 高息30%",
+      "w_dynamic": 0.7,
+      "w_highdiv": 0.3,
+      "total_return": 33758.22,
+      "annual_return": 42.34,
+      "max_drawdown": -17.2,
+      "volatility": 23.09,
+      "sharpe_ratio": 1.57,
+      "sortino_ratio": 3.51,
+      "calmar_ratio": 2.46,
+      "yearly_returns": [
+        {
+          "year": 2010,
+          "return": 55.56
+        },
+        {
+          "year": 2011,
+          "return": -1.75
+        },
+        {
+          "year": 2012,
+          "return": 31.35
+        },
+        {
+          "year": 2013,
+          "return": 64.66
+        },
+        {
+          "year": 2014,
+          "return": 31.56
+        },
+        {
+          "year": 2015,
+          "return": 72.13
+        },
+        {
+          "year": 2016,
+          "return": 36.44
+        },
+        {
+          "year": 2017,
+          "return": 59.94
+        },
+        {
+          "year": 2018,
+          "return": -3.67
+        },
+        {
+          "year": 2019,
+          "return": 32.33
+        },
+        {
+          "year": 2020,
+          "return": 94.47
+        },
+        {
+          "year": 2021,
+          "return": 59.95
+        },
+        {
+          "year": 2022,
+          "return": 10.54
+        },
+        {
+          "year": 2023,
+          "return": 76.38
+        },
+        {
+          "year": 2024,
+          "return": 33.8
+        },
+        {
+          "year": 2025,
+          "return": 12.91
+        },
+        {
+          "year": 2026,
+          "return": 77.46
+        }
+      ]
+    }
+  }
+}
