@@ -535,13 +535,10 @@ def calc_drawdown_stats(nav_series):
     """單一最大回撤的高點日、低點日、回撤天數、回補天數（即 calc_top_drawdowns 的第一名，避免兩套邏輯各算各的）"""
     return calc_top_drawdowns(nav_series, top_n=1)[0]
 
-def calc_top_drawdowns(nav_series, top_n=5, counterpart_series=None):
+def calc_top_drawdowns(nav_series, top_n=5):
     """找出前 N 個非重疊的回撤週期（依回撤幅度由深到淺排序）。
     一個週期定義為：從創新高的高點開始，一直到 nav 再次回到（或超過）該高點為止；
-    若一路盤整未創新高就會被視為同一個週期，直到真的突破舊高點才算回補。
-    若提供 counterpart_series（例如策略 vs 大盤互相對照，兩者需已對齊到相同日期索引），
-    會額外算出「對照序列」在同一段高點～低點期間的報酬率，放進 counterpart_return，
-    讓前端可以呈現「策略最慘的那幾段，大盤同期表現如何」這種配對比較。"""
+    若一路盤整未創新高就會被視為同一個週期，直到真的突破舊高點才算回補。"""
     nav_series = nav_series.dropna()
     running_max = nav_series.cummax()
     drawdown = (nav_series / running_max) - 1
@@ -572,7 +569,7 @@ def calc_top_drawdowns(nav_series, top_n=5, counterpart_series=None):
         segment = drawdown.loc[peak_date:end_date]
         trough_date = segment.idxmin()
         max_dd_pct = float(segment.loc[trough_date]) * 100
-        entry = {
+        results.append({
             "max_drawdown": round(max_dd_pct, 2),
             "peak_date": str(peak_date.date()),
             "trough_date": str(trough_date.date()),
@@ -580,15 +577,25 @@ def calc_top_drawdowns(nav_series, top_n=5, counterpart_series=None):
             "recovery_date": str(recovery_date.date()) if recovery_date is not None else None,
             "recovery_days": int((recovery_date - trough_date).days) if recovery_date is not None else None,
             "recovered": recovery_date is not None,
-        }
-        if counterpart_series is not None:
-            cp_peak = counterpart_series.loc[peak_date]
-            cp_trough = counterpart_series.loc[trough_date]
-            entry["counterpart_return"] = round(float(cp_trough / cp_peak - 1) * 100, 2) if cp_peak else None
-        results.append(entry)
+        })
 
     results.sort(key=lambda r: r["max_drawdown"])
     return results[:top_n]
+
+def calc_yearly_max_drawdown(nav_series):
+    """依日曆年切分，各自獨立算出「當年度自己的」最大回撤：只看年內自己的高點到低點，
+    不管前一年留下來的舊高點、也不管有沒有回補——單純回答「這一年裡最慘跌了多少」。
+    用自己的時間軸，而不是拿另一方的精確回撤區間硬套過來比。"""
+    nav_series = nav_series.dropna()
+    out = []
+    for y in sorted(nav_series.index.year.unique()):
+        year_data = nav_series[nav_series.index.year == y]
+        if len(year_data) == 0:
+            continue
+        running_max = year_data.cummax()
+        drawdown = (year_data / running_max) - 1
+        out.append({"year": int(y), "max_drawdown": round(float(drawdown.min()) * 100, 2)})
+    return out
 
 def calc_yearly_returns(nav_series):
     """依日曆年切分，回傳每年報酬率（%）"""
@@ -633,6 +640,9 @@ perf_benchmark = calc_performance(benchmark_daily_return)
 yearly_strategy = calc_yearly_returns(report.creturn)
 yearly_benchmark_map = {b["year"]: b["return"] for b in calc_yearly_returns(benchmark_aligned)}
 
+yearly_mdd_strategy = calc_yearly_max_drawdown(report.creturn)
+yearly_mdd_benchmark_map = {b["year"]: b["max_drawdown"] for b in calc_yearly_max_drawdown(benchmark_aligned)}
+
 overview = {
     "start_date": "2010-03-31",
     "total_return_all": perf_all["total_return"],
@@ -648,7 +658,7 @@ overview = {
     "calmar_ratio": perf_all["calmar_ratio"],
     "current_holdings": 16,
     "drawdown_detail": calc_drawdown_stats(report.creturn),
-    "top_drawdowns": calc_top_drawdowns(report.creturn, 5, counterpart_series=benchmark_aligned),
+    "top_drawdowns": calc_top_drawdowns(report.creturn, 5),
     "benchmark": {
         "total_return_all": perf_benchmark["total_return"],
         "annual_return_all": perf_benchmark["annual_return"],
@@ -658,11 +668,15 @@ overview = {
         "sortino_ratio": perf_benchmark["sortino_ratio"],
         "calmar_ratio": perf_benchmark["calmar_ratio"],
         "drawdown_detail": calc_drawdown_stats(benchmark_aligned),
-        "top_drawdowns": calc_top_drawdowns(benchmark_aligned, 5, counterpart_series=report.creturn),
+        "top_drawdowns": calc_top_drawdowns(benchmark_aligned, 5),
     },
     "yearly_returns": [
         {"year": s["year"], "strategy": s["return"], "benchmark": yearly_benchmark_map.get(s["year"])}
         for s in yearly_strategy
+    ],
+    "yearly_max_drawdown": [
+        {"year": s["year"], "strategy": s["max_drawdown"], "benchmark": yearly_mdd_benchmark_map.get(s["year"])}
+        for s in yearly_mdd_strategy
     ],
     "monthly_returns": calc_monthly_returns(report.creturn),
 }
