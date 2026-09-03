@@ -535,10 +535,13 @@ def calc_drawdown_stats(nav_series):
     """單一最大回撤的高點日、低點日、回撤天數、回補天數（即 calc_top_drawdowns 的第一名，避免兩套邏輯各算各的）"""
     return calc_top_drawdowns(nav_series, top_n=1)[0]
 
-def calc_top_drawdowns(nav_series, top_n=5):
+def calc_top_drawdowns(nav_series, top_n=5, counterpart_series=None):
     """找出前 N 個非重疊的回撤週期（依回撤幅度由深到淺排序）。
     一個週期定義為：從創新高的高點開始，一直到 nav 再次回到（或超過）該高點為止；
-    若一路盤整未創新高就會被視為同一個週期，直到真的突破舊高點才算回補。"""
+    若一路盤整未創新高就會被視為同一個週期，直到真的突破舊高點才算回補。
+    若提供 counterpart_series（例如策略 vs 大盤互相對照，兩者需已對齊到相同日期索引），
+    會額外算出「對照序列」在同一段高點～低點期間的報酬率，放進 counterpart_return，
+    讓前端可以呈現「策略最慘的那幾段，大盤同期表現如何」這種配對比較。"""
     nav_series = nav_series.dropna()
     running_max = nav_series.cummax()
     drawdown = (nav_series / running_max) - 1
@@ -569,7 +572,7 @@ def calc_top_drawdowns(nav_series, top_n=5):
         segment = drawdown.loc[peak_date:end_date]
         trough_date = segment.idxmin()
         max_dd_pct = float(segment.loc[trough_date]) * 100
-        results.append({
+        entry = {
             "max_drawdown": round(max_dd_pct, 2),
             "peak_date": str(peak_date.date()),
             "trough_date": str(trough_date.date()),
@@ -577,7 +580,12 @@ def calc_top_drawdowns(nav_series, top_n=5):
             "recovery_date": str(recovery_date.date()) if recovery_date is not None else None,
             "recovery_days": int((recovery_date - trough_date).days) if recovery_date is not None else None,
             "recovered": recovery_date is not None,
-        })
+        }
+        if counterpart_series is not None:
+            cp_peak = counterpart_series.loc[peak_date]
+            cp_trough = counterpart_series.loc[trough_date]
+            entry["counterpart_return"] = round(float(cp_trough / cp_peak - 1) * 100, 2) if cp_peak else None
+        results.append(entry)
 
     results.sort(key=lambda r: r["max_drawdown"])
     return results[:top_n]
@@ -640,7 +648,7 @@ overview = {
     "calmar_ratio": perf_all["calmar_ratio"],
     "current_holdings": 16,
     "drawdown_detail": calc_drawdown_stats(report.creturn),
-    "top_drawdowns": calc_top_drawdowns(report.creturn, 5),
+    "top_drawdowns": calc_top_drawdowns(report.creturn, 5, counterpart_series=benchmark_aligned),
     "benchmark": {
         "total_return_all": perf_benchmark["total_return"],
         "annual_return_all": perf_benchmark["annual_return"],
@@ -650,7 +658,7 @@ overview = {
         "sortino_ratio": perf_benchmark["sortino_ratio"],
         "calmar_ratio": perf_benchmark["calmar_ratio"],
         "drawdown_detail": calc_drawdown_stats(benchmark_aligned),
-        "top_drawdowns": calc_top_drawdowns(benchmark_aligned, 5),
+        "top_drawdowns": calc_top_drawdowns(benchmark_aligned, 5, counterpart_series=report.creturn),
     },
     "yearly_returns": [
         {"year": s["year"], "strategy": s["return"], "benchmark": yearly_benchmark_map.get(s["year"])}
