@@ -638,7 +638,7 @@ yearly_benchmark_map = {b["year"]: b["return"] for b in calc_yearly_returns(benc
 yearly_mdd_strategy = calc_yearly_max_drawdown(report_x.creturn)
 yearly_mdd_benchmark_map = {b["year"]: b["max_drawdown"] for b in calc_yearly_max_drawdown(benchmark_aligned)}
 
-# 策略驗證：滾動1年報酬（策略 vs 大盤）
+# 策略驗證①：滾動1年報酬（策略 vs 大盤）
 rolling_strategy = calc_rolling_return(report_x.creturn)
 rolling_benchmark = calc_rolling_return(benchmark_aligned)
 rolling_combined = pd.DataFrame({"strategy": rolling_strategy, "benchmark": rolling_benchmark}).dropna()
@@ -647,6 +647,44 @@ rolling_1y_return = [
     {"date": str(dt.date()), "strategy": round(float(row["strategy"]), 2), "benchmark": round(float(row["benchmark"]), 2)}
     for dt, row in rolling_weekly.iterrows()
 ]
+
+# ====================== 策略驗證②：分數 vs 遠期報酬率（因子評分是否真的有效）======================
+# 用 score_raw_today（跟真正選股完全一致的全市場排名分數），限定在通過濾網 final_cond 的個股才納入統計。
+# T+1 開盤進場、持有90天後開盤出場，避免用訊號當天收盤價偷看未來。
+# 用「風險調整效率」（該分數區間報酬的平均值 / 橫截面標準差）取代單純平均報酬，
+# 避免少數極端值把平均報酬拉高、造成誤判分數越高越好。
+print("🚀 開始計算分數與報酬率驗證...")
+SCORE_VALIDATION_FORWARD_DAYS = 90
+actual_entry = open_p.shift(-1)
+actual_exit = open_p.shift(-1 - SCORE_VALIDATION_FORWARD_DAYS)
+fwd_return_matrix = (actual_exit / actual_entry - 1) * 100
+display_score_matrix = score_raw_today.map(score_to_display)
+
+score_flat = display_score_matrix.stack()
+ret_flat = fwd_return_matrix.stack()
+passed_flat = final_cond.stack()
+score_ret_df = pd.DataFrame({"score": score_flat, "ret": ret_flat, "passed": passed_flat}).dropna(subset=["score", "ret"])
+score_ret_df = score_ret_df[score_ret_df["passed"].fillna(False)]
+
+SCORE_BIN_EDGES = [0, 60, 70, 80, 90, 100.01]
+SCORE_BIN_LABELS = ["<60", "60-70", "70-80", "80-90", "90-100"]
+score_ret_df["bin"] = pd.cut(score_ret_df["score"], bins=SCORE_BIN_EDGES, labels=SCORE_BIN_LABELS, right=False)
+
+score_return_validation = []
+for label in SCORE_BIN_LABELS:
+    sub = score_ret_df[score_ret_df["bin"] == label]
+    if len(sub) == 0:
+        continue
+    ret_mean = float(sub["ret"].mean())
+    ret_std = float(sub["ret"].std())
+    score_return_validation.append({
+        "bin": label,
+        "avg_return": round(ret_mean, 2),
+        "efficiency": round(ret_mean / ret_std, 3) if ret_std else 0.0,
+        "win_rate": round(float((sub["ret"] > 0).mean() * 100), 1),
+        "n": int(len(sub)),
+    })
+print(f"✅ 分數驗證完成，共 {len(score_ret_df)} 筆（僅通過濾網的日期×股票，T+1開盤進場）樣本，forward={SCORE_VALIDATION_FORWARD_DAYS} 個交易日")
 
 overview = {
     "start_date": "2010-03-31",
@@ -685,6 +723,11 @@ overview = {
     ],
     "monthly_returns": calc_monthly_returns(report_x.creturn),
     "rolling_1y_return": rolling_1y_return,
+    "score_return_validation": {
+        "forward_days": SCORE_VALIDATION_FORWARD_DAYS,
+        "metric": "efficiency",
+        "bins": score_return_validation,
+    },
 }
 
 def get_pts(series, benchmark_series, start_dt, period=None):
