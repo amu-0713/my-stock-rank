@@ -137,6 +137,15 @@ export default function RebalancePerformancePage() {
         {sinceRebalance?.date && (
           <p className="mt-1 text-sm text-zinc-500">
             自最近換倉日 {sinceRebalance.date} 至 {data?.latest_date ?? '—'}
+            {data?.regime_at_rebalance && (
+              <>
+                ・換倉當時系統判斷
+                <span className={`font-semibold ${data.regime_at_rebalance === 'bear' ? 'text-rose-600' : 'text-emerald-600'}`}>
+                  {data.regime_at_rebalance === 'bear' ? '熊市' : '牛市'}
+                </span>
+                ，選出 {sortedHoldings.length} 檔
+              </>
+            )}
           </p>
         )}
 

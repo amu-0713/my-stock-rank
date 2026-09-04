@@ -361,15 +361,21 @@ def get_position_info_lookup(report_obj):
 
 position_info_lookup = get_position_info_lookup(report)
 
-# ====================== 新增：換倉當下系統「真實」判斷的牛熊，決定實際持倉檔數 ======================
-# 這裡跟 run_full_backtest() 內部算真正部位（position_final）用的 is_bear_mask 是同一份判斷，
-# 牛市持有 N_BULL 檔、熊市集中持有 N_BEAR 檔——「目前持股排名」要跟 report/position_info()
-# 真正的持倉檔數對齊，不能不管牛熊永遠固定顯示 16 檔（不然熊市時後面幾檔其實不是真倉位）。
+# ====================== 新增：牛熊判斷，分兩種用途，不要混在一起 ======================
+# (a) regime_at_rebalance：換倉當下（real_rebalance_dt）的判斷，凍結到下次換倉才會變，
+#     決定「目前持股排名」實際抓幾檔（跟 run_full_backtest() 內部算真正部位 position_final
+#     用的 is_bear_mask 同一份判斷）。牛市 N_BULL 檔、熊市集中 N_BEAR 檔，這樣才會跟
+#     report/position_info() 真正的持倉檔數對齊，不會不管牛熊永遠固定顯示 16 檔（不然熊市
+#     時後面幾檔其實不是真倉位）。持倉檔數只在「換倉當下」決定，平常日子系統判斷變來變去
+#     也不會讓目前持股排名的檔數跟著亂動。
+# (b) regime_today：最新資料日（latest_dt）當下的即時判斷，純粹給使用者參考「現在」大盤氣氛、
+#     決定要手動切換牛市模式/熊市模式檢視排名，跟持倉檔數完全無關，每天都可能不一樣。
 N_BULL_HOLDINGS, N_BEAR_HOLDINGS = 16, 5
 _regime_lookup = regime.reindex(score.index).ffill().fillna('bull')
 regime_at_rebalance = str(_regime_lookup.loc[real_rebalance_dt]) if real_rebalance_dt in _regime_lookup.index else 'bull'
+regime_today = str(_regime_lookup.loc[latest_dt]) if latest_dt in _regime_lookup.index else regime_at_rebalance
 holdings_count_at_rebalance = N_BULL_HOLDINGS if regime_at_rebalance == 'bull' else N_BEAR_HOLDINGS
-print(f"DEBUG: 換倉日 {real_rebalance_dt.date()} 系統判斷={regime_at_rebalance}，實際持倉 {holdings_count_at_rebalance} 檔")
+print(f"DEBUG: 換倉日 {real_rebalance_dt.date()} 系統判斷={regime_at_rebalance}，實際持倉 {holdings_count_at_rebalance} 檔｜最新日 {latest_dt.date()} 即時判斷={regime_today}")
 
 # ====================== 產生三種排名（牛市版本 → result.json，固定 rs+peg+dd 靜態視角）======================
 fixed_hold_ids = score.loc[real_rebalance_dt].sort_values(ascending=False).head(holdings_count_at_rebalance).index
@@ -858,7 +864,8 @@ result_json = {
     "compare_date": str(compare_dt.date()) if compare_dt else None,
     "rebalance_base_date": str(execution_dt.date()),
     "next_rebalance_date": str(next_rebalance_dt.date()), # 新增下次執行日
-    "regime_at_rebalance": regime_at_rebalance,  # 新增：系統判斷本次換倉當下是牛市還是熊市（決定實際持倉檔數）
+    "regime_at_rebalance": regime_at_rebalance,  # 換倉當下的判斷，決定實際持倉檔數，凍結到下次換倉
+    "regime_today": regime_today,  # 最新資料日當下的即時判斷，給使用者參考切換牛熊模式用，跟持倉檔數無關
     "overview": overview,
     "current_holdings_rank": current_holdings_rank,
     "filtered_rank": filtered_rank,
@@ -948,6 +955,7 @@ result_bear_json = {
     "rebalance_base_date": str(execution_dt.date()),
     "next_rebalance_date": str(next_rebalance_dt.date()), # 新增下次執行日
     "regime_at_rebalance": regime_at_rebalance,  # 跟 result.json 同一份判斷、同一批實際持倉
+    "regime_today": regime_today,  # 跟 result.json 同一份即時判斷
     "overview": overview,
     "current_holdings_rank": current_holdings_rank_bear,
     "filtered_rank": filtered_rank_bear,
