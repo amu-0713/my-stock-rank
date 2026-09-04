@@ -141,21 +141,23 @@ export default function StrategyPage() {
                 </button>
               )}
 
-              <Link
-                to={`/strategy/${id}/rebalance`}
-                className="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-zinc-200 bg-white text-zinc-700 shadow-sm hover:bg-zinc-50"
-                title="換倉至今表現"
-              >
-                <BarChart3 size={16} />
-              </Link>
+              <div className="flex flex-col gap-2 md:flex-row">
+                <Link
+                  to={`/strategy/${id}/info`}
+                  className="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-zinc-200 bg-white text-sm text-zinc-700 shadow-sm hover:bg-zinc-50"
+                  title="策略說明"
+                >
+                  ?
+                </Link>
 
-              <Link
-                to={`/strategy/${id}/info`}
-                className="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-zinc-200 bg-white text-sm text-zinc-700 shadow-sm hover:bg-zinc-50"
-                title="策略說明"
-              >
-                ?
-              </Link>
+                <Link
+                  to={`/strategy/${id}/rebalance`}
+                  className="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-zinc-200 bg-white text-zinc-700 shadow-sm hover:bg-zinc-50"
+                  title="換倉至今表現"
+                >
+                  <BarChart3 size={16} />
+                </Link>
+              </div>
             </div>
           </div>
 
