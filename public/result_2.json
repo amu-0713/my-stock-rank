@@ -1,6 +1,6 @@
 {
   "latest_date": "2026-09-03",
-  "updated_at": "2026-09-03 21:59",
+  "updated_at": "2026-09-04 14:18",
   "compare_date": "2026-08-27",
   "rebalance_base_date": "2026-08-03",
   "next_rebalance_date": "2026-11-02",
@@ -9,8 +9,8 @@
     "total_return_all": 4383.96,
     "annual_return_all": 26.2,
     "total_return_ytd": 14.52,
-    "total_return_1y": 20.9,
-    "total_return_3y": 96.71,
+    "total_return_1y": 20.37,
+    "total_return_3y": 95.61,
     "total_return_5y": 314.3,
     "max_drawdown": -19.51,
     "volatility_all": 11.13,
@@ -5302,6 +5302,14 @@
           "n": 59755
         }
       ]
+    },
+    "since_rebalance": {
+      "date": "2026-08-03",
+      "return_pct": -0.62,
+      "up": 6,
+      "down": 5,
+      "flat": 1,
+      "count": 12
     }
   },
   "current_holdings_rank": [
@@ -5320,6 +5328,8 @@
       "close": 116.5,
       "dy_pct": 88.3,
       "std_pct": 90.1,
+      "rebalance_close": 126.5,
+      "return_since_rebalance_pct": -7.91,
       "selected": true,
       "passed_filter": false,
       "failed_conditions": [
@@ -5363,6 +5373,8 @@
       "close": 17.05,
       "dy_pct": 80.6,
       "std_pct": 90.7,
+      "rebalance_close": 16.5,
+      "return_since_rebalance_pct": 3.33,
       "selected": true,
       "passed_filter": true,
       "failed_conditions": [],
@@ -5404,6 +5416,8 @@
       "close": 30.6,
       "dy_pct": 79.9,
       "std_pct": 90.0,
+      "rebalance_close": 31.7,
+      "return_since_rebalance_pct": -3.47,
       "selected": true,
       "passed_filter": false,
       "failed_conditions": [
@@ -5448,6 +5462,8 @@
       "close": 10.9,
       "dy_pct": 76.3,
       "std_pct": 91.8,
+      "rebalance_close": 10.2,
+      "return_since_rebalance_pct": 6.86,
       "selected": true,
       "passed_filter": true,
       "failed_conditions": [],
@@ -5489,6 +5505,8 @@
       "close": 28.25,
       "dy_pct": 86.3,
       "std_pct": 86.6,
+      "rebalance_close": 27.0,
+      "return_since_rebalance_pct": 4.63,
       "selected": true,
       "passed_filter": false,
       "failed_conditions": [
@@ -5532,6 +5550,8 @@
       "close": 51.8,
       "dy_pct": 85.3,
       "std_pct": 85.7,
+      "rebalance_close": 56.0,
+      "return_since_rebalance_pct": -7.5,
       "selected": true,
       "passed_filter": false,
       "failed_conditions": [
@@ -5575,6 +5595,8 @@
       "close": 63.0,
       "dy_pct": 82.8,
       "std_pct": 86.2,
+      "rebalance_close": 58.3,
+      "return_since_rebalance_pct": 8.06,
       "selected": true,
       "passed_filter": true,
       "failed_conditions": [],
@@ -5616,6 +5638,8 @@
       "close": 114.0,
       "dy_pct": 87.9,
       "std_pct": 83.4,
+      "rebalance_close": 115.0,
+      "return_since_rebalance_pct": -0.87,
       "selected": true,
       "passed_filter": false,
       "failed_conditions": [
@@ -5659,6 +5683,8 @@
       "close": 37.35,
       "dy_pct": 69.6,
       "std_pct": 90.5,
+      "rebalance_close": 37.35,
+      "return_since_rebalance_pct": 0.0,
       "selected": true,
       "passed_filter": true,
       "failed_conditions": [],
@@ -5700,6 +5726,8 @@
       "close": 155.5,
       "dy_pct": 75.3,
       "std_pct": 87.3,
+      "rebalance_close": 153.5,
+      "return_since_rebalance_pct": 1.3,
       "selected": true,
       "passed_filter": true,
       "failed_conditions": [],
@@ -5741,6 +5769,8 @@
       "close": 118.0,
       "dy_pct": 69.6,
       "std_pct": 89.2,
+      "rebalance_close": 112.0,
+      "return_since_rebalance_pct": 5.36,
       "selected": true,
       "passed_filter": true,
       "failed_conditions": [],
@@ -5782,6 +5812,8 @@
       "close": 122.0,
       "dy_pct": 90.5,
       "std_pct": 71.5,
+      "rebalance_close": 147.5,
+      "return_since_rebalance_pct": -17.29,
       "selected": true,
       "passed_filter": false,
       "failed_conditions": [

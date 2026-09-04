@@ -1,6 +1,6 @@
 {
   "latest_date": "2026-09-03",
-  "updated_at": "2026-09-03 21:59",
+  "updated_at": "2026-09-04 14:17",
   "compare_date": "2026-08-27",
   "rebalance_base_date": "2026-07-01",
   "next_rebalance_date": "2026-10-01",
@@ -9,8 +9,8 @@
     "total_return_all": 65081.66,
     "annual_return_all": 48.36,
     "total_return_ytd": 105.05,
-    "total_return_1y": 143.4,
-    "total_return_3y": 240.68,
+    "total_return_1y": 142.8,
+    "total_return_3y": 238.49,
     "total_return_5y": 490.06,
     "max_drawdown": -29.75,
     "volatility_all": 24.08,
@@ -5326,6 +5326,14 @@
           "n": 3735
         }
       ]
+    },
+    "since_rebalance": {
+      "date": "2026-07-01",
+      "return_pct": 4.41,
+      "up": 9,
+      "down": 7,
+      "flat": 0,
+      "count": 16
     }
   },
   "current_holdings_rank": [
@@ -5345,6 +5353,8 @@
       "peg_pct": null,
       "dd_pct": 69.3,
       "corr_pct": 87.8,
+      "rebalance_close": 22.6,
+      "return_since_rebalance_pct": -8.63,
       "selected": true,
       "passed_filter": false,
       "failed_conditions": [
@@ -5391,6 +5401,8 @@
       "peg_pct": null,
       "dd_pct": 55.0,
       "corr_pct": 80.1,
+      "rebalance_close": 178.5,
+      "return_since_rebalance_pct": 4.76,
       "selected": true,
       "passed_filter": true,
       "failed_conditions": [],
@@ -5433,6 +5445,8 @@
       "peg_pct": null,
       "dd_pct": 60.2,
       "corr_pct": 67.4,
+      "rebalance_close": 142.0,
+      "return_since_rebalance_pct": 11.97,
       "selected": true,
       "passed_filter": false,
       "failed_conditions": [
@@ -5477,6 +5491,8 @@
       "peg_pct": null,
       "dd_pct": 68.2,
       "corr_pct": 47.9,
+      "rebalance_close": 40.0,
+      "return_since_rebalance_pct": 6.5,
       "selected": true,
       "passed_filter": true,
       "failed_conditions": [],
@@ -5519,6 +5535,8 @@
       "peg_pct": null,
       "dd_pct": 49.5,
       "corr_pct": 70.3,
+      "rebalance_close": 340.0,
+      "return_since_rebalance_pct": 11.91,
       "selected": true,
       "passed_filter": true,
       "failed_conditions": [],
@@ -5561,6 +5579,8 @@
       "peg_pct": null,
       "dd_pct": 31.2,
       "corr_pct": 85.6,
+      "rebalance_close": 40.45,
+      "return_since_rebalance_pct": 30.78,
       "selected": true,
       "passed_filter": false,
       "failed_conditions": [
@@ -5606,6 +5626,8 @@
       "peg_pct": null,
       "dd_pct": 59.5,
       "corr_pct": 45.3,
+      "rebalance_close": 123.5,
+      "return_since_rebalance_pct": 2.83,
       "selected": true,
       "passed_filter": false,
       "failed_conditions": [
@@ -5650,6 +5672,8 @@
       "peg_pct": null,
       "dd_pct": 32.8,
       "corr_pct": 70.4,
+      "rebalance_close": 43.9,
+      "return_since_rebalance_pct": -2.51,
       "selected": true,
       "passed_filter": true,
       "failed_conditions": [],
@@ -5692,6 +5716,8 @@
       "peg_pct": null,
       "dd_pct": 59.5,
       "corr_pct": 65.1,
+      "rebalance_close": 44.75,
+      "return_since_rebalance_pct": -15.75,
       "selected": true,
       "passed_filter": false,
       "failed_conditions": [
@@ -5738,6 +5764,8 @@
       "peg_pct": null,
       "dd_pct": 35.7,
       "corr_pct": 35.4,
+      "rebalance_close": 7655.0,
+      "return_since_rebalance_pct": 75.7,
       "selected": true,
       "passed_filter": true,
       "failed_conditions": [],
@@ -5780,6 +5808,8 @@
       "peg_pct": null,
       "dd_pct": 11.3,
       "corr_pct": 61.8,
+      "rebalance_close": 82.9,
+      "return_since_rebalance_pct": 5.19,
       "selected": true,
       "passed_filter": false,
       "failed_conditions": [
@@ -5824,6 +5854,8 @@
       "peg_pct": null,
       "dd_pct": 12.8,
       "corr_pct": 58.5,
+      "rebalance_close": 59.1,
+      "return_since_rebalance_pct": -11.34,
       "selected": true,
       "passed_filter": false,
       "failed_conditions": [
@@ -5868,6 +5900,8 @@
       "peg_pct": null,
       "dd_pct": 39.2,
       "corr_pct": 36.1,
+      "rebalance_close": 192.5,
+      "return_since_rebalance_pct": -4.94,
       "selected": true,
       "passed_filter": false,
       "failed_conditions": [
@@ -5913,6 +5947,8 @@
       "peg_pct": null,
       "dd_pct": 6.0,
       "corr_pct": 20.6,
+      "rebalance_close": 366.5,
+      "return_since_rebalance_pct": -29.88,
       "selected": true,
       "passed_filter": false,
       "failed_conditions": [
@@ -5957,6 +5993,8 @@
       "peg_pct": null,
       "dd_pct": 16.4,
       "corr_pct": 59.5,
+      "rebalance_close": 137.5,
+      "return_since_rebalance_pct": -12.73,
       "selected": true,
       "passed_filter": false,
       "failed_conditions": [
@@ -6001,6 +6039,8 @@
       "peg_pct": null,
       "dd_pct": 2.8,
       "corr_pct": 49.7,
+      "rebalance_close": 126.0,
+      "return_since_rebalance_pct": 6.75,
       "selected": true,
       "passed_filter": false,
       "failed_conditions": [
