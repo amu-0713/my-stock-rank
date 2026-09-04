@@ -316,6 +316,13 @@ def build_stock_item(sid, row, base_rank, prev_rank_map, selected=None, passed_f
         "dd_pct": pct_win(row.get("dd_pct")),
         "corr_pct": pct_win(row.get("corr_pct")),
     }
+    # 新增：換倉至今報酬（僅「目前持股排名」的 df 有帶 rebalance_close 欄位才會算）
+    if "rebalance_close" in row.index:
+        rebalance_close_val = row.get("rebalance_close")
+        close_val = row.get("close")
+        if pd.notna(rebalance_close_val) and pd.notna(close_val) and float(rebalance_close_val) != 0:
+            item["rebalance_close"] = float(rebalance_close_val)
+            item["return_since_rebalance_pct"] = round((float(close_val) / float(rebalance_close_val) - 1) * 100, 2)
     if selected is not None: item["selected"] = bool(selected)
     if passed_filter is not None:
         item["passed_filter"] = bool(passed_filter)
@@ -410,6 +417,7 @@ if compare_dt is not None:
 df_h = pd.DataFrame({
     "score": score_raw_today.reindex(fixed_hold_ids),
     "close": price.loc[latest_dt].reindex(fixed_hold_ids),
+    "rebalance_close": price.loc[execution_dt].reindex(fixed_hold_ids),  # 新增：換倉日進場價，用來算換倉至今報酬
     "rs_pct": r_rs_today.reindex(fixed_hold_ids),
     "peg_pct": r_peg_today.reindex(fixed_hold_ids),
     "dd_pct": r_dd_today.reindex(fixed_hold_ids),
@@ -418,6 +426,22 @@ df_h = pd.DataFrame({
 df_h = df_h.sort_values("score", ascending=False).copy()
 df_h["base_rank"] = range(1, len(df_h) + 1)
 current_holdings_rank = [build_stock_item(sid, row, row["base_rank"], prev_current_holdings_rank_map, True, row["passed_filter"]) for sid, row in df_h.iterrows()]
+
+# ====================== 新增：換倉至今報酬總覽（整體持倉，供首頁「換倉至今表現」頁使用）======================
+FLAT_RETURN_EPS = 0.05  # 換倉至今報酬絕對值 <= 此門檻視為「持平」
+_since_rebalance_returns = [
+    item["return_since_rebalance_pct"]
+    for item in current_holdings_rank
+    if item and item.get("return_since_rebalance_pct") is not None
+]
+since_rebalance_summary = {
+    "date": str(execution_dt.date()),
+    "return_pct": round(float(np.mean(_since_rebalance_returns)), 2) if _since_rebalance_returns else None,
+    "up": sum(1 for r in _since_rebalance_returns if r > FLAT_RETURN_EPS),
+    "down": sum(1 for r in _since_rebalance_returns if r < -FLAT_RETURN_EPS),
+    "flat": sum(1 for r in _since_rebalance_returns if abs(r) <= FLAT_RETURN_EPS),
+    "count": len(_since_rebalance_returns),
+}
 
 # ====================== 條件篩選排名（result.json）======================
 filtered_ids = final_cond.loc[latest_dt][final_cond.loc[latest_dt]].index
@@ -740,6 +764,7 @@ overview = {
         "forward_days": SCORE_VALIDATION_FORWARD_DAYS,
         "bins": score_return_validation,
     },
+    "since_rebalance": since_rebalance_summary,  # 新增：整體持倉換倉至今報酬摘要
 }
 # =============================================================================
 # 3. 產生 chart_data.json
@@ -812,6 +837,7 @@ for dt in recent_dates:
 df_h_bear = pd.DataFrame({
     "score": score_raw_today_bear.reindex(fixed_hold_ids),
     "close": price.loc[latest_dt].reindex(fixed_hold_ids),
+    "rebalance_close": price.loc[execution_dt].reindex(fixed_hold_ids),  # 新增：換倉日進場價（跟牛市榜同一批持股，同一個進場價）
     "rs_pct": r_rs_today.reindex(fixed_hold_ids),
     "dd_pct": r_dd_today.reindex(fixed_hold_ids),
     "corr_pct": r_corr_today.reindex(fixed_hold_ids),
