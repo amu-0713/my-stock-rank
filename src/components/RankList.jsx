@@ -229,6 +229,8 @@ const STOCK_CELL_LAYOUT_CLASS = 'grid grid-cols-[52px_minmax(0,1fr)] gap-1.5 md:
 // 動態多因子牛熊選股上限：換倉時牛市選前16檔、熊市選前5檔，
 // 要跟 scripts/generate_dynamic_factor.py 的 N_BULL_HOLDINGS / N_BEAR_HOLDINGS 保持一致。
 const DYNAMIC_FACTOR_TOP_N = { bull: 16, bear: 5 }
+// 高息低波沒有牛熊模式，選股上限固定，要跟 scripts/generate_high_div_low_vol.py 的 max_holdings 保持一致。
+const HIGH_DIV_TOP_N = 12
 
 function getSortableFieldSet(strategyId) {
   return SORTABLE_FIELD_SET_BY_STRATEGY[strategyId] ?? SORTABLE_FIELD_SET_BY_STRATEGY['1']
@@ -288,10 +290,16 @@ export default function RankList({
   const isMultiFactor = strategyId === '1'
   const isHighDividend = strategyId === '2'
 
-  // 條件篩選排名：依目前牛熊模式標出「若現在換倉會入選」的前 16 / 5 檔（淺色底）
-  const selectionTopN = (isFilteredRankList && isMultiFactor)
-    ? DYNAMIC_FACTOR_TOP_N[regime === 'bear' ? 'bear' : 'bull']
-    : null
+  // 條件篩選排名：標出「若現在換倉會入選」的前 N 檔（淺色底）
+  // 動態多因子依牛熊模式是 16 / 5 檔；高息低波沒有牛熊模式，固定前 12 檔
+  // （跟 scripts/generate_high_div_low_vol.py 的 max_holdings 保持一致）。
+  const selectionTopN = !isFilteredRankList
+    ? null
+    : isMultiFactor
+      ? DYNAMIC_FACTOR_TOP_N[regime === 'bear' ? 'bear' : 'bull']
+      : isHighDividend
+        ? HIGH_DIV_TOP_N
+        : null
 
   const sortableFieldSet = useMemo(() => getSortableFieldSet(strategyId), [strategyId])
 
