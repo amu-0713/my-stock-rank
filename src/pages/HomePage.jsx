@@ -102,35 +102,34 @@ function StrategyHomeCard({
             <p className="mt-1.5 text-sm leading-snug text-zinc-600">{displayTagline}</p>
           </div>
 
-          <div className="flex flex-col items-end gap-1.5">
-            <div className="flex items-center gap-2">
-              <button
-                type="button"
-                className="p-2 rounded-full bg-zinc-100 text-zinc-500 hover:bg-zinc-200 transition-colors"
-              >
-                <Info size={18} />
-              </button>
-
-              <Link
-                to={entry.to}
-                className="inline-flex items-center justify-center rounded-lg bg-zinc-900 px-5 py-2.5 text-sm font-medium text-white transition hover:bg-zinc-800 whitespace-nowrap"
-              >
-                進入策略
-              </Link>
-            </div>
+          <div className="flex items-center gap-2">
+            <button
+              type="button"
+              className="p-2 rounded-full bg-zinc-100 text-zinc-500 hover:bg-zinc-200 transition-colors"
+            >
+              <Info size={18} />
+            </button>
 
             <Link
-              to={`/strategy/${entry.id}/rebalance`}
-              className="text-xs font-medium text-zinc-500 transition hover:text-zinc-900 hover:underline whitespace-nowrap"
+              to={entry.to}
+              className="inline-flex items-center justify-center rounded-lg bg-zinc-900 px-5 py-2.5 text-sm font-medium text-white transition hover:bg-zinc-800 whitespace-nowrap"
             >
-              換倉至今表現 →
+              進入策略
             </Link>
           </div>
         </div>
 
-        <p className="mt-3 text-sm text-zinc-500">
-          回測期間：2010 - {endYear}
-        </p>
+        <div className="mt-3 flex items-center justify-between gap-3">
+          <p className="text-sm text-zinc-500">
+            回測期間：2010 - {endYear}
+          </p>
+          <Link
+            to={`/strategy/${entry.id}/rebalance`}
+            className="text-sm text-zinc-500 transition hover:text-zinc-900 hover:underline whitespace-nowrap"
+          >
+            換倉至今表現 →
+          </Link>
+        </div>
 
         <div className="flex-1 flex flex-col items-center justify-center mt-8 mb-8">
           <div className="animate-spin h-8 w-8 border-4 border-zinc-300 border-t-zinc-600 rounded-full mb-4"></div>
@@ -179,42 +178,41 @@ function StrategyHomeCard({
           <p className="mt-1.5 text-sm leading-snug text-zinc-600">{displayTagline}</p>
         </div>
 
-        <div className="flex flex-col items-end gap-1.5">
-          <div className="flex items-center gap-2">
-            <div className="relative group/info">
-              <button
-                type="button"
-                onClick={onOpenInfo}
-                className="p-2 rounded-full bg-zinc-100 text-zinc-500 hover:bg-zinc-200 transition-colors"
-              >
-                <Info size={18} />
-              </button>
-              <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-2 py-1 bg-zinc-800 text-white text-[10px] rounded opacity-0 group-hover/info:opacity-100 transition-opacity whitespace-nowrap pointer-events-none z-20">
-                策略介紹
-                <div className="absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-zinc-800" />
-              </div>
-            </div>
-
-            <Link
-              to={entry.to}
-              className="inline-flex items-center justify-center rounded-lg bg-zinc-900 px-5 py-2.5 text-sm font-medium text-white transition hover:bg-zinc-800 whitespace-nowrap"
+        <div className="flex items-center gap-2">
+          <div className="relative group/info">
+            <button
+              type="button"
+              onClick={onOpenInfo}
+              className="p-2 rounded-full bg-zinc-100 text-zinc-500 hover:bg-zinc-200 transition-colors"
             >
-              進入策略
-            </Link>
+              <Info size={18} />
+            </button>
+            <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-2 py-1 bg-zinc-800 text-white text-[10px] rounded opacity-0 group-hover/info:opacity-100 transition-opacity whitespace-nowrap pointer-events-none z-20">
+              策略介紹
+              <div className="absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-zinc-800" />
+            </div>
           </div>
 
           <Link
-            to={`/strategy/${entry.id}/rebalance`}
-            className="text-xs font-medium text-zinc-500 transition hover:text-zinc-900 hover:underline whitespace-nowrap"
+            to={entry.to}
+            className="inline-flex items-center justify-center rounded-lg bg-zinc-900 px-5 py-2.5 text-sm font-medium text-white transition hover:bg-zinc-800 whitespace-nowrap"
           >
-            換倉至今表現 →
+            進入策略
           </Link>
         </div>
       </div>
 
-      <p className="mt-3 text-sm text-zinc-500">
-        回測期間：2010 - {endYear}
-      </p>
+      <div className="mt-3 flex items-center justify-between gap-3">
+        <p className="text-sm text-zinc-500">
+          回測期間：2010 - {endYear}
+        </p>
+        <Link
+          to={`/strategy/${entry.id}/rebalance`}
+          className="text-sm text-zinc-500 transition hover:text-zinc-900 hover:underline whitespace-nowrap"
+        >
+          換倉至今表現 →
+        </Link>
+      </div>
 
       <div className="mt-4 mb-4">
         <div className="flex gap-2">
