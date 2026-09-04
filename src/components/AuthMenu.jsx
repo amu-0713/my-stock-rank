@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
+import { useLocation } from 'react-router-dom'
 import { ChevronDown } from 'lucide-react'
 import { useAuth } from '../context/AuthContext.jsx'
 
@@ -23,6 +24,10 @@ export default function AuthMenu() {
   const [open, setOpen] = useState(false)
   const [busy, setBusy] = useState(false)
   const rootRef = useRef(null)
+  const location = useLocation()
+  // 手機畫面空間有限：登入頭像只在首頁顯示，其他頁面隱藏以免擋住內容；桌面版維持全站顯示
+  const isHome = location.pathname === '/'
+  const mobileVisibility = isHome ? '' : 'hidden md:block'
 
   useEffect(() => {
     if (!open) return undefined
@@ -75,7 +80,7 @@ export default function AuthMenu() {
   if (loading) {
     return (
       <div
-        className="fixed right-3 top-4 z-50 h-10 w-24 rounded-lg border border-zinc-300 bg-zinc-100 animate-pulse md:right-4"
+        className={`fixed right-3 top-4 z-50 h-10 w-24 rounded-lg border border-zinc-300 bg-zinc-100 animate-pulse md:right-4 ${mobileVisibility}`}
         aria-hidden
       />
     )
@@ -83,7 +88,7 @@ export default function AuthMenu() {
 
   if (!user) {
     return (
-      <div className="fixed right-3 top-4 z-50 md:right-4">
+      <div className={`fixed right-3 top-4 z-50 md:right-4 ${mobileVisibility}`}>
         <button
           type="button"
           onClick={handleSignIn}
@@ -103,7 +108,7 @@ export default function AuthMenu() {
   const initial = getInitial(displayName)
 
   return (
-    <div ref={rootRef} className="fixed right-3 top-4 z-50 md:right-4">
+    <div ref={rootRef} className={`fixed right-3 top-4 z-50 md:right-4 ${mobileVisibility}`}>
       <button
         type="button"
         onClick={() => setOpen((v) => !v)}
