@@ -1,6 +1,6 @@
 {
   "latest_date": "2026-09-03",
-  "updated_at": "2026-09-04 15:38",
+  "updated_at": "2026-09-04 15:47",
   "compare_date": "2026-08-27",
   "rebalance_base_date": "2026-08-03",
   "next_rebalance_date": "2026-11-02",
@@ -5269,37 +5269,37 @@
         {
           "bin": "<60",
           "avg_return": 2.83,
-          "efficiency": 0.098,
+          "efficiency": 0.099,
           "win_rate": 44.5,
-          "n": 159482
+          "n": 159536
         },
         {
           "bin": "60-70",
           "avg_return": 5.01,
           "efficiency": 0.175,
           "win_rate": 48.9,
-          "n": 107926
+          "n": 107965
         },
         {
           "bin": "70-80",
           "avg_return": 4.6,
           "efficiency": 0.195,
-          "win_rate": 49.5,
-          "n": 109929
+          "win_rate": 49.6,
+          "n": 109953
         },
         {
           "bin": "80-90",
           "avg_return": 3.17,
           "efficiency": 0.165,
-          "win_rate": 50.5,
-          "n": 100060
+          "win_rate": 50.6,
+          "n": 100071
         },
         {
           "bin": "90-100",
           "avg_return": 3.81,
           "efficiency": 0.253,
           "win_rate": 56.7,
-          "n": 59755
+          "n": 59757
         }
       ]
     },
