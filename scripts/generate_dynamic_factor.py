@@ -317,17 +317,49 @@ def build_stock_item(sid, row, base_rank, prev_rank_map, selected=None, passed_f
         "corr_pct": pct_win(row.get("corr_pct")),
     }
     # 新增：換倉至今報酬（僅「目前持股排名」的 df 有帶 rebalance_close 欄位才會算）
+    # 優先採用 report.position_info() 算出來的含息報酬（跟 FinLab 網站上的「持股盈虧」一致）；
+    # 抓不到時（極少數例外）才退回用「收盤價」自算純價格報酬（不含息，僅供 fallback）。
     if "rebalance_close" in row.index:
         rebalance_close_val = row.get("rebalance_close")
         close_val = row.get("close")
-        if pd.notna(rebalance_close_val) and pd.notna(close_val) and float(rebalance_close_val) != 0:
+        if pd.notna(rebalance_close_val):
             item["rebalance_close"] = float(rebalance_close_val)
+        override_ret = row.get("position_return_pct") if "position_return_pct" in row.index else None
+        if override_ret is not None and pd.notna(override_ret):
+            item["return_since_rebalance_pct"] = round(float(override_ret), 2)
+        elif pd.notna(rebalance_close_val) and pd.notna(close_val) and float(rebalance_close_val) != 0:
             item["return_since_rebalance_pct"] = round((float(close_val) / float(rebalance_close_val) - 1) * 100, 2)
     if selected is not None: item["selected"] = bool(selected)
     if passed_filter is not None:
         item["passed_filter"] = bool(passed_filter)
         item["failed_conditions"] = [] if bool(passed_filter) else get_failed_conditions(sid, latest_dt)
     return item
+
+# ====================== 新增：從 report.position_info() 取得「進場價 + 含息報酬」======================
+# FinLab 的 report 物件（sim() 的回傳值）內部已經處理好進場價（對齊 trade_at_price='open'）
+# 與含息報酬，跟 studio.finlab.finance 網頁上「持股」頁籤看到的數字是同一套邏輯算出來的，
+# 直接抓來用最準，不用自己拿收盤價重算（收盤價沒還原股息，且進場價基準也對不齊）。
+def get_position_info_lookup(report_obj):
+    try:
+        pos_info = report_obj.position_info()
+    except Exception as e:
+        print(f"⚠️ report.position_info() 取得失敗，換倉至今報酬將退回用收盤價自算：{e}")
+        return {}
+    lookup = {}
+    for key, info in pos_info.items():
+        if not isinstance(info, dict):
+            continue  # 跳過 update_date / next_trading_date 等 meta 欄位
+        if info.get("status") not in ("hold", "exit"):
+            continue  # 'enter' 是還沒開始的新部位，還沒有報酬可看
+        entry_price = info.get("entry_price")
+        ret = info.get("return")
+        if entry_price is None or ret is None or pd.isna(entry_price) or pd.isna(ret):
+            continue
+        sid = str(key).split(" ", 1)[0].strip()
+        lookup[sid] = {"entry_price": float(entry_price), "return_pct": float(ret) * 100}
+    return lookup
+
+position_info_lookup = get_position_info_lookup(report)
 
 # ====================== 產生三種排名（牛市版本 → result.json，固定 rs+peg+dd 靜態視角）======================
 fixed_hold_ids = score.loc[real_rebalance_dt].sort_values(ascending=False).head(16).index
@@ -414,10 +446,17 @@ if compare_dt is not None:
     prev_market_rank_map = build_rank_map(df_m_prev)
 
 # ====================== 目前持股排名（result.json）======================
+_rebalance_close_series = pd.Series(
+    {sid: position_info_lookup.get(str(sid), {}).get("entry_price") for sid in fixed_hold_ids}
+).fillna(price.loc[execution_dt].reindex(fixed_hold_ids))  # position_info() 抓不到時才退回換倉執行日收盤價
+_position_return_series = pd.Series(
+    {sid: position_info_lookup.get(str(sid), {}).get("return_pct") for sid in fixed_hold_ids}
+)
 df_h = pd.DataFrame({
     "score": score_raw_today.reindex(fixed_hold_ids),
     "close": price.loc[latest_dt].reindex(fixed_hold_ids),
-    "rebalance_close": price.loc[execution_dt].reindex(fixed_hold_ids),  # 新增：換倉日進場價，用來算換倉至今報酬
+    "rebalance_close": _rebalance_close_series,  # 新增：換倉日進場價，用來算換倉至今報酬
+    "position_return_pct": _position_return_series,  # 新增：FinLab report 算好的含息換倉至今報酬（優先採用）
     "rs_pct": r_rs_today.reindex(fixed_hold_ids),
     "peg_pct": r_peg_today.reindex(fixed_hold_ids),
     "dd_pct": r_dd_today.reindex(fixed_hold_ids),
@@ -428,7 +467,8 @@ df_h["base_rank"] = range(1, len(df_h) + 1)
 current_holdings_rank = [build_stock_item(sid, row, row["base_rank"], prev_current_holdings_rank_map, True, row["passed_filter"]) for sid, row in df_h.iterrows()]
 
 # ====================== 新增：換倉至今報酬總覽（整體持倉，供首頁「換倉至今表現」頁使用）======================
-FLAT_RETURN_EPS = 0.05  # 換倉至今報酬絕對值 <= 此門檻視為「持平」
+# 上漲/下跌/持平家數這種細項不在這裡算，前端直接用 current_holdings_rank 裡每檔的
+# return_since_rebalance_pct 自己算就好，後端只出「整體等權重平均報酬」這一個數字。
 _since_rebalance_returns = [
     item["return_since_rebalance_pct"]
     for item in current_holdings_rank
@@ -437,10 +477,6 @@ _since_rebalance_returns = [
 since_rebalance_summary = {
     "date": str(execution_dt.date()),
     "return_pct": round(float(np.mean(_since_rebalance_returns)), 2) if _since_rebalance_returns else None,
-    "up": sum(1 for r in _since_rebalance_returns if r > FLAT_RETURN_EPS),
-    "down": sum(1 for r in _since_rebalance_returns if r < -FLAT_RETURN_EPS),
-    "flat": sum(1 for r in _since_rebalance_returns if abs(r) <= FLAT_RETURN_EPS),
-    "count": len(_since_rebalance_returns),
 }
 
 # ====================== 條件篩選排名（result.json）======================
@@ -837,7 +873,8 @@ for dt in recent_dates:
 df_h_bear = pd.DataFrame({
     "score": score_raw_today_bear.reindex(fixed_hold_ids),
     "close": price.loc[latest_dt].reindex(fixed_hold_ids),
-    "rebalance_close": price.loc[execution_dt].reindex(fixed_hold_ids),  # 新增：換倉日進場價（跟牛市榜同一批持股，同一個進場價）
+    "rebalance_close": _rebalance_close_series,  # 跟牛市榜同一批持股、同一個進場價（來自 position_info_lookup）
+    "position_return_pct": _position_return_series,  # 同上，同一份含息報酬
     "rs_pct": r_rs_today.reindex(fixed_hold_ids),
     "dd_pct": r_dd_today.reindex(fixed_hold_ids),
     "corr_pct": r_corr_today.reindex(fixed_hold_ids),
