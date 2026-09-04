@@ -361,8 +361,18 @@ def get_position_info_lookup(report_obj):
 
 position_info_lookup = get_position_info_lookup(report)
 
+# ====================== 新增：換倉當下系統「真實」判斷的牛熊，決定實際持倉檔數 ======================
+# 這裡跟 run_full_backtest() 內部算真正部位（position_final）用的 is_bear_mask 是同一份判斷，
+# 牛市持有 N_BULL 檔、熊市集中持有 N_BEAR 檔——「目前持股排名」要跟 report/position_info()
+# 真正的持倉檔數對齊，不能不管牛熊永遠固定顯示 16 檔（不然熊市時後面幾檔其實不是真倉位）。
+N_BULL_HOLDINGS, N_BEAR_HOLDINGS = 16, 5
+_regime_lookup = regime.reindex(score.index).ffill().fillna('bull')
+regime_at_rebalance = str(_regime_lookup.loc[real_rebalance_dt]) if real_rebalance_dt in _regime_lookup.index else 'bull'
+holdings_count_at_rebalance = N_BULL_HOLDINGS if regime_at_rebalance == 'bull' else N_BEAR_HOLDINGS
+print(f"DEBUG: 換倉日 {real_rebalance_dt.date()} 系統判斷={regime_at_rebalance}，實際持倉 {holdings_count_at_rebalance} 檔")
+
 # ====================== 產生三種排名（牛市版本 → result.json，固定 rs+peg+dd 靜態視角）======================
-fixed_hold_ids = score.loc[real_rebalance_dt].sort_values(ascending=False).head(16).index
+fixed_hold_ids = score.loc[real_rebalance_dt].sort_values(ascending=False).head(holdings_count_at_rebalance).index
 
 # 【靜態牛市權重】無論大盤實際處於牛市或熊市，result.json 永遠固定用 rs+peg+dd（對應 result_bear.json 的 w_bear）
 w_bull = {'rs': 0.3, 'peg': 0.3, 'corr': 0.0, 'dd': 0.4}
@@ -772,7 +782,7 @@ overview = {
     "sharpe_ratio": perf_all["sharpe_ratio"],
     "sortino_ratio": perf_all["sortino_ratio"],
     "calmar_ratio": perf_all["calmar_ratio"],
-    "current_holdings": 16,
+    "current_holdings": len(fixed_hold_ids),
     "drawdown_detail": calc_drawdown_stats(report.creturn),
     "top_drawdowns": calc_top_drawdowns(report.creturn, 5),
     "benchmark": {
@@ -848,6 +858,7 @@ result_json = {
     "compare_date": str(compare_dt.date()) if compare_dt else None,
     "rebalance_base_date": str(execution_dt.date()),
     "next_rebalance_date": str(next_rebalance_dt.date()), # 新增下次執行日
+    "regime_at_rebalance": regime_at_rebalance,  # 新增：系統判斷本次換倉當下是牛市還是熊市（決定實際持倉檔數）
     "overview": overview,
     "current_holdings_rank": current_holdings_rank,
     "filtered_rank": filtered_rank,
@@ -936,6 +947,7 @@ result_bear_json = {
     "compare_date": str(compare_dt.date()) if compare_dt else None,
     "rebalance_base_date": str(execution_dt.date()),
     "next_rebalance_date": str(next_rebalance_dt.date()), # 新增下次執行日
+    "regime_at_rebalance": regime_at_rebalance,  # 跟 result.json 同一份判斷、同一批實際持倉
     "overview": overview,
     "current_holdings_rank": current_holdings_rank_bear,
     "filtered_rank": filtered_rank_bear,

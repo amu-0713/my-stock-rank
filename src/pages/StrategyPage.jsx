@@ -113,6 +113,17 @@ export default function StrategyPage() {
                   <span className="font-medium">最新日期：</span>
                   <span className="ml-1">{data?.latest_date ?? '—'}</span>
                 </div>
+                {isStrategy1 && data?.regime_at_rebalance && (
+                  <>
+                    <div className="hidden sm:block text-zinc-300">｜</div>
+                    <div className="flex items-baseline">
+                      <span className="font-medium">系統判斷：</span>
+                      <span className={`ml-1 font-semibold ${data.regime_at_rebalance === 'bear' ? 'text-rose-700' : 'text-emerald-700'}`}>
+                        {data.regime_at_rebalance === 'bear' ? '熊市' : '牛市'}
+                      </span>
+                    </div>
+                  </>
+                )}
                 <div className="hidden sm:block text-zinc-300">｜</div>
                 <div className="flex items-baseline">
                   <span className="font-medium">{TEXT.rebalanceBaseDate}</span>
