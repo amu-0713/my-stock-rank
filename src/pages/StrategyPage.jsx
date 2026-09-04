@@ -1,6 +1,7 @@
 // src/pages/StrategyPage.jsx
 import { useEffect, useMemo, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
+import { BarChart3 } from 'lucide-react'
 import AppSidebarLayout from '../components/AppSidebarLayout.jsx'
 import Tabs from '../components/Tabs.jsx'
 import RankList from '../components/RankList.jsx'
@@ -139,6 +140,14 @@ export default function StrategyPage() {
                   {regime === 'bull' ? '📈 牛市' : '📉 熊市'}
                 </button>
               )}
+
+              <Link
+                to={`/strategy/${id}/rebalance`}
+                className="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-zinc-200 bg-white text-zinc-700 shadow-sm hover:bg-zinc-50"
+                title="換倉至今表現"
+              >
+                <BarChart3 size={16} />
+              </Link>
 
               <Link
                 to={`/strategy/${id}/info`}

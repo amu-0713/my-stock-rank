@@ -343,6 +343,13 @@ function StrategyHomeCard({
           </div>
         </div>
       </div>
+
+      <Link
+        to={`/strategy/${entry.id}/rebalance`}
+        className="mt-3 inline-flex items-center justify-center gap-1 rounded-xl border border-zinc-200 py-2 text-sm font-medium text-zinc-600 transition hover:border-zinc-300 hover:bg-zinc-50 hover:text-zinc-900"
+      >
+        換倉至今表現 →
+      </Link>
     </div>
   )
 }
