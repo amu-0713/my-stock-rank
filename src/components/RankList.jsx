@@ -226,6 +226,10 @@ const SORTABLE_FIELD_SET_BY_STRATEGY = {
 }
 const STOCK_CELL_LAYOUT_CLASS = 'grid grid-cols-[52px_minmax(0,1fr)] gap-1.5 md:grid-cols-[72px_minmax(0,1fr)] md:gap-3 landscape:max-md:grid-cols-[64px_minmax(0,1fr)] landscape:max-md:gap-0 items-center'
 
+// 動態多因子牛熊選股上限：換倉時牛市選前16檔、熊市選前5檔，
+// 要跟 scripts/generate_dynamic_factor.py 的 N_BULL_HOLDINGS / N_BEAR_HOLDINGS 保持一致。
+const DYNAMIC_FACTOR_TOP_N = { bull: 16, bear: 5 }
+
 function getSortableFieldSet(strategyId) {
   return SORTABLE_FIELD_SET_BY_STRATEGY[strategyId] ?? SORTABLE_FIELD_SET_BY_STRATEGY['1']
 }
@@ -283,6 +287,11 @@ export default function RankList({
   const isMarketRank = title === '市場總排名'
   const isMultiFactor = strategyId === '1'
   const isHighDividend = strategyId === '2'
+
+  // 條件篩選排名：依目前牛熊模式標出「若現在換倉會入選」的前 16 / 5 檔（淺色底）
+  const selectionTopN = (isFilteredRankList && isMultiFactor)
+    ? DYNAMIC_FACTOR_TOP_N[regime === 'bear' ? 'bear' : 'bull']
+    : null
 
   const sortableFieldSet = useMemo(() => getSortableFieldSet(strategyId), [strategyId])
 
@@ -484,6 +493,13 @@ export default function RankList({
     )}
   </button>
 )}
+
+{selectionTopN !== null && (
+  <div className="hidden items-center gap-1.5 text-xs text-zinc-500 sm:flex">
+    <span className={`inline-block h-2.5 w-2.5 rounded-full ${regime === 'bear' ? 'bg-rose-200' : 'bg-emerald-200'}`} />
+    淺色底＝前 {selectionTopN} 檔（換倉會入選）
+  </div>
+)}
           </div>
 
           <div className="flex items-center gap-3">
@@ -584,11 +600,16 @@ export default function RankList({
                   const rankChange = formatRankChange(row.change_type, row.rank_change, row.prev_rank, row.base_rank)
                   const isSearching = !!search.trim()
                   const displayedRank = getDisplayedRank(row, sortKey, isSearching, index)
+                  // 依「分數排名」（base_rank）判斷是否入選，跟目前畫面用哪個欄位排序無關
+                  const isSelected = selectionTopN !== null && Number.isFinite(row.base_rank) && row.base_rank <= selectionTopN
+                  const selectionBgClass = isSelected
+                    ? (regime === 'bear' ? 'bg-rose-50/70 hover:bg-rose-50' : 'bg-emerald-50/70 hover:bg-emerald-50')
+                    : 'hover:bg-zinc-50'
 
                   return (
                     <div
                       key={`${row.base_rank ?? index}-${row.stock_id}`}
-                      className={`grid ${gridCols} items-center gap-1 px-4 py-4 hover:bg-zinc-50 landscape:max-md:px-3 landscape:max-md:py-2`}
+                      className={`grid ${gridCols} items-center gap-1 px-4 py-4 ${selectionBgClass} landscape:max-md:px-3 landscape:max-md:py-2`}
                     >
                       <div className="text-center text-sm font-semibold tabular-nums">
                         {formatMaybeNumber(displayedRank)}
