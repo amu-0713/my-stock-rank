@@ -1,6 +1,6 @@
 import { useState, useEffect, useMemo } from 'react'
 import { Link, useParams } from 'react-router-dom'
-import { ChevronDown } from 'lucide-react'
+import { ChevronDown, HelpCircle } from 'lucide-react'
 import {
   BarChart, Bar, LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid, Legend,
 } from 'recharts'
@@ -51,6 +51,38 @@ function fmtDays(v) {
 function toneClass(v) {
   if (v === null || v === undefined || Number.isNaN(v) || v === 0) return 'text-zinc-900'
   return v > 0 ? 'text-emerald-600' : 'text-red-600'
+}
+
+// 專有名詞 hover 提示：滑鼠移到問號圖示上顯示白話解釋，避免術語看不懂又不想開新視窗
+function TermHint({ text }) {
+  return (
+    <span className="group/hint relative ml-1 inline-flex align-middle">
+      <HelpCircle size={13} className="cursor-help text-zinc-400" />
+      <span className="pointer-events-none absolute bottom-full left-1/2 z-20 mb-1.5 w-56 -translate-x-1/2 rounded-lg bg-zinc-800 px-2.5 py-1.5 text-left text-[11px] font-normal leading-relaxed text-white opacity-0 shadow-lg transition-opacity group-hover/hint:opacity-100">
+        {text}
+        <span className="absolute left-1/2 top-full -translate-x-1/2 border-4 border-transparent border-t-zinc-800" />
+      </span>
+    </span>
+  )
+}
+
+// 帶提示的標籤：{文字}{問號}
+function TermLabel({ children, hint }) {
+  return (
+    <span className="inline-flex items-center">
+      {children}
+      <TermHint text={hint} />
+    </span>
+  )
+}
+
+const TERM_HINTS = {
+  volatility: '報酬起伏的劇烈程度，數字越高代表淨值上下震盪越明顯，不一定代表虧錢，但持有過程會比較有感。',
+  sharpe: '報酬相對於總波動風險的比率，數字越高代表承擔同樣的風險、換到的報酬越多。',
+  sortino: '跟夏普比率類似，但只計算「下跌」的波動，不把上漲的波動也算進風險，更貼近投資人真正在意的下跌風險。',
+  calmar: '年化報酬除以最大回撤，數字越高代表賺到的報酬，相對於曾經最慘跌過的幅度越划算。',
+  var5: '模擬情境中，表現最差的5%所對應的年化報酬——白話說就是「運氣不好時，大概會慘到什麼程度」的估計，數字是這5%最差情境的下限。',
+  efficiency: '把該分數區間的平均報酬，除以報酬的離散程度算出來的比率，避免只看平均報酬被少數極端值誤導。',
 }
 
 function StatTile({ label, value, tone = 'text-zinc-900', sub }) {
@@ -315,22 +347,22 @@ function BacktestOverviewSection({ strategyId }) {
                 <td className="px-4 py-2.5 font-semibold text-red-600">{fmtPct(bench?.max_drawdown)}</td>
               </tr>
               <tr>
-                <td className="px-4 py-2.5 text-zinc-600">年化波動率</td>
+                <td className="px-4 py-2.5 text-zinc-600"><TermLabel hint={TERM_HINTS.volatility}>年化波動率</TermLabel></td>
                 <td className="px-4 py-2.5 font-semibold text-zinc-900">{fmtMagnitudePct(overview.volatility_all)}</td>
                 <td className="px-4 py-2.5 font-semibold text-zinc-900">{fmtMagnitudePct(bench?.volatility_all)}</td>
               </tr>
               <tr>
-                <td className="px-4 py-2.5 text-zinc-600">夏普比率</td>
+                <td className="px-4 py-2.5 text-zinc-600"><TermLabel hint={TERM_HINTS.sharpe}>夏普比率</TermLabel></td>
                 <td className="px-4 py-2.5 font-semibold text-zinc-900">{fmtRatio(overview.sharpe_ratio)}</td>
                 <td className="px-4 py-2.5 font-semibold text-zinc-900">{fmtRatio(bench?.sharpe_ratio)}</td>
               </tr>
               <tr>
-                <td className="px-4 py-2.5 text-zinc-600">Sortino 比率</td>
+                <td className="px-4 py-2.5 text-zinc-600"><TermLabel hint={TERM_HINTS.sortino}>Sortino 比率</TermLabel></td>
                 <td className="px-4 py-2.5 font-semibold text-zinc-900">{fmtRatio(overview.sortino_ratio)}</td>
                 <td className="px-4 py-2.5 font-semibold text-zinc-900">{fmtRatio(bench?.sortino_ratio)}</td>
               </tr>
               <tr>
-                <td className="px-4 py-2.5 text-zinc-600">Calmar 比率</td>
+                <td className="px-4 py-2.5 text-zinc-600"><TermLabel hint={TERM_HINTS.calmar}>Calmar 比率</TermLabel></td>
                 <td className="px-4 py-2.5 font-semibold text-zinc-900">{fmtRatio(overview.calmar_ratio)}</td>
                 <td className="px-4 py-2.5 font-semibold text-zinc-900">{fmtRatio(bench?.calmar_ratio)}</td>
               </tr>
@@ -529,7 +561,7 @@ function MonteCarloSection({ strategyId }) {
             <MonteCarloStatRow label="平均" strategy={mc.strategy.mean} benchmark={mc.benchmark.mean} tone />
             <MonteCarloStatRow label="中位數" strategy={mc.strategy.median} benchmark={mc.benchmark.median} tone />
             <MonteCarloStatRow label="最慘情況" strategy={mc.strategy.worst} benchmark={mc.benchmark.worst} tone />
-            <MonteCarloStatRow label="風險地板（VaR 5%）" strategy={mc.strategy.var5} benchmark={mc.benchmark.var5} tone />
+            <MonteCarloStatRow label={<TermLabel hint={TERM_HINTS.var5}>風險地板（VaR 5%）</TermLabel>} strategy={mc.strategy.var5} benchmark={mc.benchmark.var5} tone />
           </tbody>
         </table>
       </div>
@@ -657,7 +689,9 @@ function StrategyValidationSection({ strategyId }) {
                 <thead className="bg-zinc-50 text-zinc-600">
                   <tr>
                     <th className="px-3 py-2 font-medium">分數區間</th>
-                    <th className="px-3 py-2 font-medium">{scoreMetric === 'efficiency' ? '風險調整效率' : '平均報酬'}</th>
+                    <th className="px-3 py-2 font-medium">
+                      {scoreMetric === 'efficiency' ? <TermLabel hint={TERM_HINTS.efficiency}>風險調整效率</TermLabel> : '平均報酬'}
+                    </th>
                     <th className="px-3 py-2 font-medium">勝率</th>
                     <th className="px-3 py-2 font-medium">樣本數</th>
                   </tr>
@@ -848,25 +882,25 @@ function ComboSection({ strategyId }) {
                   <td className="px-4 py-2.5 font-bold text-red-600">{fmtPct(blend?.max_drawdown)}</td>
                 </tr>
                 <tr>
-                  <td className="px-4 py-2.5 text-zinc-600">年化波動率</td>
+                  <td className="px-4 py-2.5 text-zinc-600"><TermLabel hint={TERM_HINTS.volatility}>年化波動率</TermLabel></td>
                   <td className="px-4 py-2.5 font-semibold text-zinc-900">{fmtMagnitudePct(dynamicOverview?.volatility_all)}</td>
                   <td className="px-4 py-2.5 font-semibold text-zinc-900">{fmtMagnitudePct(highDivOverview?.volatility_all)}</td>
                   <td className="px-4 py-2.5 font-bold text-zinc-900">{fmtMagnitudePct(blend?.volatility)}</td>
                 </tr>
                 <tr>
-                  <td className="px-4 py-2.5 text-zinc-600">夏普比率</td>
+                  <td className="px-4 py-2.5 text-zinc-600"><TermLabel hint={TERM_HINTS.sharpe}>夏普比率</TermLabel></td>
                   <td className="px-4 py-2.5 font-semibold text-zinc-900">{fmtRatio(dynamicOverview?.sharpe_ratio)}</td>
                   <td className="px-4 py-2.5 font-semibold text-zinc-900">{fmtRatio(highDivOverview?.sharpe_ratio)}</td>
                   <td className="px-4 py-2.5 font-bold text-zinc-900">{fmtRatio(blend?.sharpe_ratio)}</td>
                 </tr>
                 <tr>
-                  <td className="px-4 py-2.5 text-zinc-600">Sortino 比率</td>
+                  <td className="px-4 py-2.5 text-zinc-600"><TermLabel hint={TERM_HINTS.sortino}>Sortino 比率</TermLabel></td>
                   <td className="px-4 py-2.5 font-semibold text-zinc-900">{fmtRatio(dynamicOverview?.sortino_ratio)}</td>
                   <td className="px-4 py-2.5 font-semibold text-zinc-900">{fmtRatio(highDivOverview?.sortino_ratio)}</td>
                   <td className="px-4 py-2.5 font-bold text-zinc-900">{fmtRatio(blend?.sortino_ratio)}</td>
                 </tr>
                 <tr>
-                  <td className="px-4 py-2.5 text-zinc-600">Calmar 比率</td>
+                  <td className="px-4 py-2.5 text-zinc-600"><TermLabel hint={TERM_HINTS.calmar}>Calmar 比率</TermLabel></td>
                   <td className="px-4 py-2.5 font-semibold text-zinc-900">{fmtRatio(dynamicOverview?.calmar_ratio)}</td>
                   <td className="px-4 py-2.5 font-semibold text-zinc-900">{fmtRatio(highDivOverview?.calmar_ratio)}</td>
                   <td className="px-4 py-2.5 font-bold text-zinc-900">{fmtRatio(blend?.calmar_ratio)}</td>
@@ -1450,17 +1484,13 @@ export default function StrategyInfoPage() {
   return () => document.removeEventListener('click', handleClickOutside)
 }, [])
   const toggleSection = (sectionId) => {
-  setOpenIds((prev) => {
-    // 一次只開一個
-    if (prev.has(sectionId)) {
-      return new Set()
-    }
-    return new Set([sectionId])
-  })
+  const willClose = openIds.has(sectionId)
+  setOpenIds(willClose ? new Set() : new Set([sectionId]))
 
-  // 展開後讓標題捲到接近頂部
+  // 展開：讓該區塊標題捲到接近頂部；收合：回到頁面最上方的大標題
   setTimeout(() => {
-    const el = document.getElementById(`strategy-info-${sectionId}-trigger`)
+    const targetId = willClose ? 'strategy-info-page-title' : `strategy-info-${sectionId}-trigger`
+    const el = document.getElementById(targetId)
     if (el) {
       el.scrollIntoView({ behavior: 'smooth', block: 'start' })
     }
@@ -1472,7 +1502,7 @@ export default function StrategyInfoPage() {
       <div className="space-y-4 sm:space-y-6">
         <div className="flex items-start justify-between gap-3">
           <div>
-            <div className="text-lg font-semibold sm:text-xl">
+            <div id="strategy-info-page-title" className="text-lg font-semibold sm:text-xl scroll-mt-4">
               {strategyName} 策略說明
             </div>
             <div className="mt-1 text-xs text-zinc-600 sm:text-sm">
@@ -1498,6 +1528,10 @@ export default function StrategyInfoPage() {
             />
           ))}
         </div>
+
+        {/* 墊底空間：讓排在清單最後面的區塊（搭配、免責聲明等）展開時也有足夠捲動空間，
+            能把標題捲到畫面最上緣，不會因為頁面剩餘高度不夠而卡住捲不動 */}
+        <div className="h-[70vh]" aria-hidden="true" />
       </div>
     </AppSidebarLayout>
   )
