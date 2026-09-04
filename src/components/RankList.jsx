@@ -231,6 +231,37 @@ const STOCK_CELL_LAYOUT_CLASS = 'grid grid-cols-[52px_minmax(0,1fr)] gap-1.5 md:
 const DYNAMIC_FACTOR_TOP_N = { bull: 16, bear: 5 }
 // 高息低波沒有牛熊模式，選股上限固定，要跟 scripts/generate_high_div_low_vol.py 的 max_holdings 保持一致。
 const HIGH_DIV_TOP_N = 12
+// 高息低波選股會限制金融股上限（超過上限的金融股會被跳過，往後遞補非金融股），
+// 要跟 scripts/generate_high_div_low_vol.py 的 max_financial 保持一致，純粹按分數排名前12不會準。
+const HIGH_DIV_MAX_FINANCIAL = 4
+const HIGH_DIV_INDUSTRY_KEYWORD = '金融'
+
+// 依分數排名（base_rank 順序）+ 金融股上限，模擬「如果現在換倉，實際會選出哪幾檔」，
+// 邏輯要跟 scripts/generate_high_div_low_vol.py 的 fixed_hold_ids 組裝邏輯一致。
+function computeHighDivSelection(rows, topN, maxFinancial) {
+  const ordered = [...rows].sort((a, b) => (a?.base_rank ?? Infinity) - (b?.base_rank ?? Infinity))
+  const selected = new Set()
+  let finCount = 0
+  for (const row of ordered) {
+    if (selected.size >= topN) break
+    const isFin = typeof row?.industry === 'string' && row.industry.includes(HIGH_DIV_INDUSTRY_KEYWORD)
+    if (isFin) {
+      if (finCount < maxFinancial) {
+        selected.add(row.stock_id)
+        finCount += 1
+      }
+    } else {
+      selected.add(row.stock_id)
+    }
+  }
+  if (selected.size < topN) {
+    for (const row of ordered) {
+      if (selected.size >= topN) break
+      if (!selected.has(row.stock_id)) selected.add(row.stock_id)
+    }
+  }
+  return selected
+}
 
 function getSortableFieldSet(strategyId) {
   return SORTABLE_FIELD_SET_BY_STRATEGY[strategyId] ?? SORTABLE_FIELD_SET_BY_STRATEGY['1']
@@ -364,6 +395,12 @@ export default function RankList({
   }
 
   const rows = useMemo(() => getRankList(currentData) || initialRows || [], [currentData, initialRows, title])
+
+  // 高息低波「條件篩選排名」淺色底要考慮金融股上限，不能單純用分數排名前12檔
+  const highDivSelectionIds = useMemo(() => {
+    if (!(isFilteredRankList && isHighDividend)) return null
+    return computeHighDivSelection(rows, HIGH_DIV_TOP_N, HIGH_DIV_MAX_FINANCIAL)
+  }, [isFilteredRankList, isHighDividend, rows])
 
   const metricColumns = useMemo(() => {
     if (isMultiFactor) {
@@ -608,8 +645,11 @@ export default function RankList({
                   const rankChange = formatRankChange(row.change_type, row.rank_change, row.prev_rank, row.base_rank)
                   const isSearching = !!search.trim()
                   const displayedRank = getDisplayedRank(row, sortKey, isSearching, index)
-                  // 依「分數排名」（base_rank）判斷是否入選，跟目前畫面用哪個欄位排序無關
-                  const isSelected = selectionTopN !== null && Number.isFinite(row.base_rank) && row.base_rank <= selectionTopN
+                  // 依「分數排名」（base_rank）判斷是否入選，跟目前畫面用哪個欄位排序無關；
+                  // 高息低波要另外套金融股上限，不能單純看 base_rank
+                  const isSelected = isHighDividend
+                    ? (highDivSelectionIds?.has(row.stock_id) ?? false)
+                    : (selectionTopN !== null && Number.isFinite(row.base_rank) && row.base_rank <= selectionTopN)
                   const selectionBgClass = isSelected
                     ? (regime === 'bear' ? 'bg-rose-50/70 hover:bg-rose-50' : 'bg-emerald-50/70 hover:bg-emerald-50')
                     : 'hover:bg-zinc-50'
