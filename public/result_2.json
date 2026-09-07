@@ -1,6 +1,6 @@
 {
   "latest_date": "2026-09-07",
-  "updated_at": "2026-09-07 19:54",
+  "updated_at": "2026-09-07 23:22",
   "compare_date": "2026-08-31",
   "rebalance_base_date": "2026-08-03",
   "next_rebalance_date": "2026-11-02",
@@ -40629,7 +40629,6 @@
       "passed_filter": false,
       "failed_conditions": [
         "殖利率過低",
-        "流通性不足",
         "股價未站上年線"
       ],
       "history": [
@@ -40673,6 +40672,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
+        "流通性不足",
         "股價未站上年線"
       ],
       "history": [
