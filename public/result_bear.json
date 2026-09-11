@@ -1,6 +1,6 @@
 {
   "latest_date": "2026-09-10",
-  "updated_at": "2026-09-10 21:56",
+  "updated_at": "2026-09-11 17:53",
   "compare_date": "2026-09-03",
   "rebalance_base_date": "2026-07-01",
   "next_rebalance_date": "2026-10-01",
@@ -8,16 +8,16 @@
   "regime_today": "bull",
   "overview": {
     "start_date": "2010-03-31",
-    "total_return_all": 63696.62,
-    "annual_return_all": 48.1,
-    "total_return_ytd": 100.7,
-    "total_return_1y": 127.93,
-    "total_return_3y": 229.1,
-    "total_return_5y": 496.28,
+    "total_return_all": 63463.3,
+    "annual_return_all": 48.05,
+    "total_return_ytd": 99.96,
+    "total_return_1y": 124.29,
+    "total_return_3y": 229.64,
+    "total_return_5y": 494.1,
     "max_drawdown": -29.75,
-    "volatility_all": 24.08,
+    "volatility_all": 24.07,
     "sharpe_ratio": 1.71,
-    "sortino_ratio": 2.27,
+    "sortino_ratio": 2.26,
     "calmar_ratio": 1.62,
     "current_holdings": 16,
     "drawdown_detail": {
@@ -77,12 +77,12 @@
       }
     ],
     "benchmark": {
-      "total_return_all": 967.02,
-      "annual_return_all": 15.48,
+      "total_return_all": 949.84,
+      "annual_return_all": 15.37,
       "max_drawdown": -28.55,
       "volatility_all": 17.4,
       "sharpe_ratio": 0.82,
-      "sortino_ratio": 1.06,
+      "sortino_ratio": 1.05,
       "calmar_ratio": 0.54,
       "drawdown_detail": {
         "max_drawdown": -28.55,
@@ -224,8 +224,8 @@
       },
       {
         "year": 2026,
-        "strategy": 100.0,
-        "benchmark": 64.48
+        "strategy": 99.27,
+        "benchmark": 61.83
       }
     ],
     "yearly_max_drawdown": [
@@ -1309,7 +1309,7 @@
       {
         "year": 2026,
         "month": 9,
-        "return": -3.15
+        "return": -3.51
       }
     ],
     "rolling_1y_return": [
@@ -5295,8 +5295,8 @@
       },
       {
         "date": "2026-09-11",
-        "strategy": 131.92,
-        "benchmark": 95.06
+        "strategy": 131.4,
+        "benchmark": 94.11
       }
     ],
     "score_return_validation": {
@@ -5304,39 +5304,39 @@
       "bins": [
         {
           "bin": "<60",
-          "avg_return": 5.81,
-          "win_rate": 50.0,
-          "n": 94756
+          "avg_return": 5.8,
+          "win_rate": 49.9,
+          "n": 94844
         },
         {
           "bin": "60-70",
-          "avg_return": 6.31,
+          "avg_return": 6.29,
           "win_rate": 51.4,
-          "n": 53917
+          "n": 53964
         },
         {
           "bin": "70-80",
           "avg_return": 6.11,
           "win_rate": 52.1,
-          "n": 36902
+          "n": 36931
         },
         {
           "bin": "80-90",
-          "avg_return": 7.0,
-          "win_rate": 52.9,
-          "n": 15229
+          "avg_return": 6.99,
+          "win_rate": 52.8,
+          "n": 15247
         },
         {
           "bin": "90-100",
-          "avg_return": 9.24,
-          "win_rate": 52.7,
-          "n": 3744
+          "avg_return": 9.22,
+          "win_rate": 52.6,
+          "n": 3748
         }
       ]
     },
     "since_rebalance": {
       "date": "2026-07-01",
-      "return_pct": 3.07
+      "return_pct": 2.69
     }
   },
   "current_holdings_rank": [
@@ -5357,7 +5357,7 @@
       "dd_pct": 79.4,
       "corr_pct": 89.2,
       "rebalance_close": 22.8,
-      "return_since_rebalance_pct": -0.91,
+      "return_since_rebalance_pct": -0.2,
       "selected": true,
       "passed_filter": false,
       "failed_conditions": [
@@ -5405,7 +5405,7 @@
       "dd_pct": 66.3,
       "corr_pct": 55.9,
       "rebalance_close": 40.0,
-      "return_since_rebalance_pct": 12.38,
+      "return_since_rebalance_pct": 14.48,
       "selected": true,
       "passed_filter": true,
       "failed_conditions": [],
@@ -5449,7 +5449,7 @@
       "dd_pct": 54.4,
       "corr_pct": 74.5,
       "rebalance_close": 45.0,
-      "return_since_rebalance_pct": -2.65,
+      "return_since_rebalance_pct": -1.37,
       "selected": true,
       "passed_filter": false,
       "failed_conditions": [
@@ -5495,7 +5495,7 @@
       "dd_pct": 78.4,
       "corr_pct": 45.1,
       "rebalance_close": 60.4,
-      "return_since_rebalance_pct": -8.23,
+      "return_since_rebalance_pct": -7.54,
       "selected": true,
       "passed_filter": false,
       "failed_conditions": [
@@ -5542,7 +5542,7 @@
       "dd_pct": 59.5,
       "corr_pct": 60.3,
       "rebalance_close": 144.0,
-      "return_since_rebalance_pct": 9.22,
+      "return_since_rebalance_pct": 10.26,
       "selected": true,
       "passed_filter": false,
       "failed_conditions": [
@@ -5591,7 +5591,7 @@
       "dd_pct": 52.6,
       "corr_pct": 65.9,
       "rebalance_close": 348.5,
-      "return_since_rebalance_pct": 7.86,
+      "return_since_rebalance_pct": 8.16,
       "selected": true,
       "passed_filter": true,
       "failed_conditions": [],
@@ -5635,7 +5635,7 @@
       "dd_pct": 48.0,
       "corr_pct": 62.4,
       "rebalance_close": 181.5,
-      "return_since_rebalance_pct": 3.94,
+      "return_since_rebalance_pct": 2.8,
       "selected": true,
       "passed_filter": false,
       "failed_conditions": [
@@ -5681,7 +5681,7 @@
       "dd_pct": 21.5,
       "corr_pct": 83.0,
       "rebalance_close": 41.25,
-      "return_since_rebalance_pct": 21.04,
+      "return_since_rebalance_pct": 20.68,
       "selected": true,
       "passed_filter": false,
       "failed_conditions": [
@@ -5728,7 +5728,7 @@
       "dd_pct": 41.9,
       "corr_pct": 46.8,
       "rebalance_close": 122.5,
-      "return_since_rebalance_pct": -0.14,
+      "return_since_rebalance_pct": -1.37,
       "selected": true,
       "passed_filter": false,
       "failed_conditions": [
@@ -5775,7 +5775,7 @@
       "dd_pct": 14.5,
       "corr_pct": 60.6,
       "rebalance_close": 84.2,
-      "return_since_rebalance_pct": 3.86,
+      "return_since_rebalance_pct": 2.38,
       "selected": true,
       "passed_filter": false,
       "failed_conditions": [
@@ -5822,7 +5822,7 @@
       "dd_pct": 51.6,
       "corr_pct": 69.0,
       "rebalance_close": 47.0,
-      "return_since_rebalance_pct": -21.6,
+      "return_since_rebalance_pct": -20.33,
       "selected": true,
       "passed_filter": false,
       "failed_conditions": [
@@ -5870,7 +5870,7 @@
       "dd_pct": 6.1,
       "corr_pct": 38.2,
       "rebalance_close": 7395.0,
-      "return_since_rebalance_pct": 70.73,
+      "return_since_rebalance_pct": 63.68,
       "selected": true,
       "passed_filter": true,
       "failed_conditions": [],
@@ -5914,7 +5914,7 @@
       "dd_pct": 10.2,
       "corr_pct": 48.8,
       "rebalance_close": 131.5,
-      "return_since_rebalance_pct": 7.42,
+      "return_since_rebalance_pct": 9.81,
       "selected": true,
       "passed_filter": false,
       "failed_conditions": [
@@ -5960,7 +5960,7 @@
       "dd_pct": 29.1,
       "corr_pct": 14.5,
       "rebalance_close": 372.5,
-      "return_since_rebalance_pct": -28.96,
+      "return_since_rebalance_pct": -30.3,
       "selected": true,
       "passed_filter": false,
       "failed_conditions": [
@@ -6007,7 +6007,7 @@
       "dd_pct": 18.2,
       "corr_pct": 52.3,
       "rebalance_close": 143.5,
-      "return_since_rebalance_pct": -10.5,
+      "return_since_rebalance_pct": -11.92,
       "selected": true,
       "passed_filter": false,
       "failed_conditions": [
@@ -6053,7 +6053,7 @@
       "dd_pct": 13.6,
       "corr_pct": 32.1,
       "rebalance_close": 196.5,
-      "return_since_rebalance_pct": -14.37,
+      "return_since_rebalance_pct": -16.15,
       "selected": true,
       "passed_filter": false,
       "failed_conditions": [
@@ -7380,6 +7380,49 @@
       "prev_rank": null,
       "rank_change": null,
       "change_type": "new",
+      "stock_id": "2852",
+      "name": "第一保",
+      "full_name": "第一產物保險股份有限公司",
+      "market": "上市",
+      "score": 0.553246,
+      "display_score": 65.3,
+      "close": 27.9,
+      "rs_pct": 70.2,
+      "peg_pct": null,
+      "dd_pct": 32.5,
+      "corr_pct": 70.9,
+      "selected": false,
+      "passed_filter": true,
+      "failed_conditions": [],
+      "history": [
+        {
+          "date": "2026-09-04",
+          "score": 67.3
+        },
+        {
+          "date": "2026-09-07",
+          "score": 66.4
+        },
+        {
+          "date": "2026-09-08",
+          "score": 66.7
+        },
+        {
+          "date": "2026-09-09",
+          "score": 65.4
+        },
+        {
+          "date": "2026-09-10",
+          "score": 65.3
+        }
+      ],
+      "filter_days": 1
+    },
+    {
+      "base_rank": 32,
+      "prev_rank": null,
+      "rank_change": null,
+      "change_type": "new",
       "stock_id": "6472",
       "name": "保瑞",
       "full_name": "保瑞藥業股份有限公司",
@@ -7419,9 +7462,9 @@
       "filter_days": 1
     },
     {
-      "base_rank": 32,
+      "base_rank": 33,
       "prev_rank": 37,
-      "rank_change": 5,
+      "rank_change": 4,
       "change_type": "up",
       "stock_id": "2351",
       "name": "順德",
@@ -7462,9 +7505,9 @@
       "filter_days": 9
     },
     {
-      "base_rank": 33,
+      "base_rank": 34,
       "prev_rank": 44,
-      "rank_change": 11,
+      "rank_change": 10,
       "change_type": "up",
       "stock_id": "3617",
       "name": "碩天",
@@ -7505,10 +7548,10 @@
       "filter_days": 23
     },
     {
-      "base_rank": 34,
+      "base_rank": 35,
       "prev_rank": 34,
-      "rank_change": 0,
-      "change_type": "flat",
+      "rank_change": -1,
+      "change_type": "down",
       "stock_id": "3005",
       "name": "神基",
       "full_name": "神基控股股份有限公司",
@@ -7548,9 +7591,9 @@
       "filter_days": 16
     },
     {
-      "base_rank": 35,
+      "base_rank": 36,
       "prev_rank": 59,
-      "rank_change": 24,
+      "rank_change": 23,
       "change_type": "up",
       "stock_id": "2606",
       "name": "裕民",
@@ -7591,9 +7634,9 @@
       "filter_days": 16
     },
     {
-      "base_rank": 36,
+      "base_rank": 37,
       "prev_rank": 68,
-      "rank_change": 32,
+      "rank_change": 31,
       "change_type": "up",
       "stock_id": "2609",
       "name": "陽明",
@@ -7634,9 +7677,9 @@
       "filter_days": 10
     },
     {
-      "base_rank": 37,
+      "base_rank": 38,
       "prev_rank": 10,
-      "rank_change": -27,
+      "rank_change": -28,
       "change_type": "down",
       "stock_id": "3029",
       "name": "零壹",
@@ -7677,9 +7720,9 @@
       "filter_days": 18
     },
     {
-      "base_rank": 38,
+      "base_rank": 39,
       "prev_rank": 24,
-      "rank_change": -14,
+      "rank_change": -15,
       "change_type": "down",
       "stock_id": "5434",
       "name": "崇越",
@@ -7720,9 +7763,9 @@
       "filter_days": 105
     },
     {
-      "base_rank": 39,
+      "base_rank": 40,
       "prev_rank": 15,
-      "rank_change": -24,
+      "rank_change": -25,
       "change_type": "down",
       "stock_id": "6292",
       "name": "迅德",
@@ -7763,7 +7806,7 @@
       "filter_days": 13
     },
     {
-      "base_rank": 40,
+      "base_rank": 41,
       "prev_rank": null,
       "rank_change": null,
       "change_type": "new",
@@ -7806,9 +7849,9 @@
       "filter_days": 1
     },
     {
-      "base_rank": 41,
+      "base_rank": 42,
       "prev_rank": 76,
-      "rank_change": 35,
+      "rank_change": 34,
       "change_type": "up",
       "stock_id": "3653",
       "name": "健策",
@@ -7849,9 +7892,9 @@
       "filter_days": 7
     },
     {
-      "base_rank": 42,
+      "base_rank": 43,
       "prev_rank": 16,
-      "rank_change": -26,
+      "rank_change": -27,
       "change_type": "down",
       "stock_id": "5607",
       "name": "遠雄港",
@@ -7892,9 +7935,9 @@
       "filter_days": 12
     },
     {
-      "base_rank": 43,
+      "base_rank": 44,
       "prev_rank": 40,
-      "rank_change": -3,
+      "rank_change": -4,
       "change_type": "down",
       "stock_id": "3046",
       "name": "建碁",
@@ -7935,9 +7978,9 @@
       "filter_days": 19
     },
     {
-      "base_rank": 44,
+      "base_rank": 45,
       "prev_rank": 56,
-      "rank_change": 12,
+      "rank_change": 11,
       "change_type": "up",
       "stock_id": "2354",
       "name": "鴻準",
@@ -7978,9 +8021,9 @@
       "filter_days": 18
     },
     {
-      "base_rank": 45,
+      "base_rank": 46,
       "prev_rank": 11,
-      "rank_change": -34,
+      "rank_change": -35,
       "change_type": "down",
       "stock_id": "2330",
       "name": "台積電",
@@ -8021,9 +8064,9 @@
       "filter_days": 11
     },
     {
-      "base_rank": 46,
+      "base_rank": 47,
       "prev_rank": 55,
-      "rank_change": 9,
+      "rank_change": 8,
       "change_type": "up",
       "stock_id": "3034",
       "name": "聯詠",
@@ -8064,9 +8107,9 @@
       "filter_days": 22
     },
     {
-      "base_rank": 47,
+      "base_rank": 48,
       "prev_rank": 23,
-      "rank_change": -24,
+      "rank_change": -25,
       "change_type": "down",
       "stock_id": "2356",
       "name": "英業達",
@@ -8107,9 +8150,9 @@
       "filter_days": 10
     },
     {
-      "base_rank": 48,
+      "base_rank": 49,
       "prev_rank": 74,
-      "rank_change": 26,
+      "rank_change": 25,
       "change_type": "up",
       "stock_id": "6446",
       "name": "藥華藥",
@@ -8150,9 +8193,9 @@
       "filter_days": 82
     },
     {
-      "base_rank": 49,
+      "base_rank": 50,
       "prev_rank": 13,
-      "rank_change": -36,
+      "rank_change": -37,
       "change_type": "down",
       "stock_id": "6651",
       "name": "全宇昕",
@@ -8193,7 +8236,7 @@
       "filter_days": 9
     },
     {
-      "base_rank": 50,
+      "base_rank": 51,
       "prev_rank": null,
       "rank_change": null,
       "change_type": "new",
@@ -8236,9 +8279,9 @@
       "filter_days": 2
     },
     {
-      "base_rank": 51,
+      "base_rank": 52,
       "prev_rank": 57,
-      "rank_change": 6,
+      "rank_change": 5,
       "change_type": "up",
       "stock_id": "4763",
       "name": "材料*-KY",
@@ -8279,7 +8322,7 @@
       "filter_days": 23
     },
     {
-      "base_rank": 52,
+      "base_rank": 53,
       "prev_rank": null,
       "rank_change": null,
       "change_type": "new",
@@ -8322,9 +8365,9 @@
       "filter_days": 5
     },
     {
-      "base_rank": 53,
+      "base_rank": 54,
       "prev_rank": 33,
-      "rank_change": -20,
+      "rank_change": -21,
       "change_type": "down",
       "stock_id": "2397",
       "name": "友通",
@@ -8365,9 +8408,9 @@
       "filter_days": 17
     },
     {
-      "base_rank": 54,
+      "base_rank": 55,
       "prev_rank": 83,
-      "rank_change": 29,
+      "rank_change": 28,
       "change_type": "up",
       "stock_id": "4961",
       "name": "天鈺",
@@ -8408,9 +8451,9 @@
       "filter_days": 9
     },
     {
-      "base_rank": 55,
+      "base_rank": 56,
       "prev_rank": 67,
-      "rank_change": 12,
+      "rank_change": 11,
       "change_type": "up",
       "stock_id": "3219",
       "name": "倚強科",
@@ -8451,9 +8494,9 @@
       "filter_days": 7
     },
     {
-      "base_rank": 56,
+      "base_rank": 57,
       "prev_rank": 28,
-      "rank_change": -28,
+      "rank_change": -29,
       "change_type": "down",
       "stock_id": "2395",
       "name": "研華",
@@ -8494,9 +8537,9 @@
       "filter_days": 105
     },
     {
-      "base_rank": 57,
+      "base_rank": 58,
       "prev_rank": 38,
-      "rank_change": -19,
+      "rank_change": -20,
       "change_type": "down",
       "stock_id": "2357",
       "name": "華碩",
@@ -8537,9 +8580,9 @@
       "filter_days": 26
     },
     {
-      "base_rank": 58,
+      "base_rank": 59,
       "prev_rank": 70,
-      "rank_change": 12,
+      "rank_change": 11,
       "change_type": "up",
       "stock_id": "6213",
       "name": "聯茂",
@@ -8580,9 +8623,9 @@
       "filter_days": 24
     },
     {
-      "base_rank": 59,
+      "base_rank": 60,
       "prev_rank": 51,
-      "rank_change": -8,
+      "rank_change": -9,
       "change_type": "down",
       "stock_id": "7714",
       "name": "創泓科技",
@@ -8623,9 +8666,9 @@
       "filter_days": 23
     },
     {
-      "base_rank": 60,
+      "base_rank": 61,
       "prev_rank": 92,
-      "rank_change": 32,
+      "rank_change": 31,
       "change_type": "up",
       "stock_id": "2399",
       "name": "映泰",
@@ -8666,9 +8709,9 @@
       "filter_days": 9
     },
     {
-      "base_rank": 61,
+      "base_rank": 62,
       "prev_rank": 65,
-      "rank_change": 4,
+      "rank_change": 3,
       "change_type": "up",
       "stock_id": "3017",
       "name": "奇鋐",
@@ -8709,9 +8752,9 @@
       "filter_days": 20
     },
     {
-      "base_rank": 62,
+      "base_rank": 63,
       "prev_rank": 47,
-      "rank_change": -15,
+      "rank_change": -16,
       "change_type": "down",
       "stock_id": "2317",
       "name": "鴻海",
@@ -8752,9 +8795,9 @@
       "filter_days": 11
     },
     {
-      "base_rank": 63,
+      "base_rank": 64,
       "prev_rank": 9,
-      "rank_change": -54,
+      "rank_change": -55,
       "change_type": "down",
       "stock_id": "2059",
       "name": "川湖",
@@ -8795,10 +8838,10 @@
       "filter_days": 1
     },
     {
-      "base_rank": 64,
+      "base_rank": 65,
       "prev_rank": 64,
-      "rank_change": 0,
-      "change_type": "flat",
+      "rank_change": -1,
+      "change_type": "down",
       "stock_id": "2301",
       "name": "光寶科",
       "full_name": "光寶科技股份有限公司",
@@ -8838,7 +8881,7 @@
       "filter_days": 22
     },
     {
-      "base_rank": 65,
+      "base_rank": 66,
       "prev_rank": null,
       "rank_change": null,
       "change_type": "new",
@@ -8881,9 +8924,9 @@
       "filter_days": 1
     },
     {
-      "base_rank": 66,
+      "base_rank": 67,
       "prev_rank": 12,
-      "rank_change": -54,
+      "rank_change": -55,
       "change_type": "down",
       "stock_id": "3023",
       "name": "信邦",
@@ -8924,7 +8967,7 @@
       "filter_days": 10
     },
     {
-      "base_rank": 67,
+      "base_rank": 68,
       "prev_rank": null,
       "rank_change": null,
       "change_type": "new",
@@ -8967,7 +9010,7 @@
       "filter_days": 2
     },
     {
-      "base_rank": 68,
+      "base_rank": 69,
       "prev_rank": null,
       "rank_change": null,
       "change_type": "new",
@@ -9010,9 +9053,9 @@
       "filter_days": 1
     },
     {
-      "base_rank": 69,
+      "base_rank": 70,
       "prev_rank": 61,
-      "rank_change": -8,
+      "rank_change": -9,
       "change_type": "down",
       "stock_id": "3141",
       "name": "晶宏",
@@ -9053,9 +9096,9 @@
       "filter_days": 12
     },
     {
-      "base_rank": 70,
+      "base_rank": 71,
       "prev_rank": 60,
-      "rank_change": -10,
+      "rank_change": -11,
       "change_type": "down",
       "stock_id": "6672",
       "name": "騰輝電子-KY",
@@ -9096,7 +9139,7 @@
       "filter_days": 12
     },
     {
-      "base_rank": 71,
+      "base_rank": 72,
       "prev_rank": null,
       "rank_change": null,
       "change_type": "new",
@@ -9139,9 +9182,9 @@
       "filter_days": 1
     },
     {
-      "base_rank": 72,
+      "base_rank": 73,
       "prev_rank": 62,
-      "rank_change": -10,
+      "rank_change": -11,
       "change_type": "down",
       "stock_id": "3044",
       "name": "健鼎",
@@ -9182,9 +9225,9 @@
       "filter_days": 8
     },
     {
-      "base_rank": 73,
+      "base_rank": 74,
       "prev_rank": 81,
-      "rank_change": 8,
+      "rank_change": 7,
       "change_type": "up",
       "stock_id": "3443",
       "name": "創意",
@@ -9225,7 +9268,7 @@
       "filter_days": 15
     },
     {
-      "base_rank": 74,
+      "base_rank": 75,
       "prev_rank": null,
       "rank_change": null,
       "change_type": "new",
@@ -9268,9 +9311,9 @@
       "filter_days": 1
     },
     {
-      "base_rank": 75,
+      "base_rank": 76,
       "prev_rank": 72,
-      "rank_change": -3,
+      "rank_change": -4,
       "change_type": "down",
       "stock_id": "1303",
       "name": "南亞",
@@ -9311,9 +9354,9 @@
       "filter_days": 23
     },
     {
-      "base_rank": 76,
+      "base_rank": 77,
       "prev_rank": 88,
-      "rank_change": 12,
+      "rank_change": 11,
       "change_type": "up",
       "stock_id": "6756",
       "name": "威鋒電子",
@@ -9354,7 +9397,7 @@
       "filter_days": 12
     },
     {
-      "base_rank": 77,
+      "base_rank": 78,
       "prev_rank": null,
       "rank_change": null,
       "change_type": "new",
@@ -9397,9 +9440,9 @@
       "filter_days": 1
     },
     {
-      "base_rank": 78,
+      "base_rank": 79,
       "prev_rank": 86,
-      "rank_change": 8,
+      "rank_change": 7,
       "change_type": "up",
       "stock_id": "6187",
       "name": "萬潤",
@@ -9440,10 +9483,10 @@
       "filter_days": 17
     },
     {
-      "base_rank": 79,
+      "base_rank": 80,
       "prev_rank": 80,
-      "rank_change": 1,
-      "change_type": "up",
+      "rank_change": 0,
+      "change_type": "flat",
       "stock_id": "3264",
       "name": "欣銓",
       "full_name": "欣銓科技股份有限公司",
@@ -9483,9 +9526,9 @@
       "filter_days": 7
     },
     {
-      "base_rank": 80,
+      "base_rank": 81,
       "prev_rank": 63,
-      "rank_change": -17,
+      "rank_change": -18,
       "change_type": "down",
       "stock_id": "4931",
       "name": "新盛力",
@@ -9526,9 +9569,9 @@
       "filter_days": 12
     },
     {
-      "base_rank": 81,
+      "base_rank": 82,
       "prev_rank": 66,
-      "rank_change": -15,
+      "rank_change": -16,
       "change_type": "down",
       "stock_id": "6770",
       "name": "力積電",
@@ -9569,9 +9612,9 @@
       "filter_days": 8
     },
     {
-      "base_rank": 82,
+      "base_rank": 83,
       "prev_rank": 85,
-      "rank_change": 3,
+      "rank_change": 2,
       "change_type": "up",
       "stock_id": "3450",
       "name": "聯鈞",
@@ -9612,7 +9655,7 @@
       "filter_days": 12
     },
     {
-      "base_rank": 83,
+      "base_rank": 84,
       "prev_rank": null,
       "rank_change": null,
       "change_type": "new",
@@ -9655,9 +9698,9 @@
       "filter_days": 3
     },
     {
-      "base_rank": 84,
+      "base_rank": 85,
       "prev_rank": 53,
-      "rank_change": -31,
+      "rank_change": -32,
       "change_type": "down",
       "stock_id": "3003",
       "name": "健和興",
@@ -9698,9 +9741,9 @@
       "filter_days": 11
     },
     {
-      "base_rank": 85,
+      "base_rank": 86,
       "prev_rank": 50,
-      "rank_change": -35,
+      "rank_change": -36,
       "change_type": "down",
       "stock_id": "6922",
       "name": "宸曜",
@@ -9741,9 +9784,9 @@
       "filter_days": 20
     },
     {
-      "base_rank": 86,
+      "base_rank": 87,
       "prev_rank": 96,
-      "rank_change": 10,
+      "rank_change": 9,
       "change_type": "up",
       "stock_id": "5274",
       "name": "信驊",
@@ -9784,9 +9827,9 @@
       "filter_days": 11
     },
     {
-      "base_rank": 87,
+      "base_rank": 88,
       "prev_rank": 90,
-      "rank_change": 3,
+      "rank_change": 2,
       "change_type": "up",
       "stock_id": "3037",
       "name": "欣興",
@@ -9827,9 +9870,9 @@
       "filter_days": 15
     },
     {
-      "base_rank": 88,
+      "base_rank": 89,
       "prev_rank": 78,
-      "rank_change": -10,
+      "rank_change": -11,
       "change_type": "down",
       "stock_id": "2383",
       "name": "台光電",
@@ -9870,9 +9913,9 @@
       "filter_days": 17
     },
     {
-      "base_rank": 89,
+      "base_rank": 90,
       "prev_rank": 58,
-      "rank_change": -31,
+      "rank_change": -32,
       "change_type": "down",
       "stock_id": "6913",
       "name": "鴻呈",
@@ -9913,9 +9956,9 @@
       "filter_days": 20
     },
     {
-      "base_rank": 90,
+      "base_rank": 91,
       "prev_rank": 101,
-      "rank_change": 11,
+      "rank_change": 10,
       "change_type": "up",
       "stock_id": "6531",
       "name": "愛普*",
@@ -9956,9 +9999,9 @@
       "filter_days": 3
     },
     {
-      "base_rank": 91,
+      "base_rank": 92,
       "prev_rank": 84,
-      "rank_change": -7,
+      "rank_change": -8,
       "change_type": "down",
       "stock_id": "2070",
       "name": "精湛",
@@ -9999,9 +10042,9 @@
       "filter_days": 11
     },
     {
-      "base_rank": 92,
+      "base_rank": 93,
       "prev_rank": 95,
-      "rank_change": 3,
+      "rank_change": 2,
       "change_type": "up",
       "stock_id": "2364",
       "name": "倫飛",
@@ -10042,9 +10085,9 @@
       "filter_days": 37
     },
     {
-      "base_rank": 93,
+      "base_rank": 94,
       "prev_rank": 100,
-      "rank_change": 7,
+      "rank_change": 6,
       "change_type": "up",
       "stock_id": "2049",
       "name": "上銀",
@@ -10085,9 +10128,9 @@
       "filter_days": 17
     },
     {
-      "base_rank": 94,
+      "base_rank": 95,
       "prev_rank": 103,
-      "rank_change": 9,
+      "rank_change": 8,
       "change_type": "up",
       "stock_id": "6278",
       "name": "台表科",
@@ -10128,9 +10171,9 @@
       "filter_days": 6
     },
     {
-      "base_rank": 95,
+      "base_rank": 96,
       "prev_rank": 42,
-      "rank_change": -53,
+      "rank_change": -54,
       "change_type": "down",
       "stock_id": "6642",
       "name": "富致",
@@ -10171,9 +10214,9 @@
       "filter_days": 9
     },
     {
-      "base_rank": 96,
+      "base_rank": 97,
       "prev_rank": 104,
-      "rank_change": 8,
+      "rank_change": 7,
       "change_type": "up",
       "stock_id": "4576",
       "name": "大銀微系統",
@@ -11182,10 +11225,7 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "當季營收為負或零",
-        "季均營收未創新高",
-        "營收資料不足（少於13個月）",
-        "PEG資料缺失"
+        "季均營收未創新高"
       ],
       "history": [
         {
@@ -37246,13 +37286,8 @@
       "dd_pct": 32.5,
       "corr_pct": 70.9,
       "selected": false,
-      "passed_filter": false,
-      "failed_conditions": [
-        "當季營收為負或零",
-        "季均營收未創新高",
-        "營收資料不足（少於13個月）",
-        "PEG資料缺失"
-      ],
+      "passed_filter": true,
+      "failed_conditions": [],
       "history": [
         {
           "date": "2026-09-04",
