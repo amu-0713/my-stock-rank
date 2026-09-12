@@ -1,5 +1,24 @@
 @import "tailwindcss";
 
+/* ==================== 訊號 Signal 設計系統（新版首頁用，深色現代科技風）==================== */
+@theme {
+  --color-signal-bg: #0a0c10;
+  --color-signal-surface: #12151b;
+  --color-signal-surface-2: #171b23;
+  --color-signal-border: #242a34;
+  --color-signal-border-soft: #1b2029;
+  --color-signal-text: #e7eaf0;
+  --color-signal-text-dim: #8b93a3;
+  --color-signal-text-faint: #5b6272;
+  --color-signal-accent: #4cc9f0;
+  --color-signal-up: #f0475c;
+  --color-signal-down: #2fbf71;
+
+  --font-signal-display: "Sora", sans-serif;
+  --font-signal-body: "IBM Plex Sans", sans-serif;
+  --font-signal-mono: "IBM Plex Mono", monospace;
+}
+
 html,
 body,
 #root {

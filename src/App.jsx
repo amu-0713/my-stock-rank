@@ -1,5 +1,5 @@
 import { Navigate, Route, Routes } from 'react-router-dom'
-import HomePage from './pages/HomePage.jsx'
+import Home from './pages/Home.jsx' // 訊號 Signal 深色新版首頁；舊版留在 HomePage.jsx 未刪，改回只要換這行 import
 import StrategySelectPage from './pages/StrategySelectPage.jsx'
 import StrategyPage from './pages/StrategyPage.jsx'
 import StrategyInfoPage from './pages/StrategyInfoPage.jsx'
@@ -12,7 +12,7 @@ function App() {
       {/* Optional auth: fixed top-right on all pages; does not gate routes */}
       <AuthMenu />
       <Routes>
-        <Route path="/" element={<HomePage />} />
+        <Route path="/" element={<Home />} />
         <Route path="/strategies" element={<StrategySelectPage />} />
         <Route path="/strategy/:id" element={<StrategyPage />} />
         <Route path="/strategy/:id/info" element={<StrategyInfoPage />} />
