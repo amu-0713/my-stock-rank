@@ -1,5 +1,5 @@
 import { Navigate, Route, Routes } from 'react-router-dom'
-import Home from './pages/Home.jsx' // 訊號 Signal 深色新版首頁；舊版留在 HomePage.jsx 未刪，改回只要換這行 import
+import Home from './pages/HomePage.jsx' // 手機跑版，暫時改回舊版首頁；訊號 Signal 新版留在 Home.jsx 未刪，修好再換回來
 import StrategySelectPage from './pages/StrategySelectPage.jsx'
 import StrategyPage from './pages/StrategyPage.jsx'
 import StrategyInfoPage from './pages/StrategyInfoPage.jsx'
