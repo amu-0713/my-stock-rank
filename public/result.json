@@ -1,6 +1,6 @@
 {
   "latest_date": "2026-09-16",
-  "updated_at": "2026-09-16 20:03",
+  "updated_at": "2026-09-16 22:26",
   "compare_date": "2026-09-09",
   "rebalance_base_date": "2026-07-01",
   "next_rebalance_date": "2026-10-01",
@@ -30854,8 +30854,7 @@
       "failed_conditions": [
         "季均營收未創新高",
         "PEG資料缺失",
-        "均線未呈多頭排列",
-        "流動性不足（成交金額太低）"
+        "均線未呈多頭排列"
       ],
       "history": [
         {
@@ -36672,8 +36671,7 @@
       "passed_filter": false,
       "failed_conditions": [
         "季均營收未創新高",
-        "PEG過高",
-        "流動性不足（成交金額太低）"
+        "PEG過高"
       ],
       "history": [
         {
