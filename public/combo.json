@@ -7,10 +7,10 @@
       "label": "動態30% / 高息70%",
       "w_dynamic": 0.3,
       "w_highdiv": 0.7,
-      "total_return": 11847.01,
-      "annual_return": 33.63,
+      "total_return": 11787.3,
+      "annual_return": 33.59,
       "max_drawdown": -12.14,
-      "volatility": 14.97,
+      "volatility": 14.98,
       "sharpe_ratio": 1.9,
       "sortino_ratio": 3.83,
       "calmar_ratio": 2.77,
@@ -81,7 +81,7 @@
         },
         {
           "year": 2026,
-          "return": 42.91
+          "return": 42.2
         }
       ]
     },
@@ -89,8 +89,8 @@
       "label": "動態50% / 高息50%",
       "w_dynamic": 0.5,
       "w_highdiv": 0.5,
-      "total_return": 20727.35,
-      "annual_return": 38.2,
+      "total_return": 20625.62,
+      "annual_return": 38.16,
       "max_drawdown": -14.65,
       "volatility": 18.86,
       "sharpe_ratio": 1.72,
@@ -163,7 +163,7 @@
         },
         {
           "year": 2026,
-          "return": 61.22
+          "return": 60.43
         }
       ]
     },
@@ -171,13 +171,13 @@
       "label": "動態70% / 高息30%",
       "w_dynamic": 0.7,
       "w_highdiv": 0.3,
-      "total_return": 34151.71,
-      "annual_return": 42.44,
+      "total_return": 33987.5,
+      "annual_return": 42.39,
       "max_drawdown": -17.2,
-      "volatility": 23.08,
+      "volatility": 23.09,
       "sharpe_ratio": 1.57,
-      "sortino_ratio": 3.51,
-      "calmar_ratio": 2.47,
+      "sortino_ratio": 3.5,
+      "calmar_ratio": 2.46,
       "yearly_returns": [
         {
           "year": 2010,
@@ -245,7 +245,7 @@
         },
         {
           "year": 2026,
-          "return": 79.52
+          "return": 78.66
         }
       ]
     }
