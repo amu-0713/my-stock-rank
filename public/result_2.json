@@ -1,16 +1,16 @@
 {
   "latest_date": "2026-09-24",
-  "updated_at": "2026-09-24 22:30",
+  "updated_at": "2026-09-25 22:50",
   "compare_date": "2026-09-17",
   "rebalance_base_date": "2026-08-03",
   "next_rebalance_date": "2026-11-02",
   "overview": {
     "start_date": "2010-03-31",
-    "total_return_all": 4373.77,
+    "total_return_all": 4373.58,
     "annual_return_all": 26.08,
     "total_return_ytd": 14.26,
-    "total_return_1y": 18.78,
-    "total_return_3y": 90.59,
+    "total_return_1y": 19.14,
+    "total_return_3y": 89.24,
     "total_return_5y": 311.5,
     "max_drawdown": -19.51,
     "volatility_all": 11.12,
@@ -172,7 +172,7 @@
       },
       {
         "year": 2016,
-        "strategy": 28.75,
+        "strategy": 28.74,
         "benchmark": 15.59
       },
       {
@@ -259,7 +259,7 @@
       },
       {
         "year": 2016,
-        "strategy": -4.86,
+        "strategy": -4.83,
         "benchmark": -8.61
       },
       {
@@ -672,7 +672,7 @@
       {
         "year": 2016,
         "month": 3,
-        "return": 2.86
+        "return": 2.82
       },
       {
         "year": 2016,
@@ -682,7 +682,7 @@
       {
         "year": 2016,
         "month": 5,
-        "return": 1.34
+        "return": 1.37
       },
       {
         "year": 2016,
@@ -692,7 +692,7 @@
       {
         "year": 2016,
         "month": 7,
-        "return": 6.71
+        "return": 6.7
       },
       {
         "year": 2016,
@@ -2553,42 +2553,42 @@
       },
       {
         "date": "2016-03-11",
-        "strategy": 14.67,
+        "strategy": 14.63,
         "benchmark": -5.78
       },
       {
         "date": "2016-03-18",
-        "strategy": 11.94,
+        "strategy": 11.9,
         "benchmark": -3.96
       },
       {
         "date": "2016-03-25",
-        "strategy": 11.04,
+        "strategy": 11.0,
         "benchmark": -5.14
       },
       {
         "date": "2016-04-01",
-        "strategy": 9.32,
+        "strategy": 9.28,
         "benchmark": -7.52
       },
       {
         "date": "2016-04-08",
-        "strategy": 10.9,
+        "strategy": 10.86,
         "benchmark": -6.57
       },
       {
         "date": "2016-04-15",
-        "strategy": 9.05,
+        "strategy": 9.01,
         "benchmark": -6.2
       },
       {
         "date": "2016-04-22",
-        "strategy": 6.3,
+        "strategy": 6.26,
         "benchmark": -7.98
       },
       {
         "date": "2016-04-29",
-        "strategy": 6.92,
+        "strategy": 6.88,
         "benchmark": -8.65
       },
       {
@@ -2608,7 +2608,7 @@
       },
       {
         "date": "2016-05-27",
-        "strategy": 5.58,
+        "strategy": 5.57,
         "benchmark": -9.45
       },
       {
@@ -2643,27 +2643,27 @@
       },
       {
         "date": "2016-07-15",
-        "strategy": 19.6,
+        "strategy": 19.59,
         "benchmark": 1.53
       },
       {
         "date": "2016-07-22",
-        "strategy": 22.39,
+        "strategy": 22.38,
         "benchmark": 4.78
       },
       {
         "date": "2016-07-29",
-        "strategy": 22.37,
+        "strategy": 22.36,
         "benchmark": 4.51
       },
       {
         "date": "2016-08-05",
-        "strategy": 28.1,
+        "strategy": 28.09,
         "benchmark": 11.02
       },
       {
         "date": "2016-08-12",
-        "strategy": 27.16,
+        "strategy": 27.15,
         "benchmark": 12.44
       },
       {
@@ -2683,12 +2683,12 @@
       },
       {
         "date": "2016-09-09",
-        "strategy": 32.32,
+        "strategy": 32.31,
         "benchmark": 19.4
       },
       {
         "date": "2016-09-16",
-        "strategy": 30.93,
+        "strategy": 30.92,
         "benchmark": 16.12
       },
       {
@@ -2703,22 +2703,22 @@
       },
       {
         "date": "2016-10-07",
-        "strategy": 31.35,
+        "strategy": 31.34,
         "benchmark": 18.8
       },
       {
         "date": "2016-10-14",
-        "strategy": 31.84,
+        "strategy": 31.83,
         "benchmark": 14.93
       },
       {
         "date": "2016-10-21",
-        "strategy": 32.37,
+        "strategy": 32.36,
         "benchmark": 13.05
       },
       {
         "date": "2016-10-28",
-        "strategy": 29.94,
+        "strategy": 29.93,
         "benchmark": 12.3
       },
       {
@@ -2728,7 +2728,7 @@
       },
       {
         "date": "2016-11-11",
-        "strategy": 27.36,
+        "strategy": 27.35,
         "benchmark": 8.3
       },
       {
@@ -2743,7 +2743,7 @@
       },
       {
         "date": "2016-12-02",
-        "strategy": 27.01,
+        "strategy": 27.0,
         "benchmark": 12.79
       },
       {
@@ -2778,7 +2778,7 @@
       },
       {
         "date": "2017-01-20",
-        "strategy": 35.89,
+        "strategy": 35.88,
         "benchmark": 24.79
       },
       {
@@ -2788,82 +2788,82 @@
       },
       {
         "date": "2017-02-03",
-        "strategy": 38.23,
+        "strategy": 38.22,
         "benchmark": 26.88
       },
       {
         "date": "2017-02-10",
-        "strategy": 39.39,
+        "strategy": 39.38,
         "benchmark": 29.8
       },
       {
         "date": "2017-02-17",
-        "strategy": 39.65,
+        "strategy": 39.64,
         "benchmark": 25.8
       },
       {
         "date": "2017-02-24",
-        "strategy": 36.42,
+        "strategy": 36.41,
         "benchmark": 23.67
       },
       {
         "date": "2017-03-03",
-        "strategy": 34.91,
+        "strategy": 34.9,
         "benchmark": 20.71
       },
       {
         "date": "2017-03-10",
-        "strategy": 33.97,
+        "strategy": 33.96,
         "benchmark": 19.22
       },
       {
         "date": "2017-03-17",
-        "strategy": 32.91,
+        "strategy": 32.9,
         "benchmark": 19.18
       },
       {
         "date": "2017-03-24",
-        "strategy": 32.23,
+        "strategy": 32.27,
         "benchmark": 17.91
       },
       {
         "date": "2017-03-31",
-        "strategy": 33.38,
+        "strategy": 33.42,
         "benchmark": 15.96
       },
       {
         "date": "2017-04-07",
-        "strategy": 36.19,
+        "strategy": 36.23,
         "benchmark": 17.62
       },
       {
         "date": "2017-04-14",
-        "strategy": 33.55,
+        "strategy": 33.59,
         "benchmark": 15.92
       },
       {
         "date": "2017-04-21",
-        "strategy": 33.3,
+        "strategy": 33.34,
         "benchmark": 18.2
       },
       {
         "date": "2017-04-28",
-        "strategy": 36.28,
+        "strategy": 36.33,
         "benchmark": 18.65
       },
       {
         "date": "2017-05-05",
-        "strategy": 38.7,
+        "strategy": 38.74,
         "benchmark": 20.8
       },
       {
         "date": "2017-05-12",
-        "strategy": 38.95,
+        "strategy": 39.0,
         "benchmark": 24.16
       },
       {
         "date": "2017-05-19",
-        "strategy": 42.47,
+        "strategy": 42.46,
         "benchmark": 27.41
       },
       {
@@ -2878,12 +2878,12 @@
       },
       {
         "date": "2017-06-09",
-        "strategy": 43.54,
+        "strategy": 43.53,
         "benchmark": 25.53
       },
       {
         "date": "2017-06-16",
-        "strategy": 41.04,
+        "strategy": 41.03,
         "benchmark": 23.19
       },
       {
@@ -2893,7 +2893,7 @@
       },
       {
         "date": "2017-06-30",
-        "strategy": 41.58,
+        "strategy": 41.57,
         "benchmark": 26.62
       },
       {
