@@ -1,6 +1,6 @@
 {
   "latest_date": "2026-09-24",
-  "updated_at": "2026-09-25 22:50",
+  "updated_at": "2026-09-29 01:52",
   "compare_date": "2026-09-17",
   "rebalance_base_date": "2026-08-03",
   "next_rebalance_date": "2026-11-02",
@@ -9,9 +9,9 @@
     "total_return_all": 4373.58,
     "annual_return_all": 26.08,
     "total_return_ytd": 14.26,
-    "total_return_1y": 19.14,
-    "total_return_3y": 89.24,
-    "total_return_5y": 311.5,
+    "total_return_1y": 19.68,
+    "total_return_3y": 86.39,
+    "total_return_5y": 309.05,
     "max_drawdown": -19.51,
     "volatility_all": 11.12,
     "sharpe_ratio": 2.02,
@@ -5293,7 +5293,7 @@
           "avg_return": 5.02,
           "efficiency": 0.175,
           "win_rate": 48.9,
-          "n": 108524
+          "n": 108523
         },
         {
           "bin": "70-80",

@@ -1,6 +1,6 @@
 {
   "latest_date": "2026-09-24",
-  "updated_at": "2026-09-25 22:50",
+  "updated_at": "2026-09-29 01:52",
   "compare_date": "2026-09-17",
   "rebalance_base_date": "2026-07-01",
   "next_rebalance_date": "2026-10-01",
@@ -11,9 +11,9 @@
     "total_return_all": 65514.27,
     "annual_return_all": 48.21,
     "total_return_ytd": 106.41,
-    "total_return_1y": 135.42,
-    "total_return_3y": 232.59,
-    "total_return_5y": 519.4,
+    "total_return_1y": 140.27,
+    "total_return_3y": 236.04,
+    "total_return_5y": 530.29,
     "max_drawdown": -29.75,
     "volatility_all": 24.05,
     "sharpe_ratio": 1.72,
@@ -5316,31 +5316,31 @@
           "bin": "<60",
           "avg_return": 5.73,
           "win_rate": 49.8,
-          "n": 95651
+          "n": 95659
         },
         {
           "bin": "60-70",
           "avg_return": 6.19,
-          "win_rate": 51.2,
-          "n": 54410
+          "win_rate": 51.3,
+          "n": 54411
         },
         {
           "bin": "70-80",
           "avg_return": 6.07,
           "win_rate": 52.0,
-          "n": 37195
+          "n": 37202
         },
         {
           "bin": "80-90",
-          "avg_return": 6.91,
+          "avg_return": 6.9,
           "win_rate": 52.7,
-          "n": 15390
+          "n": 15392
         },
         {
           "bin": "90-100",
           "avg_return": 9.08,
           "win_rate": 52.4,
-          "n": 3770
+          "n": 3768
         }
       ]
     },
