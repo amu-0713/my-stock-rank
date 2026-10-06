@@ -1,23 +1,25 @@
 {
   "generated_at": "2026-10-06",
-  "method_note": "取「動態多因子」與「高息低波」兩策略已回測好的月報酬率，依設定比例混合、每年1月初重新平衡回目標比例，模擬同時持有兩策略的效果。此為事後用月報酬率近似混合的模擬，不是重新執行一次聯合部位回測，數字會與各自策略頁面顯示的精確逐日回測結果略有差異。",
-  "n_months": 199,
+  "method_note": "取「動態多因子」與「高息低波」兩策略回測的每日報酬，依設定比例混合、每年第一個交易日重新平衡回目標比例，模擬同時持有兩策略的效果。績效指標與兩策略頁面採相同的日頻算法；此為事後加權混合，不是重新執行一次聯合部位回測。",
+  "n_days": 4029,
+  "start_date": "2010-04-30",
+  "end_date": "2026-10-05",
   "blends": {
     "30_70": {
       "label": "動態30% / 高息70%",
       "w_dynamic": 0.3,
       "w_highdiv": 0.7,
-      "total_return": 11675.1,
-      "annual_return": 33.32,
-      "max_drawdown": -12.14,
-      "volatility": 14.96,
-      "sharpe_ratio": 1.88,
-      "sortino_ratio": 3.8,
-      "calmar_ratio": 2.74,
+      "total_return": 11201.97,
+      "annual_return": 33.33,
+      "max_drawdown": -22.03,
+      "volatility": 13.65,
+      "sharpe_ratio": 2.09,
+      "sortino_ratio": 2.54,
+      "calmar_ratio": 1.51,
       "yearly_returns": [
         {
           "year": 2010,
-          "return": 50.15
+          "return": 44.13
         },
         {
           "year": 2011,
@@ -25,7 +27,7 @@
         },
         {
           "year": 2012,
-          "return": 29.99
+          "return": 29.98
         },
         {
           "year": 2013,
@@ -57,11 +59,11 @@
         },
         {
           "year": 2020,
-          "return": 51.57
+          "return": 51.55
         },
         {
           "year": 2021,
-          "return": 43.24
+          "return": 43.25
         },
         {
           "year": 2022,
@@ -69,7 +71,7 @@
         },
         {
           "year": 2023,
-          "return": 76.96
+          "return": 76.97
         },
         {
           "year": 2024,
@@ -77,7 +79,7 @@
         },
         {
           "year": 2025,
-          "return": 10.22
+          "return": 10.23
         },
         {
           "year": 2026,
@@ -89,17 +91,17 @@
       "label": "動態50% / 高息50%",
       "w_dynamic": 0.5,
       "w_highdiv": 0.5,
-      "total_return": 20501.49,
-      "annual_return": 37.89,
-      "max_drawdown": -14.65,
-      "volatility": 18.83,
-      "sharpe_ratio": 1.71,
-      "sortino_ratio": 3.65,
-      "calmar_ratio": 2.59,
+      "total_return": 19145.75,
+      "annual_return": 37.72,
+      "max_drawdown": -23.69,
+      "volatility": 16.37,
+      "sharpe_ratio": 1.97,
+      "sortino_ratio": 2.47,
+      "calmar_ratio": 1.59,
       "yearly_returns": [
         {
           "year": 2010,
-          "return": 52.86
+          "return": 42.82
         },
         {
           "year": 2011,
@@ -107,7 +109,7 @@
         },
         {
           "year": 2012,
-          "return": 30.67
+          "return": 30.66
         },
         {
           "year": 2013,
@@ -115,11 +117,11 @@
         },
         {
           "year": 2014,
-          "return": 25.51
+          "return": 25.49
         },
         {
           "year": 2015,
-          "return": 54.08
+          "return": 54.07
         },
         {
           "year": 2016,
@@ -127,7 +129,7 @@
         },
         {
           "year": 2017,
-          "return": 52.79
+          "return": 52.78
         },
         {
           "year": 2018,
@@ -139,11 +141,11 @@
         },
         {
           "year": 2020,
-          "return": 73.02
+          "return": 73.0
         },
         {
           "year": 2021,
-          "return": 51.59
+          "return": 51.6
         },
         {
           "year": 2022,
@@ -151,7 +153,7 @@
         },
         {
           "year": 2023,
-          "return": 76.67
+          "return": 76.69
         },
         {
           "year": 2024,
@@ -159,7 +161,7 @@
         },
         {
           "year": 2025,
-          "return": 11.56
+          "return": 11.57
         },
         {
           "year": 2026,
@@ -171,17 +173,17 @@
       "label": "動態70% / 高息30%",
       "w_dynamic": 0.7,
       "w_highdiv": 0.3,
-      "total_return": 33877.17,
-      "annual_return": 42.11,
-      "max_drawdown": -17.2,
-      "volatility": 23.04,
-      "sharpe_ratio": 1.57,
-      "sortino_ratio": 3.49,
-      "calmar_ratio": 2.45,
+      "total_return": 30800.86,
+      "annual_return": 41.75,
+      "max_drawdown": -25.39,
+      "volatility": 19.36,
+      "sharpe_ratio": 1.85,
+      "sortino_ratio": 2.37,
+      "calmar_ratio": 1.64,
       "yearly_returns": [
         {
           "year": 2010,
-          "return": 55.56
+          "return": 41.51
         },
         {
           "year": 2011,
@@ -189,7 +191,7 @@
         },
         {
           "year": 2012,
-          "return": 31.35
+          "return": 31.34
         },
         {
           "year": 2013,
@@ -197,15 +199,15 @@
         },
         {
           "year": 2014,
-          "return": 31.56
+          "return": 31.54
         },
         {
           "year": 2015,
-          "return": 72.13
+          "return": 72.12
         },
         {
           "year": 2016,
-          "return": 36.44
+          "return": 36.43
         },
         {
           "year": 2017,
@@ -213,31 +215,31 @@
         },
         {
           "year": 2018,
-          "return": -3.67
+          "return": -3.66
         },
         {
           "year": 2019,
-          "return": 32.33
+          "return": 32.32
         },
         {
           "year": 2020,
-          "return": 94.47
+          "return": 94.45
         },
         {
           "year": 2021,
-          "return": 59.95
+          "return": 59.96
         },
         {
           "year": 2022,
-          "return": 10.54
+          "return": 10.55
         },
         {
           "year": 2023,
-          "return": 76.38
+          "return": 76.4
         },
         {
           "year": 2024,
-          "return": 33.8
+          "return": 33.79
         },
         {
           "year": 2025,
@@ -245,7 +247,7 @@
         },
         {
           "year": 2026,
-          "return": 78.09
+          "return": 78.1
         }
       ]
     }
