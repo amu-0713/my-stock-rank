@@ -212,8 +212,10 @@ if next_idx < len(trading_days):
         next_rebalance_dt = trading_days[-1]
 else:
     # Fallback (當資料庫未更新到未來時)
+    # 交易日曆還沒到那麼遠，只能推算：避開週末與固定休市日（元旦 1/1、勞動節 5/1），
+    # 否則像 12/31 季末會顯示成 1/1（休市）而非實際的下個開盤日
     next_rebalance_dt = next_base_date + pd.Timedelta(days=1)
-    while next_rebalance_dt.dayofweek >= 5: # 確保避開週末
+    while next_rebalance_dt.dayofweek >= 5 or (next_rebalance_dt.month, next_rebalance_dt.day) in ((1, 1), (5, 1)):
         next_rebalance_dt += pd.Timedelta(days=1)
 
 print(f"DEBUG: 基準日 {base_date.date()} -> 換倉執行日 {execution_dt.date()} -> 下次預計 {next_rebalance_dt.date()}")
