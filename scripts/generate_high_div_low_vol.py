@@ -845,5 +845,8 @@ with open(public_path / "result_2.json", 'w', encoding='utf-8') as f:
     json.dump(result_json, f, ensure_ascii=False, indent=2)
 with open(public_path / "chart_data_2.json", 'w', encoding='utf-8') as f:
     json.dump(chart_json, f, ensure_ascii=False, indent=2)
+# 日 NAV 供 generate_combo.py 用日報酬做合併持有模擬
+with open(public_path / "daily_nav_2.json", 'w', encoding='utf-8') as f:
+    json.dump([[str(d.date()), round(float(v), 6)] for d, v in report_x.creturn.dropna().items()], f)
 
 print(f"============== ✅ 高息低波 已完成（含 filter_days + 日期保護） ==============")

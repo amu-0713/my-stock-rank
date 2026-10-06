@@ -969,4 +969,7 @@ with open("public/result_bear.json", 'w', encoding='utf-8') as f:
     json.dump(result_bear_json, f, ensure_ascii=False, indent=2)
 with open("public/chart_data.json", 'w', encoding='utf-8') as f:
     json.dump(chart_json, f, ensure_ascii=False, indent=2)
+# 日 NAV 供 generate_combo.py 用日報酬做合併持有模擬
+with open("public/daily_nav.json", 'w', encoding='utf-8') as f:
+    json.dump([[str(d.date()), round(float(v), 6)] for d, v in report.creturn.dropna().items()], f)
 print(f"✅ 更新完成！")

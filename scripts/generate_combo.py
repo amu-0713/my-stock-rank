@@ -1,70 +1,78 @@
 # scripts/generate_combo.py
 """
-合併持有模擬：讀取「動態多因子」與「高息低波」兩策略已經算好的 monthly_returns，
-用固定比例（30/70、50/50、70/30）混合、每年1月初重新平衡回目標比例，
+合併持有模擬：讀取「動態多因子」與「高息低波」兩策略各自回測產生的「日 NAV」
+（public/daily_nav.json、public/daily_nav_2.json，由兩支策略腳本輸出），
+換算成日報酬後依固定比例（30/70、50/50、70/30）混合，每年第一個交易日重新平衡回目標比例，
 模擬「同時持有兩策略、每年年初調回設定比例」的效果。
 
-這是事後用月報酬率做的近似混合計算，不是重新執行一次聯合部位回測（那需要把兩策略的持股邏輯、
-換倉時點揉在一起，複雜度高很多）。純粹的後製加權平均是資產配置分析常見的做法，
-數字會跟兩策略各自頁面顯示的精確逐日回測結果略有差異（因為改用月度顆粒度），
-但足以回答「搭配持有能不能達到分散風險的效果」這個問題。
+全程使用日報酬，績效指標的算法（日頻、252 期年化、以日曆天數算年化報酬）與兩策略腳本的 calc_performance 完全一致，
+所以混合結果可以跟兩策略各自頁面的數字直接比較。
 
-不需要 finlab／FINLAB_TOKEN，只讀取本地已經產生的 public/result.json 與 public/result_2.json，
-所以可以在兩支策略腳本都跑完之後、完全離線執行。
+這仍是事後用兩策略的日報酬做加權混合，不是重新執行一次聯合部位回測（兩策略各自的持股、
+換倉時點、現金部位互相獨立，混合時不考慮彼此的資金排擠）。
+
+不需要 finlab／FINLAB_TOKEN，只讀取本地已經產生的日 NAV 檔，所以可以在兩支策略腳本都跑完之後完全離線執行。
 """
 import json
 import numpy as np
+import pandas as pd
 from pathlib import Path
 from datetime import datetime
 from zoneinfo import ZoneInfo
 
 RISK_FREE_RATE = 0.02
+TRADING_DAYS = 252
 
 
-def load_monthly_returns(path):
+def load_daily_nav(path):
+    """讀取 [[日期, nav], ...] 並回傳 pd.Series（index 為日期）"""
     with open(path, encoding="utf-8") as f:
-        data = json.load(f)
-    return data.get("overview", {}).get("monthly_returns") or []
+        rows = json.load(f)
+    if not rows:
+        return pd.Series(dtype=float)
+    s = pd.Series([r[1] for r in rows], index=pd.to_datetime([r[0] for r in rows]))
+    return s[~s.index.duplicated(keep="last")].sort_index()
 
 
-def merge_monthly(returns_a, returns_b):
-    """把兩份 monthly_returns 對齊成同一份月度序列（只取雙方都有資料的月份）"""
-    map_a = {(r["year"], r["month"]): r["return"] for r in returns_a}
-    map_b = {(r["year"], r["month"]): r["return"] for r in returns_b}
-    common_keys = sorted(set(map_a.keys()) & set(map_b.keys()))
-    return [(y, m, map_a[(y, m)], map_b[(y, m)]) for y, m in common_keys]
+def align_daily_returns(nav_a, nav_b):
+    """兩份日 NAV 先對齊到共同交易日，再各自算日報酬（第一個共同日為起點，報酬記 0，與策略腳本一致）"""
+    common = nav_a.index.intersection(nav_b.index)
+    nav_a, nav_b = nav_a.loc[common], nav_b.loc[common]
+    return nav_a.pct_change().fillna(0), nav_b.pct_change().fillna(0)
 
 
-def simulate_blend(merged, w_a, w_b):
-    """依目標比例 w_a/w_b 混合兩策略的月報酬，每年1月初重新平衡回目標比例"""
+def simulate_blend(ret_a, ret_b, w_a, w_b):
+    """依目標比例混合兩策略日報酬，每年第一個交易日（先於當日報酬）重新平衡回目標比例。
+    回傳以 1.0 起算的每日 NAV（Series）"""
     sub_a, sub_b = w_a, w_b
-    nav_points = []
-    for year, month, ret_a, ret_b in merged:
-        if month == 1:
+    last_year = None
+    navs = []
+    for dt, ra, rb in zip(ret_a.index, ret_a.values, ret_b.values):
+        if last_year is not None and dt.year != last_year:
             total = sub_a + sub_b
-            sub_a = total * w_a
-            sub_b = total * w_b
-        sub_a *= (1 + ret_a / 100)
-        sub_b *= (1 + ret_b / 100)
-        nav_points.append({"year": year, "month": month, "nav": sub_a + sub_b})
-    return nav_points
+            sub_a, sub_b = total * w_a, total * w_b
+        last_year = dt.year
+        sub_a *= 1 + ra
+        sub_b *= 1 + rb
+        navs.append(sub_a + sub_b)
+    return pd.Series(navs, index=ret_a.index)
 
 
-def calc_monthly_performance(nav_points):
-    """用月度 NAV 序列算績效指標（用12期年化，不是逐日回測慣用的252期）"""
-    navs = np.array([1.0] + [p["nav"] for p in nav_points])
-    monthly_ret = navs[1:] / navs[:-1] - 1
-    total_ret = navs[-1] - 1
-    n_years = len(monthly_ret) / 12
-    annual_ret = (1 + total_ret) ** (1 / n_years) - 1 if n_years > 0 else 0
-    running_max = np.maximum.accumulate(navs)
-    drawdown = navs / running_max - 1
-    max_dd = drawdown.min()
-    vol = monthly_ret.std() * np.sqrt(12)
-    sharpe = (monthly_ret.mean() * 12 - RISK_FREE_RATE) / vol if vol != 0 else 0
-    downside = monthly_ret[monthly_ret < 0]
-    downside_std = downside.std() * np.sqrt(12) if len(downside) > 0 else 0
-    sortino = (monthly_ret.mean() * 12 - RISK_FREE_RATE) / downside_std if downside_std != 0 else 0
+def calc_performance(nav):
+    """與策略腳本 calc_performance 相同：日頻、252 期年化、以日曆天數算年化報酬"""
+    ret = nav.pct_change().fillna(0)
+    cum = (1 + ret).cumprod()
+    total_ret = cum.iloc[-1] - 1
+    years = (ret.index[-1] - ret.index[0]).days / 365.25 if len(ret) > 1 else 0
+    annual_ret = (1 + total_ret) ** (1 / years) - 1 if years > 0 else 0
+    max_dd = (cum / cum.cummax() - 1).min()
+    vol = ret.std() * np.sqrt(TRADING_DAYS)
+    sharpe = (ret.mean() * TRADING_DAYS - RISK_FREE_RATE) / vol if vol != 0 else 0
+    downside_std = ret[ret < 0].std()
+    sortino = (
+        (ret.mean() * TRADING_DAYS - RISK_FREE_RATE) / (downside_std * np.sqrt(TRADING_DAYS))
+        if downside_std and downside_std != 0 else 0
+    )
     calmar = annual_ret / abs(max_dd) if max_dd != 0 else 0
     return {
         "total_return": round(float(total_ret) * 100, 2),
@@ -77,39 +85,35 @@ def calc_monthly_performance(nav_points):
     }
 
 
-def calc_yearly_from_nav_points(nav_points):
-    """依年份切分，算每年報酬率（%），供圖表使用"""
-    by_year = {}
-    for p in nav_points:
-        by_year.setdefault(p["year"], []).append(p)
-    years = sorted(by_year.keys())
+def calc_yearly_returns(nav):
+    """依日曆年切分，算每年報酬率（%）；第一年從起點 NAV=1.0 算起"""
     out = []
-    prev_nav = 1.0
-    for y in years:
-        pts = by_year[y]
-        end_nav = pts[-1]["nav"]
-        ret = (end_nav / prev_nav - 1) * 100
-        out.append({"year": y, "return": round(ret, 2)})
-        prev_nav = end_nav
+    prev = 1.0
+    for y in sorted(nav.index.year.unique()):
+        end = nav[nav.index.year == y].iloc[-1]
+        out.append({"year": int(y), "return": round(float(end / prev - 1) * 100, 2)})
+        prev = end
     return out
 
 
-print("🚀 開始計算合併持有模擬...")
+print("🚀 開始計算合併持有模擬（日報酬）...")
 
-RESULT_1 = Path("public/result.json")
-RESULT_2 = Path("public/result_2.json")
+NAV_1 = Path("public/daily_nav.json")
+NAV_2 = Path("public/daily_nav_2.json")
 
-if not RESULT_1.exists() or not RESULT_2.exists():
-    raise SystemExit("❌ 找不到 result.json 或 result_2.json，請先跑過兩支策略的每日更新腳本")
+if not NAV_1.exists() or not NAV_2.exists():
+    raise SystemExit("❌ 找不到 daily_nav.json 或 daily_nav_2.json，請先跑過兩支策略的每日更新腳本")
 
-returns_dynamic = load_monthly_returns(RESULT_1)
-returns_highdiv = load_monthly_returns(RESULT_2)
+nav_dynamic = load_daily_nav(NAV_1)
+nav_highdiv = load_daily_nav(NAV_2)
 
-if not returns_dynamic or not returns_highdiv:
-    raise SystemExit("❌ result.json 或 result_2.json 缺少 monthly_returns，請確認兩邊腳本都已更新到含月報酬版本")
+if nav_dynamic.empty or nav_highdiv.empty:
+    raise SystemExit("❌ 日 NAV 檔是空的，請確認兩邊策略腳本都已更新")
 
-merged = merge_monthly(returns_dynamic, returns_highdiv)
-print(f"✅ 兩策略共同涵蓋 {len(merged)} 個月份可用於混合模擬")
+ret_dynamic, ret_highdiv = align_daily_returns(nav_dynamic, nav_highdiv)
+if len(ret_dynamic) < 2:
+    raise SystemExit("❌ 兩策略沒有足夠的共同交易日")
+print(f"✅ 兩策略共同涵蓋 {len(ret_dynamic)} 個交易日（{ret_dynamic.index[0].date()} ~ {ret_dynamic.index[-1].date()}）")
 
 RATIOS = [
     {"key": "30_70", "label": "動態30% / 高息70%", "w_dynamic": 0.3, "w_highdiv": 0.7},
@@ -119,25 +123,25 @@ RATIOS = [
 
 blends = {}
 for r in RATIOS:
-    nav_points = simulate_blend(merged, r["w_dynamic"], r["w_highdiv"])
-    perf = calc_monthly_performance(nav_points)
-    yearly = calc_yearly_from_nav_points(nav_points)
+    nav = simulate_blend(ret_dynamic, ret_highdiv, r["w_dynamic"], r["w_highdiv"])
     blends[r["key"]] = {
         "label": r["label"],
         "w_dynamic": r["w_dynamic"],
         "w_highdiv": r["w_highdiv"],
-        **perf,
-        "yearly_returns": yearly,
+        **calc_performance(nav),
+        "yearly_returns": calc_yearly_returns(nav),
     }
 
 combo_json = {
     "generated_at": datetime.now(ZoneInfo("Asia/Taipei")).strftime("%Y-%m-%d"),
     "method_note": (
-        "取「動態多因子」與「高息低波」兩策略已回測好的月報酬率，依設定比例混合、"
-        "每年1月初重新平衡回目標比例，模擬同時持有兩策略的效果。此為事後用月報酬率近似混合的模擬，"
-        "不是重新執行一次聯合部位回測，數字會與各自策略頁面顯示的精確逐日回測結果略有差異。"
+        "取「動態多因子」與「高息低波」兩策略回測的每日報酬，依設定比例混合、"
+        "每年第一個交易日重新平衡回目標比例，模擬同時持有兩策略的效果。"
+        "績效指標與兩策略頁面採相同的日頻算法；此為事後加權混合，不是重新執行一次聯合部位回測。"
     ),
-    "n_months": len(merged),
+    "n_days": len(ret_dynamic),
+    "start_date": str(ret_dynamic.index[0].date()),
+    "end_date": str(ret_dynamic.index[-1].date()),
     "blends": blends,
 }
 
