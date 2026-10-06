@@ -835,7 +835,7 @@ function ComboSection({ strategyId }) {
 
       <p className="text-sm leading-relaxed text-zinc-600">
         兩個策略的選股邏輯完全不同（一個追成長動能、一個追穩健殖利率），最慘的時候通常不會剛好是同一段時間。
-        下面用兩策略各自已經回測好的月報酬率，依固定比例混合、<strong className="font-semibold text-zinc-700">每年1月初重新平衡</strong>回目標比例，
+        下面用兩策略各自回測的每日報酬，依固定比例混合、<strong className="font-semibold text-zinc-700">每年1月初重新平衡</strong>回目標比例，
         模擬同時持有兩個策略的效果——重點不是哪個比例最賺，而是混合後的風險（最大回撤、波動率）能不能比單押任何一邊都更低。
       </p>
 
@@ -909,7 +909,7 @@ function ComboSection({ strategyId }) {
             </table>
           </div>
           <p className="text-[11px] text-zinc-400">
-            混合欄位為事後用月報酬率近似模擬的結果，非重新執行聯合部位回測，數字會跟兩策略各自頁面顯示的精確逐日回測結果略有差異。
+            混合欄位是用兩策略的每日報酬事後加權混合，績效指標與兩策略採相同的日頻算法；非重新執行聯合部位回測，未考慮兩策略資金互相排擠的影響。
           </p>
 
           {yearlyChartData.length > 0 ? (
