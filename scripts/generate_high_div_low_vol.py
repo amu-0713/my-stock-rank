@@ -154,7 +154,10 @@ def get_rebalance_date_qe_jan(dt):
     elif m <= 10: return pd.Timestamp(f"{y}-07-31")
     else: return pd.Timestamp(f"{y}-10-31")
 
-real_rebalance_dt = get_rebalance_date_qe_jan(latest_dt)
+# 基準日是日曆日（可能落在週末），loop_score.loc[] 只認交易日，
+# 所以取「基準日當天或之前的最後一個交易日」，與 sim(resample='QE-JAN') 選到的訊號日一致
+_cal_rb = get_rebalance_date_qe_jan(latest_dt)
+real_rebalance_dt = loop_score.index[loop_score.index <= _cal_rb].max()
 # 1. 取得交易日曆
 trading_days = data.get('price:收盤價').index
 
