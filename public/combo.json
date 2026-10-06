@@ -1,16 +1,16 @@
 {
-  "generated_at": "2026-10-06",
+  "generated_at": "2026-10-07",
   "method_note": "取「動態多因子」與「高息低波」兩策略回測的每日報酬，依設定比例混合、每年第一個交易日重新平衡回目標比例，模擬同時持有兩策略的效果。績效指標與兩策略頁面採相同的日頻算法；此為事後加權混合，不是重新執行一次聯合部位回測。",
-  "n_days": 4029,
+  "n_days": 4030,
   "start_date": "2010-04-30",
-  "end_date": "2026-10-05",
+  "end_date": "2026-10-06",
   "blends": {
     "30_70": {
       "label": "動態30% / 高息70%",
       "w_dynamic": 0.3,
       "w_highdiv": 0.7,
-      "total_return": 11201.97,
-      "annual_return": 33.33,
+      "total_return": 11226.38,
+      "annual_return": 33.35,
       "max_drawdown": -22.03,
       "volatility": 13.65,
       "sharpe_ratio": 2.09,
@@ -83,7 +83,7 @@
         },
         {
           "year": 2026,
-          "return": 40.87
+          "return": 41.17
         }
       ]
     },
@@ -91,8 +91,8 @@
       "label": "動態50% / 高息50%",
       "w_dynamic": 0.5,
       "w_highdiv": 0.5,
-      "total_return": 19145.75,
-      "annual_return": 37.72,
+      "total_return": 19205.17,
+      "annual_return": 37.74,
       "max_drawdown": -23.69,
       "volatility": 16.37,
       "sharpe_ratio": 1.97,
@@ -165,7 +165,7 @@
         },
         {
           "year": 2026,
-          "return": 59.48
+          "return": 59.97
         }
       ]
     },
@@ -173,13 +173,13 @@
       "label": "動態70% / 高息30%",
       "w_dynamic": 0.7,
       "w_highdiv": 0.3,
-      "total_return": 30800.86,
-      "annual_return": 41.75,
+      "total_return": 30918.94,
+      "annual_return": 41.78,
       "max_drawdown": -25.39,
       "volatility": 19.36,
       "sharpe_ratio": 1.85,
       "sortino_ratio": 2.37,
-      "calmar_ratio": 1.64,
+      "calmar_ratio": 1.65,
       "yearly_returns": [
         {
           "year": 2010,
@@ -247,7 +247,7 @@
         },
         {
           "year": 2026,
-          "return": 78.1
+          "return": 78.78
         }
       ]
     }
