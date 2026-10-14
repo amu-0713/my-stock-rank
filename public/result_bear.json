@@ -1,6 +1,6 @@
 {
   "latest_date": "2026-10-14",
-  "updated_at": "2026-10-14 18:51",
+  "updated_at": "2026-10-14 22:45",
   "compare_date": "2026-10-07",
   "rebalance_base_date": "2026-10-01",
   "next_rebalance_date": "2027-01-04",
@@ -40565,10 +40565,8 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "當季營收為負或零",
         "季均營收未創新高",
-        "營收資料不足（少於13個月）",
-        "PEG資料缺失"
+        "PEG過低"
       ],
       "history": [
         {
