@@ -1,0 +1,56 @@
+name: 每日自動更新加密貨幣策略
+
+# 與台股的 update-rank-daily.yml 分開：幣安日 K 在 UTC 00:00（台灣 08:00）收盤，收盤後半小時更新
+on:
+  schedule:
+    - cron: '30 0 * * *'
+  workflow_dispatch:      # 允許手動執行
+
+permissions:
+  contents: write
+
+concurrency:
+  group: update-crypto
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout 網站
+        uses: actions/checkout@v4
+
+      - name: Checkout 策略程式（amu-0713/123）
+        uses: actions/checkout@v4
+        with:
+          repository: amu-0713/123
+          path: _crypto_src
+
+      - name: 設定 Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: 安裝依賴
+        run: pip install pandas numpy
+
+      - name: 增量更新幣圈資料（只抓近期日 K，接到既有資料後面）
+        run: python _crypto_src/tools/export_web.py --update --out public/crypto
+
+      - name: Commit & Push
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "github_actions"
+          if [ -z "$(git status --porcelain public/crypto/)" ]; then
+            echo "幣圈資料無變動，跳過 Commit。"
+            exit 0
+          fi
+          git add public/crypto/
+          git commit -m "🤖 每日自動更新加密貨幣策略: $(date -u +'%Y-%m-%d')"
+          for i in 1 2 3; do
+            git pull --rebase && git push && exit 0
+            sleep $((i * 10))
+          done
+          exit 1
