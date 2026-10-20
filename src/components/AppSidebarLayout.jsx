@@ -79,6 +79,18 @@ export default function AppSidebarLayout({
             >
               免責聲明
             </a>
+            <a
+              href="/crypto"
+              className="block rounded-lg px-3 py-2 text-zinc-100 hover:bg-white/10"
+            >
+              加密貨幣策略
+            </a>
+            <a
+              href="/crypto/mix"
+              className="block rounded-lg px-3 py-2 text-zinc-100 hover:bg-white/10"
+            >
+              三策略混合
+            </a>
           </nav>
 
           <div className="mt-auto px-2 pt-4 text-xs text-zinc-400">資料僅供研究參考</div>

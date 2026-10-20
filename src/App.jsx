@@ -4,6 +4,8 @@ import StrategySelectPage from './pages/StrategySelectPage.jsx'
 import StrategyPage from './pages/StrategyPage.jsx'
 import StrategyInfoPage from './pages/StrategyInfoPage.jsx'
 import RebalancePerformancePage from './pages/RebalancePerformancePage.jsx'
+import CryptoPage from './pages/CryptoPage.jsx'
+import CryptoMixPage from './pages/CryptoMixPage.jsx'
 import AuthMenu from './components/AuthMenu.jsx'
 
 function App() {
@@ -17,6 +19,8 @@ function App() {
         <Route path="/strategy/:id" element={<StrategyPage />} />
         <Route path="/strategy/:id/info" element={<StrategyInfoPage />} />
         <Route path="/strategy/:id/rebalance" element={<RebalancePerformancePage />} />
+        <Route path="/crypto" element={<CryptoPage />} />
+        <Route path="/crypto/mix" element={<CryptoMixPage />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </div>
