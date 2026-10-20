@@ -30,12 +30,12 @@ function fmtNum(v, digits = 2) {
 }
 
 const RULES = [
-  { title: '幣池', body: '幣安 USDT 現貨，近 30 日成交額前 100 名、上市滿 120 天。' },
-  { title: '品質排序', body: '低波動（30 日）與流動性（30 日成交額）各占一半，取前 20 名當候選。' },
-  { title: '趨勢進場', body: '候選依序挑選：收盤 ≥ 60 日高點的 90%，且相對 BTC 的強弱站上 30 日均線。最多 5 檔、每檔 20%。' },
-  { title: '空位補 BTC', body: '湊不滿 5 檔時，空位改持有 BTC（BTC 本身也要符合 60 日高點條件），否則留 USDT 放活期。' },
-  { title: '每日出場', body: '持有未滿 2 次調倉跌破 20 日均線、之後跌破 40 日均線，就在收盤後賣出。' },
-  { title: '風險控制', body: '整體波動目標 40%（看近 14 日），波動太大時自動降低部位；資金分兩本帳，週日與週四錯開調倉。' },
+  { title: '幣池', body: '只看幣安上的主流幣，依成交額與上市時間篩選，避開流動性不足的小幣。' },
+  { title: '品質排序', body: '以低波動、高流動性兩個因子評分，挑出品質較好的候選。' },
+  { title: '趨勢確認', body: '候選中只買價格趨勢向上、且相對 BTC 走強的幣，集中持有少數幾檔。' },
+  { title: '空位處理', body: '符合條件的幣不夠時，改持有 BTC 或穩定幣，閒置資金放活期生息。' },
+  { title: '出場', body: '持有中的幣跌破趨勢就自動賣出，新買進的部位採用較嚴格的出場條件。' },
+  { title: '風險控制', body: '依市場波動自動調整整體部位大小，並把資金分批、錯開時間調倉。' },
 ]
 
 const VALIDATION = [
@@ -155,7 +155,7 @@ export default function CryptoPage() {
         <div className="text-xs font-medium uppercase tracking-wide text-zinc-500">策略 3 · 加密貨幣</div>
         <h1 className="mt-1 text-2xl font-semibold tracking-tight text-zinc-900">品質趨勢策略</h1>
         <p className="mt-2 max-w-2xl text-[15px] leading-relaxed text-zinc-600">
-          在幣安成交額前 100 大的幣中，挑選低波動、高流動性、且趨勢向上的幣，最多持有 5 檔；
+          在幣安主流幣中，挑選低波動、高流動性、且趨勢向上的幣集中持有；
           全程自動下單，每天檢查出場、每週調倉兩次。
         </p>
         <div className="mt-3 flex flex-wrap gap-x-4 gap-y-1 text-xs text-zinc-500">
@@ -266,7 +266,7 @@ export default function CryptoPage() {
               ))}
             </div>
             <p className="mt-2 text-xs text-zinc-500">
-              權重為縮放前的目標比例；實際部位另依 40% 波動目標調整（目前約 {fmtPct(data.exposure_now, 0)}），並可能因每日出場而提前賣出。
+              權重為調整前的目標比例；實際部位會依市場波動調整（目前約 {fmtPct(data.exposure_now, 0)}），並可能因每日出場而提前賣出。
             </p>
           </Section>
 
