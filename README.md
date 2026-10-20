@@ -1,16 +1,87 @@
-# React + Vite
+# 量化選股策略排名（Smart-Ranking）
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+以固定規則運作的量化策略網站：台股兩個策略加上一個加密貨幣策略，每天自動更新排名、持股與績效，
+並提供跨市場的混合配置試算。
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## 策略
 
-## React Compiler
+| 策略 | 市場 | 風格 | 換股 | 回測（2010 起） |
+|---|---|---|---|---|
+| 動態多因子 | 台股 | 成長動能 | 每季 | 年化約 48%、最大回撤約 -30% |
+| 高息低波 | 台股 | 穩健殖利率 | 每季 | 年化約 26%、最大回撤約 -20% |
+| 品質趨勢 | 加密貨幣（幣安現貨） | 低波動＋趨勢 | 每週兩次 | 年化約 70%、最大回撤約 -28%（2018 起） |
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- **動態多因子**：先用基本面與技術面濾網篩選，再依大盤多空狀態動態切換因子權重排名。
+  因子包含相對強弱、本益成長比、下行風險、與大盤的相關性。
+- **高息低波**：以高殖利率、低波動排名，並限制金融股比重。
+- **品質趨勢**：在加密貨幣主流幣中挑低波動、高流動性、趨勢向上的幣；
+  研究、驗證與自動交易程式在 [amu-0713/123](https://github.com/amu-0713/123)。
 
-## Expanding the ESLint configuration
+三個策略的日報酬相關性：兩個台股策略之間約 0.5，台股與加密貨幣之間接近 0。
+因此網站的三策略混合頁可以試算跨市場配置的效果。
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+所有數字皆為歷史回測，網站上的數字每天更新，以網站為準。
+
+## 網站功能
+
+- **首頁**：各策略的績效曲線（今年、1 年、5 年、全部）與摘要。
+- **策略頁**：目前持股排名、條件篩選排名、市場總排名。
+- **策略說明**：選股邏輯、績效指標、回撤明細、統計驗證、兩策略搭配。
+- **換倉至今表現**：本期持股自換倉以來的個股與整體報酬。
+- **加密貨幣策略**：回測與每日延伸的績效、逐年報酬、最近持倉、驗證摘要。
+- **三策略混合**：拉桿調整比例，即時計算年化、回撤、Sharpe、逐年報酬與相關係數。
+- **會員登入**：Supabase 驗證（選用，不影響瀏覽）。
+
+## 架構
+
+```
+           GitHub Actions（每日排程）                     Vercel
+┌──────────────────────────────────────────┐      ┌──────────────────────┐
+│ 台股 18:00  FinLab 資料 → 回測與排名       │      │ React + Vite         │
+│            → public/*.json               │ push │ 讀取 public/*.json    │
+│ 幣圈 08:30  幣安公開行情 → 增量更新        │ ───▶ │ 自動部署              │
+│            → public/crypto/*.json        │      │                      │
+└──────────────────────────────────────────┘      └──────────────────────┘
+```
+
+- **前端**：React 19、Vite、Tailwind CSS、Recharts、React Router。
+- **資料管線**：Python（pandas、numpy、FinLab）。排程結果以 JSON 寫入 `public/` 並推回 repo，Vercel 自動重新部署。
+  網站本身是純靜態，不需要後端伺服器。
+- **台股與幣圈是兩個獨立排程**，各自失敗不影響對方。
+  - 台股：`update-rank-daily.yml`，台股收盤後執行。
+  - 幣圈：`update-crypto-daily.yml`，幣安日 K 收盤後執行。只抓最近的日 K 接在既有資料後面，已驗證與完整重算結果一致。
+- **會員**：Supabase Auth，資料表定義在 `docs/supabase-user-profiles.sql`。
+
+## 專案結構
+
+```
+src/
+  pages/        首頁、策略頁、策略說明、換倉至今表現、加密貨幣策略、三策略混合
+  components/   側邊欄版面、排名列表、登入選單等
+  context/      登入狀態
+  lib/          Supabase 用戶端、圖表工具
+scripts/
+  generate_dynamic_factor.py    動態多因子：回測、排名、驗證 → public/result.json 等
+  generate_high_div_low_vol.py  高息低波：同上 → public/result_2.json 等
+  generate_combo.py             兩個台股策略的合併持有模擬 → public/combo.json
+public/         網站讀取的資料（由排程自動更新）
+.github/workflows/
+  update-rank-daily.yml         台股每日更新
+  update-crypto-daily.yml       加密貨幣每日更新
+```
+
+## 本機開發
+
+```bash
+npm install
+cp .env.example .env.local    # 填入 Supabase 設定（不設定也能瀏覽，只是無法登入）
+npm run dev
+```
+
+更新台股資料需要 FinLab 帳號，在 GitHub Secrets 設定 `FINLAB_TOKEN`。幣圈資料不需要任何金鑰。
+
+## 免責聲明
+
+本網站內容為個人研究與歷史回測結果，不構成任何投資建議。實際投資請自行評估風險。
