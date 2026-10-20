@@ -12,10 +12,10 @@ import { yearStartTicks } from '../lib/chartTicks.js'
 const STRATEGY_COLOR = '#059669'
 const BTC_COLOR = '#a1a1aa'
 
-// 台股慣例：紅漲綠跌（與網站其他頁一致）
+// 綠漲紅跌（與首頁、策略說明頁一致）
 function toneClass(v) {
   if (v === null || v === undefined || Number.isNaN(v) || v === 0) return 'text-zinc-500'
-  return v > 0 ? 'text-red-600' : 'text-green-600'
+  return v > 0 ? 'text-emerald-600' : 'text-red-600'
 }
 
 function fmtPct(v, digits = 1, signed = false) {
@@ -177,7 +177,7 @@ export default function CryptoPage() {
           <Section title="回測績效">
             <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5">
               <StatCard label="年化報酬" value={fmtPct(s.cagr)} sub={`BTC ${fmtPct(b.cagr)}`} valueClass={toneClass(s.cagr)} />
-              <StatCard label="最大回撤" value={fmtPct(s.mdd)} sub={`BTC ${fmtPct(b.mdd)}`} />
+              <StatCard label="最大回撤" value={fmtPct(s.mdd)} sub={`BTC ${fmtPct(b.mdd)}`} valueClass="text-red-600" />
               <StatCard label="年化波動" value={fmtPct(s.vol)} sub={`BTC ${fmtPct(b.vol)}`} />
               <StatCard label="Sharpe" value={fmtNum(s.sharpe)} sub={`BTC ${fmtNum(b.sharpe)}`} />
               <StatCard label="Calmar" value={fmtNum(s.calmar)} sub={`BTC ${fmtNum(b.calmar)}`} />

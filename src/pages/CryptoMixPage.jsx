@@ -110,7 +110,7 @@ function corr(a, b) {
 
 function toneClass(v) {
   if (v === null || v === undefined || Number.isNaN(v) || v === 0) return 'text-zinc-500'
-  return v > 0 ? 'text-red-600' : 'text-green-600'
+  return v > 0 ? 'text-emerald-600' : 'text-red-600'
 }
 const fmtPct = (v, d = 1, signed = false) => (v === null || v === undefined || Number.isNaN(v) ? '—' : `${signed && v > 0 ? '+' : ''}${v.toFixed(d)}%`)
 
@@ -231,7 +231,7 @@ export default function CryptoMixPage() {
           {p ? (
             <section className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5">
               <StatCard label="年化報酬" value={fmtPct(p.cagr)} valueClass={toneClass(p.cagr)} />
-              <StatCard label="最大回撤" value={fmtPct(p.mdd)} />
+              <StatCard label="最大回撤" value={fmtPct(p.mdd)} valueClass="text-red-600" />
               <StatCard label="年化波動" value={fmtPct(p.vol)} />
               <StatCard label="Sharpe" value={p.sharpe.toFixed(2)} />
               <StatCard label="Calmar" value={p.calmar.toFixed(2)} />
@@ -295,7 +295,7 @@ export default function CryptoMixPage() {
                     <tr key={r.label} onClick={() => setW(r.w)} className="cursor-pointer border-t border-zinc-100 hover:bg-zinc-50">
                       <td className="whitespace-nowrap px-3 py-2 text-zinc-700">{r.label}</td>
                       <td className={`px-3 py-2 text-right ${toneClass(r.perf.cagr)}`}>{fmtPct(r.perf.cagr)}</td>
-                      <td className="px-3 py-2 text-right text-zinc-700">{fmtPct(r.perf.mdd)}</td>
+                      <td className="px-3 py-2 text-right text-red-600">{fmtPct(r.perf.mdd)}</td>
                       <td className="px-3 py-2 text-right text-zinc-700">{fmtPct(r.perf.vol)}</td>
                       <td className="px-3 py-2 text-right text-zinc-700">{r.perf.sharpe.toFixed(2)}</td>
                       <td className="px-3 py-2 text-right text-zinc-700">{r.perf.calmar.toFixed(2)}</td>
