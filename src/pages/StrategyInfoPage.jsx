@@ -932,6 +932,13 @@ function ComboSection({ strategyId }) {
           ) : null}
         </>
       )}
+
+      <a
+        href="/crypto/mix"
+        className="inline-flex items-center gap-1.5 text-sm font-medium text-zinc-600 underline-offset-2 hover:text-zinc-900 hover:underline"
+      >
+        加入加密貨幣的三策略混合 →
+      </a>
     </div>
   )
 }
