@@ -1,6 +1,6 @@
 {
   "latest_date": "2026-10-30",
-  "updated_at": "2026-10-30 22:57",
+  "updated_at": "2026-10-31 00:20",
   "compare_date": "2026-10-22",
   "rebalance_base_date": "2026-08-03",
   "next_rebalance_date": "2026-11-02",
@@ -30829,8 +30829,49 @@
     },
     {
       "base_rank": 447,
+      "prev_rank": 434,
+      "rank_change": -13,
+      "change_type": "down",
+      "stock_id": "3293",
+      "name": "鈊象",
+      "full_name": "鈊象電子股份有限公司",
+      "industry": "文化創意業",
+      "market": "上櫃",
+      "score": 0.6908,
+      "display_score": 79.1,
+      "close": 810.0,
+      "dy_pct": 72.8,
+      "std_pct": 67.2,
+      "selected": false,
+      "passed_filter": true,
+      "failed_conditions": [],
+      "history": [
+        {
+          "date": "2026-10-22",
+          "score": 79.7
+        },
+        {
+          "date": "2026-10-27",
+          "score": 79.7
+        },
+        {
+          "date": "2026-10-28",
+          "score": 79.5
+        },
+        {
+          "date": "2026-10-29",
+          "score": 79.4
+        },
+        {
+          "date": "2026-10-30",
+          "score": 79.1
+        }
+      ]
+    },
+    {
+      "base_rank": 448,
       "prev_rank": 458,
-      "rank_change": 11,
+      "rank_change": 10,
       "change_type": "up",
       "stock_id": "1473",
       "name": "台南",
@@ -30865,47 +30906,6 @@
         {
           "date": "2026-10-29",
           "score": 79.3
-        },
-        {
-          "date": "2026-10-30",
-          "score": 79.1
-        }
-      ]
-    },
-    {
-      "base_rank": 448,
-      "prev_rank": 434,
-      "rank_change": -14,
-      "change_type": "down",
-      "stock_id": "3293",
-      "name": "鈊象",
-      "full_name": "鈊象電子股份有限公司",
-      "industry": "文化創意業",
-      "market": "上櫃",
-      "score": 0.6908,
-      "display_score": 79.1,
-      "close": 810.0,
-      "dy_pct": 72.8,
-      "std_pct": 67.2,
-      "selected": false,
-      "passed_filter": true,
-      "failed_conditions": [],
-      "history": [
-        {
-          "date": "2026-10-22",
-          "score": 79.7
-        },
-        {
-          "date": "2026-10-27",
-          "score": 79.7
-        },
-        {
-          "date": "2026-10-28",
-          "score": 79.5
-        },
-        {
-          "date": "2026-10-29",
-          "score": 79.4
         },
         {
           "date": "2026-10-30",
