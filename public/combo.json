@@ -1,20 +1,20 @@
 {
   "generated_at": "2026-10-30",
   "method_note": "取「動態多因子」與「高息低波」兩策略回測的每日報酬，依設定比例混合、每年第一個交易日重新平衡回目標比例，模擬同時持有兩策略的效果。績效指標與兩策略頁面採相同的日頻算法；此為事後加權混合，不是重新執行一次聯合部位回測。",
-  "n_days": 4065,
+  "n_days": 4066,
   "start_date": "2010-03-31",
-  "end_date": "2026-10-29",
+  "end_date": "2026-10-30",
   "blends": {
     "30_70": {
       "label": "動態30% / 高息70%",
       "w_dynamic": 0.3,
       "w_highdiv": 0.7,
-      "total_return": 11583.51,
-      "annual_return": 33.26,
+      "total_return": 11515.09,
+      "annual_return": 33.21,
       "max_drawdown": -22.03,
       "volatility": 13.63,
       "sharpe_ratio": 2.09,
-      "sortino_ratio": 2.54,
+      "sortino_ratio": 2.53,
       "calmar_ratio": 1.51,
       "yearly_returns": [
         {
@@ -83,7 +83,7 @@
         },
         {
           "year": 2026,
-          "return": 43.51
+          "return": 42.67
         }
       ]
     },
@@ -91,12 +91,12 @@
       "label": "動態50% / 高息50%",
       "w_dynamic": 0.5,
       "w_highdiv": 0.5,
-      "total_return": 20019.35,
-      "annual_return": 37.7,
+      "total_return": 19890.56,
+      "annual_return": 37.64,
       "max_drawdown": -23.69,
       "volatility": 16.35,
       "sharpe_ratio": 1.97,
-      "sortino_ratio": 2.47,
+      "sortino_ratio": 2.46,
       "calmar_ratio": 1.59,
       "yearly_returns": [
         {
@@ -165,7 +165,7 @@
         },
         {
           "year": 2026,
-          "return": 63.16
+          "return": 62.11
         }
       ]
     },
@@ -173,13 +173,13 @@
       "label": "動態70% / 高息30%",
       "w_dynamic": 0.7,
       "w_highdiv": 0.3,
-      "total_return": 32657.32,
-      "annual_return": 41.81,
+      "total_return": 32433.61,
+      "annual_return": 41.74,
       "max_drawdown": -25.39,
       "volatility": 19.35,
       "sharpe_ratio": 1.85,
       "sortino_ratio": 2.37,
-      "calmar_ratio": 1.65,
+      "calmar_ratio": 1.64,
       "yearly_returns": [
         {
           "year": 2010,
@@ -247,7 +247,7 @@
         },
         {
           "year": 2026,
-          "return": 82.8
+          "return": 81.55
         }
       ]
     }
