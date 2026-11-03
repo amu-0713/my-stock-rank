@@ -1,6 +1,6 @@
 {
   "latest_date": "2026-11-02",
-  "updated_at": "2026-11-03 03:53",
+  "updated_at": "2026-11-03 18:13",
   "compare_date": "2026-10-22",
   "rebalance_base_date": "2026-10-01",
   "next_rebalance_date": "2027-01-04",
@@ -8,16 +8,16 @@
   "regime_today": "bull",
   "overview": {
     "start_date": "2010-03-31",
-    "total_return_all": 62195.78,
-    "annual_return_all": 47.38,
-    "total_return_ytd": 112.56,
-    "total_return_1y": 117.28,
-    "total_return_3y": 252.19,
-    "total_return_5y": 571.27,
+    "total_return_all": 60712.58,
+    "annual_return_all": 47.15,
+    "total_return_ytd": 107.5,
+    "total_return_1y": 110.65,
+    "total_return_3y": 260.04,
+    "total_return_5y": 542.42,
     "max_drawdown": -29.75,
     "volatility_all": 24.06,
-    "sharpe_ratio": 1.7,
-    "sortino_ratio": 2.24,
+    "sharpe_ratio": 1.69,
+    "sortino_ratio": 2.23,
     "calmar_ratio": 1.59,
     "current_holdings": 16,
     "drawdown_detail": {
@@ -77,13 +77,13 @@
       }
     ],
     "benchmark": {
-      "total_return_all": 922.46,
-      "annual_return_all": 15.04,
+      "total_return_all": 885.76,
+      "annual_return_all": 14.79,
       "max_drawdown": -28.55,
-      "volatility_all": 17.43,
-      "sharpe_ratio": 0.8,
-      "sortino_ratio": 1.03,
-      "calmar_ratio": 0.53,
+      "volatility_all": 17.45,
+      "sharpe_ratio": 0.79,
+      "sortino_ratio": 1.01,
+      "calmar_ratio": 0.52,
       "drawdown_detail": {
         "max_drawdown": -28.55,
         "peak_date": "2020-01-14",
@@ -224,8 +224,8 @@
       },
       {
         "year": 2026,
-        "strategy": 111.82,
-        "benchmark": 57.61
+        "strategy": 106.77,
+        "benchmark": 51.95
       }
     ],
     "yearly_max_drawdown": [
@@ -1319,7 +1319,7 @@
       {
         "year": 2026,
         "month": 11,
-        "return": 0.53
+        "return": -1.87
       }
     ],
     "rolling_1y_return": [
@@ -5345,8 +5345,8 @@
       },
       {
         "date": "2026-11-06",
-        "strategy": 127.13,
-        "benchmark": 67.61
+        "strategy": 120.1,
+        "benchmark": 59.42
       }
     ],
     "score_return_validation": {
@@ -5354,39 +5354,39 @@
       "bins": [
         {
           "bin": "<60",
-          "avg_return": 5.69,
+          "avg_return": 5.7,
           "win_rate": 49.6,
-          "n": 97526
+          "n": 97587
         },
         {
           "bin": "60-70",
-          "avg_return": 6.21,
+          "avg_return": 6.22,
           "win_rate": 51.1,
-          "n": 55361
+          "n": 55390
         },
         {
           "bin": "70-80",
           "avg_return": 5.93,
           "win_rate": 51.9,
-          "n": 37883
+          "n": 37902
         },
         {
           "bin": "80-90",
           "avg_return": 6.82,
           "win_rate": 52.8,
-          "n": 15669
+          "n": 15680
         },
         {
           "bin": "90-100",
-          "avg_return": 9.06,
+          "avg_return": 9.05,
           "win_rate": 52.3,
-          "n": 3809
+          "n": 3812
         }
       ]
     },
     "since_rebalance": {
       "date": "2026-10-01",
-      "return_pct": 3.18
+      "return_pct": 0.73
     }
   },
   "current_holdings_rank": [
@@ -5407,7 +5407,7 @@
       "dd_pct": 80.2,
       "corr_pct": 98.9,
       "rebalance_close": 27.65,
-      "return_since_rebalance_pct": 11.41,
+      "return_since_rebalance_pct": 7.26,
       "selected": true,
       "passed_filter": false,
       "failed_conditions": [
@@ -5497,7 +5497,7 @@
       "dd_pct": 91.1,
       "corr_pct": 79.4,
       "rebalance_close": 27.8,
-      "return_since_rebalance_pct": 0.58,
+      "return_since_rebalance_pct": -0.5,
       "selected": true,
       "passed_filter": false,
       "failed_conditions": [
@@ -5544,7 +5544,7 @@
       "dd_pct": 56.9,
       "corr_pct": 96.6,
       "rebalance_close": 58.9,
-      "return_since_rebalance_pct": 8.5,
+      "return_since_rebalance_pct": 5.28,
       "selected": true,
       "passed_filter": true,
       "failed_conditions": [],
@@ -5588,7 +5588,7 @@
       "dd_pct": 78.0,
       "corr_pct": 81.2,
       "rebalance_close": 31.85,
-      "return_since_rebalance_pct": -1.24,
+      "return_since_rebalance_pct": -1.55,
       "selected": true,
       "passed_filter": false,
       "failed_conditions": [
@@ -5637,7 +5637,7 @@
       "dd_pct": 62.4,
       "corr_pct": 89.1,
       "rebalance_close": 44.25,
-      "return_since_rebalance_pct": 3.5,
+      "return_since_rebalance_pct": 0.34,
       "selected": true,
       "passed_filter": false,
       "failed_conditions": [
@@ -5683,7 +5683,7 @@
       "dd_pct": 64.9,
       "corr_pct": 82.3,
       "rebalance_close": 53.8,
-      "return_since_rebalance_pct": 8.77,
+      "return_since_rebalance_pct": 8.21,
       "selected": true,
       "passed_filter": false,
       "failed_conditions": [
@@ -5729,7 +5729,7 @@
       "dd_pct": 72.9,
       "corr_pct": 63.6,
       "rebalance_close": 48.2,
-      "return_since_rebalance_pct": 4.21,
+      "return_since_rebalance_pct": 1.41,
       "selected": true,
       "passed_filter": true,
       "failed_conditions": [],
@@ -5773,7 +5773,7 @@
       "dd_pct": 66.5,
       "corr_pct": 94.4,
       "rebalance_close": 42.4,
-      "return_since_rebalance_pct": 1.77,
+      "return_since_rebalance_pct": 3.07,
       "selected": true,
       "passed_filter": false,
       "failed_conditions": [
@@ -5863,7 +5863,7 @@
       "dd_pct": 90.7,
       "corr_pct": 41.8,
       "rebalance_close": 21.3,
-      "return_since_rebalance_pct": -1.08,
+      "return_since_rebalance_pct": -1.31,
       "selected": true,
       "passed_filter": false,
       "failed_conditions": [
@@ -5911,7 +5911,7 @@
       "dd_pct": 43.2,
       "corr_pct": 62.3,
       "rebalance_close": 55.8,
-      "return_since_rebalance_pct": -6.76,
+      "return_since_rebalance_pct": -8.02,
       "selected": true,
       "passed_filter": false,
       "failed_conditions": [
@@ -5958,7 +5958,7 @@
       "dd_pct": 8.5,
       "corr_pct": 73.9,
       "rebalance_close": 97.5,
-      "return_since_rebalance_pct": 5.49,
+      "return_since_rebalance_pct": -2.81,
       "selected": true,
       "passed_filter": true,
       "failed_conditions": [],
@@ -6002,7 +6002,7 @@
       "dd_pct": 2.4,
       "corr_pct": 57.4,
       "rebalance_close": 65.3,
-      "return_since_rebalance_pct": -23.08,
+      "return_since_rebalance_pct": -28.43,
       "selected": true,
       "passed_filter": true,
       "failed_conditions": [],
@@ -6046,7 +6046,7 @@
       "dd_pct": 39.1,
       "corr_pct": 19.6,
       "rebalance_close": 556.0,
-      "return_since_rebalance_pct": -1.58,
+      "return_since_rebalance_pct": -4.45,
       "selected": true,
       "passed_filter": true,
       "failed_conditions": [],
@@ -6090,7 +6090,7 @@
       "dd_pct": 1.1,
       "corr_pct": 24.2,
       "rebalance_close": 376.5,
-      "return_since_rebalance_pct": 40.3,
+      "return_since_rebalance_pct": 33.14,
       "selected": true,
       "passed_filter": true,
       "failed_conditions": [],

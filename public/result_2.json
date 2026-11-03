@@ -1,17 +1,17 @@
 {
   "latest_date": "2026-11-02",
-  "updated_at": "2026-11-03 03:53",
+  "updated_at": "2026-11-03 18:14",
   "compare_date": "2026-10-22",
   "rebalance_base_date": "2026-11-02",
   "next_rebalance_date": "2027-02-01",
   "overview": {
     "start_date": "2010-03-31",
-    "total_return_all": 4553.26,
-    "annual_return_all": 25.75,
-    "total_return_ytd": 13.25,
-    "total_return_1y": 15.78,
-    "total_return_3y": 82.38,
-    "total_return_5y": 299.89,
+    "total_return_all": 4515.12,
+    "annual_return_all": 25.69,
+    "total_return_ytd": 12.32,
+    "total_return_1y": 14.61,
+    "total_return_3y": 78.73,
+    "total_return_5y": 295.93,
     "max_drawdown": -19.51,
     "volatility_all": 11.15,
     "sharpe_ratio": 1.99,
@@ -75,13 +75,13 @@
       }
     ],
     "benchmark": {
-      "total_return_all": 959.88,
-      "annual_return_all": 15.13,
+      "total_return_all": 921.83,
+      "annual_return_all": 14.87,
       "max_drawdown": -28.55,
-      "volatility_all": 17.44,
-      "sharpe_ratio": 0.8,
-      "sortino_ratio": 1.04,
-      "calmar_ratio": 0.53,
+      "volatility_all": 17.46,
+      "sharpe_ratio": 0.79,
+      "sortino_ratio": 1.02,
+      "calmar_ratio": 0.52,
       "drawdown_detail": {
         "max_drawdown": -28.55,
         "peak_date": "2020-01-14",
@@ -222,8 +222,8 @@
       },
       {
         "year": 2026,
-        "strategy": 13.46,
-        "benchmark": 57.61
+        "strategy": 12.53,
+        "benchmark": 51.95
       }
     ],
     "yearly_max_drawdown": [
@@ -1327,7 +1327,7 @@
       {
         "year": 2026,
         "month": 11,
-        "return": -0.05
+        "return": -0.87
       }
     ],
     "rolling_1y_return": [
@@ -5388,8 +5388,8 @@
       },
       {
         "date": "2026-11-06",
-        "strategy": 15.53,
-        "benchmark": 67.61
+        "strategy": 15.16,
+        "benchmark": 59.42
       }
     ],
     "score_return_validation": {
@@ -5398,44 +5398,44 @@
       "bins": [
         {
           "bin": "<60",
-          "avg_return": 2.77,
+          "avg_return": 2.76,
           "efficiency": 0.096,
-          "win_rate": 44.5,
-          "n": 161675
+          "win_rate": 44.4,
+          "n": 161739
         },
         {
           "bin": "60-70",
           "avg_return": 5.0,
-          "efficiency": 0.175,
+          "efficiency": 0.174,
           "win_rate": 48.9,
-          "n": 109687
+          "n": 109747
         },
         {
           "bin": "70-80",
-          "avg_return": 4.64,
+          "avg_return": 4.63,
           "efficiency": 0.195,
           "win_rate": 49.6,
-          "n": 111034
+          "n": 111068
         },
         {
           "bin": "80-90",
-          "avg_return": 3.22,
+          "avg_return": 3.23,
           "efficiency": 0.167,
-          "win_rate": 50.6,
-          "n": 100620
+          "win_rate": 50.7,
+          "n": 100643
         },
         {
           "bin": "90-100",
           "avg_return": 3.8,
           "efficiency": 0.253,
           "win_rate": 56.7,
-          "n": 59864
+          "n": 59867
         }
       ]
     },
     "since_rebalance": {
       "date": "2026-11-02",
-      "return_pct": -0.17
+      "return_pct": -0.98
     }
   },
   "current_holdings_rank": [
@@ -5455,7 +5455,7 @@
       "dy_pct": 82.4,
       "std_pct": 88.0,
       "rebalance_close": 79.7,
-      "return_since_rebalance_pct": 0.23,
+      "return_since_rebalance_pct": -1.14,
       "selected": true,
       "passed_filter": true,
       "failed_conditions": [],
@@ -5498,7 +5498,7 @@
       "dy_pct": 76.3,
       "std_pct": 90.3,
       "rebalance_close": 10.85,
-      "return_since_rebalance_pct": 0.0,
+      "return_since_rebalance_pct": -1.38,
       "selected": true,
       "passed_filter": true,
       "failed_conditions": [],
@@ -5541,7 +5541,7 @@
       "dy_pct": 85.5,
       "std_pct": 85.1,
       "rebalance_close": 58.1,
-      "return_since_rebalance_pct": 0.17,
+      "return_since_rebalance_pct": -0.86,
       "selected": true,
       "passed_filter": true,
       "failed_conditions": [],
@@ -5584,7 +5584,7 @@
       "dy_pct": 89.3,
       "std_pct": 81.6,
       "rebalance_close": 246.0,
-      "return_since_rebalance_pct": -0.14,
+      "return_since_rebalance_pct": -0.95,
       "selected": true,
       "passed_filter": true,
       "failed_conditions": [],
@@ -5627,7 +5627,7 @@
       "dy_pct": 76.3,
       "std_pct": 87.7,
       "rebalance_close": 13.3,
-      "return_since_rebalance_pct": -1.27,
+      "return_since_rebalance_pct": -2.77,
       "selected": true,
       "passed_filter": true,
       "failed_conditions": [],
@@ -5670,7 +5670,7 @@
       "dy_pct": 86.2,
       "std_pct": 80.8,
       "rebalance_close": 38.25,
-      "return_since_rebalance_pct": -0.53,
+      "return_since_rebalance_pct": -1.45,
       "selected": true,
       "passed_filter": true,
       "failed_conditions": [],
@@ -5713,7 +5713,7 @@
       "dy_pct": 81.8,
       "std_pct": 82.6,
       "rebalance_close": 18.0,
-      "return_since_rebalance_pct": 0.13,
+      "return_since_rebalance_pct": -1.81,
       "selected": true,
       "passed_filter": true,
       "failed_conditions": [],
@@ -5756,7 +5756,7 @@
       "dy_pct": 76.4,
       "std_pct": 83.4,
       "rebalance_close": 63.7,
-      "return_since_rebalance_pct": 0.01,
+      "return_since_rebalance_pct": -0.93,
       "selected": true,
       "passed_filter": true,
       "failed_conditions": [],
@@ -5799,7 +5799,7 @@
       "dy_pct": 72.4,
       "std_pct": 85.3,
       "rebalance_close": 161.0,
-      "return_since_rebalance_pct": 1.86,
+      "return_since_rebalance_pct": 2.8,
       "selected": true,
       "passed_filter": true,
       "failed_conditions": [],
@@ -5842,7 +5842,7 @@
       "dy_pct": 61.2,
       "std_pct": 90.4,
       "rebalance_close": 161.0,
-      "return_since_rebalance_pct": -1.07,
+      "return_since_rebalance_pct": -1.38,
       "selected": true,
       "passed_filter": true,
       "failed_conditions": [],
@@ -5928,7 +5928,7 @@
       "dy_pct": 74.2,
       "std_pct": 81.6,
       "rebalance_close": 58.7,
-      "return_since_rebalance_pct": -0.31,
+      "return_since_rebalance_pct": -0.82,
       "selected": true,
       "passed_filter": true,
       "failed_conditions": [],
