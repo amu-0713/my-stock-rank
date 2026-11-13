@@ -1,21 +1,21 @@
 {
   "latest_date": "2026-11-12",
-  "updated_at": "2026-11-12 21:30",
+  "updated_at": "2026-11-13 18:10",
   "compare_date": "2026-11-05",
   "rebalance_base_date": "2026-11-02",
   "next_rebalance_date": "2027-02-01",
   "overview": {
     "start_date": "2010-03-31",
-    "total_return_all": 4444.53,
-    "annual_return_all": 25.53,
-    "total_return_ytd": 10.6,
-    "total_return_1y": 12.05,
-    "total_return_3y": 70.07,
-    "total_return_5y": 276.3,
+    "total_return_all": 4483.52,
+    "annual_return_all": 25.59,
+    "total_return_ytd": 11.55,
+    "total_return_1y": 13.13,
+    "total_return_3y": 71.0,
+    "total_return_5y": 279.53,
     "max_drawdown": -19.51,
     "volatility_all": 11.16,
-    "sharpe_ratio": 1.97,
-    "sortino_ratio": 2.41,
+    "sharpe_ratio": 1.98,
+    "sortino_ratio": 2.42,
     "calmar_ratio": 1.31,
     "current_holdings": 12,
     "drawdown_detail": {
@@ -75,11 +75,11 @@
       }
     ],
     "benchmark": {
-      "total_return_all": 916.75,
-      "annual_return_all": 14.82,
+      "total_return_all": 930.51,
+      "annual_return_all": 14.91,
       "max_drawdown": -28.55,
       "volatility_all": 17.59,
-      "sharpe_ratio": 0.78,
+      "sharpe_ratio": 0.79,
       "sortino_ratio": 1.01,
       "calmar_ratio": 0.52,
       "drawdown_detail": {
@@ -222,8 +222,8 @@
       },
       {
         "year": 2026,
-        "strategy": 10.81,
-        "benchmark": 51.19
+        "strategy": 11.76,
+        "benchmark": 53.24
       }
     ],
     "yearly_max_drawdown": [
@@ -1327,7 +1327,7 @@
       {
         "year": 2026,
         "month": 11,
-        "return": -2.38
+        "return": -1.54
       }
     ],
     "rolling_1y_return": [
@@ -5393,8 +5393,8 @@
       },
       {
         "date": "2026-11-13",
-        "strategy": 11.78,
-        "benchmark": 56.91
+        "strategy": 13.26,
+        "benchmark": 57.09
       }
     ],
     "score_return_validation": {
@@ -5403,44 +5403,44 @@
       "bins": [
         {
           "bin": "<60",
-          "avg_return": 2.7,
+          "avg_return": 2.69,
           "efficiency": 0.094,
-          "win_rate": 44.4,
-          "n": 162183
+          "win_rate": 44.3,
+          "n": 162249
         },
         {
           "bin": "60-70",
           "avg_return": 4.96,
           "efficiency": 0.173,
           "win_rate": 48.8,
-          "n": 110115
+          "n": 110163
         },
         {
           "bin": "70-80",
           "avg_return": 4.61,
           "efficiency": 0.194,
           "win_rate": 49.6,
-          "n": 111289
+          "n": 111324
         },
         {
           "bin": "80-90",
           "avg_return": 3.23,
           "efficiency": 0.167,
-          "win_rate": 50.6,
-          "n": 100790
+          "win_rate": 50.7,
+          "n": 100807
         },
         {
           "bin": "90-100",
           "avg_return": 3.8,
           "efficiency": 0.253,
           "win_rate": 56.7,
-          "n": 59881
+          "n": 59882
         }
       ]
     },
     "since_rebalance": {
       "date": "2026-11-02",
-      "return_pct": -2.5
+      "return_pct": -1.66
     }
   },
   "current_holdings_rank": [
@@ -5460,7 +5460,7 @@
       "dy_pct": 75.9,
       "std_pct": 90.4,
       "rebalance_close": 10.85,
-      "return_since_rebalance_pct": -4.15,
+      "return_since_rebalance_pct": -3.69,
       "selected": true,
       "passed_filter": true,
       "failed_conditions": [],
@@ -5503,7 +5503,7 @@
       "dy_pct": 84.9,
       "std_pct": 85.3,
       "rebalance_close": 58.1,
-      "return_since_rebalance_pct": -2.41,
+      "return_since_rebalance_pct": -1.38,
       "selected": true,
       "passed_filter": false,
       "failed_conditions": [
@@ -5549,7 +5549,7 @@
       "dy_pct": 79.0,
       "std_pct": 87.6,
       "rebalance_close": 79.7,
-      "return_since_rebalance_pct": 4.87,
+      "return_since_rebalance_pct": 5.37,
       "selected": true,
       "passed_filter": true,
       "failed_conditions": [],
@@ -5592,7 +5592,7 @@
       "dy_pct": 91.1,
       "std_pct": 80.4,
       "rebalance_close": 246.0,
-      "return_since_rebalance_pct": -8.06,
+      "return_since_rebalance_pct": -5.62,
       "selected": true,
       "passed_filter": false,
       "failed_conditions": [
@@ -5638,7 +5638,7 @@
       "dy_pct": 75.9,
       "std_pct": 87.5,
       "rebalance_close": 13.3,
-      "return_since_rebalance_pct": -5.4,
+      "return_since_rebalance_pct": -4.65,
       "selected": true,
       "passed_filter": false,
       "failed_conditions": [
@@ -5683,7 +5683,7 @@
       "dy_pct": 86.2,
       "std_pct": 81.2,
       "rebalance_close": 38.25,
-      "return_since_rebalance_pct": -4.97,
+      "return_since_rebalance_pct": -6.67,
       "selected": true,
       "passed_filter": true,
       "failed_conditions": [],
@@ -5726,7 +5726,7 @@
       "dy_pct": 81.5,
       "std_pct": 82.7,
       "rebalance_close": 18.0,
-      "return_since_rebalance_pct": -2.64,
+      "return_since_rebalance_pct": -2.08,
       "selected": true,
       "passed_filter": true,
       "failed_conditions": [],
@@ -5812,7 +5812,7 @@
       "dy_pct": 71.1,
       "std_pct": 85.1,
       "rebalance_close": 161.0,
-      "return_since_rebalance_pct": 0.31,
+      "return_since_rebalance_pct": 2.48,
       "selected": true,
       "passed_filter": true,
       "failed_conditions": [],
@@ -5855,7 +5855,7 @@
       "dy_pct": 58.6,
       "std_pct": 90.5,
       "rebalance_close": 161.0,
-      "return_since_rebalance_pct": 0.48,
+      "return_since_rebalance_pct": 2.34,
       "selected": true,
       "passed_filter": false,
       "failed_conditions": [
@@ -5900,7 +5900,7 @@
       "dy_pct": 63.1,
       "std_pct": 87.4,
       "rebalance_close": 134.5,
-      "return_since_rebalance_pct": -3.35,
+      "return_since_rebalance_pct": -2.6,
       "selected": true,
       "passed_filter": true,
       "failed_conditions": [],
@@ -5943,7 +5943,7 @@
       "dy_pct": 73.0,
       "std_pct": 81.6,
       "rebalance_close": 58.7,
-      "return_since_rebalance_pct": -1.5,
+      "return_since_rebalance_pct": -0.31,
       "selected": true,
       "passed_filter": true,
       "failed_conditions": [],
@@ -34974,7 +34974,6 @@
       "selected": false,
       "passed_filter": false,
       "failed_conditions": [
-        "流通性不足",
         "股價未站上年線"
       ],
       "history": [
