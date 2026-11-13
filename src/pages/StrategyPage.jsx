@@ -52,6 +52,10 @@ export default function StrategyPage() {
       .then((json) => {
         if (cancelled) return
         setData(json)
+        // 預設檢視模式跟著系統判斷走（系統判斷熊市就直接開熊市模式）
+        if (json?.regime_today === 'bear' || json?.regime_today === 'bull') {
+          setRegime(json.regime_today)
+        }
       })
       .catch((e) => {
         if (cancelled) return
@@ -199,6 +203,7 @@ export default function StrategyPage() {
                   strategyId={id}
                   regime={regime}
                   setRegime={setRegime}
+                  systemRegime={isStrategy1 ? data?.regime_today : undefined}
                 />
               </div>
             </div>

@@ -314,6 +314,7 @@ export default function RankList({
   strategyId = '1',
   regime,
   setRegime,
+  systemRegime,
 }) {
   const isFilteredRankList = title === '條件篩選排名'
   const showFilterColumn = !isFilteredRankList
@@ -322,12 +323,15 @@ export default function RankList({
   const isHighDividend = strategyId === '2'
 
   // 條件篩選排名：標出「若現在換倉會入選」的前 N 檔（淺色底）
-  // 動態多因子依牛熊模式是 16 / 5 檔；高息低波沒有牛熊模式，固定前 12 檔
+  // 動態多因子依「系統判斷」的牛熊是 16 / 5 檔（換倉時實際用的是系統判斷，不是畫面上手動切的檢視模式；
+  // 沒有系統判斷資料時才退回檢視模式）；高息低波沒有牛熊模式，固定前 12 檔
   // （跟 scripts/generate_high_div_low_vol.py 的 max_holdings 保持一致）。
+  const selectionRegime = (systemRegime === 'bear' || systemRegime === 'bull') ? systemRegime : regime
+  const isBearSelection = selectionRegime === 'bear'
   const selectionTopN = !isFilteredRankList
     ? null
     : isMultiFactor
-      ? DYNAMIC_FACTOR_TOP_N[regime === 'bear' ? 'bear' : 'bull']
+      ? DYNAMIC_FACTOR_TOP_N[isBearSelection ? 'bear' : 'bull']
       : isHighDividend
         ? HIGH_DIV_TOP_N
         : null
@@ -541,7 +545,7 @@ export default function RankList({
 
 {selectionTopN !== null && (
   <div className="hidden items-center gap-1.5 text-xs text-zinc-500 sm:flex">
-    <span className={`inline-block h-2.5 w-2.5 rounded-full ${regime === 'bear' ? 'bg-rose-200' : 'bg-emerald-200'}`} />
+    <span className={`inline-block h-2.5 w-2.5 rounded-full ${isBearSelection ? 'bg-rose-200' : 'bg-emerald-200'}`} />
     淺色底＝前 {selectionTopN} 檔（換倉會入選）
   </div>
 )}
@@ -651,7 +655,7 @@ export default function RankList({
                     ? (highDivSelectionIds?.has(row.stock_id) ?? false)
                     : (selectionTopN !== null && Number.isFinite(row.base_rank) && row.base_rank <= selectionTopN)
                   const selectionBgClass = isSelected
-                    ? (regime === 'bear' ? 'bg-rose-50/70 hover:bg-rose-50' : 'bg-emerald-50/70 hover:bg-emerald-50')
+                    ? (isBearSelection ? 'bg-rose-50/70 hover:bg-rose-50' : 'bg-emerald-50/70 hover:bg-emerald-50')
                     : 'hover:bg-zinc-50'
 
                   return (
