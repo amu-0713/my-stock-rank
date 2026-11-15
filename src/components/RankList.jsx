@@ -400,6 +400,39 @@ export default function RankList({
 
   const rows = useMemo(() => getRankList(currentData) || initialRows || [], [currentData, initialRows, title])
 
+  // 動態多因子「條件篩選排名」淺色底：入選名單固定用「系統判斷」那一份排名的前 N 檔（依股票代號），
+  // 手動切換牛熊只改變排名順序，淺色底的那幾檔股票不會跟著換。
+  const multiFactorSelectionKey = (isFilteredRankList && isMultiFactor && selectionTopN !== null)
+    ? `${isBearSelection ? '/result_bear.json' : '/result.json'}|${selectionTopN}`
+    : null
+  const [multiFactorSelection, setMultiFactorSelection] = useState({ key: null, ids: null })
+  useEffect(() => {
+    if (!multiFactorSelectionKey) return
+    let cancelled = false
+    const [file, topNText] = multiFactorSelectionKey.split('|')
+    const topN = Number(topNText)
+    fetch(file)
+      .then(res => {
+        if (!res.ok) throw new Error('無法載入資料')
+        return res.json()
+      })
+      .then(json => {
+        if (cancelled) return
+        const list = Array.isArray(json?.filtered_rank) ? json.filtered_rank : []
+        const ids = new Set(
+          list
+            .filter(row => Number.isFinite(row?.base_rank) && row.base_rank <= topN)
+            .map(row => row.stock_id)
+        )
+        setMultiFactorSelection({ key: multiFactorSelectionKey, ids })
+      })
+      .catch(error => console.error('載入入選名單失敗', error))
+    return () => { cancelled = true }
+  }, [multiFactorSelectionKey])
+  const multiFactorSelectionIds = multiFactorSelectionKey && multiFactorSelection.key === multiFactorSelectionKey
+    ? multiFactorSelection.ids
+    : null
+
   // 高息低波「條件篩選排名」淺色底要考慮金融股上限，不能單純用分數排名前12檔
   const highDivSelectionIds = useMemo(() => {
     if (!(isFilteredRankList && isHighDividend)) return null
@@ -653,7 +686,9 @@ export default function RankList({
                   // 高息低波要另外套金融股上限，不能單純看 base_rank
                   const isSelected = isHighDividend
                     ? (highDivSelectionIds?.has(row.stock_id) ?? false)
-                    : (selectionTopN !== null && Number.isFinite(row.base_rank) && row.base_rank <= selectionTopN)
+                    : multiFactorSelectionIds
+                      ? multiFactorSelectionIds.has(row.stock_id)
+                      : (selectionTopN !== null && regime === selectionRegime && Number.isFinite(row.base_rank) && row.base_rank <= selectionTopN)
                   const selectionBgClass = isSelected
                     ? (isBearSelection ? 'bg-rose-50/70 hover:bg-rose-50' : 'bg-emerald-50/70 hover:bg-emerald-50')
                     : 'hover:bg-zinc-50'
