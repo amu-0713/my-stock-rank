@@ -203,7 +203,6 @@ export default function StrategyPage() {
                   strategyId={id}
                   regime={regime}
                   setRegime={setRegime}
-                  systemRegime={isStrategy1 ? data?.regime_today : undefined}
                 />
               </div>
             </div>
