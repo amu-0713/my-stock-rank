@@ -1,20 +1,20 @@
 {
-  "generated_at": "2026-11-20",
+  "generated_at": "2026-11-23",
   "method_note": "取「動態多因子」與「高息低波」兩策略回測的每日報酬，依設定比例混合、每年第一個交易日重新平衡回目標比例，模擬同時持有兩策略的效果。績效指標與兩策略頁面採相同的日頻算法；此為事後加權混合，不是重新執行一次聯合部位回測。",
-  "n_days": 4081,
+  "n_days": 4082,
   "start_date": "2010-03-31",
-  "end_date": "2026-11-20",
+  "end_date": "2026-11-23",
   "blends": {
     "30_70": {
       "label": "動態30% / 高息70%",
       "w_dynamic": 0.3,
       "w_highdiv": 0.7,
-      "total_return": 10203.09,
-      "annual_return": 32.12,
+      "total_return": 10263.83,
+      "annual_return": 32.15,
       "max_drawdown": -22.03,
       "volatility": 13.69,
-      "sharpe_ratio": 2.01,
-      "sortino_ratio": 2.43,
+      "sharpe_ratio": 2.02,
+      "sortino_ratio": 2.44,
       "calmar_ratio": 1.46,
       "yearly_returns": [
         {
@@ -83,7 +83,7 @@
         },
         {
           "year": 2026,
-          "return": 26.56
+          "return": 27.3
         }
       ]
     },
@@ -91,13 +91,13 @@
       "label": "動態50% / 高息50%",
       "w_dynamic": 0.5,
       "w_highdiv": 0.5,
-      "total_return": 17292.6,
-      "annual_return": 36.34,
+      "total_return": 17437.42,
+      "annual_return": 36.39,
       "max_drawdown": -23.69,
       "volatility": 16.42,
       "sharpe_ratio": 1.9,
       "sortino_ratio": 2.37,
-      "calmar_ratio": 1.53,
+      "calmar_ratio": 1.54,
       "yearly_returns": [
         {
           "year": 2010,
@@ -165,7 +165,7 @@
         },
         {
           "year": 2026,
-          "return": 41.04
+          "return": 42.22
         }
       ]
     },
@@ -173,12 +173,12 @@
       "label": "動態70% / 高息30%",
       "w_dynamic": 0.7,
       "w_highdiv": 0.3,
-      "total_return": 27770.86,
-      "annual_return": 40.26,
+      "total_return": 28058.06,
+      "annual_return": 40.32,
       "max_drawdown": -25.39,
       "volatility": 19.42,
       "sharpe_ratio": 1.79,
-      "sortino_ratio": 2.28,
+      "sortino_ratio": 2.29,
       "calmar_ratio": 1.59,
       "yearly_returns": [
         {
@@ -247,7 +247,7 @@
         },
         {
           "year": 2026,
-          "return": 55.53
+          "return": 57.13
         }
       ]
     }
